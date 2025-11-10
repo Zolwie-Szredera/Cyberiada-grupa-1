@@ -13,27 +13,31 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public Transform groundCheck;
     public float groundRadius = 0.2f;
+    public int airJumps = 2;
     public LayerMask groundLayer;
-
     private bool isGrounded;
+    private int remainingAirJumps;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
+        remainingAirJumps = airJumps;
 
-    // Odbiera dane z akcji "Move"
+    }
+    // Odbiera dane z akcji "Move". Pamiętać o Wielkości liter w nazwach akcji!
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
-
-    // Odbiera dane z akcji "Jump"
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && isGrounded)
+        if (context.started && (isGrounded || remainingAirJumps > 0))
         {
             isJumpPressed = true;
+            if(!isGrounded)
+            {
+                remainingAirJumps--;
+            }
         }
     }
 
@@ -41,19 +45,22 @@ public class PlayerController : MonoBehaviour
     {
         // Ruch poziomy
         rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
-
-        // Sprawdzenie, czy stoimy na ziemi
+        // Sprawdzenie, czy stoi na ziemi
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-
         // Skok
         if (isJumpPressed)
         {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); //resetuj Velocity Y, żeby podwójne skakanie podczas opadania działało jak należy
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isJumpPressed = false;
         }
+        if(isGrounded)
+        {
+            remainingAirJumps = airJumps;
+        }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected() //rzeczy do debugowania
     {
         if (groundCheck != null)
         {

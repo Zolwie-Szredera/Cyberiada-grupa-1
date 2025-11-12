@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
         remainingAirJumps = airJumps;
 
     }
-    // Odbiera dane z akcji "Move". Pamiętać o Wielkości liter w nazwach akcji!
+    
+    // Receive input from "Move" action.
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -43,14 +44,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Ruch poziomy
+        // Vertical movement
         rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
-        // Sprawdzenie, czy stoi na ziemi
+        // Check if the player is on the ground
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        // Skok
+        // Jumping
         if (isJumpPressed)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); //resetuj Velocity Y, żeby podwójne skakanie podczas opadania działało jak należy
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset vertical velocity to double jump
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isJumpPressed = false;
         }
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected() //rzeczy do debugowania
+    private void OnDrawGizmosSelected() // Debuging stuff
     {
         if (groundCheck != null)
         {

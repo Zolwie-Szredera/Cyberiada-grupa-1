@@ -8,8 +8,10 @@
 - `main` is a protected branch: all changes must go through a Pull Request (PR).
 - Each PR requires at least one approved code review from a teammate before merge.
 - Keep your local `main` updated using:
-  - `git checkout main`
-  - `git pull --rebase origin main`
+  ```bash
+    git checkout main
+    git pull --rebase origin main
+  ```
 - Before opening a PR:
   - Rebase your feature branch onto the latest `main`:  
     `git fetch origin`
@@ -73,12 +75,9 @@ Common workflow when rebasing a feature branch onto updated `main`:
 3. If you need to stop rebase:
    - `git rebase --abort`
 
-4. After successful rebase, push your branch. Because history changed, use:
-   - `git push --force-with-lease origin feature/your-branch`
-
 Notes:
 - Review each conflict carefully; prefer the minimal, correct change.
-- If unsure, ask the reviewer/author of the conflicting code in the PR thread before forcing a push.
+- If unsure, ask the reviewer/author of the conflicting code in the PR.
 
 ## 🔁 Branch naming and PR tips
 - Keep branches focused and small.
@@ -90,12 +89,10 @@ Notes:
 - No direct pushes to `main`.
 - Merge only via PR after passing checks and at least one approval.
 - Use the repository UI to merge (squash or merge strategy per repo settings).
-- If forced push to a branch is necessary, communicate to reviewers and use --force-with-lease.
 
 ## Summary
 - Use feature/fix branches; never push directly to main.
 - Keep local main updated with `git pull --rebase`.
 - Open PRs, get at least one code review, and merge through the UI.
 - Follow C# Unity style: camelCase for vars/methods/constants, PascalCase for classes, file name == class name, 4 spaces, comment unclear logic.
-- Resolve rebase conflicts by editing files, git add, git rebase --continue, then git push --force-with-lease.
 

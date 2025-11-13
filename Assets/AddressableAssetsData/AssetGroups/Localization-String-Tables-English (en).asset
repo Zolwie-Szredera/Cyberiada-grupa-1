@@ -10,26 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Localization-Locales
+  m_Name: Localization-String-Tables-English (en)
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Localization-Locales
-  m_GUID: 8fef1ce8b6c8cf34c85849aa381e3b8f
+  m_GroupName: Localization-String-Tables-English (en)
+  m_GUID: 08aa9ecafd92ccf41937952c6398eb8d
   m_SerializeEntries:
-  - m_GUID: 4b5ad8fe0d8f06d49a6587ac63dd32ed
-    m_Address: Polish (pl)
+  - m_GUID: 195db2d1c2db59d48b76e8fdaec28791
+    m_Address: Menu_Labels_en
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ddb286062394b5546988d0db8586500a
-    m_Address: English (en)
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
+    - Locale-en
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 2fdcef6a1c7d5cf4dba7f4d90b4ed309, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 1ca3c975c6850e5489a579ba00cdc1e2, type: 2}
-    - {fileID: 11400000, guid: f07c3447197c66f48894b63ecba0b8ab, type: 2}
+    - {fileID: 11400000, guid: 2b59d927f56fe0944827697f2d127842, type: 2}
+    - {fileID: 11400000, guid: a89709ad4d783744e86ed6377a1ec92c, type: 2}

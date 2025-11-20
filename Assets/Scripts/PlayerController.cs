@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        // ground check
+        // ground check, works on for objects with ground layer!
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         // sticky wall check with coyote time
         WallCheck();
@@ -79,11 +79,6 @@ public class PlayerController : MonoBehaviour
         {
             remainingAirJumps = airJumps;
             airJumpText.text = remainingAirJumps.ToString();
-        }
-        // TODO: Falling increases gravity... it should only do that to a point though
-        if (rb.linearVelocity.y < -0.2f)
-        {
-            rb.linearVelocity += 1.5f * Physics2D.gravity.y * Time.deltaTime * Vector2.up;
         }
         //DEBUG
         DebugStuff();
@@ -124,6 +119,13 @@ public class PlayerController : MonoBehaviour
             }
             isJumping = false;
         }
+        //increase gravity is falling
+        if (rb.linearVelocity.y < -0.2f && rb.linearVelocity.y > -50.0f)
+        {
+            rb.linearVelocity += 1.5f * Physics2D.gravity.y * Time.deltaTime * Vector2.up;
+        }
+        //super speed check
+        rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -moveSpeed * rb.mass, moveSpeed * rb.mass), Mathf.Clamp(rb.linearVelocity.y, -50f, 50f));
     }
     void WallCheck()
     {

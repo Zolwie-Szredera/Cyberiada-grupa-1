@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Data.Common;
 using TMPro;
 using Unity.VisualScripting;
@@ -33,7 +34,6 @@ public class PlayerController : MonoBehaviour
     public float wallCheckDistance = 0.55f;
     public LayerMask stickyWallLayer;
     private bool isTouchingWall = false; //with coyote time
-    private bool wallContact = false; //real, without coyote time
     private bool wallCoyoteActive = false;
     public float wallCoyoteTime = 0.15f;
     private float wallCoyoteTimer = 0f;
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI verticalVelocityText;
     private bool isWallJumping = false;
     private bool isJumping = false;
+    private bool justWallJumped = false; //to prevent wasted air jumps
 
     void Awake()
     {
@@ -63,15 +64,16 @@ public class PlayerController : MonoBehaviour
             isWallJumping = true;
         }
         // air and normal jumps
-        else if (context.started && (isGrounded || remainingAirJumps > 0))
+        else if (context.started && (isGrounded || remainingAirJumps > 0) && !justWallJumped)
         {
             isJumping = true;
+        } else if (context.started && (isGrounded || remainingAirJumps > 0))
+        {
+            Debug.Log("Prevented unnesesary air jump");
         }
     }
     void Update()
     {
-        // ground check, works on for objects with ground layer!
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         // sticky wall check with coyote time
         WallCheck();
         // jumping
@@ -85,6 +87,8 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate() //all phycics related stuff here!
     {
+        // ground check, works on for objects with ground layer!
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         // horizontal movement
         float targetSpeed = moveInput.x * moveSpeed * rb.mass;
         float speedDiff = targetSpeed - rb.linearVelocity.x;
@@ -97,15 +101,14 @@ public class PlayerController : MonoBehaviour
             if (Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, stickyWallLayer)) // you are sticked from the right
             {
                 direction = -1; //bounce to the left
-                Debug.Log("bounce to the left");
             }
             else if (Physics2D.Raycast(wallCheck.position, Vector2.left, wallCheckDistance, stickyWallLayer)) // you are sticked from the left
             {
                 direction = 1; //bounce to the right
-                Debug.Log("bounce to the right");
             }
             rb.linearVelocity = new Vector2(direction * 7f, jumpForce);
             isWallJumping = false;
+            StartCoroutine(PreventAirJumpWaste(0.8f));
         }
         if (isJumping)
         {
@@ -119,7 +122,7 @@ public class PlayerController : MonoBehaviour
             }
             isJumping = false;
         }
-        //increase gravity is falling
+        //increase gravity if falling
         if (rb.linearVelocity.y < -0.2f && rb.linearVelocity.y > -50.0f)
         {
             rb.linearVelocity += 1.5f * Physics2D.gravity.y * Time.deltaTime * Vector2.up;
@@ -148,7 +151,6 @@ public class PlayerController : MonoBehaviour
         if (wallCoyoteActive)
         {
             wallCoyoteTimer -= Time.deltaTime;
-
             if (wallCoyoteTimer > 0)
             {
                 isTouchingWall = true;
@@ -164,7 +166,13 @@ public class PlayerController : MonoBehaviour
             isTouchingWall = false;
         }
     }
-    //DEBUG, remove before release
+    IEnumerator PreventAirJumpWaste(float time)
+    {
+        justWallJumped = true;
+        yield return new WaitForSeconds(time);
+        justWallJumped = false;
+    }
+    //-----------------------------------------DEBUG-------------------------------, remove before release
     void DebugStuff()
     {
         if (isTouchingWall || isGrounded)
@@ -175,8 +183,9 @@ public class PlayerController : MonoBehaviour
         {
             playerSprite.color = Color.white;
         }
-        horizotalVelocityText.text = rb.linearVelocityX.ToString();
-        verticalVelocityText.text = rb.linearVelocityY.ToString();
+        horizotalVelocityText.text = rb.linearVelocityX.ToString("F3");
+        verticalVelocityText.text = rb.linearVelocityY.ToString("F3");
+        
     }
     private void OnDrawGizmosSelected()
     {
@@ -192,5 +201,5 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * wallCheckDistance);
         }
     }
-    //ENDDEBUG
+    //---------------------------------ENDDEBUG--------------------------------------
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Data.Common;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -90,9 +89,11 @@ public class PlayerController : MonoBehaviour
         // ground check, works on for objects with ground layer!
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         // horizontal movement
-        float targetSpeed = moveInput.x * moveSpeed * rb.mass;
-        float speedDiff = targetSpeed - rb.linearVelocity.x;
-        rb.AddForce(accelerationRate * speedDiff * Time.deltaTime * Vector2.right, ForceMode2D.Force);
+        float targetVelocityX = moveInput.x * moveSpeed;
+        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+        float accelerationX = accelerationRate * Time.fixedDeltaTime;
+        float movementX = Mathf.Clamp(velocityDifferenceX, -accelerationX, accelerationX);
+        rb.linearVelocity += new Vector2(movementX, 0f);
         // wall jump
         if (isWallJumping)
         {

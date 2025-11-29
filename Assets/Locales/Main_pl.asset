@@ -22,6 +22,10 @@ MonoBehaviour:
     m_Localized: TRYB TESTOWY AKTYWNY
     m_Metadata:
       m_Items: []
+  - m_Id: 2467851713961984
+    m_Localized: Interakcja
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

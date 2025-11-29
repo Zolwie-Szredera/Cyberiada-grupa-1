@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Data.Common;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI airJumpText;
+    public TextMeshProUGUI interactText;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        interactText.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         remainingAirJumps = airJumps;
@@ -90,9 +91,11 @@ public class PlayerController : MonoBehaviour
         // ground check, works on for objects with ground layer!
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         // horizontal movement
-        float targetSpeed = moveInput.x * moveSpeed * rb.mass;
-        float speedDiff = targetSpeed - rb.linearVelocity.x;
-        rb.AddForce(accelerationRate * speedDiff * Time.deltaTime * Vector2.right, ForceMode2D.Force);
+        float targetVelocityX = moveInput.x * moveSpeed;
+        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+        float accelerationX = accelerationRate * Time.fixedDeltaTime;
+        float movementX = Mathf.Clamp(velocityDifferenceX, -accelerationX, accelerationX);
+        rb.linearVelocity += new Vector2(movementX, 0f);
         // wall jump
         if (isWallJumping)
         {
@@ -171,6 +174,16 @@ public class PlayerController : MonoBehaviour
         justWallJumped = true;
         yield return new WaitForSeconds(time);
         justWallJumped = false;
+    }
+    public void ActivateInteractionText(bool readyToInteract)
+    {
+        if(readyToInteract)
+        {
+            interactText.gameObject.SetActive(true);
+        } else
+        {
+            interactText.gameObject.SetActive(false);
+        }
     }
     //-----------------------------------------DEBUG-------------------------------, remove before release
     void DebugStuff()

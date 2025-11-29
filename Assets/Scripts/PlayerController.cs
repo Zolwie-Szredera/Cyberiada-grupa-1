@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI airJumpText;
+    public TextMeshProUGUI interactText;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        interactText.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         remainingAirJumps = airJumps;
@@ -172,6 +174,16 @@ public class PlayerController : MonoBehaviour
         justWallJumped = true;
         yield return new WaitForSeconds(time);
         justWallJumped = false;
+    }
+    public void ActivateInteractionText(bool readyToInteract)
+    {
+        if(readyToInteract)
+        {
+            interactText.gameObject.SetActive(true);
+        } else
+        {
+            interactText.gameObject.SetActive(false);
+        }
     }
     //-----------------------------------------DEBUG-------------------------------, remove before release
     void DebugStuff()

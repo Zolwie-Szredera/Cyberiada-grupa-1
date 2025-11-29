@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 110810119}
   - component: {fileID: 110810122}
   m_Layer: 0
-  m_Name: Button
+  m_Name: ButtonRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2624,8 +2624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   airJumpText: {fileID: 1224485159}
+  interactText: {fileID: 1962856837}
   moveSpeed: 12
-  jumpForce: 15
+  jumpForce: 13
   accelerationRate: 30
   groundCheck: {fileID: 1120093516}
   groundRadius: 0.4
@@ -3129,6 +3130,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20d5707330692f441bbf9a131b9202a1, type: 3}
+--- !u!1001 &3278486078059106932
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 369491273096140280, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420532497452881748, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
+      propertyPath: m_Name
+      value: Button
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 70a79327eb0f1eb40ae9d93dfaf558d5, type: 3}
 --- !u!1001 &4151640275587106000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3325,3 +3383,4 @@ SceneRoots:
   - {fileID: 538730685}
   - {fileID: 2103868634}
   - {fileID: 110810118}
+  - {fileID: 3278486078059106932}

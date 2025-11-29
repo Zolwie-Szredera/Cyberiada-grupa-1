@@ -6,22 +6,21 @@ using UnityEngine.InputSystem;
 public class Button : MonoBehaviour
 {
     [HideInInspector]public GameObject interactText;
+    private PlayerController playerController;
     private bool readyToInteract = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        interactText = GameObject.FindGameObjectWithTag("InteractText");
-        interactText.SetActive(false);
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        interactText.SetActive(true);
         readyToInteract = true;
+        playerController.ActivateInteractionText(true);
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        interactText.SetActive(false);
         readyToInteract = false;
+        playerController.ActivateInteractionText(false);
     }
     public void OnInteract(InputAction.CallbackContext context)
     {
@@ -30,6 +29,7 @@ public class Button : MonoBehaviour
             Interaction();
         }
     }
+    //remember to re-add player input -> events -> player when you change this in any way or use a script that inherits from this.
     public virtual void Interaction()
     {
         Debug.Log("Interaction!");

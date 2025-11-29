@@ -320,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RotatePlatformButton
   interactText: {fileID: 0}
   platform: {fileID: 1528097368}
+  angle: 5
 --- !u!1 &121974544
 GameObject:
   m_ObjectHideFlags: 0

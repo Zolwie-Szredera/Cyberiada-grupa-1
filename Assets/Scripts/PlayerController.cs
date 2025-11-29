@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Data.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer playerSprite;
     private Vector2 moveInput;
+    private Vector2 groundNormal = Vector2.up;
     [Header("UI")]
     public TextMeshProUGUI airJumpText;
 
@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public float accelerationRate = 150f;
+    public float slopeFriction = 25f;
+    public float inputDeadzone = 0.1f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
         remainingAirJumps = airJumps;
-        airJumpText.text = remainingAirJumps.ToString();
+        if (airJumpText != null) airJumpText.text = remainingAirJumps.ToString();
     }
     // Receive input from "Move" action.
     public void OnMove(InputAction.CallbackContext context)
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             remainingAirJumps = airJumps;
-            airJumpText.text = remainingAirJumps.ToString();
+            if (airJumpText != null) airJumpText.text = remainingAirJumps.ToString();
         }
         //DEBUG
         DebugStuff();
@@ -87,13 +89,51 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate() //all phycics related stuff here!
     {
         // ground check, works on for objects with ground layer!
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        // horizontal movement
-        float targetVelocityX = moveInput.x * moveSpeed;
-        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
-        float accelerationX = accelerationRate * Time.fixedDeltaTime;
-        float movementX = Mathf.Clamp(velocityDifferenceX, -accelerationX, accelerationX);
-        rb.linearVelocity += new Vector2(movementX, 0f);
+        // get a raycast hit downward to retrieve the ground normal for slopes
+        RaycastHit2D groundHit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundRadius + 0.1f, groundLayer);
+        isGrounded = groundHit.collider != null;
+        if (isGrounded)
+        {
+            groundNormal = groundHit.normal;
+        }
+        else
+        {
+            groundNormal = Vector2.up;
+        }
+
+        // movement
+        float maxChange = accelerationRate * Time.fixedDeltaTime;
+        if (isGrounded)
+        {
+            // move along the slope tangent so the player doesn't slide uncontrollably
+            Vector2 tangent = new Vector2(groundNormal.y, -groundNormal.x).normalized; // points roughly along the surface's right direction
+            Vector2 targetVel = tangent * moveInput.x * moveSpeed;
+            Vector2 velDiff = targetVel - rb.linearVelocity;
+            Vector2 velChange = Vector2.ClampMagnitude(velDiff, maxChange);
+            rb.linearVelocity += velChange;
+
+            // if player isn't providing horizontal input, apply friction along the tangent to prevent sliding
+            if (Mathf.Abs(moveInput.x) < inputDeadzone)
+            {
+                float tangentialSpeed = Vector2.Dot(rb.linearVelocity, tangent);
+                float newTangentialSpeed = Mathf.MoveTowards(tangentialSpeed, 0f, slopeFriction * Time.fixedDeltaTime);
+                rb.linearVelocity += (newTangentialSpeed - tangentialSpeed) * tangent;
+                // if very small, snap to zero to avoid micro-sliding
+                if (Mathf.Abs(newTangentialSpeed) < 0.02f)
+                {
+                    rb.linearVelocity -= Vector2.Dot(rb.linearVelocity, tangent) * tangent;
+                }
+            }
+        }
+        else
+        {
+            // aerial horizontal control (world-x)
+            float targetVelocityX = moveInput.x * moveSpeed;
+            float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+            float movementX = Mathf.Clamp(velocityDifferenceX, -maxChange, maxChange);
+            rb.linearVelocity += new Vector2(movementX, 0f);
+        }
+
         // wall jump
         if (isWallJumping)
         {
@@ -119,7 +159,7 @@ public class PlayerController : MonoBehaviour
             if (!isGrounded && !isTouchingWall)
             {
                 remainingAirJumps--;
-                airJumpText.text = remainingAirJumps.ToString();
+                if (airJumpText != null) airJumpText.text = remainingAirJumps.ToString();
             }
             isJumping = false;
         }
@@ -184,8 +224,8 @@ public class PlayerController : MonoBehaviour
         {
             playerSprite.color = Color.white;
         }
-        horizotalVelocityText.text = rb.linearVelocityX.ToString("F3");
-        verticalVelocityText.text = rb.linearVelocityY.ToString("F3");
+        if (horizotalVelocityText != null) horizotalVelocityText.text = rb.linearVelocity.x.ToString("F3");
+        if (verticalVelocityText != null) verticalVelocityText.text = rb.linearVelocity.y.ToString("F3");
         
     }
     private void OnDrawGizmosSelected()

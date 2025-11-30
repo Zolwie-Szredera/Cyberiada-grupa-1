@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     private PlayerController playerController;
     public float currentBlood;
     public Slider bloodSlider;
+    public Slider healthSlider;
+    public TextMeshProUGUI heatlhText;
     public float bloodLossRate = 15;
     private bool bloodOverflow;
     private float bloodOverflowTimeIncrease;
@@ -19,6 +22,9 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         currentBlood = 0;
         currentHealth = maxHealth;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
+        heatlhText.text = currentHealth.ToString();
     }
     void Update()
     {
@@ -38,7 +44,8 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log("HealthRemaining: " + currentHealth);
+        healthSlider.value = currentHealth;
+        heatlhText.text = currentHealth.ToString();
         if (currentHealth <= 0)
         {
             Die();

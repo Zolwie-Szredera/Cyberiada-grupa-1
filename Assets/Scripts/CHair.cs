@@ -7,7 +7,8 @@ public class CrosshairCursor : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
         mousePositionAction = new InputAction("MousePosition", InputActionType.Value, "<Mouse>/position");
         mousePositionAction.Enable();
     }

@@ -6,8 +6,7 @@ public class BloodBag : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("blood bag triggered");
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayerHealth>().currentBlood < other.gameObject.GetComponent<PlayerHealth>().maxBlood)
         {
             other.gameObject.GetComponent<PlayerHealth>().GainBlood(amount);
             Destroy(gameObject);

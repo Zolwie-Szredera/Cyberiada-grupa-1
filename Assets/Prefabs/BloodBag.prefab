@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939275533f4106445814d95836dca9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodBag
-  amount: 500
+  amount: 50
 --- !u!61 &4858502191654511939
 BoxCollider2D:
   m_ObjectHideFlags: 0

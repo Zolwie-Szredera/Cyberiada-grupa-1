@@ -10,7 +10,6 @@ public class PlayerHealth : MonoBehaviour
     private PlayerController playerController;
     public float currentBlood;
     public Slider bloodSlider;
-    public Slider healthSlider;
     void Start()
     {
         playerController = GetComponent<PlayerController>();

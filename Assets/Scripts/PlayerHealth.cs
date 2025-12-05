@@ -23,8 +23,11 @@ public class PlayerHealth : MonoBehaviour
     }
     public void Die()
     {
-        playerController.enabled = false;
-        Time.timeScale = 0;
+        // playerController.enabled = false;
+        // Time.timeScale = 0;
+        playerController.Respawn();
+        currentBlood = maxBlood;
+        bloodSlider.value = currentBlood;
         Debug.Log("You died!");
     }
     public void TakeDamage(int damage)

@@ -45,6 +45,14 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
     private bool justWallJumped = false; //to prevent wasted air jumps
 
+    [Header("Checkpoint")]
+    public Vector2 lastCheckpointPos;
+    public Collider2D currentCheckPoint;
+    public Color defaultCheckpointColor = Color.white;
+    public Color activeCheckpointColor = Color.yellow;
+
+
+
     void Awake()
     {
         interactText.gameObject.SetActive(false);
@@ -185,6 +193,36 @@ public class PlayerController : MonoBehaviour
             interactText.gameObject.SetActive(false);
         }
     }
+
+private void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("Checkpoint"))
+    {
+        if (currentCheckPoint == collision) return;
+
+        if (currentCheckPoint != null)
+        {
+            currentCheckPoint.GetComponent<SpriteRenderer>().color = defaultCheckpointColor;
+        }
+        currentCheckPoint = collision;
+        lastCheckpointPos = collision.transform.position;
+
+        currentCheckPoint.GetComponent<SpriteRenderer>().color = activeCheckpointColor;
+
+        Debug.Log("Checkpoint updated to: " + lastCheckpointPos);
+    }
+}
+
+
+    public void Respawn()
+    {
+        transform.position = lastCheckpointPos;
+        remainingAirJumps = airJumps;
+        airJumpText.text = remainingAirJumps.ToString();
+        Debug.Log("Player Respawned!");
+    }
+
+
     //-----------------------------------------DEBUG-------------------------------, remove before release
     void DebugStuff()
     {

@@ -1,16 +1,13 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxBlood = 1000;
+    public float maxBlood = 100;
     private PlayerController playerController;
     public float currentBlood;
     public Slider bloodSlider;
-    public Slider healthSlider;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -38,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
     // BLOOD (WIP)
-    // Get it from enemies
+    // Get it from enemies, use it for cool stuff
     public void GainBlood(float gain) //use instead of blood += n as it is likely that gaining blood will cause additional effects in the future.
     {
         currentBlood += gain;

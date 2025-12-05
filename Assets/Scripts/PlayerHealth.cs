@@ -6,11 +6,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxBlood = 1000;
+    public float maxBlood = 100;
     private PlayerController playerController;
     public float currentBlood;
     public Slider bloodSlider;
-    public Slider healthSlider;
     void Start()
     {
         playerController = GetComponent<PlayerController>();

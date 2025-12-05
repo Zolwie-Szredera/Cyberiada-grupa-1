@@ -330,12 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3bc24e78ab81543905b9b575aa060f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 20
-  currentHealth: 0
-  maxBlood: 1000
+  maxBlood: 100
   currentBlood: 0
   bloodSlider: {fileID: 1547505790}
-  bloodLossRate: 15
 --- !u!114 &145315760
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,6 @@ TagManager:
   tags:
   - MainCanvas
   - InteractText
-  - GameManager
   layers:
   - Default
   - TransparentFX
@@ -20,8 +19,8 @@ TagManager:
   - Trap
   - Player
   - Enemy
-  - Projectile
-  - PlayerProjectile
+  - 
+  - 
   - 
   - 
   - 

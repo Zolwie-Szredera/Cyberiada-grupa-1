@@ -17,8 +17,8 @@ TagManager:
   - StickyWall
   - SlipperyWall
   - Trap
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

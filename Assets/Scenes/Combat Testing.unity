@@ -334,7 +334,6 @@ MonoBehaviour:
   maxBlood: 100
   currentBlood: 0
   bloodSlider: {fileID: 1547505790}
-  healthSlider: {fileID: 0}
 --- !u!114 &145315760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +590,7 @@ Transform:
   - {fileID: 1635303826}
   - {fileID: 694490395}
   - {fileID: 243853751}
+  - {fileID: 853645556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &145315766
@@ -605,7 +605,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6200188fa0c2b47bd41ea831f15b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  damage: 0
+  attackTransform: {fileID: 853645556}
+  attackRange: 1.5
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  damageMelee: 10
 --- !u!1 &241782039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,6 +1292,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731163717}
   m_CullTransparentMesh: 1
+--- !u!1 &853645555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853645556}
+  m_Layer: 0
+  m_Name: Attack Tranform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853645556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853645555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 145315765}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &960017600
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,13 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class TwoStateAI : Enemy
 {
-    public float speed;
     public GameObject attackPointRight;
     public GameObject attackPointLeft;
     public GameObject attackPointRanged;
     public GameObject groundCheck;
     public float attackRadius;
-    public float attackSpeed;
     public Projectile projectile;
     public float projectileSpeed;
     public float jumpForce;
@@ -97,7 +95,7 @@ public class TwoStateAI : Enemy
             return;
         }
         float direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
-        rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(direction * movementSpeed, rb.linearVelocity.y);
     }
     void LongRangeBehaviour() //slower movement, prefers to stay at attackDistanceRange
     {
@@ -111,10 +109,10 @@ public class TwoStateAI : Enemy
         if (Mathf.Abs(distance.x) < attackDistanceRange) //disengage
         {
             RangedAttack(); 
-            rb.linearVelocity = new Vector2(-1 * direction * speed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(-1 * direction * movementSpeed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
         } else
         {
-            rb.linearVelocity = new Vector2(direction * speed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction * movementSpeed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
         }
     }
     void CloseRangeAttack()

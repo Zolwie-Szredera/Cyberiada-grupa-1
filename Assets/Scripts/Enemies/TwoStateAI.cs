@@ -1,4 +1,3 @@
-
 using System.Collections;
 using UnityEngine;
 
@@ -27,9 +26,8 @@ public class TwoStateAI : Enemy
     private float currentStateTimer;
     private Transform playerLocation;
     private Rigidbody2D rb;
-    private bool isWaiting = false;
     private bool isGrounded;
-    private float rangeAttackCooldown = 0f;
+    private float attackCooldown = 0f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,27 +38,29 @@ public class TwoStateAI : Enemy
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);
         currentStateTimer -= Time.deltaTime;
+        attackCooldown -= Time.deltaTime;
         if (currentStateTimer <= 0)
         {
             ChangeState();
             currentStateTimer = stateTimer;
             return;
         }
-        if(isWaiting)
+        if(attackCooldown > 0f && state)
         {
             rb.linearVelocity = Vector2.zero;
         }
-        if (state && !isWaiting)
+        if (state)
         {
             CloseRangeBehaviour();
         }
-        else if (!isWaiting)
+        else
         {
             LongRangeBehaviour();
         }
     }
     void ChangeState()
     {
+        attackCooldown = 0.0f;
         if (state)
         {
             if(playerLocation.position.x > transform.position.x) //player is to the right, jump left
@@ -103,18 +103,26 @@ public class TwoStateAI : Enemy
     {
         Vector2 distance = playerLocation.position - gameObject.transform.position;
         float direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
-        if (Mathf.Abs(distance.x) < attackDistanceRange)
+        if(Mathf.Abs(Mathf.Abs(distance.x) - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
             RangedAttack();
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        } else
+        if (Mathf.Abs(distance.x) < attackDistanceRange) //disengage
+        {
+            RangedAttack(); 
             rb.linearVelocity = new Vector2(-1 * direction * speed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
         } else
         {
             rb.linearVelocity = new Vector2(direction * speed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
         }
-        rangeAttackCooldown -= Time.deltaTime;
     }
     void CloseRangeAttack()
     {
+        if (attackCooldown > 0f)
+        {
+            return;
+        }
         Vector3 attackPointPosition;
         if(playerLocation.position.x < transform.position.x)
         {
@@ -139,11 +147,11 @@ public class TwoStateAI : Enemy
                 Debug.Log("TwoState hit an enemy");
             }
         }
-        StartCoroutine(Wait(attackSpeed));
+        attackCooldown = attackSpeed;
     }
     void RangedAttack()
     {
-        if (rangeAttackCooldown > 0f)
+        if (attackCooldown > 0f)
         {
             return;
         }
@@ -152,7 +160,7 @@ public class TwoStateAI : Enemy
         currentProjectile.damage = damage;
         Vector2 direction = (playerLocation.position - attackPointRanged.transform.position).normalized;
         currentProjectile.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
-        rangeAttackCooldown = attackSpeed;
+        attackCooldown = attackSpeed;
     }
     void Jump(int direction) //1 = right, -1 = left
     {
@@ -164,12 +172,6 @@ public class TwoStateAI : Enemy
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         rb.AddForce(new Vector2(direction,jumpForce * rb.mass), ForceMode2D.Impulse);
         Debug.Log("Jumped");
-    }
-    IEnumerator Wait(float time)
-    {
-        isWaiting = true;
-        yield return new WaitForSeconds(time);
-        isWaiting = false;
     }
     private void OnDrawGizmos()
     {

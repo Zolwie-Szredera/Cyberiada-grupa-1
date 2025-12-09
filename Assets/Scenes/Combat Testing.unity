@@ -1549,7 +1549,7 @@ MonoBehaviour:
   state: 1
   stateTimer: 10
   attactDistanceClose: 5
-  attackDistanceRange: 13
+  attackDistanceRange: 18
   longRangeWalkSpeedModifier: 0.5
 --- !u!50 &1173628703
 Rigidbody2D:

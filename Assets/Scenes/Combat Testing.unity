@@ -2516,6 +2516,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2072869611726844078, guid: c57ab1fa02878694fbb3c2a1cb28f4e4, type: 3}
+      propertyPath: movementSpeed
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3226294342546259479, guid: c57ab1fa02878694fbb3c2a1cb28f4e4, type: 3}
       propertyPath: m_Name
       value: TwoState

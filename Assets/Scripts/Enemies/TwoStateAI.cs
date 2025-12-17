@@ -43,9 +43,9 @@ public class TwoStateAI : Enemy
             currentStateTimer = stateTimer;
             return;
         }
-        if(attackCooldown > 0f && state)
+        if(attackCooldown > 0f && state && isGrounded)
         {
-            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         if (state)
         {
@@ -89,7 +89,7 @@ public class TwoStateAI : Enemy
     void CloseRangeBehaviour()
     {
         Vector2 distance = playerLocation.position - gameObject.transform.position;
-        if (Mathf.Abs(distance.x) < attactDistanceClose)
+        if (Mathf.Abs(distance.x) < attactDistanceClose && isGrounded)
         {
             CloseRangeAttack();
             return;

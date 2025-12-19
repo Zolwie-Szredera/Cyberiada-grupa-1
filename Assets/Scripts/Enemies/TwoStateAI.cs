@@ -4,15 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class TwoStateAI : Enemy
 {
+    [Header("TwoState")]
     public GameObject attackPointRight;
     public GameObject attackPointLeft;
     public GameObject attackPointRanged;
-    public GameObject groundCheck;
     public float attackRadius;
     public Projectile projectile;
     public float projectileSpeed;
     public float jumpForce;
-    public LayerMask groundLayer;
     [Header("StatesStats")]
     public bool state = true;
     //true = close range
@@ -22,16 +21,14 @@ public class TwoStateAI : Enemy
     public float attackDistanceRange;
     public float longRangeWalkSpeedModifier;
     private float currentStateTimer;
-    private bool isGrounded;
-    private float attackCooldown = 0f;
     public override void Start()
     {
         base.Start();
         currentStateTimer = stateTimer;
     }
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);
+        base.FixedUpdate();
         currentStateTimer -= Time.deltaTime;
         attackCooldown -= Time.deltaTime;
         if (currentStateTimer <= 0)
@@ -85,31 +82,27 @@ public class TwoStateAI : Enemy
     }
     void CloseRangeBehaviour()
     {
-        Vector2 distance = playerLocation.position - gameObject.transform.position;
-        if (Mathf.Abs(distance.x) < attactDistanceClose && isGrounded)
+        if (Mathf.Abs(distanceToPlayer.x) < attactDistanceClose && isGrounded)
         {
             CloseRangeAttack();
             return;
         }
-        float direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
-        rb.linearVelocity = new Vector2(direction * movementSpeed, rb.linearVelocity.y);
+        WalkToPlayer(1);
     }
     void LongRangeBehaviour() //slower movement, prefers to stay at attackDistanceRange
     {
-        Vector2 distance = playerLocation.position - gameObject.transform.position;
-        float direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
-        if(Mathf.Abs(Mathf.Abs(distance.x) - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
+        if(Mathf.Abs(Mathf.Abs(distanceToPlayer.x) - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
             RangedAttack();
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         } else
-        if (Mathf.Abs(distance.x) < attackDistanceRange) //disengage
+        if (Mathf.Abs(distanceToPlayer.x) < attackDistanceRange) //disengage
         {
             RangedAttack(); 
-            rb.linearVelocity = new Vector2(-1 * direction * movementSpeed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
+            WalkToPlayer(-1);
         } else
         {
-            rb.linearVelocity = new Vector2(direction * movementSpeed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
+            WalkToPlayer(1);
         }
     }
     public override void CloseRangeAttack()
@@ -132,6 +125,10 @@ public class TwoStateAI : Enemy
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPointPosition, attackRadius, damageableLayers);
         foreach (var hit in hits)
         {
+            if(hit.gameObject == gameObject)
+            {
+                continue;
+            }
             if (hit.TryGetComponent(out PlayerHealth playerHealth))
             {
                 playerHealth.TakeDamage(damage);

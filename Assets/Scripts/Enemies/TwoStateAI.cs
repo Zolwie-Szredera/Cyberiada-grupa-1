@@ -22,14 +22,11 @@ public class TwoStateAI : Enemy
     public float attackDistanceRange;
     public float longRangeWalkSpeedModifier;
     private float currentStateTimer;
-    private Transform playerLocation;
-    private Rigidbody2D rb;
     private bool isGrounded;
     private float attackCooldown = 0f;
-    void Start()
+    public override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        base.Start();
         currentStateTimer = stateTimer;
     }
     void FixedUpdate()
@@ -115,7 +112,7 @@ public class TwoStateAI : Enemy
             rb.linearVelocity = new Vector2(direction * movementSpeed * longRangeWalkSpeedModifier, rb.linearVelocity.y);
         }
     }
-    void CloseRangeAttack()
+    public override void CloseRangeAttack()
     {
         if (attackCooldown > 0f)
         {
@@ -132,7 +129,7 @@ public class TwoStateAI : Enemy
             attackPointPosition = attackPointRight.transform.position;
             Debug.Log("Close Range Attack Right!");
         }
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPointPosition, attackRadius);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPointPosition, attackRadius, damageableLayers);
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent(out PlayerHealth playerHealth))

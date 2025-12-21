@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class Projectile : MonoBehaviour
 {
     public int damage;
@@ -9,7 +10,7 @@ public class Projectile : MonoBehaviour
     }
     public virtual void ApplyCollisionEffect(Collider2D other)
     {
-        if(other.gameObject.layer == 9)
+        if(other.gameObject.layer == 9) //ignore traps
         {
             return;
         }
@@ -18,5 +19,10 @@ public class Projectile : MonoBehaviour
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
         Destroy(gameObject);
+    }
+    public void IgnoreParentObject(GameObject gameObject)
+    {
+        Collider2D projectileCollider = GetComponent<Collider2D>();
+        Physics2D.IgnoreCollision(projectileCollider, gameObject.GetComponent<Collider2D>());
     }
 }

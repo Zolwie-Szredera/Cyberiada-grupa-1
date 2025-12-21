@@ -19,10 +19,14 @@ public class Enemy : MonoBehaviour
     protected Vector2 distanceToPlayer;
     protected float attackCooldown;
     protected bool facingRight = true;
+    protected GameObject player;
+    protected SpriteRenderer sprite;
+    protected float direction;
     public virtual void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
-        playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerLocation = player.GetComponent<Transform>();
         groundLayer = LayerMask.GetMask("Ground");
         if (closeAttackPoint == null)
         {
@@ -33,10 +37,17 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogWarning("Warning: no groundCheck point set for: " + gameObject.name);
         }
+        sprite = transform.Find("EnemySprite").GetComponent<SpriteRenderer>();
+        if (sprite == null)
+        {
+            Debug.LogWarning("Sprite not found for: " + gameObject.name);
+        }
         damageableLayers = LayerMask.GetMask("Player", "Enemy", "Destructible");
+
     }
     public virtual void FixedUpdate()
     {
+        direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
         if (attackCooldown > 0)
         {
             attackCooldown -= Time.fixedDeltaTime;
@@ -79,31 +90,33 @@ public class Enemy : MonoBehaviour
         }
         attackCooldown = attackSpeed;
     }
-    public virtual void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(closeAttackPoint.position, closeAttackRange);
-    }
     public void WalkToPlayer(int disengage) //resets X velocity, 1 = towards, -1 = disengage
     {
-        float direction = Mathf.Sign(playerLocation.position.x - transform.position.x); //REFACTOR
         rb.linearVelocity = new Vector2(disengage * direction * movementSpeed, rb.linearVelocity.y);
     }
     protected void FacePlayer()
     {
-        float direction = Mathf.Sign(playerLocation.position.x - transform.position.x); //REFACTOR
+        Vector3 closeAttackPointOriginal = closeAttackPoint.localPosition;
+        closeAttackPoint.localPosition = new Vector3
+        (
+            facingRight ? Mathf.Abs(closeAttackPointOriginal.x) : -Mathf.Abs(closeAttackPointOriginal.x),
+            closeAttackPointOriginal.y,
+            closeAttackPointOriginal.z
+        );
         if (direction > 0 && !facingRight)
         {
             facingRight = true;
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
+            sprite.flipX = false;
         }
         else if (direction < 0 && facingRight)
         {
             facingRight = false;
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
+            sprite.flipX = true;
         }
+
+    }
+    public virtual void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(closeAttackPoint.position, closeAttackRange);
     }
 }

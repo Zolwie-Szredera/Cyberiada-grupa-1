@@ -5,10 +5,6 @@ public class PlayerSword : PlayerWeapons
 {
     [Header("Sword stats")]
     public float attackRange;
-    public override void Update()
-    {
-        base.Update();
-    }
     public override void BasicAttack()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackOrigin.position, attackRange, damageableLayers);
@@ -30,5 +26,9 @@ public class PlayerSword : PlayerWeapons
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackOrigin.position, attackRange);
+    }
+    public void ApplyDamage() //it has to be a seperate function to prevent name ambiguity
+    {
+        BasicAttack();
     }
 }

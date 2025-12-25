@@ -6,16 +6,12 @@ public class DebugScript : MonoBehaviour
 {
     public GameObject debugCanvas;
     public TextMeshProUGUI bloodText;
-    public TextMeshProUGUI mousePositionTextX;
-    public TextMeshProUGUI mousePositionTextY;
-    public TextMeshProUGUI playerVelocityTextX;
-    public TextMeshProUGUI playerVelocityTextY;
     private bool isDebugModeActive = false;
     private GameObject player;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null)
+        if(player == null)
         {
             Debug.LogWarning("Player not found");
         }
@@ -26,12 +22,6 @@ public class DebugScript : MonoBehaviour
         if (isDebugModeActive)
         {
             bloodText.text = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentBlood.ToString(); //bloodtext.text = current blood value
-
-            mousePositionTextX.text = "X: " + GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().mousePosition.x;
-            mousePositionTextY.text = "Y: " + GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().mousePosition.y;
-
-            playerVelocityTextX.text = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocityX.ToString("F3");
-            playerVelocityTextY.text = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocityY.ToString("F3");
         }
     }
     public void OnEnableDebug(InputAction.CallbackContext context)

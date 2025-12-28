@@ -87,8 +87,6 @@ public class PlayerController : MonoBehaviour
             remainingAirJumps = airJumps;
             airJumpText.text = remainingAirJumps.ToString();
         }
-        //DEBUG
-        DebugStuff();
     }
     void FixedUpdate() //all phycics related stuff here!
     {
@@ -207,12 +205,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     //-----------------------------------------DEBUG-------------------------------, remove before release
-    void DebugStuff()
-    {
-        horizotalVelocityText.text = rb.linearVelocityX.ToString("F3");
-        verticalVelocityText.text = rb.linearVelocityY.ToString("F3");
-        
-    }
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)

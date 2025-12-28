@@ -1,19 +1,22 @@
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerSword : PlayerWeapons
 {
     [Header("Sword stats")]
     public float attackRange;
-    public override void BasicAttack()
+    public override void BasicAttack() //with life steal
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackOrigin.position, attackRange, damageableLayers);
+        origin = attackOrigin.position;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, attackRange, damageableLayers);
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(damage);
-                Debug.Log("Hit an enemy: " + hit.name);
+                float bloodSteal = damage / 2.0f;
+                player.GetComponent<PlayerHealth>().GainBlood(bloodSteal); //this is important. Current steal: 50%
+                Debug.Log("Hit an enemy: " + hit.name + " and gained blood: " + bloodSteal);
             }
             //if(hit.TryGetComponent(out Destructible destructible))
             //{

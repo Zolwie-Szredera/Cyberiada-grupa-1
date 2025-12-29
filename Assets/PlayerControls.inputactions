@@ -261,6 +261,94 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "ManageWeapons",
+            "id": "afb27921-a556-4913-ae2f-e29fe325e245",
+            "actions": [
+                {
+                    "name": "ChangeWeapon1",
+                    "type": "Button",
+                    "id": "16062808-e1e0-4a7d-ad0b-7fa5fff24532",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon2",
+                    "type": "Button",
+                    "id": "8d5aaca5-c73a-4e91-b533-c5001db1a018",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon3",
+                    "type": "Button",
+                    "id": "93cd3ee8-7e3c-43d6-9a74-40746e1c4179",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon4",
+                    "type": "Button",
+                    "id": "c7e6c19f-1b18-4b4d-be00-526ad5ac586d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d78999ae-1f39-4055-a17e-3f80a65eda94",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47d738d5-22c6-4d5e-954c-2571a98c9b23",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cebe2773-b17b-4b23-946e-4bf55f8f83ae",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c771fa95-0445-4b13-b2e1-c4286837834d",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

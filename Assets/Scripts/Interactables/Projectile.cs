@@ -1,16 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class Projectile : MonoBehaviour
 {
     public int damage;
+    public float timeToLive;
     void OnTriggerEnter2D(Collider2D other)
     {
         ApplyCollisionEffect(other);
     }
     public virtual void ApplyCollisionEffect(Collider2D other)
     {
-        if(other.gameObject.layer == 9) //ignore traps
+        if (other.gameObject.layer == 9) //ignore traps
         {
             return;
         }
@@ -18,11 +20,20 @@ public class Projectile : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+        }
         Destroy(gameObject);
     }
     public void IgnoreParentObject(GameObject gameObject)
     {
         Collider2D projectileCollider = GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(projectileCollider, gameObject.GetComponent<Collider2D>());
+    }
+    public IEnumerator TimeToLive(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Destroy(gameObject);
     }
 }

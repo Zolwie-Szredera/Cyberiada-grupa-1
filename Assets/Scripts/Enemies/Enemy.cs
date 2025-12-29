@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public float closeAttackRange;
     public Transform closeAttackPoint;
     public Transform groundCheck;
+    public SpriteRenderer sprite;
     protected LayerMask groundLayer;
     protected bool isGrounded;
     protected Transform playerLocation;
@@ -20,7 +21,6 @@ public class Enemy : MonoBehaviour
     protected float attackCooldown;
     protected bool facingRight = true;
     protected GameObject player;
-    protected SpriteRenderer sprite;
     protected float direction;
     public virtual void Start()
     {
@@ -37,7 +37,6 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogWarning("Warning: no groundCheck point set for: " + gameObject.name);
         }
-        sprite = transform.Find("EnemySprite").GetComponent<SpriteRenderer>();
         if (sprite == null)
         {
             Debug.LogWarning("Sprite not found for: " + gameObject.name);

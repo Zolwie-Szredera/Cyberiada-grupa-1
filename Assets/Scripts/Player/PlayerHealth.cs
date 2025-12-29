@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 0;
         Debug.Log("You died!");
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentBlood -= damage;
         bloodFill.fillAmount = currentBlood / maxBlood;

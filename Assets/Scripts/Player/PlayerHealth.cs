@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,25 +6,18 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxBlood = 100;
     private PlayerController playerController;
-    public Image bloodFill;
-    public Image blackBileFill;
-    [HideInInspector] public float currentBlackBile;
-    [HideInInspector] public float currentBlood;
+    public float currentBlood;
+    public Slider bloodSlider;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         currentBlood = maxBlood;
-        currentBlackBile = 0;
-        blackBileFill.fillAmount = 0;
+        bloodSlider.maxValue = maxBlood;
+        bloodSlider.value = currentBlood;
     }
     void Update()
     {
-        bloodFill.fillAmount = currentBlood / maxBlood;
-        if(currentBlackBile > 0)
-        {
-            blackBileFill.fillAmount = currentBlackBile / maxBlood;
-            currentBlackBile -= Time.deltaTime;
-        }
+        bloodSlider.value = currentBlood;
     }
     public void Die()
     {
@@ -33,30 +25,24 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 0;
         Debug.Log("You died!");
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentBlood -= damage;
-        bloodFill.fillAmount = currentBlood / maxBlood;
+        bloodSlider.value = currentBlood;
         if (currentBlood <= 0)
         {
             Die();
         }
     }
     // BLOOD (WIP)
-    // Get it from enemies
+    // Get it from enemies, use it for cool stuff
     public void GainBlood(float gain) //use instead of blood += n as it is likely that gaining blood will cause additional effects in the future.
     {
         currentBlood += gain;
-        if (currentBlood > maxBlood || currentBlackBile != 0)
+        if (currentBlood > maxBlood)
         {
-            currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood - currentBlackBile);
+            currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood);
         }
         Debug.Log("Gained blood: " + gain);
-    }
-    //BLACK BILE status effect. Is this interesting enough?
-    public void GainBlackBile(float amount)
-    {
-        currentBlackBile += amount;
-        currentBlackBile = Mathf.Clamp(currentBlackBile, 0f, maxBlood - currentBlood);
     }
 }

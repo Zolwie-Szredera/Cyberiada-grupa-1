@@ -16,14 +16,61 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         currentBlood = maxBlood;
         currentBlackBile = 0;
-        blackBileFill.fillAmount = 0;
+        
+        // Try to auto-discover UI elements if not assigned
+        if (bloodFill == null)
+        {
+            bloodFill = FindUIElement("BloodFill") ?? FindUIElement("BloodSlider/Fill Area/Fill");
+            if (bloodFill == null)
+            {
+                Debug.LogWarning("PlayerHealth: bloodFill Image is not assigned and could not be found automatically! Health UI will not display.");
+            }
+            else
+            {
+                Debug.Log("PlayerHealth: Auto-discovered bloodFill UI element.");
+            }
+        }
+        
+        if (blackBileFill == null)
+        {
+            blackBileFill = FindUIElement("BlackBileFill") ?? FindUIElement("BlackBileSlider/Fill Area/Fill");
+            if (blackBileFill == null)
+            {
+                Debug.LogWarning("PlayerHealth: blackBileFill Image is not assigned and could not be found automatically! Black Bile UI will not display.");
+            }
+            else
+            {
+                Debug.Log("PlayerHealth: Auto-discovered blackBileFill UI element.");
+                blackBileFill.fillAmount = 0;
+            }
+        }
+        else
+        {
+            blackBileFill.fillAmount = 0;
+        }
+    }
+    
+    private Image FindUIElement(string path)
+    {
+        GameObject obj = GameObject.Find(path);
+        if (obj != null)
+        {
+            return obj.GetComponent<Image>();
+        }
+        return null;
     }
     void Update()
     {
-        bloodFill.fillAmount = currentBlood / maxBlood;
+        if (bloodFill != null)
+        {
+            bloodFill.fillAmount = currentBlood / maxBlood;
+        }
         if(currentBlackBile > 0)
         {
-            blackBileFill.fillAmount = currentBlackBile / maxBlood;
+            if (blackBileFill != null)
+            {
+                blackBileFill.fillAmount = currentBlackBile / maxBlood;
+            }
             currentBlackBile -= Time.deltaTime;
         }
     }
@@ -36,7 +83,12 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentBlood -= damage;
-        bloodFill.fillAmount = currentBlood / maxBlood;
+        Debug.Log($"Player took {damage} damage. Current health: {currentBlood}/{maxBlood}");
+        
+        if (bloodFill != null)
+        {
+            bloodFill.fillAmount = currentBlood / maxBlood;
+        }
         if (currentBlood <= 0)
         {
             Die();

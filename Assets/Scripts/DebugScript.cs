@@ -25,13 +25,35 @@ public class DebugScript : MonoBehaviour
     {
         if (isDebugModeActive)
         {
-            bloodText.text = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().currentBlood.ToString(); //bloodtext.text = current blood value
+            if (player != null && bloodText != null)
+            {
+                var playerHealth = player.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    bloodText.text = playerHealth.currentBlood.ToString(); //bloodtext.text = current blood value
+                }
+            }
 
-            mousePositionTextX.text = "X: " + GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().mousePosition.x;
-            mousePositionTextY.text = "Y: " + GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().mousePosition.y;
+            var gameManager = GameObject.FindGameObjectWithTag("GameManager");
+            if (gameManager != null && mousePositionTextX != null && mousePositionTextY != null)
+            {
+                var gm = gameManager.GetComponent<GameManager>();
+                if (gm != null)
+                {
+                    mousePositionTextX.text = "X: " + gm.mousePosition.x;
+                    mousePositionTextY.text = "Y: " + gm.mousePosition.y;
+                }
+            }
 
-            playerVelocityTextX.text = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocityX.ToString("F3");
-            playerVelocityTextY.text = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().linearVelocityY.ToString("F3");
+            if (player != null && playerVelocityTextX != null && playerVelocityTextY != null)
+            {
+                var rb = player.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    playerVelocityTextX.text = rb.linearVelocityX.ToString("F3");
+                    playerVelocityTextY.text = rb.linearVelocityY.ToString("F3");
+                }
+            }
         }
     }
     public void OnEnableDebug(InputAction.CallbackContext context)

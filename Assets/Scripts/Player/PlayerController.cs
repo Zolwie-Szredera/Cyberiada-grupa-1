@@ -1,15 +1,12 @@
 using System.Collections;
-using System.Data.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private SpriteRenderer playerSprite;
     private Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI airJumpText;
@@ -44,12 +41,12 @@ public class PlayerController : MonoBehaviour
     private bool isWallJumping = false;
     private bool isJumping = false;
     private bool justWallJumped = false; //to prevent wasted air jumps
+    private bool facingRight = true;
 
     void Awake()
     {
         interactText.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
-        playerSprite = GetComponent<SpriteRenderer>();
         remainingAirJumps = airJumps;
         airJumpText.text = remainingAirJumps.ToString();
     }
@@ -57,6 +54,13 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        if(moveInput.x > 0)
+        {
+            ChangeSpriteDirection(true);
+        } else if(moveInput.x < 0)
+        {
+            ChangeSpriteDirection(false);
+        }
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -83,8 +87,6 @@ public class PlayerController : MonoBehaviour
             remainingAirJumps = airJumps;
             airJumpText.text = remainingAirJumps.ToString();
         }
-        //DEBUG
-        DebugStuff();
     }
     void FixedUpdate() //all phycics related stuff here!
     {
@@ -185,21 +187,24 @@ public class PlayerController : MonoBehaviour
             interactText.gameObject.SetActive(false);
         }
     }
-    //-----------------------------------------DEBUG-------------------------------, remove before release
-    void DebugStuff()
+    public void ChangeSpriteDirection(bool direction) //true = right, false = left
     {
-        if (isTouchingWall || isGrounded)
+        if (direction && !facingRight)
         {
-            playerSprite.color = Color.blue;
+            facingRight = true;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
         }
-        else
+        else if (!direction && facingRight)
         {
-            playerSprite.color = Color.white;
+            facingRight = false;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
         }
-        horizotalVelocityText.text = rb.linearVelocityX.ToString("F3");
-        verticalVelocityText.text = rb.linearVelocityY.ToString("F3");
-        
     }
+    //-----------------------------------------DEBUG-------------------------------, remove before release
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)

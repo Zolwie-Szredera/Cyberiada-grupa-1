@@ -111,15 +111,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""EnableDebug"",
-                    ""type"": ""Button"",
-                    ""id"": ""73e10f40-9532-4d1d-881d-d252481363f9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""f2b667d4-2e88-496a-9455-2fb23e1c3f24"",
@@ -127,6 +118,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""crosshair"",
+                    ""type"": ""Value"",
+                    ""id"": ""e7f0b0a4-e423-4ce9-b2e6-75495547ed4f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4acee36-fd77-4770-8d57-8419b054c65c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""ae77ecbf-3b0c-4baa-bb52-18a1d9601c20"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -198,7 +216,128 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""43b06ae9-b99a-436d-bbf1-ca7735b2327c"",
+                    ""id"": ""b548c1d7-8a38-4a04-8054-8f77a6eb9361"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3dccd950-365f-4875-919b-c5ba5ab7d629"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""crosshair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49c4b6e4-705e-48e1-a2a3-59aecd6ed11c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""587ff80c-df63-4854-830b-0d0ecebf763b"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""cdd8d90b-17c3-49ca-89c1-55fa78401394"",
+            ""actions"": [
+                {
+                    ""name"": ""DebugAction1"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f10291b-da72-4e2a-809d-d8029f6c9066"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugAction2"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f7b263c-6389-424a-a81e-c6623d3d702c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugAction3"",
+                    ""type"": ""Button"",
+                    ""id"": ""0fad25ea-325c-43b8-824d-505285ac9f23"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EnableDebug"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7c0ed57-3919-45b0-acff-aa886be18fc3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""56f8a854-931a-4ccd-af13-9e93ad2dabe8"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAction1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d12932e1-03ae-4f29-921c-bb32aae33e67"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAction2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""841a8d6f-06b2-403c-8708-5bdf34031fbf"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAction3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bcb9483-5796-47ff-b819-3e8e2fc33b88"",
                     ""path"": ""<Keyboard>/backquote"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -206,15 +345,92 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""EnableDebug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""ManageWeapons"",
+            ""id"": ""afb27921-a556-4913-ae2f-e29fe325e245"",
+            ""actions"": [
+                {
+                    ""name"": ""ChangeWeapon1"",
+                    ""type"": ""Button"",
+                    ""id"": ""16062808-e1e0-4a7d-ad0b-7fa5fff24532"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ChangeWeapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d5aaca5-c73a-4e91-b533-c5001db1a018"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeWeapon3"",
+                    ""type"": ""Button"",
+                    ""id"": ""93cd3ee8-7e3c-43d6-9a74-40746e1c4179"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeWeapon4"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7e6c19f-1b18-4b4d-be00-526ad5ac586d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""b548c1d7-8a38-4a04-8054-8f77a6eb9361"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""d78999ae-1f39-4055-a17e-3f80a65eda94"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""ChangeWeapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47d738d5-22c6-4d5e-954c-2571a98c9b23"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cebe2773-b17b-4b23-946e-4bf55f8f83ae"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c771fa95-0445-4b13-b2e1-c4286837834d"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -227,13 +443,29 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_player = asset.FindActionMap("player", throwIfNotFound: true);
         m_player_Move = m_player.FindAction("Move", throwIfNotFound: true);
         m_player_Jump = m_player.FindAction("Jump", throwIfNotFound: true);
-        m_player_EnableDebug = m_player.FindAction("EnableDebug", throwIfNotFound: true);
         m_player_Interact = m_player.FindAction("Interact", throwIfNotFound: true);
+        m_player_crosshair = m_player.FindAction("crosshair", throwIfNotFound: true);
+        m_player_Attack = m_player.FindAction("Attack", throwIfNotFound: true);
+        m_player_MousePosition = m_player.FindAction("MousePosition", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_DebugAction1 = m_Debug.FindAction("DebugAction1", throwIfNotFound: true);
+        m_Debug_DebugAction2 = m_Debug.FindAction("DebugAction2", throwIfNotFound: true);
+        m_Debug_DebugAction3 = m_Debug.FindAction("DebugAction3", throwIfNotFound: true);
+        m_Debug_EnableDebug = m_Debug.FindAction("EnableDebug", throwIfNotFound: true);
+        // ManageWeapons
+        m_ManageWeapons = asset.FindActionMap("ManageWeapons", throwIfNotFound: true);
+        m_ManageWeapons_ChangeWeapon1 = m_ManageWeapons.FindAction("ChangeWeapon1", throwIfNotFound: true);
+        m_ManageWeapons_ChangeWeapon2 = m_ManageWeapons.FindAction("ChangeWeapon2", throwIfNotFound: true);
+        m_ManageWeapons_ChangeWeapon3 = m_ManageWeapons.FindAction("ChangeWeapon3", throwIfNotFound: true);
+        m_ManageWeapons_ChangeWeapon4 = m_ManageWeapons.FindAction("ChangeWeapon4", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_player.enabled, "This will cause a leak and performance issues, PlayerControls.player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Debug.enabled, "This will cause a leak and performance issues, PlayerControls.Debug.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_ManageWeapons.enabled, "This will cause a leak and performance issues, PlayerControls.ManageWeapons.Disable() has not been called.");
     }
 
     /// <summary>
@@ -311,8 +543,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_player_Move;
     private readonly InputAction m_player_Jump;
-    private readonly InputAction m_player_EnableDebug;
     private readonly InputAction m_player_Interact;
+    private readonly InputAction m_player_crosshair;
+    private readonly InputAction m_player_Attack;
+    private readonly InputAction m_player_MousePosition;
     /// <summary>
     /// Provides access to input actions defined in input action map "player".
     /// </summary>
@@ -333,13 +567,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_player_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "player/EnableDebug".
-        /// </summary>
-        public InputAction @EnableDebug => m_Wrapper.m_player_EnableDebug;
-        /// <summary>
         /// Provides access to the underlying input action "player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_player_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "player/crosshair".
+        /// </summary>
+        public InputAction @crosshair => m_Wrapper.m_player_crosshair;
+        /// <summary>
+        /// Provides access to the underlying input action "player/Attack".
+        /// </summary>
+        public InputAction @Attack => m_Wrapper.m_player_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action "player/MousePosition".
+        /// </summary>
+        public InputAction @MousePosition => m_Wrapper.m_player_MousePosition;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -372,12 +614,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @EnableDebug.started += instance.OnEnableDebug;
-            @EnableDebug.performed += instance.OnEnableDebug;
-            @EnableDebug.canceled += instance.OnEnableDebug;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @crosshair.started += instance.OnCrosshair;
+            @crosshair.performed += instance.OnCrosshair;
+            @crosshair.canceled += instance.OnCrosshair;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
         }
 
         /// <summary>
@@ -395,12 +643,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @EnableDebug.started -= instance.OnEnableDebug;
-            @EnableDebug.performed -= instance.OnEnableDebug;
-            @EnableDebug.canceled -= instance.OnEnableDebug;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @crosshair.started -= instance.OnCrosshair;
+            @crosshair.performed -= instance.OnCrosshair;
+            @crosshair.canceled -= instance.OnCrosshair;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
         }
 
         /// <summary>
@@ -434,6 +688,264 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @player => new PlayerActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
+    private readonly InputAction m_Debug_DebugAction1;
+    private readonly InputAction m_Debug_DebugAction2;
+    private readonly InputAction m_Debug_DebugAction3;
+    private readonly InputAction m_Debug_EnableDebug;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Debug".
+    /// </summary>
+    public struct DebugActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public DebugActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/DebugAction1".
+        /// </summary>
+        public InputAction @DebugAction1 => m_Wrapper.m_Debug_DebugAction1;
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/DebugAction2".
+        /// </summary>
+        public InputAction @DebugAction2 => m_Wrapper.m_Debug_DebugAction2;
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/DebugAction3".
+        /// </summary>
+        public InputAction @DebugAction3 => m_Wrapper.m_Debug_DebugAction3;
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/EnableDebug".
+        /// </summary>
+        public InputAction @EnableDebug => m_Wrapper.m_Debug_EnableDebug;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="DebugActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="DebugActions" />
+        public void AddCallbacks(IDebugActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DebugActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Add(instance);
+            @DebugAction1.started += instance.OnDebugAction1;
+            @DebugAction1.performed += instance.OnDebugAction1;
+            @DebugAction1.canceled += instance.OnDebugAction1;
+            @DebugAction2.started += instance.OnDebugAction2;
+            @DebugAction2.performed += instance.OnDebugAction2;
+            @DebugAction2.canceled += instance.OnDebugAction2;
+            @DebugAction3.started += instance.OnDebugAction3;
+            @DebugAction3.performed += instance.OnDebugAction3;
+            @DebugAction3.canceled += instance.OnDebugAction3;
+            @EnableDebug.started += instance.OnEnableDebug;
+            @EnableDebug.performed += instance.OnEnableDebug;
+            @EnableDebug.canceled += instance.OnEnableDebug;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="DebugActions" />
+        private void UnregisterCallbacks(IDebugActions instance)
+        {
+            @DebugAction1.started -= instance.OnDebugAction1;
+            @DebugAction1.performed -= instance.OnDebugAction1;
+            @DebugAction1.canceled -= instance.OnDebugAction1;
+            @DebugAction2.started -= instance.OnDebugAction2;
+            @DebugAction2.performed -= instance.OnDebugAction2;
+            @DebugAction2.canceled -= instance.OnDebugAction2;
+            @DebugAction3.started -= instance.OnDebugAction3;
+            @DebugAction3.performed -= instance.OnDebugAction3;
+            @DebugAction3.canceled -= instance.OnDebugAction3;
+            @EnableDebug.started -= instance.OnEnableDebug;
+            @EnableDebug.performed -= instance.OnEnableDebug;
+            @EnableDebug.canceled -= instance.OnEnableDebug;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="DebugActions.UnregisterCallbacks(IDebugActions)" />.
+        /// </summary>
+        /// <seealso cref="DebugActions.UnregisterCallbacks(IDebugActions)" />
+        public void RemoveCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="DebugActions.AddCallbacks(IDebugActions)" />
+        /// <seealso cref="DebugActions.RemoveCallbacks(IDebugActions)" />
+        /// <seealso cref="DebugActions.UnregisterCallbacks(IDebugActions)" />
+        public void SetCallbacks(IDebugActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DebugActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="DebugActions" /> instance referencing this action map.
+    /// </summary>
+    public DebugActions @Debug => new DebugActions(this);
+
+    // ManageWeapons
+    private readonly InputActionMap m_ManageWeapons;
+    private List<IManageWeaponsActions> m_ManageWeaponsActionsCallbackInterfaces = new List<IManageWeaponsActions>();
+    private readonly InputAction m_ManageWeapons_ChangeWeapon1;
+    private readonly InputAction m_ManageWeapons_ChangeWeapon2;
+    private readonly InputAction m_ManageWeapons_ChangeWeapon3;
+    private readonly InputAction m_ManageWeapons_ChangeWeapon4;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "ManageWeapons".
+    /// </summary>
+    public struct ManageWeaponsActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public ManageWeaponsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon1".
+        /// </summary>
+        public InputAction @ChangeWeapon1 => m_Wrapper.m_ManageWeapons_ChangeWeapon1;
+        /// <summary>
+        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon2".
+        /// </summary>
+        public InputAction @ChangeWeapon2 => m_Wrapper.m_ManageWeapons_ChangeWeapon2;
+        /// <summary>
+        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon3".
+        /// </summary>
+        public InputAction @ChangeWeapon3 => m_Wrapper.m_ManageWeapons_ChangeWeapon3;
+        /// <summary>
+        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon4".
+        /// </summary>
+        public InputAction @ChangeWeapon4 => m_Wrapper.m_ManageWeapons_ChangeWeapon4;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_ManageWeapons; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="ManageWeaponsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(ManageWeaponsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="ManageWeaponsActions" />
+        public void AddCallbacks(IManageWeaponsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Add(instance);
+            @ChangeWeapon1.started += instance.OnChangeWeapon1;
+            @ChangeWeapon1.performed += instance.OnChangeWeapon1;
+            @ChangeWeapon1.canceled += instance.OnChangeWeapon1;
+            @ChangeWeapon2.started += instance.OnChangeWeapon2;
+            @ChangeWeapon2.performed += instance.OnChangeWeapon2;
+            @ChangeWeapon2.canceled += instance.OnChangeWeapon2;
+            @ChangeWeapon3.started += instance.OnChangeWeapon3;
+            @ChangeWeapon3.performed += instance.OnChangeWeapon3;
+            @ChangeWeapon3.canceled += instance.OnChangeWeapon3;
+            @ChangeWeapon4.started += instance.OnChangeWeapon4;
+            @ChangeWeapon4.performed += instance.OnChangeWeapon4;
+            @ChangeWeapon4.canceled += instance.OnChangeWeapon4;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="ManageWeaponsActions" />
+        private void UnregisterCallbacks(IManageWeaponsActions instance)
+        {
+            @ChangeWeapon1.started -= instance.OnChangeWeapon1;
+            @ChangeWeapon1.performed -= instance.OnChangeWeapon1;
+            @ChangeWeapon1.canceled -= instance.OnChangeWeapon1;
+            @ChangeWeapon2.started -= instance.OnChangeWeapon2;
+            @ChangeWeapon2.performed -= instance.OnChangeWeapon2;
+            @ChangeWeapon2.canceled -= instance.OnChangeWeapon2;
+            @ChangeWeapon3.started -= instance.OnChangeWeapon3;
+            @ChangeWeapon3.performed -= instance.OnChangeWeapon3;
+            @ChangeWeapon3.canceled -= instance.OnChangeWeapon3;
+            @ChangeWeapon4.started -= instance.OnChangeWeapon4;
+            @ChangeWeapon4.performed -= instance.OnChangeWeapon4;
+            @ChangeWeapon4.canceled -= instance.OnChangeWeapon4;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ManageWeaponsActions.UnregisterCallbacks(IManageWeaponsActions)" />.
+        /// </summary>
+        /// <seealso cref="ManageWeaponsActions.UnregisterCallbacks(IManageWeaponsActions)" />
+        public void RemoveCallbacks(IManageWeaponsActions instance)
+        {
+            if (m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="ManageWeaponsActions.AddCallbacks(IManageWeaponsActions)" />
+        /// <seealso cref="ManageWeaponsActions.RemoveCallbacks(IManageWeaponsActions)" />
+        /// <seealso cref="ManageWeaponsActions.UnregisterCallbacks(IManageWeaponsActions)" />
+        public void SetCallbacks(IManageWeaponsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="ManageWeaponsActions" /> instance referencing this action map.
+    /// </summary>
+    public ManageWeaponsActions @ManageWeapons => new ManageWeaponsActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "player" which allows adding and removing callbacks.
     /// </summary>
@@ -456,18 +968,104 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "EnableDebug" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEnableDebug(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "crosshair" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCrosshair(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MousePosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMousePosition(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Debug" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="DebugActions.AddCallbacks(IDebugActions)" />
+    /// <seealso cref="DebugActions.RemoveCallbacks(IDebugActions)" />
+    public interface IDebugActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "DebugAction1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugAction1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DebugAction2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugAction2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DebugAction3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugAction3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EnableDebug" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEnableDebug(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "ManageWeapons" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="ManageWeaponsActions.AddCallbacks(IManageWeaponsActions)" />
+    /// <seealso cref="ManageWeaponsActions.RemoveCallbacks(IManageWeaponsActions)" />
+    public interface IManageWeaponsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "ChangeWeapon1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeWeapon1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeWeapon2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeWeapon2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeWeapon3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeWeapon3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeWeapon4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeWeapon4(InputAction.CallbackContext context);
     }
 }

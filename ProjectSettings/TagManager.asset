@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MainCanvas
   - InteractText
+  - GameManager
   layers:
   - Default
   - TransparentFX
@@ -17,10 +18,10 @@ TagManager:
   - StickyWall
   - SlipperyWall
   - Trap
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Projectile
+  - PlayerProjectile
   - 
   - 
   - 

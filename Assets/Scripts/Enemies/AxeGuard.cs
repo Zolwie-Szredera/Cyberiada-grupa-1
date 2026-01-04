@@ -7,7 +7,7 @@ public class AxeGuard : Enemy
 {
     [Header("Pierce attack stats")]
     public Vector2 thrustBoxSize = new(3f, 0.4f);
-    public float thrustDistance = 3f;
+    public float thrustDistance = 2f;
     public GameObject spear;
     //slash attack range = 1.4, 
     public override void FixedUpdate()

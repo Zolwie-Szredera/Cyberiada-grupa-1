@@ -200,19 +200,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TwoStateAI
   hp: 100
   damage: 1
-  speed: 6
+  movementSpeed: 0
+  attackSpeed: 1
+  closeAttackRange: 0
+  closeAttackPoint: {fileID: 0}
+  groundCheck: {fileID: 6269293862215199465}
+  sprite: {fileID: 0}
   attackPointRight: {fileID: 2939556352860162074}
   attackPointLeft: {fileID: 8939332593242742242}
   attackPointRanged: {fileID: 3168889948467007758}
-  groundCheck: {fileID: 4319110361887039340}
   attackRadius: 2
-  attackSpeed: 1
   projectile: {fileID: 1970576842661165312, guid: 15fcef8dd276e14449b8e3d423e45dba, type: 3}
   projectileSpeed: 10
   jumpForce: 20
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   state: 1
   stateTimer: 10
   attactDistanceClose: 5

@@ -82,7 +82,7 @@ public class TwoStateAI : Enemy
     }
     void CloseRangeBehaviour()
     {
-        if (Mathf.Abs(distanceToPlayer.x) < attactDistanceClose && isGrounded)
+        if (distanceToPlayer < attactDistanceClose && isGrounded)
         {
             CloseRangeAttack();
             return;
@@ -91,12 +91,12 @@ public class TwoStateAI : Enemy
     }
     void LongRangeBehaviour() //slower movement, prefers to stay at attackDistanceRange
     {
-        if(Mathf.Abs(Mathf.Abs(distanceToPlayer.x) - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
+        if(Mathf.Abs(distanceToPlayer - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
             RangedAttack();
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         } else
-        if (Mathf.Abs(distanceToPlayer.x) < attackDistanceRange) //disengage
+        if (distanceToPlayer < attackDistanceRange) //disengage
         {
             RangedAttack(); 
             WalkToPlayer(-1);

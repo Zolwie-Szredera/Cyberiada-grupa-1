@@ -31,7 +31,7 @@ public class AxeGuard : Enemy
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             return;
         }
-        if (math.abs(distanceToPlayer.x) > closeAttackRange)
+        if (distanceToPlayer > closeAttackRange)
         {
             WalkToPlayer(1);
         }

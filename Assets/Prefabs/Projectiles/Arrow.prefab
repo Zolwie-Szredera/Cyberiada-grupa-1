@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2075178811357529235}
   - component: {fileID: 3411299591431266585}
   - component: {fileID: 7577106921768455602}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arrow
   damage: 10
+  timeToLive: 0
   speed: 30
   gravity: 0.8
   lifetime: 5

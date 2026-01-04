@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     protected Transform playerLocation;
     protected Rigidbody2D rb;
     protected LayerMask damageableLayers;
-    protected Vector2 distanceToPlayer;
+    protected float distanceToPlayer;
     protected float attackCooldown;
     protected bool facingRight = true;
     protected GameObject player;
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         {
             attackCooldown -= Time.fixedDeltaTime;
         }
-        distanceToPlayer = playerLocation.position - gameObject.transform.position;
+        distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);;
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);
         FacePlayer();
     }

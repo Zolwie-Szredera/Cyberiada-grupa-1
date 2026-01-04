@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(disengage * direction * movementSpeed, rb.linearVelocity.y);
     }
-    protected void FacePlayer()
+    protected virtual void FacePlayer()
     {
         Vector3 closeAttackPointOriginal = closeAttackPoint.localPosition;
         closeAttackPoint.localPosition = new Vector3

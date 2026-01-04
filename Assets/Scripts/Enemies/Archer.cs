@@ -4,12 +4,8 @@ using UnityEngine;
 public class Archer : Enemy
 {
     [Header("Archer Settings")]
-    [Tooltip("Distance at which enemy can detect the player")]
-    public float detectionRange = 10f;
     [Tooltip("Distance at which enemy will shoot arrows")]
     public float attackRange = 8f;
-
-    [Header("Attack Settings")]
     [Tooltip("Arrow prefab to spawn when shooting")]
     public GameObject arrowPrefab;
     [Tooltip("Position from which arrows are fired")]
@@ -18,69 +14,25 @@ public class Archer : Enemy
     public float arrowSpeed = 15f;
     [Tooltip("Gravity multiplier for arrow physics (higher = more arc)")]
     public float arrowGravity = 1f;
-
-    [Header("Aiming")]
     [Tooltip("How far ahead to predict player movement (in seconds)")]
     public float predictionTime = 0.3f;
     private Collider2D archerCollider;
-    private float nextFireTime;
 
     public override void Start()
     {
         base.Start();
         archerCollider = GetComponent<Collider2D>();
-        // Auto-create firePoint if not assigned
-        if (firePoint == null)
-        {
-            GameObject fp = new("FirePoint");
-            fp.transform.SetParent(transform);
-            fp.transform.localPosition = new Vector3(0.5f, 0f, 0f);
-            firePoint = fp.transform;
-        }
-
-        // Initialize base class required fields (archer doesn't use these)
-        if (closeAttackPoint == null) closeAttackPoint = transform;
-        if (groundCheck == null)
-        {
-            GameObject gc = new("GroundCheck");
-            gc.transform.SetParent(transform);
-            gc.transform.localPosition = new Vector3(0f, -0.5f, 0f);
-            groundCheck = gc.transform;
-        }
     }
-
-    public override void FixedUpdate()
-    {
-        if (distanceToPlayer <= detectionRange)
-        {
-            FacePlayer();
-        }
-        // Archer is stationary - skip all base Enemy movement logic
-    }
-
     void Update()
     {
-        if (playerLocation == null || arrowPrefab == null) return;
-        if (distanceToPlayer <= detectionRange && distanceToPlayer <= attackRange && Time.time >= nextFireTime)
+        if(distanceToPlayer > attackRange)
+        {
+            WalkToPlayer(1);
+        } else if(attackCooldown <= 0)
         {
             ShootArrow();
-            nextFireTime = Time.time + 1f / attackSpeed;
         }
     }
-
-    //protected override void FacePlayer()
-    //{
-    //    bool playerOnLeft = playerLocation.position.x < transform.position.x;
-    //    float targetYRotation = playerOnLeft ? 180f : 0f;
-    //        transform.rotation = Quaternion.Euler(0, targetYRotation, 0);
-    // Adjust firePoint X based on rotation to keep it in front
-    //      if (firePoint != null)
-    //    {
-    //      float firePointX = playerOnLeft ? -0.5f : 0.5f;
-    //    firePoint.localPosition = new Vector3(firePointX, 0f, 0f);
-    //  firePoint.localRotation = Quaternion.identity;
-    //}
-    //}
 
     void ShootArrow()
     {
@@ -118,6 +70,7 @@ public class Archer : Enemy
         {
             Debug.LogError("Arrow prefab missing Arrow script!");
         }
+        attackCooldown = attackSpeed;
     }
 
     /// <summary>
@@ -161,10 +114,6 @@ public class Archer : Enemy
     }
     public override void OnDrawGizmosSelected()
     {
-        // Draw detection range
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
-
         // Draw attack range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);

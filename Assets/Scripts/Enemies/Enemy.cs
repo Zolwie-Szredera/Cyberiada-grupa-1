@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     protected bool facingRight = true;
     protected GameObject player;
     protected float direction;
+    protected bool stopped = false;
     public virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -51,7 +52,7 @@ public class Enemy : MonoBehaviour
         {
             attackCooldown -= Time.fixedDeltaTime;
         }
-        distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);;
+        distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);
         FacePlayer();
     }
@@ -91,6 +92,11 @@ public class Enemy : MonoBehaviour
     }
     public void WalkToPlayer(int disengage) //resets X velocity, 1 = towards, -1 = disengage
     {
+        if(stopped)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
         rb.linearVelocity = new Vector2(disengage * direction * movementSpeed, rb.linearVelocity.y);
     }
     protected virtual void FacePlayer()

@@ -1,12 +1,10 @@
-using System.Collections;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class TwoStateAI : Enemy
 {
     [Header("TwoState")]
-    public GameObject attackPointRight;
-    public GameObject attackPointLeft;
     public GameObject attackPointRanged;
     public float attackRadius;
     public Projectile projectile;
@@ -17,10 +15,10 @@ public class TwoStateAI : Enemy
     //true = close range
     //false = long range
     public float stateTimer = 20.0f;
-    public float attactDistanceClose;
     public float attackDistanceRange;
     public float longRangeWalkSpeedModifier;
     private float currentStateTimer;
+    private float distanceToAttackPoint;
     public override void Start()
     {
         base.Start();
@@ -30,7 +28,6 @@ public class TwoStateAI : Enemy
     {
         base.FixedUpdate();
         currentStateTimer -= Time.deltaTime;
-        attackCooldown -= Time.deltaTime;
         if (currentStateTimer <= 0)
         {
             ChangeState();
@@ -43,6 +40,13 @@ public class TwoStateAI : Enemy
         }
         if (state)
         {
+            if(Math.Abs(playerLocation.position.x - transform.position.x) < 0.1f)
+            {
+                stopped = true;
+            } else
+            {
+                stopped = false;
+            }
             CloseRangeBehaviour();
         }
         else
@@ -53,6 +57,7 @@ public class TwoStateAI : Enemy
     void ChangeState()
     {
         attackCooldown = 0.0f;
+        stopped = false;
         if (state)
         {
             if(playerLocation.position.x > transform.position.x) //player is to the right, jump left
@@ -82,8 +87,14 @@ public class TwoStateAI : Enemy
     }
     void CloseRangeBehaviour()
     {
-        if (distanceToPlayer < attactDistanceClose && isGrounded)
+        distanceToAttackPoint = Vector2.Distance(closeAttackPoint.position, playerLocation.position);
+        if (distanceToAttackPoint < closeAttackRange && isGrounded && distanceToAttackPoint > 0.1f)
         {
+            if (attackCooldown > 0f)
+            {
+                return;
+            }
+            Debug.Log("Close range attack");
             CloseRangeAttack();
             return;
         }
@@ -104,42 +115,6 @@ public class TwoStateAI : Enemy
         {
             WalkToPlayer(1);
         }
-    }
-    public override void CloseRangeAttack()
-    {
-        if (attackCooldown > 0f)
-        {
-            return;
-        }
-        Vector3 attackPointPosition;
-        if(playerLocation.position.x < transform.position.x)
-        {
-            attackPointPosition = attackPointLeft.transform.position;
-            Debug.Log("Close Range Attack Left!");
-        }
-        else
-        {
-            attackPointPosition = attackPointRight.transform.position;
-            Debug.Log("Close Range Attack Right!");
-        }
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPointPosition, attackRadius, damageableLayers);
-        foreach (var hit in hits)
-        {
-            if(hit.gameObject == gameObject)
-            {
-                continue;
-            }
-            if (hit.TryGetComponent(out PlayerHealth playerHealth))
-            {
-                playerHealth.TakeDamage(damage);
-            }
-            if (hit.gameObject.layer == 11) //if enemy
-            {
-                hit.GetComponent<Enemy>().TakeDamage(damage);
-                Debug.Log("TwoState hit an enemy");
-            }
-        }
-        attackCooldown = attackSpeed;
     }
     void RangedAttack()
     {
@@ -167,7 +142,6 @@ public class TwoStateAI : Enemy
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(attackPointRight.transform.position, attackRadius);
-        Gizmos.DrawWireSphere(attackPointLeft.transform.position, attackRadius);
+        Gizmos.DrawWireSphere(closeAttackPoint.transform.position, attackRadius);
     }
 }

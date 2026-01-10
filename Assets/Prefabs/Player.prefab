@@ -829,6 +829,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7b3a1d53-384b-4772-9963-dcc38f51f1fb
     m_ActionName: 'player/Respawn[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2748823700835454776}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 842b86ef-4ae3-4834-a16e-c58c62e93826
+    m_ActionName: 'player/Down[/Keyboard/s]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -853,9 +869,6 @@ MonoBehaviour:
   accelerationRate: 30
   groundCheck: {fileID: 5759660906446352003}
   groundRadius: 0.4
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   airJumps: 2
   wallCheck: {fileID: 8065870175103866168}
   wallCheckDistance: 0.55
@@ -1146,6 +1159,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7b3a1d53-384b-4772-9963-dcc38f51f1fb
     m_ActionName: 'player/Respawn[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 842b86ef-4ae3-4834-a16e-c58c62e93826
+    m_ActionName: 'player/Down[/Keyboard/s]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ManageWeapons

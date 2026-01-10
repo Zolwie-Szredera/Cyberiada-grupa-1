@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CheckpointSystem))]
+[RequireComponent(typeof(Collider2D))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -21,7 +23,6 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundRadius = 0.2f;
-    public LayerMask groundLayer;
 
     [Header("Air Jumps")]
     public int airJumps = 2;
@@ -39,13 +40,18 @@ public class PlayerController : MonoBehaviour
     [Header("DEBUG")]
     public TextMeshProUGUI horizotalVelocityText;
     public TextMeshProUGUI verticalVelocityText;
+    private LayerMask groundLayer;
     private bool isWallJumping = false;
     private bool isJumping = false;
     private bool justWallJumped = false; //to prevent wasted air jumps
     private bool facingRight = true;
+    private LayerMask platformLayer;
+    private bool isHoldingDown = false;
 
     void Awake()
     {
+        groundLayer = LayerMask.GetMask("Ground", "Platform");
+        platformLayer = LayerMask.GetMask("Platform");
         interactText.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         remainingAirJumps = airJumps;
@@ -55,10 +61,11 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        if(moveInput.x > 0)
+        if (moveInput.x > 0)
         {
             ChangeSpriteDirection(true);
-        } else if(moveInput.x < 0)
+        }
+        else if (moveInput.x < 0)
         {
             ChangeSpriteDirection(false);
         }
@@ -73,14 +80,22 @@ public class PlayerController : MonoBehaviour
         else if (context.started && (isGrounded || remainingAirJumps > 0) && !justWallJumped)
         {
             isJumping = true;
-        } else if (context.started && (isGrounded || remainingAirJumps > 0))
+        }
+        else if (context.started && (isGrounded || remainingAirJumps > 0))
         {
             Debug.Log("Prevented unnesesary air jump");
         }
     }
     public void OnDown(InputAction.CallbackContext context)
     {
-        //pass through a platform logic can go here
+        if (context.started)
+        {
+            isHoldingDown = true;
+        }
+        else if (context.canceled)
+        {
+            isHoldingDown = false;
+        }
     }
     //----------------------------------END Input System----------------------------
     void Update()
@@ -93,6 +108,8 @@ public class PlayerController : MonoBehaviour
             remainingAirJumps = airJumps;
             airJumpText.text = remainingAirJumps.ToString();
         }
+        // drop through platforms
+        PlatformDrop();
     }
     void FixedUpdate() //all phycics related stuff here!
     {
@@ -185,10 +202,11 @@ public class PlayerController : MonoBehaviour
     }
     public void ActivateInteractionText(bool readyToInteract)
     {
-        if(readyToInteract)
+        if (readyToInteract)
         {
             interactText.gameObject.SetActive(true);
-        } else
+        }
+        else
         {
             interactText.gameObject.SetActive(false);
         }
@@ -209,6 +227,18 @@ public class PlayerController : MonoBehaviour
             transform.localScale = scale;
         }
     }
+    public void PlatformDrop()
+    {
+        Collider2D hit = Physics2D.OverlapBox((Vector2)groundCheck.position + Vector2.down * 0.1f, new Vector2(0.8f, 0.2f), 0.0f, platformLayer);
+        if (hit == null)
+        {
+            return;
+        }
+        if (isHoldingDown)
+        {
+            hit.GetComponent<PlatformEffector2D>().rotationalOffset = 180f; //drop through
+        }
+    }
     //-----------------------------------------DEBUG-------------------------------, remove before release
     private void OnDrawGizmosSelected()
     {
@@ -216,6 +246,8 @@ public class PlayerController : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+            Gizmos.color = Color.darkCyan;
+            Gizmos.DrawWireCube((Vector2)groundCheck.position + Vector2.down * 0.1f, new Vector2(0.8f, 0.2f));
         }
         if (wallCheck != null)
         {

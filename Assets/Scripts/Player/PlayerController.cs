@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CheckpointSystem))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
         remainingAirJumps = airJumps;
         airJumpText.text = remainingAirJumps.ToString();
     }
-    // Receive input from "Move" action.
+    //--------------------------------Input System--------------------------------
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -77,6 +78,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Prevented unnesesary air jump");
         }
     }
+    public void OnDown(InputAction.CallbackContext context)
+    {
+        //pass through a platform logic can go here
+    }
+    //----------------------------------END Input System----------------------------
     void Update()
     {
         // sticky wall check with coyote time
@@ -189,17 +195,16 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeSpriteDirection(bool direction) //true = right, false = left
     {
+        Vector3 scale = transform.localScale;
         if (direction && !facingRight)
         {
             facingRight = true;
-            Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
         }
         else if (!direction && facingRight)
         {
             facingRight = false;
-            Vector3 scale = transform.localScale;
             scale.x *= -1;
             transform.localScale = scale;
         }

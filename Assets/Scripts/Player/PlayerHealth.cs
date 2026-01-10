@@ -78,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
     {
         playerController.enabled = false;
         Time.timeScale = 0;
-        Debug.Log("You died!");
+        Debug.Log("You died! Click R to respawn at the last checkpoint.");
     }
     public void TakeDamage(float damage)
     {

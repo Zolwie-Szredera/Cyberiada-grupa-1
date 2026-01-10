@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 1824170221524785914}
   - component: {fileID: 2748823700835454776}
   - component: {fileID: 1242560431211818423}
+  - component: {fileID: 5673461931028622329}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -812,6 +813,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
     m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/4]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5673461931028622329}
+        m_TargetAssemblyTypeName: CheckpointSystem, Assembly-CSharp
+        m_MethodName: OnRespawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7b3a1d53-384b-4772-9963-dcc38f51f1fb
+    m_ActionName: 'player/Respawn[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -865,6 +882,21 @@ MonoBehaviour:
   blackBileFill: {fileID: 0}
   currentBlackBile: 0
   currentBlood: 0
+--- !u!114 &5673461931028622329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538534112938561204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c71535655d1dd4c8a45b7798a306f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckpointSystem
+  currentCheckpoint: {fileID: 0}
+  defaultCheckpointColor: {r: 1, g: 1, b: 1, a: 1}
+  activeCheckpointColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &5191994991877499360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1142,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
     m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7b3a1d53-384b-4772-9963-dcc38f51f1fb
+    m_ActionName: 'player/Respawn[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ManageWeapons

@@ -109,7 +109,10 @@ public class PlayerController : MonoBehaviour
             airJumpText.text = remainingAirJumps.ToString();
         }
         // drop through platforms
-        PlatformDrop();
+        if(isHoldingDown)
+        {
+            PlatformDrop();
+        }
     }
     void FixedUpdate() //all phycics related stuff here!
     {
@@ -233,11 +236,8 @@ public class PlayerController : MonoBehaviour
         if (hit == null)
         {
             return;
-        }
-        if (isHoldingDown)
-        {
-            hit.GetComponent<PlatformEffector2D>().rotationalOffset = 180f; //drop through
-        }
+        };
+        hit.GetComponent<Platform>().RemoveCollision();
     }
     //-----------------------------------------DEBUG-------------------------------, remove before release
     private void OnDrawGizmosSelected()

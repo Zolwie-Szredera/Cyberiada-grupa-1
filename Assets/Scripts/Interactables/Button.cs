@@ -13,13 +13,19 @@ public class Button : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        readyToInteract = true;
-        playerController.ActivateInteractionText(true);
+        if (other.CompareTag("Player"))
+        {
+            readyToInteract = true;
+            playerController.ActivateInteractionText(true);
+        }
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        readyToInteract = false;
-        playerController.ActivateInteractionText(false);
+        if (other.CompareTag("Player"))
+        {
+            readyToInteract = false;
+            playerController.ActivateInteractionText(false);
+        }
     }
     public void OnInteract(InputAction.CallbackContext context)
     {

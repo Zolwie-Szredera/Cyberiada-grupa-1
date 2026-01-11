@@ -2519,6 +2519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   airJumpText: {fileID: 1224485159}
+  interactText: {fileID: 0}
   moveSpeed: 10
   jumpForce: 15
   accelerationRate: 150
@@ -2548,12 +2549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3bc24e78ab81543905b9b575aa060f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 20
-  currentHealth: 0
   maxBlood: 1000
+  bloodFill: {fileID: 0}
+  blackBileFill: {fileID: 0}
+  currentBlackBile: 0
   currentBlood: 0
-  bloodSlider: {fileID: 1581171996}
-  bloodLossRate: 15
 --- !u!1001 &2037668566
 PrefabInstance:
   m_ObjectHideFlags: 0

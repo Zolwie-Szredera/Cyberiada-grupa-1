@@ -10,7 +10,9 @@ public class DebugScript : MonoBehaviour
     public TextMeshProUGUI mousePositionTextY;
     public TextMeshProUGUI playerVelocityTextX;
     public TextMeshProUGUI playerVelocityTextY;
+    public AudioSource audioSource;
     private bool isDebugModeActive = false;
+    
     private GameObject player;
     void Start()
     {
@@ -94,7 +96,7 @@ public class DebugScript : MonoBehaviour
         {
             Debug.Log("Debug action2");
             //put stuff here
-
+            audioSource.Play();
         }
     }
     public void OnDebugAction3(InputAction.CallbackContext context) //Activate with: P

@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - MainCanvas
+  - InteractText
+  - GameManager
   layers:
   - Default
   - TransparentFX
@@ -14,11 +17,11 @@ TagManager:
   - Ground
   - StickyWall
   - SlipperyWall
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Trap
+  - Player
+  - Enemy
+  - Projectile
+  - PlayerProjectile
   - 
   - 
   - 

@@ -26,6 +26,42 @@ MonoBehaviour:
     m_Localized: Ustawienia
     m_Metadata:
       m_Items: []
+  - m_Id: 21669814352154624
+    m_Localized: Kontynuuj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21670200802742272
+    m_Localized: Wczytaj ostatni zapis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21670712516218880
+    m_Localized: "Wyjd\u017A do menu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672335758004224
+    m_Localized: "Powr\xF3t do menu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672563189944320
+    m_Localized: Zrestartuj wszystkie ustawienia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672876793860096
+    m_Localized: Zapisz zmiany
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672994024656896
+    m_Localized: "Odrzu\u0107 zmiany"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21673162157527040
+    m_Localized: Anuluj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21673394081566720
+    m_Localized: "Masz niezapisane zmiany. Czy chcesz je zapisa\u0107?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -26,6 +26,42 @@ MonoBehaviour:
     m_Localized: Settings
     m_Metadata:
       m_Items: []
+  - m_Id: 21669814352154624
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21670200802742272
+    m_Localized: Load last save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21670712516218880
+    m_Localized: Exit to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672335758004224
+    m_Localized: Return to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672563189944320
+    m_Localized: Reset all settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672876793860096
+    m_Localized: Save changes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21672994024656896
+    m_Localized: Discard changes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21673162157527040
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21673394081566720
+    m_Localized: You have unsaved changes. Do you want to save them?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

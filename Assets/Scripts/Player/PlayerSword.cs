@@ -108,7 +108,7 @@ public class PlayerSword : PlayerWeapons
             Gizmos.DrawWireSphere(attackPos, attackRange);
         }
     }
-    public void ApplyDamage() //it has to be a seperate function to prevent name ambiguity
+    public void ApplyDamage()
     {
         BasicAttack();
     }

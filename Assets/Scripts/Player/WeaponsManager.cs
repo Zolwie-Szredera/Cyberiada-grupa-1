@@ -10,9 +10,9 @@ public class WeaponsManager : MonoBehaviour
     [Tooltip("Distance weapons orbit from player")]
     public float orbitRadius = 1.5f;
     
-    [Tooltip("Smoothness of weapon movement (0 = instant, higher = smoother)")]
+    [Tooltip("How fast weapons follow mouse around orbit (0 = instant, higher = smoother)")]
     [Range(0f, 30f)]
-    public float positionSmoothSpeed = 10f;
+    public float angleFollowSpeed = 15f;
     
     [Tooltip("Rotation offset for all weapons (adjust if sprites point wrong way)")]
     public float globalRotationOffset;
@@ -69,7 +69,7 @@ public class WeaponsManager : MonoBehaviour
 
             // Configure orbit
             weaponOrbits[i].orbitRadius = orbitRadius;
-            weaponOrbits[i].positionSmoothSpeed = positionSmoothSpeed;
+            weaponOrbits[i].angleFollowSpeed = angleFollowSpeed;
             weaponOrbits[i].rotationOffset = globalRotationOffset;
             weaponOrbits[i].enableSpriteFlipping = enableSpriteFlipping;
 
@@ -140,17 +140,17 @@ public class WeaponsManager : MonoBehaviour
     }
 
     // Update all weapon orbit settings at runtime
-    public void UpdateOrbitSettings(float radius, float smoothSpeed)
+    public void UpdateOrbitSettings(float radius, float followSpeed)
     {
         orbitRadius = radius;
-        positionSmoothSpeed = smoothSpeed;
+        angleFollowSpeed = followSpeed;
 
         foreach (var orbit in weaponOrbits)
         {
             if (orbit != null)
             {
                 orbit.orbitRadius = radius;
-                orbit.positionSmoothSpeed = smoothSpeed;
+                orbit.angleFollowSpeed = followSpeed;
             }
         }
     }

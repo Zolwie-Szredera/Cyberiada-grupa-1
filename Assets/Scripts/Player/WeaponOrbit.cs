@@ -7,9 +7,9 @@ public class WeaponOrbit : MonoBehaviour
     [Tooltip("Distance from player center")]
     public float orbitRadius = 1.5f;
     
-    [Tooltip("How fast weapon moves to target position (0 = instant)")]
+    [Tooltip("How fast weapon rotates around player to follow mouse (0 = instant, higher = smoother)")]
     [Range(0f, 30f)]
-    public float positionSmoothSpeed = 10f;
+    public float angleFollowSpeed = 15f;
     
     [Header("Rotation Settings")]
     [Tooltip("Offset applied to final rotation (degrees). Adjust if weapon points wrong direction.")]
@@ -25,8 +25,8 @@ public class WeaponOrbit : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     
     // State
-    private Vector2 currentTargetPosition;
     private float currentAngle;
+    private float targetAngle;
 
     void Start()
     {
@@ -60,9 +60,9 @@ public class WeaponOrbit : MonoBehaviour
             enableSpriteFlipping = false;
         }
 
-        // Initialize at player position
-        currentTargetPosition = playerTransform.position;
-        transform.position = currentTargetPosition;
+        // Initialize angle at 0 (right side)
+        currentAngle = 0f;
+        targetAngle = 0f;
     }
 
     void Update()
@@ -105,36 +105,33 @@ public class WeaponOrbit : MonoBehaviour
     {
         Vector2 playerPos = playerTransform.position;
         
-        // Calculate angle from player to mouse
+        // Calculate target angle from player to mouse
         Vector2 directionToMouse = mouseWorldPos - playerPos;
-        float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x);
+        targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x);
         
-        // Calculate target position on orbit
-        Vector2 orbitOffset = new Vector2(
-            Mathf.Cos(targetAngle) * orbitRadius,
-            Mathf.Sin(targetAngle) * orbitRadius
-        );
-        Vector2 targetPosition = playerPos + orbitOffset;
-        
-        // Smooth movement or instant
-        if (positionSmoothSpeed > 0f)
+        // Smooth angle transition (optional)
+        if (angleFollowSpeed > 0f)
         {
-            currentTargetPosition = Vector2.Lerp(
-                currentTargetPosition,
-                targetPosition,
-                positionSmoothSpeed * Time.deltaTime
-            );
+            // Convert to degrees for LerpAngle (handles wrapping)
+            float currentDeg = currentAngle * Mathf.Rad2Deg;
+            float targetDeg = targetAngle * Mathf.Rad2Deg;
+            float smoothedDeg = Mathf.LerpAngle(currentDeg, targetDeg, angleFollowSpeed * Time.deltaTime);
+            currentAngle = smoothedDeg * Mathf.Deg2Rad;
         }
         else
         {
-            currentTargetPosition = targetPosition;
+            currentAngle = targetAngle;
         }
         
-        // Apply position
-        transform.position = currentTargetPosition;
+        // Calculate position on orbit using current angle
+        // This ensures weapon ALWAYS stays on orbit circle, no lag
+        Vector2 orbitOffset = new Vector2(
+            Mathf.Cos(currentAngle) * orbitRadius,
+            Mathf.Sin(currentAngle) * orbitRadius
+        );
         
-        // Store angle for other uses
-        currentAngle = targetAngle * Mathf.Rad2Deg;
+        // Apply position directly - no lerp, weapon sticks to orbit
+        transform.position = playerPos + orbitOffset;
     }
 
     /// <summary>
@@ -158,13 +155,13 @@ public class WeaponOrbit : MonoBehaviour
     /// </summary>
     void UpdateSpriteFlipping()
     {
-        // Normalize angle to -180 to 180
-        float normalizedAngle = currentAngle;
-        while (normalizedAngle > 180f) normalizedAngle -= 360f;
-        while (normalizedAngle < -180f) normalizedAngle += 360f;
+        // Convert angle to degrees and normalize to -180 to 180
+        float angleDegrees = currentAngle * Mathf.Rad2Deg;
+        while (angleDegrees > 180f) angleDegrees -= 360f;
+        while (angleDegrees < -180f) angleDegrees += 360f;
         
         // Determine if weapon is pointing left
-        bool shouldFlip = normalizedAngle > 90f || normalizedAngle < -90f;
+        bool shouldFlip = angleDegrees > 90f || angleDegrees < -90f;
         
         // Flip sprite on Y-axis when pointing left
         // This prevents weapon from being upside-down
@@ -172,11 +169,11 @@ public class WeaponOrbit : MonoBehaviour
     }
 
     /// <summary>
-    /// Get current orbit angle (useful for other scripts)
+    /// Get current orbit angle in degrees (useful for other scripts)
     /// </summary>
     public float GetCurrentAngle()
     {
-        return currentAngle;
+        return currentAngle * Mathf.Rad2Deg;
     }
 
     /// <summary>

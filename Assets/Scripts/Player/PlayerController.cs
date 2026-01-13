@@ -79,18 +79,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 0. Mouse Aiming (Facing)
-        if (gameManager != null)
-        {
-            if (gameManager.mousePosition.x > transform.position.x)
-            {
-                ChangeSpriteDirection(true);
-            }
-            else
-            {
-                ChangeSpriteDirection(false);
-            }
-        }
+        // 0. Mouse Aiming (Facing) - DISABLED for orbit weapon system
+        // The player sprite no longer flips - weapons handle their own orientation
+        // if (gameManager != null)
+        // {
+        //     if (gameManager.mousePosition.x > transform.position.x)
+        //     {
+        //         ChangeSpriteDirection(true);
+        //     }
+        //     else
+        //     {
+        //         ChangeSpriteDirection(false);
+        //     }
+        // }
 
         // 1. Ground Check
         bool wasGrounded = isGrounded;

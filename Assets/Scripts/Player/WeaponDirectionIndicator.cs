@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Visual debug helper - shows weapon's actual facing direction with an arrow
-/// Attach this as a child object of the weapon to see where it's pointing
-/// </summary>
 public class WeaponDirectionIndicator : MonoBehaviour
 {
     [Header("Indicator Settings")]

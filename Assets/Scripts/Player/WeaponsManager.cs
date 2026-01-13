@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// WEAPONS MANAGER - REWRITTEN
-/// Manages multiple weapons and their orbit behavior
-/// Simplified to work with new WeaponOrbit system
-/// </summary>
 public class WeaponsManager : MonoBehaviour
 {
     [Header("Weapon References")]

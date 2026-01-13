@@ -1,18 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// WEAPON ORBIT SYSTEM - COMPLETE REWRITE
-/// Clean, simple system for weapon positioning and rotation around player.
-/// No complex parent flipping logic - just pure, elegant math.
-/// 
-/// How it works:
-/// 1. Gets mouse position in world space
-/// 2. Calculates angle from player to mouse
-/// 3. Positions weapon on orbit at that angle
-/// 4. Rotates weapon to point at mouse
-/// 5. Flips sprite if needed (when aiming left)
-/// </summary>
 public class WeaponOrbit : MonoBehaviour
 {
     [Header("Orbit Settings")]

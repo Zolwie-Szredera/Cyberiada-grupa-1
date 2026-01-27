@@ -1,15 +1,12 @@
 using System.Collections;
-using System.Data.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private SpriteRenderer playerSprite;
     private Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI airJumpText;
@@ -44,20 +41,12 @@ public class PlayerController : MonoBehaviour
     private bool isWallJumping = false;
     private bool isJumping = false;
     private bool justWallJumped = false; //to prevent wasted air jumps
-
-    [Header("Checkpoint")]
-    public Vector2 lastCheckpointPos;
-    public Collider2D currentCheckPoint;
-    public Color defaultCheckpointColor = Color.white;
-    public Color activeCheckpointColor = Color.yellow;
-
-
+    private bool facingRight = true;
 
     void Awake()
     {
         interactText.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
-        playerSprite = GetComponent<SpriteRenderer>();
         remainingAirJumps = airJumps;
         airJumpText.text = remainingAirJumps.ToString();
     }
@@ -65,6 +54,13 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        if(moveInput.x > 0)
+        {
+            ChangeSpriteDirection(true);
+        } else if(moveInput.x < 0)
+        {
+            ChangeSpriteDirection(false);
+        }
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -91,8 +87,6 @@ public class PlayerController : MonoBehaviour
             remainingAirJumps = airJumps;
             airJumpText.text = remainingAirJumps.ToString();
         }
-        //DEBUG
-        DebugStuff();
     }
     void FixedUpdate() //all phycics related stuff here!
     {
@@ -193,51 +187,24 @@ public class PlayerController : MonoBehaviour
             interactText.gameObject.SetActive(false);
         }
     }
-
-private void OnTriggerEnter2D(Collider2D collision)
-{
-    if (collision.CompareTag("Checkpoint"))
+    public void ChangeSpriteDirection(bool direction) //true = right, false = left
     {
-        if (currentCheckPoint == collision) return;
-
-        if (currentCheckPoint != null)
+        if (direction && !facingRight)
         {
-            currentCheckPoint.GetComponent<SpriteRenderer>().color = defaultCheckpointColor;
+            facingRight = true;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
         }
-        currentCheckPoint = collision;
-        lastCheckpointPos = collision.transform.position;
-
-        currentCheckPoint.GetComponent<SpriteRenderer>().color = activeCheckpointColor;
-
-        Debug.Log("Checkpoint updated to: " + lastCheckpointPos);
+        else if (!direction && facingRight)
+        {
+            facingRight = false;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
     }
-}
-
-
-    public void Respawn()
-    {
-        transform.position = lastCheckpointPos;
-        remainingAirJumps = airJumps;
-        airJumpText.text = remainingAirJumps.ToString();
-        Debug.Log("Player Respawned!");
-    }
-
-
     //-----------------------------------------DEBUG-------------------------------, remove before release
-    void DebugStuff()
-    {
-        if (isTouchingWall || isGrounded)
-        {
-            playerSprite.color = Color.blue;
-        }
-        else
-        {
-            playerSprite.color = Color.white;
-        }
-        horizotalVelocityText.text = rb.linearVelocityX.ToString("F3");
-        verticalVelocityText.text = rb.linearVelocityY.ToString("F3");
-        
-    }
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2275920021570225525}
   - component: {fileID: 744409529475327734}
-  - component: {fileID: 4261279163027286782}
   - component: {fileID: 411683415505462660}
   m_Layer: 15
   m_Name: Trigger
@@ -80,25 +79,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
---- !u!251 &4261279163027286782
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903162995106924624}
-  m_Enabled: 0
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!114 &411683415505462660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,8 +103,7 @@ GameObject:
   - component: {fileID: 3669145942853737741}
   - component: {fileID: 8701872111097070590}
   - component: {fileID: 8625917051051959957}
-  - component: {fileID: 9211588361270214857}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,15 +249,3 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &9211588361270214857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2267928428875096625}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04a9a6ff42fa3e8418325b9bed4264d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Platform

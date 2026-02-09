@@ -6,53 +6,40 @@ public class DebugScript : MonoBehaviour
 {
     public GameObject debugCanvas;
     public TextMeshProUGUI bloodText;
+    public TextMeshProUGUI airJumpText;
     public TextMeshProUGUI mousePositionTextX;
     public TextMeshProUGUI mousePositionTextY;
     public TextMeshProUGUI playerVelocityTextX;
     public TextMeshProUGUI playerVelocityTextY;
+    public AudioSource audioSource;
     private bool isDebugModeActive = false;
+
     private GameObject player;
-    void Start()
+    private GameObject gameManager;
+    void Start() //no need to check for null here since the script won't work without them and will throw an error anyway
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogWarning("Player not found");
-        }
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
         EnableOrDisableDebug(); //enabled on by default for now
     }
     void Update()
     {
         if (isDebugModeActive)
         {
-            if (player != null && bloodText != null)
+            airJumpText.text = player.GetComponent<PlayerController>().remainingAirJumps.ToString();
+            if (player.TryGetComponent<PlayerHealth>(out var playerHealth))
             {
-                var playerHealth = player.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
-                {
-                    bloodText.text = playerHealth.currentBlood.ToString(); //bloodtext.text = current blood value
-                }
+                bloodText.text = playerHealth.currentBlood.ToString(); //bloodtext.text = current blood value
             }
-
-            var gameManager = GameObject.FindGameObjectWithTag("GameManager");
-            if (gameManager != null && mousePositionTextX != null && mousePositionTextY != null)
+            if (gameManager.TryGetComponent<GameManager>(out var gm))
             {
-                var gm = gameManager.GetComponent<GameManager>();
-                if (gm != null)
-                {
-                    mousePositionTextX.text = "X: " + gm.mousePosition.x;
-                    mousePositionTextY.text = "Y: " + gm.mousePosition.y;
-                }
+                mousePositionTextX.text = "X: " + gm.mousePosition.x;
+                mousePositionTextY.text = "Y: " + gm.mousePosition.y;
             }
-
-            if (player != null && playerVelocityTextX != null && playerVelocityTextY != null)
+            if (player.TryGetComponent<Rigidbody2D>(out var rb))
             {
-                var rb = player.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    playerVelocityTextX.text = rb.linearVelocityX.ToString("F3");
-                    playerVelocityTextY.text = rb.linearVelocityY.ToString("F3");
-                }
+                playerVelocityTextX.text = rb.linearVelocityX.ToString("F3");
+                playerVelocityTextY.text = rb.linearVelocityY.ToString("F3");
             }
         }
     }
@@ -94,7 +81,7 @@ public class DebugScript : MonoBehaviour
         {
             Debug.Log("Debug action2");
             //put stuff here
-
+            audioSource.Play();
         }
     }
     public void OnDebugAction3(InputAction.CallbackContext context) //Activate with: P
@@ -111,4 +98,3 @@ public class DebugScript : MonoBehaviour
 
 //Debug stuff is found in:
 //here
-//PlayerController.cs

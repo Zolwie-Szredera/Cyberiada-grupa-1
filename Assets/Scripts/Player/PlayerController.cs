@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Air Jumps")]
     public int airJumps = 2;
-    private int remainingAirJumps;
+    [HideInInspector] public int remainingAirJumps;
 
     [Header("Wall Check")]
     public Transform wallCheck;
@@ -33,15 +33,15 @@ public class PlayerController : MonoBehaviour
     private bool wallCoyoteActive = false;
     public float wallCoyoteTime = 0.15f;
     private float wallCoyoteTimer = 0f;
+    [Header("Platforms")]
+    public LayerMask platformLayer;
     private bool isGrounded;
-    [Header("DEBUG")]
-    public TextMeshProUGUI horizotalVelocityText;
-    public TextMeshProUGUI verticalVelocityText;
-    public TextMeshProUGUI airJumpText;
+
     private bool isWallJumping = false;
     private bool isJumping = false;
     private bool justWallJumped = false; //to prevent wasted air jumps
     private bool facingRight = true;
+    private bool isHoldingDown = false;
     private GameManager gameManager;
 
     private void Start()
@@ -77,16 +77,24 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Prevented unnecessary air jump");
         }
     }
-
+    public void OnDown(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            isHoldingDown = true;
+        }
+        else if (context.canceled)
+        {
+            isHoldingDown = false;
+        }
+    }
     void Update()
     {
-        // ground check, works on for objects with ground layer!
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         // 1. Ground Check
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer + platformLayer);
         if (isGrounded)
         {
             remainingAirJumps = airJumps;
-            airJumpText.text = remainingAirJumps.ToString();
         }
 
         // 2. Wall Check
@@ -127,12 +135,16 @@ public class PlayerController : MonoBehaviour
             if (!isGrounded && !isTouchingWall)
             {
                 remainingAirJumps--;
-                airJumpText.text = remainingAirJumps.ToString();
             }
             isJumping = false;
         }
+        // 6. Handle platform drop through
+        if (isHoldingDown && isGrounded)
+        {
+            PlatformDrop();
+        }
 
-        // 6. Gravity modification
+        // 7. Gravity modification
         // increase gravity if falling
         if (rb.linearVelocity.y < -0.2f && rb.linearVelocity.y > -50.0f)
         {
@@ -242,6 +254,15 @@ public class PlayerController : MonoBehaviour
             scale.x *= -1;
             transform.localScale = scale;
         }
+    }
+    public void PlatformDrop()
+    {
+        Collider2D hit = Physics2D.OverlapBox((Vector2)groundCheck.position + Vector2.down * 0.1f, new Vector2(0.8f, 0.2f), 0.0f, platformLayer);
+        if (hit == null)
+        {
+            return;
+        };
+        hit.GetComponent<Platform>().RemoveCollision();
     }
     //-----------------------------------------DEBUG-------------------------------, remove before release
     private void OnDrawGizmosSelected()

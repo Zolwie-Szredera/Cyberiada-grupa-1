@@ -7356,6 +7356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2861356989546651314, guid: 8b021aa8c553f1a41b1b2d0921da8d14, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9032980131721885637, guid: 8b021aa8c553f1a41b1b2d0921da8d14, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.09

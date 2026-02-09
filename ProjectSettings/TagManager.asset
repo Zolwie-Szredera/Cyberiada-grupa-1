@@ -7,6 +7,8 @@ TagManager:
   - MainCanvas
   - InteractText
   - GameManager
+  - Checkpoint
+  - StartCheckpoint
   layers:
   - Default
   - TransparentFX
@@ -22,8 +24,8 @@ TagManager:
   - Enemy
   - Projectile
   - PlayerProjectile
-  - 
-  - 
+  - Checkpoint
+  - Platform
   - 
   - 
   - 

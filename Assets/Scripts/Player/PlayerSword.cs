@@ -21,7 +21,7 @@ public class PlayerSword : PlayerWeapons
         // Otherwise, calculate position in front of weapon based on rotation
         Vector2 weaponPos = transform.position;
         float weaponAngle = transform.eulerAngles.z * Mathf.Deg2Rad;
-        Vector2 direction = new Vector2(Mathf.Cos(weaponAngle), Mathf.Sin(weaponAngle));
+        Vector2 direction = new(Mathf.Cos(weaponAngle), Mathf.Sin(weaponAngle));
         
         return weaponPos + direction * attackDistance;
     }
@@ -71,7 +71,7 @@ public class PlayerSword : PlayerWeapons
         // Draw weapon direction arrow
         Gizmos.color = Color.magenta;
         float weaponAngle = transform.eulerAngles.z * Mathf.Deg2Rad;
-        Vector2 direction = new Vector2(Mathf.Cos(weaponAngle), Mathf.Sin(weaponAngle));
+        Vector2 direction = new(Mathf.Cos(weaponAngle), Mathf.Sin(weaponAngle));
         Gizmos.DrawRay(transform.position, direction * (attackDistance + attackRange));
         
         // Draw label with attack range info

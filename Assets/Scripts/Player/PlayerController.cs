@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     [Header("UI")]
-    public TextMeshProUGUI airJumpText;
     public TextMeshProUGUI interactText;
 
     [Header("Movement Settings")]
@@ -38,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [Header("DEBUG")]
     public TextMeshProUGUI horizotalVelocityText;
     public TextMeshProUGUI verticalVelocityText;
+    public TextMeshProUGUI airJumpText;
     private bool isWallJumping = false;
     private bool isJumping = false;
     private bool justWallJumped = false; //to prevent wasted air jumps
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        remainingAirJumps = airJumps;
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         if (interactText != null)
@@ -79,22 +80,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 1. Ground Check
-        bool wasGrounded = isGrounded;
+        // ground check, works on for objects with ground layer!
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        
-        if (isGrounded && !wasGrounded)
+        // 1. Ground Check
+        if (isGrounded)
         {
             remainingAirJumps = airJumps;
             airJumpText.text = remainingAirJumps.ToString();
         }
-
-        if (isGrounded && remainingAirJumps != airJumps) // ensure sync
-        {
-             remainingAirJumps = airJumps;
-             airJumpText.text = remainingAirJumps.ToString();
-        }
-
 
         // 2. Wall Check
         WallCheck();
@@ -121,8 +114,6 @@ public class PlayerController : MonoBehaviour
             }
             rb.linearVelocity = new Vector2(direction * 7f, jumpForce);
             isWallJumping = false;
-            remainingAirJumps = airJumps -1; // consume one jump or strict logic?
-            airJumpText.text = remainingAirJumps.ToString();
             StartCoroutine(PreventAirJumpWaste(0.2f));
         }
 

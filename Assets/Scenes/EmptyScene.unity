@@ -740,6 +740,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1162389443}
     - target: {fileID: 2748823700835454776, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748823700835454776, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
       propertyPath: verticalVelocityText
       value: 
       objectReference: {fileID: 1037886570}

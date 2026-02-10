@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 6673685978188381917}
   - component: {fileID: 600423059883088552}
   - component: {fileID: 5653181584272336695}
-  - component: {fileID: 6101807481741767732}
   - component: {fileID: 182161133106874733}
   m_Layer: 11
   m_Name: Archer
@@ -184,33 +183,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &6101807481741767732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423900217410304165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c59434b09da3a4bbc202768dd38734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
-  hp: 10
-  damage: 1
-  movementSpeed: 1
-  attackSpeed: 1
-  closeAttackRange: 1
-  closeAttackPoint: {fileID: 4117427605207911681}
-  groundCheck: {fileID: 6647076780490094247}
-  sprite: {fileID: 600423059883088552}
-  detectionRange: 25
-  attackRange: 20
-  arrowPrefab: {fileID: 2219318002939193780, guid: a8ff6569ca1344a4da6edecb07c435f8, type: 3}
-  firePoint: {fileID: 4117427605207911681}
-  arrowSpeed: 30
-  arrowGravity: 0.8
-  predictionTime: 0.3
 --- !u!61 &182161133106874733
 BoxCollider2D:
   m_ObjectHideFlags: 0

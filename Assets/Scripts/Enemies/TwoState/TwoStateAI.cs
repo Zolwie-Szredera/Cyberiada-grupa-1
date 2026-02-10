@@ -85,9 +85,9 @@ public class TwoStateAI : Enemy
             Debug.Log("Changed state to close range");
         }
     }
-    void CloseRangeBehaviour()
+        void CloseRangeBehaviour()
     {
-        distanceToAttackPoint = Vector2.Distance(closeAttackPoint.position, playerLocation.position);
+        distanceToAttackPoint = Vector2.Distance(attackPoint.position, playerLocation.position);
         if (distanceToAttackPoint < closeAttackRange && isGrounded && distanceToAttackPoint > 0.1f)
         {
             if (attackCooldown > 0f)
@@ -95,7 +95,7 @@ public class TwoStateAI : Enemy
                 return;
             }
             Debug.Log("Close range attack");
-            CloseRangeAttack();
+            MeeleeAttack();
             return;
         }
         WalkToPlayer(1);
@@ -104,30 +104,17 @@ public class TwoStateAI : Enemy
     {
         if(Mathf.Abs(distanceToPlayer - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
-            RangedAttack();
+            GetComponent<RangedState>().RangedAttack();
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         } else
         if (distanceToPlayer < attackDistanceRange) //disengage
         {
-            RangedAttack(); 
+            GetComponent<RangedState>().RangedAttack(); 
             WalkToPlayer(-1);
         } else
         {
             WalkToPlayer(1);
         }
-    }
-    void RangedAttack()
-    {
-        if (attackCooldown > 0f)
-        {
-            return;
-        }
-        Projectile currentProjectile = Instantiate(projectile, attackPointRanged.transform.position, Quaternion.identity);
-        currentProjectile.IgnoreParentObject(gameObject);
-        currentProjectile.damage = damage;
-        Vector2 direction = (playerLocation.position - attackPointRanged.transform.position).normalized;
-        currentProjectile.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
-        attackCooldown = attackSpeed;
     }
     void Jump(int direction) //1 = right, -1 = left
     {

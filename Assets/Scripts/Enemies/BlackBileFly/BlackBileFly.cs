@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyShooter : MonoBehaviour
+public class BlackBileFly : Enemy
 {
     [Header("Shooting")]
     [SerializeField] private ProjectileArc projectilePrefab;

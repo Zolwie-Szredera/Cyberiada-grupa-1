@@ -3,21 +3,12 @@ using UnityEngine;
 public class EnemyMeelee : MonoBehaviour
 {
     public int damage;
-    public float attackSpeed;
     public float attackRange;
     public Transform attackPoint;
     protected LayerMask damageableLayers;
-    protected float attackCooldown;
     public virtual void Start()
     {
         damageableLayers = LayerMask.GetMask("Player", "Enemy", "Destructible");
-    }
-    public virtual void FixedUpdate()
-    {
-        if (attackCooldown > 0)
-        {
-            attackCooldown -= Time.fixedDeltaTime;
-        }
     }
     public virtual void MeeleeAttack()
     {
@@ -43,7 +34,6 @@ public class EnemyMeelee : MonoBehaviour
             //}
             //ADD DESTRUCTIBLES LATER
         }
-        attackCooldown = attackSpeed;
     }
     public virtual void OnDrawGizmosSelected()
     {

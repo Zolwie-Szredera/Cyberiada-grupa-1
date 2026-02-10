@@ -52,7 +52,6 @@ public class ArcherArrow : EnemyShooter
         {
             Debug.LogError("Arrow prefab missing Arrow script!");
         }
-        attackCooldown = attackSpeed;
     }
 
     /// <summary>

@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
     [Header("Enemy")]
     public int hp;
     public float movementSpeed;
+    [Header("Attack")]
+    public float attackSpeed;
     public Transform groundCheck;
     public SpriteRenderer sprite;
     [HideInInspector] public Transform playerLocation;
@@ -18,6 +20,7 @@ public class Enemy : MonoBehaviour
     protected bool facingRight = true;
     protected float direction;
     protected bool stopped = false;
+    protected float attackCooldown;
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,6 +39,10 @@ public class Enemy : MonoBehaviour
     }
     public virtual void FixedUpdate()
     {
+        if (attackCooldown > 0)
+        {
+            attackCooldown -= Time.fixedDeltaTime;
+        }
         direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
         distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);

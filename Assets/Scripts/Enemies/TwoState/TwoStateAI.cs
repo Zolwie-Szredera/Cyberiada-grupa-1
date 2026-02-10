@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(EnemyMeelee))]
+[RequireComponent(typeof(EnemyShooter))]
 public class TwoStateAI : Enemy
 {
     [Header("TwoState")]
@@ -34,16 +36,17 @@ public class TwoStateAI : Enemy
             currentStateTimer = stateTimer;
             return;
         }
-        if(attackCooldown > 0f && state && isGrounded)
+        if (attackCooldown > 0f && state && isGrounded)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         if (state)
         {
-            if(Math.Abs(playerLocation.position.x - transform.position.x) < 0.1f)
+            if (Math.Abs(playerLocation.position.x - transform.position.x) < 0.1f)
             {
                 stopped = true;
-            } else
+            }
+            else
             {
                 stopped = false;
             }
@@ -60,7 +63,7 @@ public class TwoStateAI : Enemy
         stopped = false;
         if (state)
         {
-            if(playerLocation.position.x > transform.position.x) //player is to the right, jump left
+            if (playerLocation.position.x > transform.position.x) //player is to the right, jump left
             {
                 Jump(-1);
             }
@@ -73,7 +76,7 @@ public class TwoStateAI : Enemy
         }
         else
         {
-            if(playerLocation.position.x > transform.position.x)
+            if (playerLocation.position.x > transform.position.x)
             {
                 Jump(1);
             }
@@ -85,36 +88,41 @@ public class TwoStateAI : Enemy
             Debug.Log("Changed state to close range");
         }
     }
-        void CloseRangeBehaviour()
+    void CloseRangeBehaviour()
     {
-        distanceToAttackPoint = Vector2.Distance(attackPoint.position, playerLocation.position);
-        if (distanceToAttackPoint < closeAttackRange && isGrounded && distanceToAttackPoint > 0.1f)
+        distanceToAttackPoint = Vector2.Distance(GetComponent<EnemyMeelee>().attackPoint.position, playerLocation.position);
+        if (distanceToAttackPoint < GetComponent<EnemyMeelee>().attackRange && isGrounded && distanceToAttackPoint > 0.1f)
         {
             if (attackCooldown > 0f)
             {
                 return;
             }
             Debug.Log("Close range attack");
-            MeeleeAttack();
+            GetComponent<EnemyMeelee>().MeeleeAttack();
+            attackCooldown = attackSpeed;
             return;
         }
         WalkToPlayer(1);
     }
     void LongRangeBehaviour() //slower movement, prefers to stay at attackDistanceRange
     {
-        if(Mathf.Abs(distanceToPlayer - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
+        if (Mathf.Abs(distanceToPlayer - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
-            GetComponent<RangedState>().RangedAttack();
+            GetComponent<EnemyShooter>().ProjectileAttack();
+            attackCooldown = attackSpeed;
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        } else
-        if (distanceToPlayer < attackDistanceRange) //disengage
-        {
-            GetComponent<RangedState>().RangedAttack(); 
-            WalkToPlayer(-1);
-        } else
-        {
-            WalkToPlayer(1);
         }
+        else
+            if (distanceToPlayer < attackDistanceRange) //disengage
+            {
+                GetComponent<EnemyShooter>().ProjectileAttack();
+                attackCooldown = attackSpeed;
+                WalkToPlayer(-1);
+            }
+            else
+            {
+                WalkToPlayer(1);
+            }
     }
     void Jump(int direction) //1 = right, -1 = left
     {
@@ -124,11 +132,7 @@ public class TwoStateAI : Enemy
             return;
         }
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-        rb.AddForce(new Vector2(direction,jumpForce * rb.mass), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(direction, jumpForce * rb.mass), ForceMode2D.Impulse);
         Debug.Log("Jumped");
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(closeAttackPoint.transform.position, attackRadius);
     }
 }

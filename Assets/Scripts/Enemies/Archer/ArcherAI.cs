@@ -15,9 +15,10 @@ public class ArcherAI : Enemy
         {
             WalkToPlayer(1);
         }
-        else if (arrowScript.attackCooldown <= 0)
+        else if (attackCooldown <= 0)
         {
             arrowScript.ProjectileAttack();
+            attackCooldown = attackSpeed;
         }
     }
 }

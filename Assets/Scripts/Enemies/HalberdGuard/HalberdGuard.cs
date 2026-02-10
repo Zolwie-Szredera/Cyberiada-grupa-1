@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class AxeGuard : Enemy
+public class HalberdGuard : Enemy
 {
     [Header("Pierce attack stats")]
     public Vector2 thrustBoxSize = new(3f, 0.4f);

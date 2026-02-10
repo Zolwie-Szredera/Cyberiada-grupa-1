@@ -28,7 +28,7 @@ public class BlackBileFly : Enemy
     private float firstShotTimer;
     private bool exploded;
 
-    private void Start()
+    public override void Start()
     {
         startScale = transform.localScale;
         GameObject p = GameObject.FindGameObjectWithTag("Player");

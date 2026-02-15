@@ -91,7 +91,7 @@ public class WeaponsManager : MonoBehaviour
             return;
 
         // Create arrow child object
-        GameObject arrowObj = new GameObject("DebugArrow");
+        GameObject arrowObj = new("DebugArrow");
         arrowObj.transform.SetParent(weapon.transform);
         arrowObj.transform.localPosition = Vector3.zero;
         arrowObj.transform.localRotation = Quaternion.identity;

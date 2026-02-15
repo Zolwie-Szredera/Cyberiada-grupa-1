@@ -818,6 +818,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   airJumps: 2
+  remainingAirJumps: 0
   wallCheck: {fileID: 8065870175103866168}
   wallCheckDistance: 0.55
   stickyWallLayer:
@@ -827,9 +828,6 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 32768
-  horizotalVelocityText: {fileID: 0}
-  verticalVelocityText: {fileID: 0}
-  airJumpText: {fileID: 0}
 --- !u!114 &1242560431211818423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,8 +1051,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
         m_TargetAssemblyTypeName: WeaponsManager, Assembly-CSharp
-        m_MethodName: OnSelectWeapon1
-        m_Mode: 0
+        m_MethodName: SwitchToWeapon
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1069,12 +1067,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
         m_TargetAssemblyTypeName: WeaponsManager, Assembly-CSharp
-        m_MethodName: OnSelectWeapon2
-        m_Mode: 0
+        m_MethodName: SwitchToWeapon
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1085,12 +1083,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
         m_TargetAssemblyTypeName: WeaponsManager, Assembly-CSharp
-        m_MethodName: OnSelectWeapon3
-        m_Mode: 0
+        m_MethodName: SwitchToWeapon
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1101,12 +1099,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
         m_TargetAssemblyTypeName: WeaponsManager, Assembly-CSharp
-        m_MethodName: OnSelectWeapon4
-        m_Mode: 0
+        m_MethodName: SwitchToWeapon
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1121,6 +1119,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 842b86ef-4ae3-4834-a16e-c58c62e93826
     m_ActionName: 'player/Down[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 35c14841-ee84-4635-a15d-ebcdde7b1d4a
+    m_ActionName: 'player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ManageWeapons

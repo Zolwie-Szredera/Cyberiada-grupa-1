@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
-public class AxeGuard : Enemy
+[RequireComponent(typeof(EnemyMeelee))]
+public class HalberdGuard : Enemy
 {
+    private EnemyMeelee melee;
     [Header("Pierce attack stats")]
     public Vector2 thrustBoxSize = new(3f, 0.4f);
     public float thrustDistance = 2f;
     public GameObject spear;
     //slash attack range = 1.4, 
+    
+    public override void Start()
+    {
+        base.Start();
+        melee = GetComponent<EnemyMeelee>();
+    }
+    
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (Physics2D.OverlapCircle(closeAttackPoint.position, closeAttackRange, LayerMask.GetMask("Player")) && isGrounded)
+        if (Physics2D.OverlapCircle(melee.attackPoint.position, melee.attackRange, LayerMask.GetMask("Player")) && isGrounded)
         {
             //attack with slash if player speed is high, attack with pierce if low. This should be more complicated tbh.
-            float playerSpeed = player.GetComponent<Rigidbody2D>().linearVelocity.x + player.GetComponent<Rigidbody2D>().linearVelocity.y;
+            GameObject playerObj = playerLocation.gameObject;
+            float playerSpeed = Mathf.Abs(playerObj.GetComponent<Rigidbody2D>().linearVelocity.x) + Mathf.Abs(playerObj.GetComponent<Rigidbody2D>().linearVelocity.y);
             if (attackCooldown <= 0)
             {
                 if (playerSpeed > 8)
@@ -31,7 +40,7 @@ public class AxeGuard : Enemy
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             return;
         }
-        if (distanceToPlayer > closeAttackRange)
+        if (distanceToPlayer > melee.attackRange)
         {
             WalkToPlayer(1);
         }
@@ -40,24 +49,30 @@ public class AxeGuard : Enemy
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
+    
+    void CloseRangeAttack()
+    {
+        melee.MeeleeAttack();
+        attackCooldown = attackSpeed;
+    }
     IEnumerator PierceAttack() //this is complicated. Made this one with help of ChatGPT
     {
         spear.SetActive(true);
         attackCooldown = attackSpeed;
 
-        Vector3 direction = playerLocation.position - closeAttackPoint.position;
-        direction.z = 0f;
-        direction.Normalize(); //ChatGPT says this should be like this. I'm not sure honestly
+        Vector3 thrustDirection = playerLocation.position - melee.attackPoint.position;
+        thrustDirection.z = 0f;
+        thrustDirection.Normalize(); //ChatGPT says this should be like this. I'm not sure honestly
 
-        Vector3 startPos = closeAttackPoint.localPosition;
-        Vector3 endPos = direction * thrustDistance;
+        Vector3 startPos = melee.attackPoint.localPosition;
+        Vector3 endPos = thrustDirection * thrustDistance;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; //rotate spear
+        float angle = Mathf.Atan2(thrustDirection.y, thrustDirection.x) * Mathf.Rad2Deg; //rotate spear
         spear.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         HashSet<Collider2D> hitTargets = new(); //to ensure you don't get hit twice with the same attack
         float t = 0f; //pierce attack timer
-        Debug.DrawRay(closeAttackPoint.position, 10f * thrustDistance * direction, Color.red, 2f);
+        Debug.DrawRay(melee.attackPoint.position, 10f * thrustDistance * thrustDirection, Color.red, 2f);
         while (t < 1f)
         {
             t += Time.deltaTime;
@@ -69,7 +84,7 @@ public class AxeGuard : Enemy
                 castOrigin,
                 thrustBoxSize,
                 angle,
-                new Vector2(direction.x, direction.y),
+                new Vector2(thrustDirection.x, thrustDirection.y),
                 0.01f,
                 damageableLayers
             );
@@ -82,16 +97,16 @@ public class AxeGuard : Enemy
                 hitTargets.Add(hit.collider);
                 if (hit.collider.TryGetComponent(out PlayerHealth player))
                 {
-                    player.TakeDamage(damage);
+                    player.TakeDamage(melee.damage);
                 }
                 if (hit.collider.TryGetComponent(out Enemy enemy))
                 {
-                    enemy.TakeDamage(damage);
+                    enemy.TakeDamage(melee.damage);
                 }
             }
             yield return null;
         }
-        closeAttackPoint.localPosition = startPos;
+        melee.attackPoint.localPosition = startPos;
         spear.SetActive(false);
     }
 }

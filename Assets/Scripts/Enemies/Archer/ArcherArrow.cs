@@ -1,17 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Archer : Enemy
+public class ArcherArrow : EnemyShooter
 {
     [Header("Archer Settings")]
-    [Tooltip("Distance at which enemy will shoot arrows")]
-    public float attackRange = 8f;
-    [Tooltip("Arrow prefab to spawn when shooting")]
-    public GameObject arrowPrefab;
-    [Tooltip("Position from which arrows are fired")]
-    public Transform firePoint;
-    [Tooltip("Initial speed of fired arrows")]
-    public float arrowSpeed = 15f;
     [Tooltip("Gravity multiplier for arrow physics (higher = more arc)")]
     public float arrowGravity = 1f;
     [Tooltip("How far ahead to predict player movement (in seconds)")]
@@ -23,42 +15,32 @@ public class Archer : Enemy
         base.Start();
         archerCollider = GetComponent<Collider2D>();
     }
-    void Update()
-    {
-        if(distanceToPlayer > attackRange)
-        {
-            WalkToPlayer(1);
-        } else if(attackCooldown <= 0)
-        {
-            ShootArrow();
-        }
-    }
 
-    void ShootArrow()
+    public override void ProjectileAttack()
     {
         Vector2 targetPosition = playerLocation.position;
-        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+        Rigidbody2D playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         targetPosition += playerRb.linearVelocity * predictionTime;
         // Calculate ballistic trajectory with gravity compensation
-        Vector2 velocity = CalculateBallisticTrajectory(firePoint.position, targetPosition, arrowSpeed, arrowGravity);
+        Vector2 velocity = CalculateBallisticTrajectory(attackPoint.position, targetPosition, projectileSpeed, arrowGravity);
 
         // Fallback to direct aim if ballistic calculation fails
         if (velocity == Vector2.zero)
         {
             Debug.LogWarning("Velocity calculation failure");
-            velocity = (targetPosition - (Vector2)firePoint.position).normalized * arrowSpeed;
+            velocity = (targetPosition - (Vector2)attackPoint.position).normalized * projectileSpeed;
         }
 
         // Spawn arrow slightly forward to avoid self-collision
         Vector2 launchDirection = velocity.normalized;
-        Vector3 spawnPosition = firePoint.position + (Vector3)(launchDirection * 0.6f);
+        Vector3 spawnPosition = attackPoint.position + (Vector3)(launchDirection * 0.6f);
 
         // Instantiate and setup arrow
-        GameObject arrow = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
+        GameObject arrow = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         if (arrow.TryGetComponent<Arrow>(out var arrowScript))
         {
             arrowScript.damage = damage;
-            arrowScript.speed = arrowSpeed;
+            arrowScript.speed = projectileSpeed;
             arrowScript.gravity = arrowGravity;
 
             // Ignore collision with shooter
@@ -70,7 +52,6 @@ public class Archer : Enemy
         {
             Debug.LogError("Arrow prefab missing Arrow script!");
         }
-        attackCooldown = attackSpeed;
     }
 
     /// <summary>
@@ -111,11 +92,5 @@ public class Archer : Enemy
             horizontalDirection * Mathf.Cos(angle) * speed,
             Mathf.Sin(angle) * speed
         );
-    }
-    public override void OnDrawGizmosSelected()
-    {
-        // Draw attack range
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

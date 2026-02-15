@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyShooter : MonoBehaviour
+public class BlackBileFly : Enemy
 {
     [Header("Shooting")]
     [SerializeField] private ProjectileArc projectilePrefab;
@@ -28,7 +28,7 @@ public class EnemyShooter : MonoBehaviour
     private float firstShotTimer;
     private bool exploded;
 
-    private void Start()
+    public override void Start()
     {
         startScale = transform.localScale;
         GameObject p = GameObject.FindGameObjectWithTag("Player");

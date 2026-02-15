@@ -650,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7423900217410304165, guid: f1fc7d10d383a4a418b92946eaa719d0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -721,6 +721,7 @@ Transform:
   - {fileID: 2059035197}
   - {fileID: 7160376161542699308}
   - {fileID: 2089535628}
+  - {fileID: 1880123817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1419829645
@@ -1110,7 +1111,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1411059634}
     m_Modifications:
     - target: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1130,15 +1131,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1156,11 +1157,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Black bile fly
       objectReference: {fileID: 0}
+    - target: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880123819}
   m_SourcePrefab: {fileID: 100100000, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+--- !u!4 &1880123817 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+  m_PrefabInstance: {fileID: 1880123816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1880123818 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+  m_PrefabInstance: {fileID: 1880123816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880123819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880123818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d133acc6dd712e644b49a69d60de0cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  hp: 0
+  movementSpeed: 0
+  attackSpeed: 0
+  groundCheck: {fileID: 0}
+  sprite: {fileID: 0}
+  playerLocation: {fileID: 0}
 --- !u!1001 &1966176844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1337,13 +1373,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AxeGuard
   hp: 10
-  damage: 1
   movementSpeed: 5
   attackSpeed: 1
-  closeAttackRange: 1.4
-  closeAttackPoint: {fileID: 1546698548}
   groundCheck: {fileID: 950261106}
   sprite: {fileID: 0}
+  playerLocation: {fileID: 0}
   thrustBoxSize: {x: 3, y: 0.4}
   thrustDistance: 1.5
   spear: {fileID: 519565352}
@@ -1673,4 +1707,3 @@ SceneRoots:
   - {fileID: 70645389}
   - {fileID: 2140567276}
   - {fileID: 1411059634}
-  - {fileID: 1880123816}

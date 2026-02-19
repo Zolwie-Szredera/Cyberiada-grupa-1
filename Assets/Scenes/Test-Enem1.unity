@@ -382,6 +382,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8037489929900438726, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1465770899}
     - target: {fileID: 8108306656599445251, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -402,10 +406,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CheckpointSystem, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 8656250499186601890, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656250499186601890, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8104462097654602212, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1465770899}
   m_SourcePrefab: {fileID: 100100000, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
 --- !u!114 &293630265 stripped
 MonoBehaviour:
@@ -861,6 +876,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8997175415419088252, guid: 20d5707330692f441bbf9a131b9202a1, type: 3}
   m_PrefabInstance: {fileID: 1429077668}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1465770896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8104462097654602212, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+  m_PrefabInstance: {fileID: 293630264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1465770899
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465770896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41ac661d51c98a749b8dc1212ef1b0d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1546698547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1084,10 @@ PrefabInstance:
     - target: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
       propertyPath: m_Name
       value: Black bile fly
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

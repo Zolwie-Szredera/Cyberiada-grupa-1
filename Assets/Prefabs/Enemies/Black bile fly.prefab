@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 1470080023038368657}
   - component: {fileID: 1305519152833185444}
   - component: {fileID: 4224757942089037530}
+  - component: {fileID: 6699528159406954920}
+  - component: {fileID: 6558904700384867641}
   m_Layer: 11
   m_Name: Black bile fly
   m_TagString: Untagged
@@ -69,6 +71,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5331020253821585212
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -114,6 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0, g: 0.024966642, b: 0.990566, a: 1}
   m_FlipX: 0
@@ -123,7 +127,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1470080023038368657
 Rigidbody2D:
@@ -177,16 +180,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 8093032326729963313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a803c422dee8a24ca4e89e617816f04, type: 3}
+  m_Script: {fileID: 11500000, guid: f8521d305982ee14caad78e6891251ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  projectilePrefab: {fileID: 9178746058324899455, guid: 4b57ab22b2632544cb08802b290e4df6, type: 3}
-  firePoint: {fileID: 5908111508336646880}
-  shootCooldown: 1.5
-  shootRange: 50
+  hp: 10
+  movementSpeed: 1
+  attackSpeed: 1
+  groundCheck: {fileID: 7038656909599708075}
+  sprite: {fileID: 5331020253821585212}
+  playerLocation: {fileID: 0}
   firstShotDelay: 3
-  maxShots: 10
-  finalScalePercent: 0.5
-  explosionProjectilePrefab: {fileID: 8507243657661181791, guid: 2a3d34dd14a721041a002a493feb0dbe, type: 3}
+--- !u!114 &6699528159406954920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093032326729963313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c379561bf436a45b7eaf86f92f47e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlackBileFlyAttack
+  damage: 10
+  attackRange: 20
+  projectileSpeed: 6
+  projectileTimeToLive: 5
+  projectilePrefab: {fileID: 667607137140882554, guid: 15fcef8dd276e14449b8e3d423e45dba, type: 3}
+  attackPoint: {fileID: 5908111508336646880}
+  projectileArcPrefab: {fileID: 9178746058324899455, guid: 4b57ab22b2632544cb08802b290e4df6, type: 3}
   explosionProjectileCount: 8
-  destroyAfterExplosion: 1
+--- !u!70 &6558904700384867641
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093032326729963313}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 1

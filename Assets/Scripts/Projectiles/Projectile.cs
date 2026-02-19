@@ -6,6 +6,11 @@ public class Projectile : MonoBehaviour
 {
     public int damage;
     public float timeToLive;
+    public float speed;
+    public virtual void Start()
+    {
+        Destroy(gameObject, timeToLive);
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         ApplyCollisionEffect(other);
@@ -30,10 +35,5 @@ public class Projectile : MonoBehaviour
     {
         Collider2D projectileCollider = GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(projectileCollider, gameObject.GetComponent<Collider2D>());
-    }
-    public IEnumerator TimeToLive(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        Destroy(gameObject);
     }
 }

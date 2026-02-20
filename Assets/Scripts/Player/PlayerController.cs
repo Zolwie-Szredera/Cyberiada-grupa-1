@@ -20,9 +20,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
-
-    [Header("Air Jumps")]
-    public int airJumps = 2;
+    public int airJumps = 1;
     [HideInInspector] public int remainingAirJumps;
 
     [Header("Wall Check")]

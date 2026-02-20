@@ -1,7 +1,6 @@
-//paws :3
 using UnityEngine;
 
-public class Dash : MonoBehaviour
+public class FDAbility : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

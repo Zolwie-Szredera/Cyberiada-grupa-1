@@ -1,16 +1,16 @@
 using UnityEngine;
-
-public class TripleJump : MonoBehaviour
+[CreateAssetMenu(menuName = "Accessories/TripleJump")]
+public class TripleJump : Accessory
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private readonly int additionalAirJumps = 2;
+    private readonly int originalAirJumps = 1;
+    public override void Apply()
     {
-        
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().airJumps = additionalAirJumps;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Remove()
     {
-        
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().airJumps = originalAirJumps;
     }
 }

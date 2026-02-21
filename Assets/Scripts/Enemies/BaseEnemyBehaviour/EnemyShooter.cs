@@ -16,7 +16,7 @@ public class EnemyShooter : MonoBehaviour
     public virtual void Start()
     {
         damageableLayers = LayerMask.GetMask("Player", "Enemy", "Destructible");
-        playerLocation = GetComponent<Enemy>().playerLocation;
+        playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     public virtual void ProjectileAttack(Vector2 direction)
     {

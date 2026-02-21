@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e328cb53c0e44bc40a5d07bf9a274fdc
+guid: 839ccd2386ce65b47859cea291ea60c6
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -36,7 +36,7 @@ ScriptedImporter:
     spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 16
+    spritePixelsToUnits: 100
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -54,9 +54,9 @@ ScriptedImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
     normalMap: 0
     textureFormat: 0
     maxTextureSize: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639072684626143443
+  platformSettingsDirtyTick: 639072242153503814
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: floor2
+  - name: background-column2
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 192
-      height: 96
-    spriteID: 9d02af02671c2304db44a3f0162c7336
+      width: 34
+      height: 108
+    spriteID: d7709abd13b96c54a9f64db220b484c7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,9 +160,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 192
-      height: 96
-    spriteID: 67c5b7ea81eb61d4ba5c28feb8c8ea4f
+      width: 34
+      height: 108
+    spriteID: 10a0b7061f227954fa7ed76f0bbfff6e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -190,9 +190,9 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 192
-        height: 96
-      spriteId: 67c5b7ea81eb61d4ba5c28feb8c8ea4f
+        width: 34
+        height: 108
+      spriteId: 10a0b7061f227954fa7ed76f0bbfff6e
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -226,5 +226,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 192, y: 96}
-  previousTextureSize: {x: 256, y: 128}
+  canvasSize: {x: 34, y: 108}
+  previousTextureSize: {x: 64, y: 128}

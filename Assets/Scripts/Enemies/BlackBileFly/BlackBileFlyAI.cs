@@ -6,6 +6,7 @@ public class BlackBileFlyAI : Enemy
     [Header("Shooting")]
     [SerializeField] private float firstShotDelay = 3f;
     [SerializeField] private float hoverPointInterval = 3f;
+    public Animator animator;
     [Header("AI settings")]
     public float hoverPointRadiusMin = 5f;
     public float hoverPointRadiusMax = 10f;
@@ -35,7 +36,10 @@ public class BlackBileFlyAI : Enemy
 
     private void Update()
     {
-        if (playerLocation == null) return;
+        if (playerLocation == null)
+        {
+            Debug.LogError("player location is null in BlackBileFlyAI");
+        };
         bool isInRange = distanceToPlayer <= attackScript.attackRange;
 
         //  RESET usunięty — enemy nie cofnie shrink ani liczby strzałów
@@ -75,11 +79,14 @@ public class BlackBileFlyAI : Enemy
         }
         if (currentState == State.Attacking)
         {
-            attackScript.ProjectileArcAttack(playerLocation.position);
+            animator.SetBool("isAttacking", true);
             attackCooldown = attackSpeed;
             currentState = State.Moving;
             hoverPointTimer = hoverPointInterval;
             currentHoverPoint = GetHoverPoint();
+        } else
+        {
+            animator.SetBool("isAttacking", false);
         }
     }
     Vector2 GetHoverPoint()

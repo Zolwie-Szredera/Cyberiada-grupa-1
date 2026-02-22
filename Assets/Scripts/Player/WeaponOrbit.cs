@@ -123,15 +123,28 @@ public class WeaponOrbit : MonoBehaviour
             currentAngle = targetAngle;
         }
         
+        // Check if player is flipped (scale.x < 0)
+        float playerScaleX = playerTransform.localScale.x;
+        bool isPlayerFlipped = playerScaleX < 0;
+        
         // Calculate position on orbit using current angle
-        // This ensures weapon ALWAYS stays on orbit circle, no lag
         Vector2 orbitOffset = new Vector2(
             Mathf.Cos(currentAngle) * orbitRadius,
             Mathf.Sin(currentAngle) * orbitRadius
         );
         
-        // Apply position directly - no lerp, weapon sticks to orbit
-        transform.position = playerPos + orbitOffset;
+        // If player is flipped, we need to set local position (not world position)
+        // because the parent scale will flip it
+        if (isPlayerFlipped)
+        {
+            // When parent is flipped, use local position and flip X
+            transform.localPosition = new Vector3(-orbitOffset.x, orbitOffset.y, 0f);
+        }
+        else
+        {
+            // Normal: use local position
+            transform.localPosition = new Vector3(orbitOffset.x, orbitOffset.y, 0f);
+        }
     }
 
     /// <summary>
@@ -139,33 +152,64 @@ public class WeaponOrbit : MonoBehaviour
     /// </summary>
     void UpdateWeaponRotation(Vector2 mouseWorldPos)
     {
-        // Direction from weapon to mouse
-        Vector2 direction = mouseWorldPos - (Vector2)transform.position;
+        // Calculate direction from PLAYER to mouse (not weapon to mouse)
+        Vector2 playerPos = playerTransform.position;
+        Vector2 direction = mouseWorldPos - playerPos;
         
-        // Calculate rotation angle
+        // Calculate rotation angle in world space
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         
-        // Apply rotation with offset
-        transform.rotation = Quaternion.Euler(0f, 0f, angle + rotationOffset);
+        // Check if player is flipped
+        float playerScaleX = playerTransform.localScale.x;
+        bool isPlayerFlipped = playerScaleX < 0;
+        
+        if (isPlayerFlipped)
+        {
+            // When parent is flipped (scale.x < 0), we need to flip the X component of direction
+            // This compensates for the parent's negative scale
+            float flippedAngle = Mathf.Atan2(direction.y, -direction.x) * Mathf.Rad2Deg;
+            transform.localRotation = Quaternion.Euler(0f, 0f, flippedAngle + rotationOffset);
+        }
+        else
+        {
+            // Normal rotation - use localRotation for consistency
+            transform.localRotation = Quaternion.Euler(0f, 0f, angle + rotationOffset);
+        }
     }
-
+    
     /// <summary>
     /// Flip sprite based on aim direction
-    /// Simple: if aiming left (angle between 90 and 270), flip Y-axis
+    /// Prevents weapon sprite from being upside-down
     /// </summary>
     void UpdateSpriteFlipping()
     {
-        // Convert angle to degrees and normalize to -180 to 180
-        float angleDegrees = currentAngle * Mathf.Rad2Deg;
-        while (angleDegrees > 180f) angleDegrees -= 360f;
-        while (angleDegrees < -180f) angleDegrees += 360f;
+        // Get mouse position to determine flip direction
+        Vector2 mouseWorldPos = GetMouseWorldPosition();
+        Vector2 playerPos = playerTransform.position;
+        Vector2 direction = mouseWorldPos - playerPos;
         
-        // Determine if weapon is pointing left
-        bool shouldFlip = angleDegrees > 90f || angleDegrees < -90f;
+        // Calculate angle to mouse
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         
-        // Flip sprite on Y-axis when pointing left
-        // This prevents weapon from being upside-down
-        spriteRenderer.flipY = shouldFlip;
+        // Normalize to 0-360
+        if (angle < 0) angle += 360f;
+        
+        // Check if player is flipped
+        float playerScaleX = playerTransform.localScale.x;
+        bool isPlayerFlipped = playerScaleX < 0;
+        
+        // Determine if we should flip the sprite
+        // When pointing left (90-270 degrees), flip Y to prevent upside-down
+        bool shouldFlipY = angle > 90f && angle < 270f;
+        
+        // If player is flipped, we need to invert this logic
+        if (isPlayerFlipped)
+        {
+            shouldFlipY = !shouldFlipY;
+        }
+        
+        spriteRenderer.flipX = false;
+        spriteRenderer.flipY = shouldFlipY;
     }
 
     /// <summary>

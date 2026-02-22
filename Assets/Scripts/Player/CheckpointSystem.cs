@@ -8,6 +8,7 @@ public class CheckpointSystem : MonoBehaviour
     public Color activeCheckpointColor = Color.yellow;
     private PlayerHealth playerHealth;
     private GameObject player;
+    private EnemySpawnerTrigger[] allEnemySpawnerTriggers;
     public void Start()
     {
         if(currentCheckpoint == null)
@@ -21,6 +22,7 @@ public class CheckpointSystem : MonoBehaviour
         }
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
+        allEnemySpawnerTriggers = FindObjectsByType<EnemySpawnerTrigger>(FindObjectsSortMode.None);
     }
     public void Respawn()
     {
@@ -30,6 +32,11 @@ public class CheckpointSystem : MonoBehaviour
         playerHealth.currentBlood = playerHealth.maxBlood;
         playerHealth.currentBlackBile = 0;
         player.transform.position = currentCheckpoint.transform.position;
+        //reset all enemy spawners
+        foreach(EnemySpawnerTrigger trigger in allEnemySpawnerTriggers)
+        {
+            trigger.ResetTrigger();
+        }
     }
     public void OnRespawn(InputAction.CallbackContext context)
     {

@@ -21,10 +21,12 @@ public class Enemy : MonoBehaviour
     protected float direction;
     protected bool stopped = false;
     protected float attackCooldown;
+    protected Vector2 playerLocationVector2;
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerLocationVector2 = playerLocation.position;
         groundLayer = LayerMask.GetMask("Ground");
         if (groundCheck == null)
         {
@@ -53,8 +55,12 @@ public class Enemy : MonoBehaviour
         hp -= damageTaken;
         if (hp <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+    public virtual void Die()
+    {
+        Destroy(gameObject);
     }
     public void WalkToPlayer(int disengage) //resets X velocity, 1 = towards, -1 = disengage
     {

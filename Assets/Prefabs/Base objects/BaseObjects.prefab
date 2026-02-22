@@ -242,62 +242,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
-      value: 35c14841-ee84-4635-a15d-ebcdde7b1d4a
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
-      value: 'player/Pause[/Keyboard/escape]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchToWeapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchToWeapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchToWeapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchToWeapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7927939051020507580, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

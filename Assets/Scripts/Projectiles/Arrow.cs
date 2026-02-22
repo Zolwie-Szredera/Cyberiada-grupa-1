@@ -5,9 +5,7 @@ using UnityEngine;
 public class Arrow : Projectile
 {
     [Header("Arrow Physics")]
-    public float speed = 10f;
     public float gravity = 1f;
-    public float lifetime = 5f;
 
     private Rigidbody2D rb;
     private Vector2 velocity;
@@ -23,8 +21,9 @@ public class Arrow : Projectile
         arrowCollider = GetComponent<Collider2D>();
     }
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         rb.gravityScale = gravity;
 
         Physics2D.IgnoreCollision(arrowCollider, shooterCollider, true);
@@ -34,9 +33,6 @@ public class Arrow : Projectile
         {
             Debug.LogWarning("Arrow spawned but Launch() was never called!");
         }
-
-        // Destroy arrow after lifetime expires
-        Destroy(gameObject, lifetime);
     }
 
     void Update()

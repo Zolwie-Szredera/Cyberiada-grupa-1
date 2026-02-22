@@ -20,9 +20,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
-
-    [Header("Air Jumps")]
-    public int airJumps = 2;
+    public int airJumps = 1;
     [HideInInspector] public int remainingAirJumps;
 
     [Header("Wall Check")]
@@ -35,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private float wallCoyoteTimer = 0f;
     [Header("Platforms")]
     public LayerMask platformLayer;
+    [Header("Animation")]
+    public Animator animator;
     private bool isGrounded;
 
     private bool isWallJumping = false;
@@ -59,6 +59,13 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        if(moveInput.x > 0)
+        {
+            ChangeSpriteDirection(true);
+        } else if(moveInput.x < 0)
+        {
+            ChangeSpriteDirection(false);
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -156,6 +163,14 @@ public class PlayerController : MonoBehaviour
             Mathf.Clamp(rb.linearVelocity.x, -moveSpeed * 2f, moveSpeed * 2f), // Allow some overshoot
             Mathf.Clamp(rb.linearVelocity.y, -50f, 50f)
         );
+        // 8. Update animation parameters
+        if (Mathf.Abs(rb.linearVelocity.x) != 0)
+        {
+            animator.SetBool("isWalking", true);
+        } else
+        {
+            animator.SetBool("isWalking", false);
+        }
 
         DrawDebugArrow();
     }

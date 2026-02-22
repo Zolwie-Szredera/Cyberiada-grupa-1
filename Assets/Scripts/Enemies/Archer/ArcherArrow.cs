@@ -16,9 +16,9 @@ public class ArcherArrow : EnemyShooter
         archerCollider = GetComponent<Collider2D>();
     }
 
-    public override void ProjectileAttack()
+    public override void ProjectileAttack(Vector2 direction)
     {
-        Vector2 targetPosition = playerLocation.position;
+        Vector2 targetPosition = direction;
         Rigidbody2D playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         targetPosition += playerRb.linearVelocity * predictionTime;
         // Calculate ballistic trajectory with gravity compensation

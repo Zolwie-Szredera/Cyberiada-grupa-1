@@ -37,6 +37,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3570795821229593692
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,7 +83,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 83e167355b4425b4c9593db384e187e1, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -90,8 +92,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!95 &7466603192667911320
 Animator:
@@ -454,6 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2574722258547160029}
   - component: {fileID: 2987382546109980895}
+  - component: {fileID: 6033959841811657607}
   m_Layer: 0
   m_Name: Player Sprite
   m_TagString: Untagged
@@ -471,13 +473,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7675474299409607718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2987382546109980895
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -523,6 +526,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7145198348311737387, guid: 1fe81af2f3cf5584c991f9185a28e4a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -532,8 +536,29 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6033959841811657607
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168076235023819290}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41ac661d51c98a749b8dc1212ef1b0d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4538534112938561204
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +574,7 @@ GameObject:
   - component: {fileID: 2748823700835454776}
   - component: {fileID: 1242560431211818423}
   - component: {fileID: 5673461931028622329}
+  - component: {fileID: 7898632803644309502}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -564,7 +590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4538534112938561204}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -638,7 +664,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -648,7 +674,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 2.6}
+  m_Size: {x: 0.8, y: 3.25}
   m_EdgeRadius: 0
 --- !u!114 &1824170221524785914
 MonoBehaviour:
@@ -791,6 +817,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 35c14841-ee84-4635-a15d-ebcdde7b1d4a
     m_ActionName: 'player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c440aa0-0101-4ec8-bc35-859a8f7fcdac
+    m_ActionName: 'player/ActivateMovementAccessory[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -817,7 +847,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  airJumps: 2
+  airJumps: 1
   remainingAirJumps: 0
   wallCheck: {fileID: 8065870175103866168}
   wallCheckDistance: 0.55
@@ -828,6 +858,7 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 32768
+  animator: {fileID: 6033959841811657607}
 --- !u!114 &1242560431211818423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,6 +891,32 @@ MonoBehaviour:
   currentCheckpoint: {fileID: 0}
   defaultCheckpointColor: {r: 1, g: 1, b: 1, a: 1}
   activeCheckpointColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &7898632803644309502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538534112938561204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcfbb3a56964f144bfed1d4c9e9e7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAccessories
+  currentHead: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
+  currentBody: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
+  currentArms: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
+  currentLegs: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
+  allHeadAccessories:
+  - {fileID: 11400000, guid: 2ef02e7ec9e3b7846a05b99bdda77b83, type: 2}
+  allBodyAccessories:
+  - {fileID: 11400000, guid: 2f47988f311ca5c4f950d644352388a9, type: 2}
+  allArmsAccessories:
+  - {fileID: 11400000, guid: c13d7ef8d1b5b89458418748439c81ea, type: 2}
+  allLegsAccessories:
+  - {fileID: 11400000, guid: f5b02452f4cde7d4391a2dfb22c7a993, type: 2}
+  - {fileID: 11400000, guid: 15231975c62446c4294286079c12eb1b, type: 2}
+  defaultAccessory: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
 --- !u!1 &5191994991877499360
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +973,7 @@ Transform:
   m_GameObject: {fileID: 5735777828410811275}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: -1.875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1194,6 +1251,7 @@ GameObject:
   - component: {fileID: 1785588018185319366}
   - component: {fileID: 1537729259969632004}
   - component: {fileID: 8656617100536174754}
+  - component: {fileID: 2058199456909963394}
   m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1319,3 +1377,27 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &2058199456909963394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8232337241560986474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.PixelPerfectCamera
+  m_ComponentVersion: 1
+  m_AssetsPPU: 16
+  m_RefResolutionX: 384
+  m_RefResolutionY: 216
+  m_CropFrame: 0
+  m_GridSnapping: 0
+  m_FilterMode: 0
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0

@@ -3,9 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyShooter : MonoBehaviour
 {
+    [Header("Projectile stats")]
     public int damage;
     public float attackRange;
     public float projectileSpeed;
+    public float projectileTimeToLive;
     public GameObject projectilePrefab;
     public Transform attackPoint;
     protected LayerMask damageableLayers;
@@ -14,14 +16,14 @@ public class EnemyShooter : MonoBehaviour
     public virtual void Start()
     {
         damageableLayers = LayerMask.GetMask("Player", "Enemy", "Destructible");
-        playerLocation = GetComponent<Enemy>().playerLocation;
+        playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
-    public virtual void ProjectileAttack()
+    public virtual void ProjectileAttack(Vector2 direction)
     {
         GameObject currentProjectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.identity);
+        currentProjectile.GetComponent<Projectile>().timeToLive = projectileTimeToLive;
         currentProjectile.GetComponent<Projectile>().IgnoreParentObject(gameObject);
         currentProjectile.GetComponent<Projectile>().damage = damage;
-        Vector2 direction = (playerLocation.position - attackPoint.position).normalized;
         currentProjectile.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
     }
     public virtual void OnDrawGizmosSelected()

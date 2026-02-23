@@ -108,14 +108,15 @@ public class TwoStateAI : Enemy
     {
         if (Mathf.Abs(distanceToPlayer - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
-            GetComponent<EnemyShooter>().ProjectileAttack();
+
+            GetComponent<EnemyShooter>().ProjectileAttack(playerLocationVector2);
             attackCooldown = attackSpeed;
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         else
             if (distanceToPlayer < attackDistanceRange) //disengage
             {
-                GetComponent<EnemyShooter>().ProjectileAttack();
+                GetComponent<EnemyShooter>().ProjectileAttack(playerLocationVector2);
                 attackCooldown = attackSpeed;
                 WalkToPlayer(-1);
             }

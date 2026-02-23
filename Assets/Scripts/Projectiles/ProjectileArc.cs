@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProjectileArc : MonoBehaviour
+public class ProjectileArc : Projectile
 {
     [Header("Ballistics")]
     [SerializeField] private float gravity = 20f;
@@ -13,28 +13,18 @@ public class ProjectileArc : MonoBehaviour
     [SerializeField] private float homingStrength = 3f;
     [SerializeField] private float homingDelay = 0.25f;
     [SerializeField] private float lockDistance = 1.5f;
-
-    [Header("Combat")]
-    [SerializeField] private int damage = 50;
-
     private Vector3 velocity;
-    private Transform target;
-
     private Vector3 delayedTargetPos;
     private float delayTimer;
     private float arcTimer;
     private bool locked;
-    private bool hasHit;
-
+    [HideInInspector] public Vector2 target;
     // --------------------------------------------------
-
-    public void Initialize(Transform target)
+    public override void Start()
     {
-        this.target = target;
-        if (target == null) return;
-
+        base.Start();
         Vector3 start = transform.position;
-        Vector3 targetPos = target.position;
+        Vector3 targetPos = new(target.x, target.y, start.z); //convert vector2 to vector3, keeping z the same as start
 
         float h = targetPos.y - start.y;
         float apexHeight = h >= 0f ? h + maxExtraArcHeight : maxExtraArcHeight;
@@ -51,7 +41,7 @@ public class ProjectileArc : MonoBehaviour
 
         velocity = horizontalVelocity + Vector3.up * verticalVelocity;
 
-        delayedTargetPos = target.position;
+        delayedTargetPos = targetPos;
         delayTimer = homingDelay;
         arcTimer = minArcTime;
     }
@@ -60,11 +50,9 @@ public class ProjectileArc : MonoBehaviour
 
     private void Update()
     {
-        if (target == null || hasHit) return;
-
         arcTimer -= Time.deltaTime;
 
-        if (!locked && Vector3.Distance(transform.position, target.position) <= lockDistance)
+        if (!locked && Vector3.Distance(transform.position, delayedTargetPos) <= lockDistance)
             locked = true;
 
         if (!locked && arcTimer <= 0f)
@@ -72,7 +60,7 @@ public class ProjectileArc : MonoBehaviour
             delayTimer -= Time.deltaTime;
             if (delayTimer <= 0f)
             {
-                delayedTargetPos = target.position;
+                delayedTargetPos = new(target.x, target.y, transform.position.z); //kinda weird
                 delayTimer = homingDelay;
             }
 
@@ -83,29 +71,5 @@ public class ProjectileArc : MonoBehaviour
 
         velocity.y -= gravity * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
-    }
-
-    // --------------------------------------------------
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (hasHit) return;
-
-        if (other.CompareTag("Player"))
-        {
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
-            if (health != null)
-                health.TakeDamage(damage);
-
-            hasHit = true;
-            Destroy(gameObject);
-            return;
-        }
-
-        if (other.CompareTag("MapElements"))
-        {
-            hasHit = true;
-            Destroy(gameObject);
-        }
     }
 }

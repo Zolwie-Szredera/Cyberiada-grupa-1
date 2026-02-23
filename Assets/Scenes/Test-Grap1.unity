@@ -24096,6 +24096,10 @@ PrefabInstance:
       propertyPath: damage
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6381979139289667145, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: maxBlood
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

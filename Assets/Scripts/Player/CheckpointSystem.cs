@@ -37,6 +37,16 @@ public class CheckpointSystem : MonoBehaviour
         {
             trigger.ResetTrigger();
         }
+        //destroy all projectiles in the scene
+        foreach(Projectile projectile in FindObjectsByType<Projectile>(FindObjectsSortMode.None))
+        {
+            Destroy(projectile.gameObject);
+        }
+        //destroy all active enemies in the scene
+        foreach(Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+        {
+            Destroy(enemy.gameObject);
+        }
     }
     public void OnRespawn(InputAction.CallbackContext context)
     {

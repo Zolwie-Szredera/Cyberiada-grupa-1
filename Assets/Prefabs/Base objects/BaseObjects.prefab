@@ -286,58 +286,34 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 509752862535831559}
-    - target: {fileID: 420838844156755026, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Respawn
-      objectReference: {fileID: 0}
-    - target: {fileID: 420838844156755026, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CheckpointSystem, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 1858279666517813605, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6295147243264151294}
-    - target: {fileID: 1858279666517813605, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 3788503621520636682, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 680723400866629476}
-    - target: {fileID: 3788503621520636682, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BackToGame
-      objectReference: {fileID: 0}
     - target: {fileID: 3877665628494475123, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6295147243264151294}
-    - target: {fileID: 3877665628494475123, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DiscardChanges
-      objectReference: {fileID: 0}
     - target: {fileID: 5323682964308587454, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: optionsMenu
       value: 
       objectReference: {fileID: 6295147243264151294}
+    - target: {fileID: 6021602747411733733, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6049933199599776417, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 680723400866629476}
-    - target: {fileID: 6049933199599776417, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: QuitToMainMenu
-      objectReference: {fileID: 0}
     - target: {fileID: 6350932259588734576, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6295147243264151294}
-    - target: {fileID: 6350932259588734576, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BackToMenu
-      objectReference: {fileID: 0}
     - target: {fileID: 6400204536125194813, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -382,26 +358,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 680723400866629476}
-    - target: {fileID: 6842776364399247198, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenOptions
+    - target: {fileID: 7122463917565032063, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125678268187200311, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7224099726119576011, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6295147243264151294}
-    - target: {fileID: 7224099726119576011, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancelDecision
-      objectReference: {fileID: 0}
     - target: {fileID: 7947841703777193216, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6295147243264151294}
-    - target: {fileID: 7947841703777193216, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConfirmChanges
-      objectReference: {fileID: 0}
     - target: {fileID: 9000955814158710080, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_Name
       value: Canvases

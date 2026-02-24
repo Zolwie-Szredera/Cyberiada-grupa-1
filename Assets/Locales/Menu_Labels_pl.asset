@@ -62,6 +62,23 @@ MonoBehaviour:
     m_Localized: "Masz niezapisane zmiany. Czy chcesz je zapisa\u0107?"
     m_Metadata:
       m_Items: []
+  - m_Id: 37309763901775872
+    m_Localized: "Wyjd\u017A z gry"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37310631422255104
+    m_Localized: "A i D by si\u0119 porusza\u0107, skakanie na spacj\u0119. LPM,
+      \u017Ceby atakowa\u0107, R by zrestartowa\u0107 do poprzedniego punktu kontrolnego.
+      1 by zmieni\u0107 bro\u0144 na miecz, 2 by zmieni\u0107 bro\u0144 na zakl\u0119cie
+      krwi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37315326152859648
+    m_Localized: "Trafienie przeciwnika mieczem leczy ci\u0119. U\u017Cycie zakl\u0119cia
+      krwi zadaje obra\u017Cenia. Skocz w powietrzu, by wykona\u0107 podw\xF3jny
+      skok"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

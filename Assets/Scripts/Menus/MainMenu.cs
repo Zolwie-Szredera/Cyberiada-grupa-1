@@ -18,9 +18,12 @@ public class MainMenu : MonoBehaviour
     //        buttons[i].interactable = true;
     //    }
     //}
-    public void OpenLevel(int levelId)
+    public void OpenLevel(string name)
     {
-        string levelName = "Level " + levelId;
-        SceneManager.LoadScene(levelName);
+        SceneManager.LoadScene(name);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

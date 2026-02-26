@@ -99,7 +99,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,7 +123,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -144,11 +144,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GuardSpriteSheet_0
+      name: N
       rect:
         serializedVersion: 2
         x: 3
@@ -156,7 +169,7 @@ TextureImporter:
         width: 33
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,7 +183,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_1
+      name: I1
       rect:
         serializedVersion: 2
         x: 131
@@ -178,7 +191,7 @@ TextureImporter:
         width: 33
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -192,7 +205,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_2
+      name: A3
       rect:
         serializedVersion: 2
         x: 131
@@ -200,7 +213,7 @@ TextureImporter:
         width: 30
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -214,7 +227,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_3
+      name: I2
       rect:
         serializedVersion: 2
         x: 195
@@ -222,7 +235,7 @@ TextureImporter:
         width: 33
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -236,7 +249,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_4
+      name: A4
       rect:
         serializedVersion: 2
         x: 195
@@ -244,7 +257,7 @@ TextureImporter:
         width: 41
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -258,7 +271,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_5
+      name: I3
       rect:
         serializedVersion: 2
         x: 259
@@ -266,7 +279,7 @@ TextureImporter:
         width: 33
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -280,7 +293,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_6
+      name: A5
       rect:
         serializedVersion: 2
         x: 259
@@ -288,7 +301,7 @@ TextureImporter:
         width: 61
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -302,15 +315,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_7
+      name: I4
       rect:
         serializedVersion: 2
         x: 323
         y: 193
-        width: 82
+        width: 32
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -324,7 +337,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_8
+      name: A6
       rect:
         serializedVersion: 2
         x: 323
@@ -332,7 +345,7 @@ TextureImporter:
         width: 61
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -346,7 +359,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_9
+      name: A7
       rect:
         serializedVersion: 2
         x: 387
@@ -354,7 +367,7 @@ TextureImporter:
         width: 60
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -368,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_10
+      name: D1
       rect:
         serializedVersion: 2
         x: 451
@@ -376,7 +389,7 @@ TextureImporter:
         width: 32
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -390,7 +403,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_11
+      name: A1
       rect:
         serializedVersion: 2
         x: 3
@@ -398,7 +411,7 @@ TextureImporter:
         width: 33
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -412,7 +425,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_12
+      name: A2
       rect:
         serializedVersion: 2
         x: 63
@@ -420,7 +433,7 @@ TextureImporter:
         width: 42
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -434,7 +447,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_13
+      name: A8
       rect:
         serializedVersion: 2
         x: 451
@@ -442,7 +455,7 @@ TextureImporter:
         width: 33
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -456,7 +469,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_14
+      name: U1
       rect:
         serializedVersion: 2
         x: 9
@@ -464,7 +477,7 @@ TextureImporter:
         width: 21
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -478,7 +491,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GuardSpriteSheet_15
+      name: U2
       rect:
         serializedVersion: 2
         x: 71
@@ -486,7 +499,7 @@ TextureImporter:
         width: 48
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -499,33 +512,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: GuardSpriteSheet_16
-      rect:
-        serializedVersion: 2
-        x: 79
-        y: 81
-        width: 26
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c1f2bb1ff0a8c59c0800000000000000
-      internalID: -3937120173143937252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 006cbb1a527005747997bc13651969b5
     internalID: 0
     vertices: []
     indices: 
@@ -535,23 +526,23 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GuardSpriteSheet_0: 2003191310197340115
-      GuardSpriteSheet_1: 2961401889712516087
-      GuardSpriteSheet_10: 4953606424155815556
-      GuardSpriteSheet_11: 7536826146734999474
-      GuardSpriteSheet_12: -5040072872142950110
-      GuardSpriteSheet_13: -6276466159515857607
-      GuardSpriteSheet_14: 7929019641894774572
-      GuardSpriteSheet_15: 7580502610238937854
+      A1: 7536826146734999474
+      A2: -5040072872142950110
+      A3: -201170909527843148
+      A4: -2981767186019176695
+      A5: 6202124126855266288
+      A6: 8888205085020553788
+      A7: -7777367624369244336
+      A8: -6276466159515857607
+      D1: 4953606424155815556
       GuardSpriteSheet_16: -3937120173143937252
-      GuardSpriteSheet_2: -201170909527843148
-      GuardSpriteSheet_3: 5812853131409115841
-      GuardSpriteSheet_4: -2981767186019176695
-      GuardSpriteSheet_5: -845127097279142312
-      GuardSpriteSheet_6: 6202124126855266288
-      GuardSpriteSheet_7: 7234554466924768216
-      GuardSpriteSheet_8: 8888205085020553788
-      GuardSpriteSheet_9: -7777367624369244336
+      I1: 2961401889712516087
+      I2: 5812853131409115841
+      I3: -845127097279142312
+      I4: 7234554466924768216
+      N: 2003191310197340115
+      U1: 7929019641894774572
+      U2: 7580502610238937854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

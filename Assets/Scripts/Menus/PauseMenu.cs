@@ -65,6 +65,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         pauseMenuCanvas.SetActive(false);
+        mainCanvas.SetActive(true);
     }
     public void OpenOptions()
     {

@@ -50,8 +50,7 @@ public class CheckpointSystem : MonoBehaviour
     }
     public void OnRespawn(InputAction.CallbackContext context)
     {
-        //remember to add a "is not in menu" check later
-        if (context.started)
+        if (context.started && !GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().isPaused)
         {
             Respawn();
         }

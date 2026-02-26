@@ -37,6 +37,9 @@ public class EnemyMeelee : MonoBehaviour
     }
     public virtual void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        if (attackPoint != null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
     }
 }

@@ -370,6 +370,10 @@ PrefabInstance:
       propertyPath: sprite
       value: 
       objectReference: {fileID: 402416800}
+    - target: {fileID: 6812837579484636831, guid: 97c0b42474756c04c9e6247917cd3ba2, type: 3}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1662415568445308625, guid: 97c0b42474756c04c9e6247917cd3ba2, type: 3}

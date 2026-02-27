@@ -23,9 +23,12 @@ public class HalberdAI : Enemy
         //state management
         if(currentState == State.Attack)
         {
-            animator.SetTrigger("attack");
+            animator.SetBool("attack", true);
             attackCooldown = attackSpeed;
-            return;
+        }
+        else
+        {
+            animator.SetBool("attack", false);
         }
         if(currentState == State.Idle)
         {
@@ -40,17 +43,19 @@ public class HalberdAI : Enemy
         //if attack cooldown != 0 sit idle
         if (Physics2D.OverlapCircle(meelee.attackPoint.position, meelee.attackRange, LayerMask.GetMask("Player")) && attackCooldown <= 0)
         {
-            Debug.Log("Player in range, attacking");
+            //Debug.Log("State: Attack");
             currentState = State.Attack;
             return;
         }
         else if (distanceToPlayer < walkDistance && attackCooldown <= 0)
         {
             currentState = State.Walk;
+            //Debug.Log("State: Walk");
         }
         else
         {
             currentState = State.Idle;
+            //Debug.Log("State: Idle");
         }
     }
     public void OnDrawGizmosSelected()

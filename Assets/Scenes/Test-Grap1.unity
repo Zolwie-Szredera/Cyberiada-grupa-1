@@ -124,6 +124,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7038656909599708075, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
   m_PrefabInstance: {fileID: 1689269528}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &141800783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141800785}
+  - component: {fileID: 141800784}
+  m_Layer: 0
+  m_Name: WaveSpawner3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &141800784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141800783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa1d41f96a362342b36c30b3a2df583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
+  enemySpawner:
+  - {fileID: 1444853958}
+--- !u!4 &141800785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141800783}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1444853959}
+  m_Father: {fileID: 2009560356}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &189471105
 GameObject:
   m_ObjectHideFlags: 0
@@ -23665,6 +23712,96 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &249842088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249842089}
+  - component: {fileID: 249842090}
+  m_Layer: 0
+  m_Name: HalberdSpawner2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &249842089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249842088}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 765400144}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &249842090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249842088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08400794fa2c3854caf76936e316fe7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 2075746037874299853, guid: 97c0b42474756c04c9e6247917cd3ba2, type: 3}
+--- !u!1 &455630070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 455630071}
+  - component: {fileID: 455630072}
+  m_Layer: 0
+  m_Name: HalberdSpawner1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &455630071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455630070}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 765400144}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &455630072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455630070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08400794fa2c3854caf76936e316fe7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 2075746037874299853, guid: 97c0b42474756c04c9e6247917cd3ba2, type: 3}
 --- !u!1 &472141503
 GameObject:
   m_ObjectHideFlags: 0
@@ -24127,7 +24264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2009560356}
+  m_Father: {fileID: 1239642393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &642290962
 MonoBehaviour:
@@ -24221,6 +24358,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &765400142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765400144}
+  - component: {fileID: 765400143}
+  m_Layer: 0
+  m_Name: WaveSpawner1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &765400143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765400142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa1d41f96a362342b36c30b3a2df583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
+  enemySpawner:
+  - {fileID: 455630072}
+  - {fileID: 249842090}
+--- !u!4 &765400144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765400142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 455630071}
+  - {fileID: 249842089}
+  m_Father: {fileID: 2009560356}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &853518951
 GameObject:
   m_ObjectHideFlags: 0
@@ -24251,7 +24437,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2009560356}
+  m_Father: {fileID: 1239642393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &853518953
 MonoBehaviour:
@@ -25434,6 +25620,145 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b021aa8c553f1a41b1b2d0921da8d14, type: 3}
+--- !u!1 &1225915725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1225915726}
+  - component: {fileID: 1225915727}
+  m_Layer: 0
+  m_Name: FlySpawner1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1225915726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225915725}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.5, y: 10.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2009560356}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1225915727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225915725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08400794fa2c3854caf76936e316fe7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+--- !u!1 &1239642391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239642393}
+  - component: {fileID: 1239642392}
+  m_Layer: 0
+  m_Name: WaveSpawner2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1239642392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239642391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa1d41f96a362342b36c30b3a2df583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
+  enemySpawner:
+  - {fileID: 642290962}
+  - {fileID: 853518953}
+--- !u!4 &1239642393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239642391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 642290961}
+  - {fileID: 853518952}
+  m_Father: {fileID: 2009560356}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1444853957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1444853959}
+  - component: {fileID: 1444853958}
+  m_Layer: 0
+  m_Name: FlySpawner3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1444853958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444853957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08400794fa2c3854caf76936e316fe7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 8093032326729963313, guid: f3b3ab9fe0ab24c41884ef090c2743a2, type: 3}
+--- !u!4 &1444853959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444853957}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 10.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 141800785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1446850875
 GameObject:
   m_ObjectHideFlags: 0
@@ -73340,31 +73665,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2009560356}
-  - component: {fileID: 2009560355}
   - component: {fileID: 2009560357}
+  - component: {fileID: 2009560358}
   m_Layer: 0
-  m_Name: EnemySpawnTrigger1
+  m_Name: Encounter1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2009560355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009560354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bd50e10959e63e44a59ec74612d839e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnerTrigger
-  enemySpawner:
-  - {fileID: 642290962}
-  - {fileID: 853518953}
-  triggerUsed: 0
 --- !u!4 &2009560356
 Transform:
   m_ObjectHideFlags: 0
@@ -73378,8 +73687,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 642290961}
-  - {fileID: 853518952}
+  - {fileID: 765400144}
+  - {fileID: 1225915726}
+  - {fileID: 1239642393}
+  - {fileID: 141800785}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2009560357
@@ -73428,6 +73739,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 7, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &2009560358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009560354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c6bf27ee3d2cf488065dc8e315c359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterHandler
+  wavesSpawners:
+  - {fileID: 765400143}
+  - {fileID: 1239642392}
+  - {fileID: 141800784}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

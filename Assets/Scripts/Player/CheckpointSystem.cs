@@ -8,7 +8,7 @@ public class CheckpointSystem : MonoBehaviour
     public Color activeCheckpointColor = Color.yellow;
     private PlayerHealth playerHealth;
     private GameObject player;
-    private EnemySpawnerTrigger[] allEnemySpawnerTriggers;
+    private EncounterHandler[] encounters;
     public void Start()
     {
         if(currentCheckpoint == null)
@@ -22,7 +22,7 @@ public class CheckpointSystem : MonoBehaviour
         }
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
-        allEnemySpawnerTriggers = FindObjectsByType<EnemySpawnerTrigger>(FindObjectsSortMode.None);
+        encounters = FindObjectsByType<EncounterHandler>(FindObjectsSortMode.None);
     }
     public void Respawn()
     {
@@ -33,9 +33,9 @@ public class CheckpointSystem : MonoBehaviour
         playerHealth.currentBlackBile = 0;
         player.transform.position = currentCheckpoint.transform.position;
         //reset all enemy spawners
-        foreach(EnemySpawnerTrigger trigger in allEnemySpawnerTriggers)
+        foreach(EncounterHandler encounter in encounters)
         {
-            trigger.ResetTrigger();
+            encounter.ResetEncounter();
         }
         //destroy all projectiles in the scene
         foreach(Projectile projectile in FindObjectsByType<Projectile>(FindObjectsSortMode.None))

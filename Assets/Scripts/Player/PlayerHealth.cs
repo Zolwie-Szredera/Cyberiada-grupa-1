@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private PlayerController playerController;
     public Image bloodFill;
     public Image blackBileFill;
+    public Canvas deathScreen;
     [HideInInspector] public float currentBlackBile;
     [HideInInspector] public float currentBlood;
     void Start()
@@ -78,6 +79,7 @@ public class PlayerHealth : MonoBehaviour
     {
         playerController.enabled = false;
         Time.timeScale = 0;
+        deathScreen.gameObject.SetActive(true);
         Debug.Log("You died! Click R to respawn at the last checkpoint.");
     }
     public void TakeDamage(float damage)

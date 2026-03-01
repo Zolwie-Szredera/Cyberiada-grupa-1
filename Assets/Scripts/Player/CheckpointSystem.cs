@@ -26,6 +26,7 @@ public class CheckpointSystem : MonoBehaviour
     }
     public void Respawn()
     {
+        playerHealth.deathScreen.gameObject.SetActive(false);
         // this function will be much more complicated in the future to handle enemies, pickups etc.
         Time.timeScale = 1f;
         player.GetComponent<PlayerController>().enabled = true;

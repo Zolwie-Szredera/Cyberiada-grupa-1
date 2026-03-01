@@ -18,10 +18,15 @@ public class PlayerSword : PlayerWeapons
             return attackOrigin.position;
         }
         
-        // Otherwise, calculate position in front of weapon based on rotation
+        // Use the direction from player to mouse to determine attack position.
+        // We cannot rely on transform.eulerAngles.z because a negative parent scale
+        // (player flipped) corrupts the world-space euler angles.
         Vector2 weaponPos = transform.position;
-        float weaponAngle = transform.eulerAngles.z * Mathf.Deg2Rad;
-        Vector2 direction = new(Mathf.Cos(weaponAngle), Mathf.Sin(weaponAngle));
+        Vector2 playerPos = player != null ? player.transform.position : weaponPos;
+        Vector2 direction = (mousePosition - playerPos);
+        if (direction.sqrMagnitude < 0.0001f)
+            direction = Vector2.right;
+        direction.Normalize();
         
         return weaponPos + direction * attackDistance;
     }
@@ -68,10 +73,12 @@ public class PlayerSword : PlayerWeapons
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(transform.position, attackPos);
         
-        // Draw weapon direction arrow
+        // Draw weapon direction arrow (using player-to-mouse direction, same as GetAttackPosition)
         Gizmos.color = Color.magenta;
-        float weaponAngle = transform.eulerAngles.z * Mathf.Deg2Rad;
-        Vector2 direction = new(Mathf.Cos(weaponAngle), Mathf.Sin(weaponAngle));
+        Vector2 playerPos2 = player != null ? player.transform.position : transform.position;
+        Vector2 direction = (mousePosition - playerPos2);
+        if (direction.sqrMagnitude < 0.0001f) direction = Vector2.right;
+        direction.Normalize();
         Gizmos.DrawRay(transform.position, direction * (attackDistance + attackRange));
         
         // Draw label with attack range info

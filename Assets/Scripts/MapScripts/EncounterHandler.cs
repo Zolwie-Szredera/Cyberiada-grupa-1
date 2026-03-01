@@ -47,14 +47,10 @@ public class EncounterHandler : MonoBehaviour
     // Completely resets the encounter so it can be started again.
     public void ResetEncounter()
     {
-        // clean up current wave subscriptions
-        if (currentWave > 0 && currentWave <= wavesSpawners.Length)
-        {
-            wavesSpawners[currentWave - 1].Cleanup();
-        }
-        // also clean up all remaining waves just in case
+        // Unsubscribe from all wave completion events first
         for (int i = 0; i < wavesSpawners.Length; i++)
         {
+            wavesSpawners[i].OnWaveComplete -= NextWave;
             wavesSpawners[i].Cleanup();
         }
         currentWave = 0;

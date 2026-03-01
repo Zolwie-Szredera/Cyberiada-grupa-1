@@ -35,8 +35,8 @@ public class PlayerSword : PlayerWeapons
             if (hit.TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(damage);
-                float bloodSteal = damage / 2.0f;
-                player.GetComponent<PlayerHealth>().GainBlood(bloodSteal); //this is important. Current steal: 50%
+                float bloodSteal = damage / 5.0f;
+                player.GetComponent<PlayerHealth>().GainBlood(bloodSteal); //this is important. Current steal: 20%
                 Debug.Log("Hit an enemy: " + hit.name + " and gained blood: " + bloodSteal);
             }
             //if(hit.TryGetComponent(out Destructible destructible))

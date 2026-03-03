@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8521d305982ee14caad78e6891251ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  hp: 10
+  hp: 100
   movementSpeed: 5
   attackSpeed: 1
   groundCheck: {fileID: 7038656909599708075}

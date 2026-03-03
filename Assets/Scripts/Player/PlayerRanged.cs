@@ -44,6 +44,7 @@ public class PlayerRanged : PlayerWeapons
         Projectile currentProjectile = Instantiate(projectile, origin, rotation);
         currentProjectile.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
         currentProjectile.damage = damage;
+        currentProjectile.timeToLive = projectileTTL;
         attackCooldown = attackSpeed;
     }
 }

@@ -8,20 +8,36 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionsMenuCanvas;
     public GameObject mainCanvas;
     public bool isPaused = false;
+    private GameObject player;
     private PlayerController playerController;
     private PlayerHealth playerHealth;
+    private GameObject weapons;
+    private bool playerDetected = true;
     private void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        //this script is also used in the main menu, so we need to check if there is a player in the scene before trying to access its components
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            Debug.LogWarning("PauseMenu: No player found in the scene!");
+            playerDetected = false;
+            return;
+        }
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+        playerHealth = player.GetComponent<PlayerHealth>();
+        weapons = player.transform.Find("Weapons").gameObject;
     }
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.started) return;
         if (!isPaused) //begin pause
         {
+            if (playerDetected)
+            {
+                playerController.enabled = false;
+                weapons.SetActive(false);
+            }
             isPaused = true;
-            playerController.enabled = false;
             Time.timeScale = 0;
             pauseMenuCanvas.SetActive(true);
             mainCanvas.SetActive(false);
@@ -41,8 +57,12 @@ public class PauseMenu : MonoBehaviour
     //----------- BUTTONS -----------
     public void BackToGame()
     {
+        if (playerDetected)
+        {
+            playerController.enabled = true;
+            weapons.SetActive(true);
+        }
         isPaused = false;
-        playerController.enabled = true;
         Time.timeScale = 1;
         pauseMenuCanvas.SetActive(false);
     }
@@ -54,8 +74,11 @@ public class PauseMenu : MonoBehaviour
     public void RestartToCheckpoint()
     {
         BackToGame();
-        playerHealth.Die();
-        // playerHealth.Respawn(); // <-- this doesnt exits on this branch. remove comment after merge with level-testing
+        if(playerDetected)
+        {
+            playerHealth.Die();
+            player.GetComponent<CheckpointSystem>().Respawn();
+        }
     }
     public void QuitToMainMenu()
     {

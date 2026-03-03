@@ -65,8 +65,8 @@ MonoBehaviour:
       - rid: 3919210698432315392
       - rid: 3919210698432315393
       - rid: 3919210698432315394
-      - rid: 4395778731697242117
-      - rid: 4395778731697242118
+      - rid: 3919210811909210112
+      - rid: 3919210811909210113
     m_RuntimeSettings:
       m_List: []
   m_AssetVersion: 10
@@ -151,12 +151,12 @@ MonoBehaviour:
       data:
         version: 1
         useReflectionProbeRotation: 0
-    - rid: 4395778731697242117
+    - rid: 3919210811909210112
       type: {class: URPTerrainShaderSetting, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
         m_Version: 0
         m_IncludeTerrainShaders: 1
-    - rid: 4395778731697242118
+    - rid: 3919210811909210113
       type: {class: UniversalRenderPipelineRuntimeTerrainShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
         m_Version: 0

@@ -8,7 +8,6 @@ public class OptionsMenu : MonoBehaviour
     public GameObject MenuPanel; //main menu lub ESC menu
     public GameObject optionsPanel;
     public GameObject areYouSurePrompt;
-    public PlayerController playerController;
 
     [Header("Audio")]
     public Slider volumeSlider;

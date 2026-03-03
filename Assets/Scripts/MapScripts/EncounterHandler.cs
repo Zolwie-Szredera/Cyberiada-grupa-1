@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EncounterHandler : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class EncounterHandler : MonoBehaviour
     /// </summary>
     private const string PLAYER_TAG = "Player";
     public WaveSpawner[] wavesSpawners;
+    [Header("doors")]
+    public Tilemap collisionTilemap;
+    public TileBase closedDoorTile;
+    public Vector2Int[] doorsPositions;
     private int currentWave = 0;
     private bool encounterStarted = false;
     private void OnTriggerEnter2D(Collider2D other)
@@ -17,6 +22,7 @@ public class EncounterHandler : MonoBehaviour
         if (other.CompareTag(PLAYER_TAG) && !encounterStarted)
         {
             encounterStarted = true;
+            CloseDoors();
             Debug.Log("Encounter started");
             NextWave();
         }
@@ -40,7 +46,22 @@ public class EncounterHandler : MonoBehaviour
         {
             Debug.Log("Encounter completed");
             encounterStarted = false;
+            OpenDoors();
             //end encounter
+        }
+    }
+    public void CloseDoors()
+    {
+        foreach (Vector2Int doorPosition in doorsPositions)
+        {
+            collisionTilemap.SetTile(new Vector3Int(doorPosition.x, doorPosition.y, 0), closedDoorTile);
+        }
+    }
+    public void OpenDoors()
+    {
+        foreach (Vector2Int doorPosition in doorsPositions)
+        {
+            collisionTilemap.SetTile(new Vector3Int(doorPosition.x, doorPosition.y, 0), null);
         }
     }
 
@@ -55,6 +76,7 @@ public class EncounterHandler : MonoBehaviour
         }
         currentWave = 0;
         encounterStarted = false;
+        OpenDoors();
     }
     void OnDrawGizmos()
     {

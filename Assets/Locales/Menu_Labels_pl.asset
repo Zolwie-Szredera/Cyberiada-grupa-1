@@ -79,6 +79,18 @@ MonoBehaviour:
       skok"
     m_Metadata:
       m_Items: []
+  - m_Id: 39841178782588928
+    m_Localized: "Wygra\u0142e\u015B"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39841271619313664
+    m_Localized: TRUP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39841393623228416
+    m_Localized: "Kliknij R by spr\xF3bowa\u0107 jeszcze raz"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

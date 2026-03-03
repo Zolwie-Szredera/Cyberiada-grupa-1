@@ -44,7 +44,12 @@ public class EncounterHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Encounter completed");
+            // Cleanup the last wave spawner
+            if (currentWave > 0)
+            {
+                wavesSpawners[currentWave - 1].Cleanup();
+                Debug.Log("Encounter completed");
+            }
             encounterStarted = false;
             OpenDoors();
             //end encounter

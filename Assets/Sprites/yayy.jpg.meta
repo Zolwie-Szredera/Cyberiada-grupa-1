@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 05b5fd5eeada6a4429bd329577c70e77
+guid: d48f52786118d864da8f312da50e2f57
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5476236070936182053
-    second: bloodbag_0
+      213: -2192648962168986752
+    second: yayy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bloodbag_0
+      name: yayy_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 1
-        width: 22
-        height: 37
+        x: 0
+        y: 0
+        width: 612
+        height: 379
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bd20badce408004b0800000000000000
-      internalID: -5476236070936182053
+      spriteID: 083e9c4d2652291e0800000000000000
+      internalID: -2192648962168986752
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bloodbag_0: -5476236070936182053
+      yayy_0: -2192648962168986752
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

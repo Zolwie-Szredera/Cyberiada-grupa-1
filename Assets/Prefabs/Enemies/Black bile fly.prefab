@@ -281,6 +281,7 @@ MonoBehaviour:
   attackSpeed: 1
   groundCheck: {fileID: 7038656909599708075}
   sprite: {fileID: 5331020253821585212}
+  bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
   playerLocation: {fileID: 0}
   firstShotDelay: 3
   hoverPointInterval: 3

@@ -20,7 +20,6 @@ public class DebugScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        EnableOrDisableDebug(); //enabled on by default for now
     }
     void Update()
     {

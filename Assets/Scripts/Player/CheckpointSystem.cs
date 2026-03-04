@@ -8,7 +8,7 @@ public class CheckpointSystem : MonoBehaviour
     public Color activeCheckpointColor = Color.yellow;
     private PlayerHealth playerHealth;
     private GameObject player;
-    private EnemySpawnerTrigger[] allEnemySpawnerTriggers;
+    private EncounterHandler[] encounters;
     public void Start()
     {
         if(currentCheckpoint == null)
@@ -22,10 +22,11 @@ public class CheckpointSystem : MonoBehaviour
         }
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
-        allEnemySpawnerTriggers = FindObjectsByType<EnemySpawnerTrigger>(FindObjectsSortMode.None);
+        encounters = FindObjectsByType<EncounterHandler>(FindObjectsSortMode.None);
     }
     public void Respawn()
     {
+        playerHealth.deathScreen.gameObject.SetActive(false);
         // this function will be much more complicated in the future to handle enemies, pickups etc.
         Time.timeScale = 1f;
         player.GetComponent<PlayerController>().enabled = true;
@@ -33,9 +34,9 @@ public class CheckpointSystem : MonoBehaviour
         playerHealth.currentBlackBile = 0;
         player.transform.position = currentCheckpoint.transform.position;
         //reset all enemy spawners
-        foreach(EnemySpawnerTrigger trigger in allEnemySpawnerTriggers)
+        foreach(EncounterHandler encounter in encounters)
         {
-            trigger.ResetTrigger();
+            encounter.ResetEncounter();
         }
         //destroy all projectiles in the scene
         foreach(Projectile projectile in FindObjectsByType<Projectile>(FindObjectsSortMode.None))
@@ -50,8 +51,7 @@ public class CheckpointSystem : MonoBehaviour
     }
     public void OnRespawn(InputAction.CallbackContext context)
     {
-        //remember to add a "is not in menu" check later
-        if (context.started)
+        if (context.started && !GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>().isPaused)
         {
             Respawn();
         }

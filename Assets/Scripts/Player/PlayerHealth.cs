@@ -105,7 +105,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood - currentBlackBile);
         }
-        Debug.Log("Gained blood: " + gain);
+        //Debug.Log("Gained blood: " + gain);
     }
     //BLACK BILE status effect. Is this interesting enough?
     public void GainBlackBile(float amount)

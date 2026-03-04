@@ -26,10 +26,11 @@ public class WaveSpawner : MonoBehaviour
     }
     public void Cleanup()
     {
-        // Unsubscribe from all spawners when wave ends
+        // Unsubscribe from all spawners and destroy their enemies
         foreach(EnemySpawner spawner in enemySpawner)
         {
             spawner.OnSpawnerComplete -= OnSpawnerComplete;
+            spawner.Cleanup(); // Destroy enemies and reset state
         }
     }
 }

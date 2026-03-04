@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[RequireComponent(typeof(AudioSource))]
 public class EncounterHandler : MonoBehaviour
 {
     /// <summary>
@@ -22,10 +23,16 @@ public class EncounterHandler : MonoBehaviour
     // (useful for example for filling the pit with tiles so the player can walk on it after the encounter is completed)
     public TileBase afterEncounterTile;
     public Vector2Int[] afterEncounterPositions;
-    public bool encounterCompleted = false;
+    [HideInInspector] public bool encounterCompleted = false;
     public bool fillMode = false;
+    private AudioSource audioSource;
+
     private int currentWave = 0;
     private bool encounterStarted = false;
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,6 +42,10 @@ public class EncounterHandler : MonoBehaviour
             currentWave = 0; // Reset wave counter for new encounter
             PlaceTilesEncounterStart();
             Debug.Log("Encounter started");
+            if(audioSource.clip != null) //sometimes the audio source might not have a clip assigned
+            {
+                audioSource.Play();
+            }
             NextWave();
         }
     }
@@ -66,6 +77,10 @@ public class EncounterHandler : MonoBehaviour
                 Debug.LogWarning("NextWave called but there are no waves configured in the EncounterHandler.");
             }
             encounterStarted = false;
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
             PlaceTilesEncounterEnd();
             //end encounter
         }
@@ -159,6 +174,10 @@ public class EncounterHandler : MonoBehaviour
         currentWave = 0;
         encounterStarted = false;
         encounterCompleted = false;
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
         ResetEncounterTiles();
     }
     void OnDrawGizmos()

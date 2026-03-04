@@ -37,6 +37,7 @@ public class EnemyMeelee : MonoBehaviour
     }
     public virtual void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

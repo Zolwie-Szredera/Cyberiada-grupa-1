@@ -76,6 +76,18 @@ MonoBehaviour:
       you. Jump in the air to double jump
     m_Metadata:
       m_Items: []
+  - m_Id: 39841178782588928
+    m_Localized: Victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39841271619313664
+    m_Localized: YOU DIED
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39841393623228416
+    m_Localized: Click R to respawn
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

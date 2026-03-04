@@ -279,10 +279,60 @@ MonoBehaviour:
   closeAttackRange: 1.4
   closeAttackPoint: {fileID: 8031843589499860760}
   groundCheck: {fileID: 3569487374401682602}
+<<<<<<< Updated upstream
   sprite: {fileID: 0}
   thrustBoxSize: {x: 3, y: 0.4}
   thrustDistance: 1.5
   spear: {fileID: 6031276746849965051}
+=======
+  sprite: {fileID: 1688984677021249989}
+  bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
+  playerLocation: {fileID: 0}
+  spawner: {fileID: 0}
+  animator: {fileID: 290015308375481755}
+  walkDistance: 15
+  obstacleDetectionDist: 1
+  maxStepHeight: 1
+  jumpPower: 6
+  pivotOffset: 1.75
+--- !u!114 &4636081516228281681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075746037874299853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4444157580a4c4d943b5934def2c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HalberdAttack
+  damage: 10
+  attackRange: 2
+  attackPoint: {fileID: 8031843589499860760}
+--- !u!95 &290015308375481755
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075746037874299853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bd80e4513b22dde41a6ec9d821367fe0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+>>>>>>> Stashed changes
 --- !u!1 &3279220806590808058
 GameObject:
   m_ObjectHideFlags: 0

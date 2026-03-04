@@ -71,6 +71,18 @@ MonoBehaviour:
     m_Key: HowToPlay2Blood+jump
     m_Metadata:
       m_Items: []
+  - m_Id: 39841178782588928
+    m_Key: Victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39841271619313664
+    m_Key: Death
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39841393623228416
+    m_Key: underDeath
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -161,188 +161,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: N
+      name: A1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 193
-        width: 33
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3d7367d12e3cccb10800000000000000
-      internalID: 2003191310197340115
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: I1
-      rect:
-        serializedVersion: 2
-        x: 131
-        y: 193
-        width: 33
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7fb2c791453091920800000000000000
-      internalID: 2961401889712516087
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A3
-      rect:
-        serializedVersion: 2
-        x: 131
-        y: 129
-        width: 30
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4be5376af1c453df0800000000000000
-      internalID: -201170909527843148
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: I2
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 193
-        width: 33
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1ca482d00276ba050800000000000000
-      internalID: 5812853131409115841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A4
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 129
-        width: 41
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 90f296ada82ae96d0800000000000000
-      internalID: -2981767186019176695
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: I3
-      rect:
-        serializedVersion: 2
-        x: 259
-        y: 193
-        width: 33
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 856ae98f1618544f0800000000000000
-      internalID: -845127097279142312
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A5
-      rect:
-        serializedVersion: 2
-        x: 259
-        y: 129
-        width: 61
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0ff761a780f521650800000000000000
-      internalID: 6202124126855266288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: I4
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 193
-        width: 32
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8db244515fc466460800000000000000
-      internalID: 7234554466924768216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A6
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 129
-        width: 61
+        x: 64
+        y: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -359,12 +183,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A7
+      name: A2
       rect:
         serializedVersion: 2
-        x: 387
-        y: 129
-        width: 60
+        x: 128
+        y: 128
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -381,13 +205,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: D1
+      name: A3
       rect:
         serializedVersion: 2
-        x: 451
-        y: 193
-        width: 32
-        height: 29
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -403,13 +227,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A1
+      name: A4
       rect:
         serializedVersion: 2
-        x: 3
-        y: 129
-        width: 33
-        height: 63
+        x: 256
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -425,13 +249,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A2
+      name: A5
       rect:
         serializedVersion: 2
-        x: 63
-        y: 129
-        width: 42
-        height: 63
+        x: 320
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -447,13 +271,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A8
+      name: A6
       rect:
         serializedVersion: 2
-        x: 451
-        y: 129
-        width: 33
-        height: 63
+        x: 384
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -469,45 +293,89 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: U1
+      name: W1
       rect:
         serializedVersion: 2
-        x: 9
-        y: 84
-        width: 21
-        height: 18
+        x: 128
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c27ab34ca59890e60800000000000000
-      internalID: 7929019641894774572
+      spriteID: 7aa7eac5fa404ff4db39047ee8997f89
+      internalID: 2961401889712516087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: U2
+      name: W2
       rect:
         serializedVersion: 2
-        x: 71
-        y: 83
-        width: 48
-        height: 24
+        x: 192
+        y: 192
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: efa9636f5fa533960800000000000000
-      internalID: 7580502610238937854
+      spriteID: b8d3e4fe069936b4f93493cf4dc6249c
+      internalID: -201170909527843148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: W3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d20562eb27c46a46991f73f84766ff3
+      internalID: 5812853131409115841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: W4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 706ba0066de1c40448e01a2ebaaea2ef
+      internalID: -2981767186019176695
       vertices: []
       indices: 
       edges: []
@@ -516,7 +384,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 006cbb1a527005747997bc13651969b5
+    spriteID: 47abfe93a8d97c1429eff5836fa7b8ce
     internalID: 0
     vertices: []
     indices: 
@@ -524,25 +392,27 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      A1: 7536826146734999474
-      A2: -5040072872142950110
-      A3: -201170909527843148
-      A4: -2981767186019176695
-      A5: 6202124126855266288
-      A6: 8888205085020553788
-      A7: -7777367624369244336
-      A8: -6276466159515857607
-      D1: 4953606424155815556
+      A1: 8888205085020553788
+      A2: -7777367624369244336
+      A3: 4953606424155815556
+      A4: 7536826146734999474
+      A5: -5040072872142950110
+      A6: -6276466159515857607
+      GuardSpriteSheet_0: 2003191310197340115
+      GuardSpriteSheet_14: 7929019641894774572
+      GuardSpriteSheet_15: 7580502610238937854
       GuardSpriteSheet_16: -3937120173143937252
-      I1: 2961401889712516087
-      I2: 5812853131409115841
-      I3: -845127097279142312
-      I4: 7234554466924768216
-      N: 2003191310197340115
-      U1: 7929019641894774572
-      U2: 7580502610238937854
+      GuardSpriteSheet_5: -845127097279142312
+      GuardSpriteSheet_6: 6202124126855266288
+      GuardSpriteSheet_7: 7234554466924768216
+      W1: 2961401889712516087
+      W2: -201170909527843148
+      W3: 5812853131409115841
+      W4: -2981767186019176695
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

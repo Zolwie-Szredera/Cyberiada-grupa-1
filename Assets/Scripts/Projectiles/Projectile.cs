@@ -17,19 +17,20 @@ public class Projectile : MonoBehaviour
     }
     public virtual void ApplyCollisionEffect(Collider2D other)
     {
-        if (other.gameObject.layer == 9) //ignore traps
-        {
-            return;
-        }
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            Destroy(gameObject);
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
     public void IgnoreParentObject(GameObject gameObject)
     {

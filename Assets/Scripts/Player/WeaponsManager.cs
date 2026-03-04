@@ -5,26 +5,26 @@ public class WeaponsManager : MonoBehaviour
     [Header("Weapon References")]
     [Tooltip("All weapon GameObjects")]
     public GameObject[] weapons;
-    
+
     [Header("Orbit Configuration")]
     [Tooltip("Distance weapons orbit from player")]
     public float orbitRadius = 1.5f;
-    
+
     [Tooltip("How fast weapons follow mouse around orbit (0 = instant, higher = smoother)")]
     [Range(0f, 30f)]
     public float angleFollowSpeed = 15f;
-    
+
     [Tooltip("Rotation offset for all weapons (adjust if sprites point wrong way)")]
     public float globalRotationOffset;
-    
+
     [Header("Sprite Flipping")]
     [Tooltip("Auto-flip weapon sprites when aiming left")]
     public bool enableSpriteFlipping = true;
-    
+
     [Header("Debug")]
     [Tooltip("Add visual debug arrows to show weapon facing")]
     public bool addDebugArrows = true;
-    
+
     [Tooltip("Draw orbit circles in scene view")]
     public bool drawOrbitGizmos = true;
 
@@ -34,14 +34,13 @@ public class WeaponsManager : MonoBehaviour
     void Start()
     {
         InitializeWeaponOrbits();
-        
+
         // Show only first weapon
         if (weapons.Length > 0)
         {
             SwitchToWeapon(0);
         }
     }
-
     void InitializeWeaponOrbits()
     {
         if (weapons == null || weapons.Length == 0)

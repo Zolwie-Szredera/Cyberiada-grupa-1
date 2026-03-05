@@ -17,17 +17,12 @@ public class Checkpoint : MonoBehaviour
             {
                 return; //already the current checkpoint
             }
-            // Reset the color of the previous checkpoint
-            if (checkpointSystem.currentCheckpoint.TryGetComponent<SpriteRenderer>(out var previousCheckpointRenderer))
-            {
-                previousCheckpointRenderer.color = checkpointSystem.defaultCheckpointColor;
-            }
             //set this as the current checkpoint
             checkpointSystem.currentCheckpoint = gameObject;
-            // Change the color of the active checkpoint
-            if (TryGetComponent<SpriteRenderer>(out var currentCheckpointRenderer))
+            //place tiles if there are any
+            if(TryGetComponent<PlaceTiles>(out var placeTiles))
             {
-                currentCheckpointRenderer.color = checkpointSystem.activeCheckpointColor;
+                placeTiles.PlaceTile();
             }
         }
     }

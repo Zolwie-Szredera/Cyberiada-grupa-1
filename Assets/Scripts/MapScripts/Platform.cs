@@ -4,6 +4,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     private PlatformEffector2D parentPlatformEffector;
+    private int disabledPlatformOffset = 180;
     void Start()
     {
         parentPlatformEffector = transform.parent.gameObject.GetComponent<PlatformEffector2D>();
@@ -14,18 +15,16 @@ public class Platform : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && parentPlatformEffector.rotationalOffset == 90f)
+        if (other.CompareTag("Player") && parentPlatformEffector.rotationalOffset == disabledPlatformOffset)
         {
-            Debug.Log("Restored collision with platform on exit.");
             parentPlatformEffector.rotationalOffset = 0f;
         }
     }
     public void RemoveCollision()
     {
-        if (parentPlatformEffector.rotationalOffset != 90f)
+        if (parentPlatformEffector.rotationalOffset != disabledPlatformOffset)
         {
-            Debug.Log("Removed collision with platform.");
-            parentPlatformEffector.rotationalOffset = 90f;
+            parentPlatformEffector.rotationalOffset = disabledPlatformOffset;
         }
     }
 }

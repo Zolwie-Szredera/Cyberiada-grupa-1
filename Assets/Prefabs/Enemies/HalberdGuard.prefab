@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc7bc1a6a45377439218c5c205c03fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AxeGuard
-  hp: 50
+  hp: 60
   movementSpeed: 5
   attackSpeed: 2
   groundCheck: {fileID: 3569487374401682602}

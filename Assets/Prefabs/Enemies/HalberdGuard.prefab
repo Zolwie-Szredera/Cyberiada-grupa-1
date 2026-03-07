@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5568539866598465077}
   - component: {fileID: 6812837579484636831}
   - component: {fileID: 4636081516228281681}
+  - component: {fileID: 7946448070484163078}
   - component: {fileID: 290015308375481755}
   m_Layer: 11
   m_Name: HalberdGuard
@@ -135,7 +136,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ec22a05240e1b0840aa42c8dbea1f6b6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -191,6 +192,8 @@ MonoBehaviour:
   bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
   playerLocation: {fileID: 0}
   spawner: {fileID: 0}
+  direction: 0
+  rb: {fileID: 0}
   animator: {fileID: 290015308375481755}
   walkDistance: 15
 --- !u!114 &4636081516228281681
@@ -208,6 +211,22 @@ MonoBehaviour:
   damage: 10
   attackRange: 2
   attackPoint: {fileID: 8031843589499860760}
+--- !u!114 &7946448070484163078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075746037874299853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5a171150fe3fb40a995b2efd4fa245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyJump
+  obstacleDetectionDist: 1
+  maxStepHeight: 1
+  jumpPower: 6
+  pivotOffset: 1.75
 --- !u!95 &290015308375481755
 Animator:
   serializedVersion: 7

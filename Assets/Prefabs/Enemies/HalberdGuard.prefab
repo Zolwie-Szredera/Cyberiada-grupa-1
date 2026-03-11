@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4444157580a4c4d943b5934def2c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HalberdAttack
-  damage: 10
-  attackRange: 2.5
+  damage: 3
+  attackRange: 1.25
   attackPoint: {fileID: 8031843589499860760}
 --- !u!114 &7946448070484163078
 MonoBehaviour:

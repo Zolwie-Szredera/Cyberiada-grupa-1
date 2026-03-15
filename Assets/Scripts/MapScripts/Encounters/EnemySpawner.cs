@@ -35,7 +35,25 @@ public class EnemySpawner : MonoBehaviour
     }
     void OnDrawGizmos()
     {
+        if (enemyPrefab == null)
+        {
+            Debug.LogWarning("Enemy prefab not assigned for EnemySpawner on " + gameObject.name);
+            return;
+        }
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.5f);
+        // Draw gizmos based on the enemy prefab's collider
+        if (enemyPrefab.TryGetComponent(out BoxCollider2D boxCollider))
+        {
+            Gizmos.DrawWireCube(transform.position, new Vector3(boxCollider.size.x, boxCollider.size.y, 0));
+        }
+        else if (enemyPrefab.TryGetComponent(out CapsuleCollider2D capsuleCollider))
+        {
+            Gizmos.DrawWireCube(transform.position, new Vector3(capsuleCollider.size.x, capsuleCollider.size.y, 0));
+        }
+        else if (enemyPrefab.TryGetComponent(out CircleCollider2D circleCollider))
+        {
+            float diameter = circleCollider.radius * 2;
+            Gizmos.DrawWireCube(transform.position, new Vector3(diameter, diameter, 0));
+        }
     }
 }

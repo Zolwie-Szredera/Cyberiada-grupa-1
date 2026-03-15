@@ -276,14 +276,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8521d305982ee14caad78e6891251ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  hp: 100
+  hp: 40
   movementSpeed: 5
   attackSpeed: 1
   groundCheck: {fileID: 7038656909599708075}
   sprite: {fileID: 5331020253821585212}
   bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
   playerLocation: {fileID: 0}
-  firstShotDelay: 3
+  spawner: {fileID: 0}
+  firstShotDelay: 2
   hoverPointInterval: 3
   animator: {fileID: 940918914854052046}
   hoverPointRadiusMin: 5
@@ -301,12 +302,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c379561bf436a45b7eaf86f92f47e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackBileFlyAttack
-  damage: 10
+  damage: 5
   attackRange: 20
   projectileSpeed: 6
-  projectileTimeToLive: 5
+  projectileTimeToLive: 2
   projectilePrefab: {fileID: 667607137140882554, guid: 21f2f0ad0a2a8b5419dfad43de961ca9, type: 3}
   attackPoint: {fileID: 5908111508336646880}
+  arcProjectileDamage: 10
   projectileArcPrefab: {fileID: 9178746058324899455, guid: 607ad30590dbf3c44a8bf05bbf56395c, type: 3}
   explosionProjectileCount: 8
 --- !u!70 &6148705269630057710

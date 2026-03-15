@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(HalberdAttack))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(EnemyJump))]
 public class HalberdAI : Enemy
 {
     public Animator animator;
@@ -11,10 +12,12 @@ public class HalberdAI : Enemy
     private HalberdAttack meelee;
     enum State { Idle, Walk, Attack }
     private State currentState;
+    private EnemyJump jumpScript;
     public override void Start()
     {
         base.Start();
         meelee = GetComponent<HalberdAttack>();
+        jumpScript = GetComponent<EnemyJump>();
     }
 
     public override void FixedUpdate()
@@ -38,6 +41,8 @@ public class HalberdAI : Enemy
         {
             animator.SetBool("walk", true);
             WalkToPlayer(1);
+            //jump if needed
+            jumpScript.CheckForJump();
         }
         //state transitions
         //if attack cooldown != 0 sit idle

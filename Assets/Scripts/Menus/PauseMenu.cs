@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // <-- NOWA LINIA: Wymagane do obs³ugi PlayerInput
 
 [RequireComponent(typeof(OptionsMenu))]
 public class PauseMenu : MonoBehaviour
@@ -13,9 +13,11 @@ public class PauseMenu : MonoBehaviour
     private PlayerHealth playerHealth;
     private GameObject weapons;
     private bool playerDetected = true;
+
+    private PlayerInput playerInput;
+
     private void Start()
     {
-        //this script is also used in the main menu, so we need to check if there is a player in the scene before trying to access its components
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             Debug.LogWarning("PauseMenu: No player found in the scene!");
@@ -26,14 +28,19 @@ public class PauseMenu : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
         playerHealth = player.GetComponent<PlayerHealth>();
         weapons = player.transform.Find("Weapons").gameObject;
+
+        playerInput = player.GetComponent<PlayerInput>();
     }
+
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        if (!isPaused) //begin pause
+        if (!isPaused)
         {
             if (playerDetected)
             {
+
+                playerInput.actions.Disable();
                 playerController.enabled = false;
                 weapons.SetActive(false);
             }
@@ -42,7 +49,7 @@ public class PauseMenu : MonoBehaviour
             pauseMenuCanvas.SetActive(true);
             mainCanvas.SetActive(false);
         }
-        else //end pause
+        else
         {
             if (optionsMenuCanvas.activeSelf)
             {
@@ -54,11 +61,13 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+
     //----------- BUTTONS -----------
     public void BackToGame()
     {
         if (playerDetected)
         {
+            playerInput.actions.Enable();
             playerController.enabled = true;
             weapons.SetActive(true);
         }
@@ -67,6 +76,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuCanvas.SetActive(false);
         mainCanvas.SetActive(true);
     }
+
+
     public void OpenOptions()
     {
         pauseMenuCanvas.SetActive(false);
@@ -75,7 +86,7 @@ public class PauseMenu : MonoBehaviour
     public void RestartToCheckpoint()
     {
         BackToGame();
-        if(playerDetected)
+        if (playerDetected)
         {
             playerHealth.Die();
             player.GetComponent<CheckpointSystem>().Respawn();

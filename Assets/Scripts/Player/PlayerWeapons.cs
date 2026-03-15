@@ -27,12 +27,17 @@ public class PlayerWeapons : MonoBehaviour
     public virtual void OnAttack(InputAction.CallbackContext context)
     {
         if(context.started)
-        {
             animator.SetBool("attack", true);
-        } else if(context.canceled)
-        {
+        else if(context.canceled)
             animator.SetBool("attack", false);
-        }
+    }
+    public virtual void ForceAttackStart()
+    {
+        animator.SetBool("attack", true);
+    }
+    public virtual void ForceAttackStop()
+    {
+        animator.SetBool("attack", false);
     }
     public virtual void BasicAttack()
     {

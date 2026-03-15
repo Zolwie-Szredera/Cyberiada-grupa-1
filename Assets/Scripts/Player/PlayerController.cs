@@ -43,6 +43,28 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private bool isHoldingDown = false;
     private GameManager gameManager;
+    private PlayerControls controls;
+    private WeaponsManager weaponsManager;
+    private PlayerWeapons currentWeapon;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+        controls.player.Attack.started += OnAttack;
+        controls.player.Attack.canceled += OnAttack;
+    }
+
+    private void OnDisable()
+    {
+        controls.player.Attack.started -= OnAttack;
+        controls.player.Attack.canceled -= OnAttack;
+        controls.Disable();
+    }
 
     private void Start()
     {
@@ -53,6 +75,23 @@ public class PlayerController : MonoBehaviour
         {
             interactText.gameObject.SetActive(false);
         }
+        weaponsManager = FindObjectOfType<WeaponsManager>();
+        if (weaponsManager != null)
+            weaponsManager.OnWeaponChanged += OnWeaponChanged;
+        UpdateCurrentWeapon();
+    }
+
+    private void OnDestroy()
+    {
+        if (weaponsManager != null)
+            weaponsManager.OnWeaponChanged -= OnWeaponChanged;
+    }
+
+    private void UpdateCurrentWeapon()
+    {
+        var weaponObj = weaponsManager.GetCurrentWeapon();
+        if (weaponObj != null)
+            currentWeapon = weaponObj.GetComponent<PlayerWeapons>();
     }
 
     // Receive input from "Move" action.
@@ -294,6 +333,27 @@ public class PlayerController : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * wallCheckDistance);
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * wallCheckDistance);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (currentWeapon != null)
+            currentWeapon.OnAttack(context);
+    }
+
+    public void OnWeaponChanged()
+    {
+        UpdateCurrentWeapon();
+        if (currentWeapon == null) return;
+        // Check if the attack button is held
+        if (controls.player.Attack.ReadValue<float>() > 0.5f)
+        {
+            currentWeapon.ForceAttackStart();
+        }
+        else
+        {
+            currentWeapon.ForceAttackStop();
         }
     }
 }

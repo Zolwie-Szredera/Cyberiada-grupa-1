@@ -31,6 +31,8 @@ public class WeaponsManager : MonoBehaviour
     private WeaponOrbit[] weaponOrbits;
     private int currentWeaponIndex;
 
+    public System.Action OnWeaponChanged;
+
     void Start()
     {
         InitializeWeaponOrbits();
@@ -122,6 +124,7 @@ public class WeaponsManager : MonoBehaviour
         }
 
         Debug.Log($"[WeaponsManager] Switched to weapon: {weapons[index].name}");
+        OnWeaponChanged?.Invoke();
     }
 
     public int GetCurrentWeaponIndex()
@@ -186,4 +189,3 @@ public class WeaponsManager : MonoBehaviour
         }
     }
 }
-

@@ -258,8 +258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlickerLight
   minIntensity: 0.5
   maxIntensity: 1.5
-  timeBetweenFlickers: 0.2
-  lerpSpeed: 5
+  timeBetweenFlickers: 0.6
+  lerpSpeed: 2
 --- !u!114 &6284491468907515880
 MonoBehaviour:
   m_ObjectHideFlags: 0

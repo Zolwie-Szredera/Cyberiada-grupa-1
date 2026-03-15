@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSword : PlayerWeapons
 {
@@ -118,5 +119,20 @@ public class PlayerSword : PlayerWeapons
     public void ApplyDamage()
     {
         BasicAttack();
+    }
+    public override void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            animator.SetBool("attack", true);
+        else if (context.canceled)
+            animator.SetBool("attack", false);
+    }
+    public override void ForceAttackStart()
+    {
+        animator.SetBool("attack", true);
+    }
+    public override void ForceAttackStop()
+    {
+        animator.SetBool("attack", false);
     }
 }

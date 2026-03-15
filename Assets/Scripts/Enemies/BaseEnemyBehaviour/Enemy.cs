@@ -16,14 +16,14 @@ public class Enemy : MonoBehaviour
     public ParticleSystem bloodParticles;
     [HideInInspector] public Transform playerLocation;
     [HideInInspector] public EnemySpawner spawner;
+    [HideInInspector] public float direction;
+    [HideInInspector] public Rigidbody2D rb;
     protected LayerMask groundLayer;
     protected bool isGrounded;
-    protected Rigidbody2D rb;
     protected LayerMask damageableLayers;
     protected float distanceToPlayer;
     
     protected bool facingRight = true;
-    protected float direction;
     protected bool stopped = false;
     protected float attackCooldown;
     protected Vector2 playerLocationVector2;

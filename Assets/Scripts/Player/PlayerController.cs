@@ -272,12 +272,14 @@ public class PlayerController : MonoBehaviour
     }
     public void PlatformDrop()
     {
-        Collider2D hit = Physics2D.OverlapBox((Vector2)groundCheck.position + Vector2.down * 0.1f, new Vector2(0.8f, 0.2f), 0.0f, platformLayer);
-        if (hit == null)
+        Collider2D[] hits = Physics2D.OverlapBoxAll((Vector2)groundCheck.position + Vector2.down * 0.1f, new Vector2(0.8f, 0.2f), 0.0f, platformLayer);
+        foreach (Collider2D hit in hits)
         {
-            return;
-        };
-        hit.GetComponent<Platform>().RemoveCollision();
+            if (hit.TryGetComponent<Platform>(out var platform))
+            {
+                platform.RemoveCollision();
+            }
+        }
     }
     //-----------------------------------------DEBUG-------------------------------, remove before release
     private void OnDrawGizmosSelected()

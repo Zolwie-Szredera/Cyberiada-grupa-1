@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(BlackBileFlyAttack))]
 public class BlackBileFlyAI : Enemy
@@ -11,6 +12,8 @@ public class BlackBileFlyAI : Enemy
     public float hoverPointRadiusMin = 5f;
     public float hoverPointRadiusMax = 10f;
     public float avoidGroundDistance = 1f;
+    public float chanceToTransform;
+    public float movementSpeedDuringTransform = 0.5f;
     private bool playerInRange;
     private bool firstShotDone;
     private float firstShotTimer;
@@ -22,7 +25,8 @@ public class BlackBileFlyAI : Enemy
     {
         Idle,
         Moving,
-        Attacking
+        Attacking,
+        Transforming
     }
 
     public override void Start()
@@ -88,6 +92,10 @@ public class BlackBileFlyAI : Enemy
         {
             animator.SetBool("isAttacking", false);
         }
+        if(currentState == State.Transforming)
+        {
+            MoveTowards(playerLocationVector2);
+        }
     }
     Vector2 GetHoverPoint()
     {
@@ -126,7 +134,20 @@ public class BlackBileFlyAI : Enemy
     }
     public override void Die()
     {
-        attackScript.Explode();
+        float chance = Random.Range(0,1);
+        if(chance <= chanceToTransform)
+        {
+            animator.SetBool("deathTransform", true);
+            currentState = State.Transforming;
+            movementSpeed = movementSpeedDuringTransform;
+        } else
+        {
+            attackScript.Explode();
+            base.Die();
+        }
+    }
+    public void InstantDeath() //animator calls this after transform animation is finished
+    {
         base.Die();
     }
 }

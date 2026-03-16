@@ -40,7 +40,6 @@ public class FaceFlyAI : Enemy
         {
             currentHoverPoint = GetHoverPoint();
             hoverPointTimer = hoverPointInterval;
-            Debug.Log(currentHoverPoint);
         }
         MoveTowards(currentHoverPoint);
     }

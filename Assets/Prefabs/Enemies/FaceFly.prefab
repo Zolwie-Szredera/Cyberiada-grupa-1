@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354c529cbedcfcc4b9d0f42d6d9fd049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FaceFlyAI
-  hp: 20
+  hp: 50
   movementSpeed: 10
   attackSpeed: 1
   groundCheck: {fileID: 7853054894970328050}

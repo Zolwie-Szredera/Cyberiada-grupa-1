@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 [RequireComponent(typeof(HalberdAttack))]
@@ -28,6 +27,7 @@ public class HalberdAI : Enemy
         {
             animator.SetBool("attack", true);
             attackCooldown = attackSpeed;
+            blockFlip = true;
         }
         else
         {
@@ -36,9 +36,11 @@ public class HalberdAI : Enemy
         if(currentState == State.Idle)
         {
             animator.SetBool("walk", false);
+            blockFlip = true;
         }
         else if(currentState == State.Walk)
         {
+            blockFlip = false;
             animator.SetBool("walk", true);
             WalkToPlayer(1);
             //jump if needed
@@ -48,24 +50,26 @@ public class HalberdAI : Enemy
         //if attack cooldown != 0 sit idle
         if (Physics2D.OverlapCircle(meelee.attackPoint.position, meelee.attackRange, LayerMask.GetMask("Player")) && attackCooldown <= 0)
         {
-            //Debug.Log("State: Attack");
             currentState = State.Attack;
             return;
         }
         else if (distanceToPlayer < walkDistance && attackCooldown <= 0)
         {
             currentState = State.Walk;
-            //Debug.Log("State: Walk");
         }
         else
         {
             currentState = State.Idle;
-            //Debug.Log("State: Idle");
         }
     }
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.darkBlue;
         Gizmos.DrawWireSphere(transform.position, walkDistance);
+    }
+    public void OnDrawGizmos()
+    {
+        // Display current state above the enemy
+        UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, currentState.ToString());
     }
 }

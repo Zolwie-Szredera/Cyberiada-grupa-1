@@ -12,6 +12,8 @@ public class BlackBileFlyAI : Enemy
     public float hoverPointRadiusMin = 5f;
     public float hoverPointRadiusMax = 10f;
     public float avoidGroundDistance = 1f;
+    [Header("Transformation")]
+    public GameObject transformedEnemyPrefab;
     public float chanceToTransform;
     public float movementSpeedDuringTransform = 0.5f;
     private bool playerInRange;
@@ -43,7 +45,7 @@ public class BlackBileFlyAI : Enemy
         if (playerLocation == null)
         {
             Debug.LogError("player location is null in BlackBileFlyAI");
-        };
+        }
         bool isInRange = distanceToPlayer <= attackScript.attackRange;
 
         //  RESET usunięty — enemy nie cofnie shrink ani liczby strzałów
@@ -134,7 +136,8 @@ public class BlackBileFlyAI : Enemy
     }
     public override void Die()
     {
-        float chance = Random.Range(0,1);
+        float chance = Random.Range(0f,1f);
+        invulnerable = true; //prevent taking damage during transform
         if(chance <= chanceToTransform)
         {
             animator.SetBool("deathTransform", true);
@@ -142,12 +145,22 @@ public class BlackBileFlyAI : Enemy
             movementSpeed = movementSpeedDuringTransform;
         } else
         {
-            attackScript.Explode();
-            base.Die();
+            animator.SetBool("explosiveTransform", true);
+            currentState = State.Transforming;
         }
     }
-    public void InstantDeath() //animator calls this after transform animation is finished
-    {
+    public void TransfurComplete() //animator calls this after transform animation is finished
+    { //I can't contain the silly
+        GameObject newEnemy = Instantiate(transformedEnemyPrefab, transform.position, transform.rotation);
+        if(spawner != null)
+        {
+            newEnemy.GetComponent<Enemy>().spawner = spawner;
+        }
+        Destroy(gameObject);
+    }
+    public void ExplosiveTransfur()
+    { //transfur into a bomb lol
+        attackScript.Explode();
         base.Die();
     }
 }

@@ -8,10 +8,12 @@ using UnityEngine.Rendering.Universal;
 public class Checkpoint : MonoBehaviour
 {
     private CheckpointSystem checkpointSystem;
+    private PlayerHealth playerHealth;
     private new Light2D light;
     void Start()
     {
         checkpointSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<CheckpointSystem>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         light = GetComponent<Light2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,6 +31,7 @@ public class Checkpoint : MonoBehaviour
             {
                 placeTiles.PlaceTile();
             }
+            playerHealth.RestoreToMax();
             StartCoroutine(LightEffectCoroutine());
         }
     }

@@ -37,10 +37,12 @@ public class HalberdAI : Enemy
         {
             animator.SetBool("walk", false);
             blockFlip = true;
+            rb.mass = 1000;
         }
         else if(currentState == State.Walk)
         {
             blockFlip = false;
+            rb.mass = 1;
             animator.SetBool("walk", true);
             WalkToPlayer(1);
             //jump if needed

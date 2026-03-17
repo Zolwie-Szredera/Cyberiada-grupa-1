@@ -67,13 +67,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 37310631422255104
-    m_Localized: A and D to move, space to jump. Left click to attack. R to restart
-      at checkpoint. 1 to switch to sword, 2 to switch to blood sorcery.
+    m_Localized: "A and D to move, \nspace - jump,\nLeft mouse button - attack,\nR
+      - restart at checkpoint,\n1 - switch to sword, \n2 - switch to blood sorcery."
     m_Metadata:
       m_Items: []
   - m_Id: 37315326152859648
-    m_Localized: Hitting enemies with the sword heals you. Using blood sorcery damages
-      you. Jump in the air to double jump
+    m_Localized: "Hitting enemies with the sword heals you. \nUsing blood sorcery
+      damages you. \nJump in the air to double jump."
     m_Metadata:
       m_Items: []
   - m_Id: 39841178782588928

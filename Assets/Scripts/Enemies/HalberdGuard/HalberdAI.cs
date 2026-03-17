@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 [RequireComponent(typeof(HalberdAttack))]
@@ -12,6 +11,7 @@ public class HalberdAI : Enemy
     enum State { Idle, Walk, Attack }
     private State currentState;
     private EnemyJump jumpScript;
+    private bool isAttacking;
     public override void Start()
     {
         base.Start();
@@ -23,46 +23,80 @@ public class HalberdAI : Enemy
     {
         base.FixedUpdate();
         //state management
-        if(currentState == State.Attack)
+        if (currentState == State.Walk)
         {
-            animator.SetBool("attack", true);
-            attackCooldown = attackSpeed;
-            blockFlip = true;
-        }
-        else
-        {
-            animator.SetBool("attack", false);
-        }
-        if(currentState == State.Idle)
-        {
-            animator.SetBool("walk", false);
-            blockFlip = true;
-            rb.mass = 1000;
-        }
-        else if(currentState == State.Walk)
-        {
-            blockFlip = false;
-            rb.mass = 1;
-            animator.SetBool("walk", true);
             WalkToPlayer(1);
             //jump if needed
             jumpScript.CheckForJump();
         }
         //state transitions
-        //if attack cooldown != 0 sit idle
-        if (Physics2D.OverlapCircle(meelee.attackPoint.position, meelee.attackRange, LayerMask.GetMask("Player")) && attackCooldown <= 0)
+        bool playerInRange = Physics2D.OverlapCircle
+        (
+            meelee.attackPoint.position,
+            meelee.attackRange,
+            LayerMask.GetMask("Player")
+        );
+        if (!isAttacking && playerInRange)
         {
-            currentState = State.Attack;
+            ChangeState(State.Attack);
+        }
+        else if (!isAttacking && distanceToPlayer < walkDistance)
+        {
+            ChangeState(State.Walk);
+        }
+        else if (!isAttacking)
+        {
+            ChangeState(State.Idle);
+        }
+    }
+    public void OnEndAttackAnimation() //for animation event
+    {
+        isAttacking = false;
+    }
+    private void ChangeState(State newState)
+    {
+        if (currentState == newState)
             return;
-        }
-        else if (distanceToPlayer < walkDistance && attackCooldown <= 0)
+
+        currentState = newState;
+
+        switch (currentState)
         {
-            currentState = State.Walk;
+            case State.Attack:
+                EnterAttack();
+                break;
+
+            case State.Walk:
+                EnterWalk();
+                break;
+
+            case State.Idle:
+                EnterIdle();
+                break;
         }
-        else
-        {
-            currentState = State.Idle;
-        }
+
+    }
+    private void EnterAttack()
+    {
+        isAttacking = true;
+        animator.SetTrigger("attack");
+        attackCooldown = attackSpeed;
+        blockFlip = true;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    private void EnterWalk()
+    {
+        animator.SetBool("walk", true);
+        blockFlip = false;
+        rb.mass = 1;
+    }
+
+    private void EnterIdle()
+    {
+        animator.SetBool("walk", false);
+        blockFlip = true;
+        rb.mass = 1000;
     }
     public void OnDrawGizmosSelected()
     {

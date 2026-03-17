@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class OptionsMenu : MonoBehaviour
     [Header("Audio")]
     public Slider volumeSlider;
     public AudioMixer audioMixer;
+    public TextMeshProUGUI volumeValueText;
     private float savedVolumeValue;
     //TODO: change comments to english
     public void OnEnable() //ta sekcja będzie się robić strasznie długa jak będziemy dodawać kolejne opcje
@@ -28,6 +30,7 @@ public class OptionsMenu : MonoBehaviour
     public void SetVolume(float value)
     {
         savedVolumeValue = value;
+        volumeValueText.text = Mathf.RoundToInt(value * 100) + "%";
     }
     public void SaveChanges() //zapisz ustawienia
     {

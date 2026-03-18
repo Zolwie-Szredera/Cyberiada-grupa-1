@@ -7,6 +7,7 @@ public class HalberdAI : Enemy
 {
     public Animator animator;
     public float walkDistance;
+    public ParticleSystem sparkParticles;
     private HalberdAttack meelee;
     enum State { Idle, Walk, Attack }
     private State currentState;
@@ -83,6 +84,7 @@ public class HalberdAI : Enemy
         attackCooldown = attackSpeed;
         blockFlip = true;
         rb.linearVelocity = Vector2.zero;
+        rb.mass = 1000;
     }
 
     private void EnterWalk()
@@ -96,7 +98,19 @@ public class HalberdAI : Enemy
     {
         animator.SetBool("walk", false);
         blockFlip = true;
-        rb.mass = 1000;
+    }
+    public void PlaySparks() //for animation event
+    {
+        // Flip spark particles based on facing direction
+        if (facingRight)
+        {
+            sparkParticles.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            sparkParticles.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        sparkParticles.Play();
     }
     public void OnDrawGizmosSelected()
     {

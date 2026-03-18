@@ -1,6 +1,4 @@
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -20,9 +18,9 @@ public class EncounterHandler : MonoBehaviour
 
     private int currentWave = 0;
     private bool encounterStarted = false;
-
-    public PlaceTiles[] executeOnEncounterStart;
-    public PlaceTiles[] executeOnEncounterEnd;
+    //Use these to do stuff at the beginning and end of the encounter. Use OnEnable and OnDisable in these scripts.
+    public Action[] ExecuteOnEncounterStart;
+    public Action[] ExecuteOnEncounterEnd;
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -35,11 +33,11 @@ public class EncounterHandler : MonoBehaviour
             encounterStarted = true;
             currentWave = 0; // Reset wave counter for new encounter
             //place tiles for encounter start (e.g. closed doors)
-            if(executeOnEncounterStart.Length > 0)
+            if(ExecuteOnEncounterStart.Length > 0)
             {
-                foreach (PlaceTiles pt in executeOnEncounterStart)
+                foreach (Action action in ExecuteOnEncounterStart)
                 {
-                    pt.PlaceTile();
+                    action.ExecuteAction();
                 }
             }
             Debug.Log("Encounter started");
@@ -73,19 +71,19 @@ public class EncounterHandler : MonoBehaviour
                 wavesSpawners[currentWave - 1].Cleanup();
                 encounterCompleted = true;
                 // Remove start tiles before placing end tiles
-                if(executeOnEncounterStart.Length > 0)
+                if(ExecuteOnEncounterStart.Length > 0)
                 {
-                    foreach (PlaceTiles pt in executeOnEncounterStart)
+                    foreach (Action action in ExecuteOnEncounterStart)
                     {
-                        pt.RemoveTile();
+                        action.UndoAction();
                     }
                 }
                 // Place end tiles
-                if(executeOnEncounterEnd.Length > 0)
+                if(ExecuteOnEncounterEnd.Length > 0)
                 {
-                    foreach (PlaceTiles pt in executeOnEncounterEnd)
+                    foreach (Action action in ExecuteOnEncounterEnd)
                     {
-                        pt.PlaceTile();
+                        action.ExecuteAction();
                     }
                 }
                 encounterStarted = false;
@@ -112,13 +110,13 @@ public class EncounterHandler : MonoBehaviour
             wavesSpawners[i].Cleanup();
         }
         // Remove all tiles placed during the encounter - restore original tiles if needed
-        foreach(PlaceTiles pt in executeOnEncounterStart)
+        foreach(Action action in ExecuteOnEncounterStart)
         {
-            pt.RemoveTile();
+            action.UndoAction();
         }
-        foreach(PlaceTiles pt in executeOnEncounterEnd)
+        foreach(Action action in ExecuteOnEncounterEnd)
         {
-            pt.RemoveTile();
+            action.UndoAction();
         }
         currentWave = 0;
         encounterStarted = false;

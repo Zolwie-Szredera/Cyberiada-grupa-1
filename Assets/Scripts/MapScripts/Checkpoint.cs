@@ -7,6 +7,7 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(Light2D))]
 public class Checkpoint : MonoBehaviour
 {
+    public Action[] executeOnCheckpoint; //scripts to execute when the checkpoint is activated. Use OnEnable and OnDisable in these scripts.
     private CheckpointSystem checkpointSystem;
     private PlayerHealth playerHealth;
     private new Light2D light;
@@ -26,10 +27,9 @@ public class Checkpoint : MonoBehaviour
             }
             //set this as the current checkpoint
             checkpointSystem.currentCheckpoint = gameObject;
-            //place tiles if there are any
-            if(TryGetComponent<PlaceTiles>(out var placeTiles))
+            foreach (Action action in executeOnCheckpoint)
             {
-                placeTiles.PlaceTile();
+                action.ExecuteAction();
             }
             playerHealth.RestoreToMax();
             StartCoroutine(LightEffectCoroutine());

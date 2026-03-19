@@ -63,10 +63,12 @@ public class EnemySpawner : MonoBehaviour
             if (encounterHandler != null)
             {
                 int waveIndex = System.Array.IndexOf(encounterHandler.wavesSpawners, waveSpawner);
+                #if UNITY_EDITOR
                 if (waveIndex != -1)
                 {
                     UnityEditor.Handles.Label(transform.position, (waveIndex + 1).ToString());
                 }
+                #endif
             }
         }
     }

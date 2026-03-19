@@ -117,9 +117,11 @@ public class HalberdAI : Enemy
         Gizmos.color = Color.darkBlue;
         Gizmos.DrawWireSphere(transform.position, walkDistance);
     }
+    #if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         // Display current state above the enemy
         UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, currentState.ToString());
     }
+    #endif
 }

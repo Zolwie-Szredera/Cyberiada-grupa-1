@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    private static WaitForSeconds _waitForSeconds0_5 = new WaitForSeconds(0.5f);
+    private static WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     [Header("Enemy")]
     public int hp;
     public float movementSpeed;
@@ -27,7 +28,9 @@ public class Enemy : MonoBehaviour
     protected bool stopped = false;
     protected float attackCooldown;
     protected Vector2 playerLocationVector2;
+    protected bool blockFlip = false;
     protected bool justFlipped = false;
+    protected bool invulnerable = false;
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,10 +59,14 @@ public class Enemy : MonoBehaviour
         direction = Mathf.Sign(playerLocation.position.x - transform.position.x);
         distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, 0.1f, groundLayer);
-        FacePlayer();
+        if(!blockFlip)
+        {
+            FacePlayer();
+        }
     }
     public virtual void TakeDamage(int damageTaken)
     {
+        if (invulnerable) return;
         hp -= damageTaken;
         ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
         ps.Play();
@@ -70,12 +77,15 @@ public class Enemy : MonoBehaviour
     }
     public virtual void Die()
     {
-        spawner.OnEnemyDeath();
+        if(spawner != null) //in case I added a enemy directly to the scene for testing
+        {
+            spawner.OnEnemyDeath();
+        }
         Destroy(gameObject);
     }
     public void WalkToPlayer(int disengage) //resets X velocity, 1 = towards, -1 = disengage
     {
-        if(stopped)
+        if(stopped || Mathf.Abs(playerLocation.position.x - transform.position.x) < 0.2f)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             return;
@@ -87,7 +97,7 @@ public class Enemy : MonoBehaviour
         // Flip the whole transform's X scale
         // this enemy has a collision box offset of x = -0.75f, so when flipping we need to 
         // move the enemy to keep the collision box (and sprite) in the same place relative to the player
-        if (justFlipped) return; // Prevent multiple flips in the same frame
+        if(blockFlip || justFlipped) return;
         if (direction > 0 && !facingRight)
         {
             facingRight = true;

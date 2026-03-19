@@ -211,7 +211,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 5811901402954461962, guid: 54c8b520921929d4fbf901b85fd77983, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -284,12 +284,17 @@ MonoBehaviour:
   bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
   playerLocation: {fileID: 0}
   spawner: {fileID: 0}
+  direction: 0
+  rb: {fileID: 0}
   firstShotDelay: 2
   hoverPointInterval: 3
   animator: {fileID: 940918914854052046}
   hoverPointRadiusMin: 5
   hoverPointRadiusMax: 10
   avoidGroundDistance: 1
+  transformedEnemyPrefab: {fileID: 3282713837251980904, guid: 36e26c297b2fdb74db30a09e8c82d2a8, type: 3}
+  chanceToTransform: 0.5
+  movementSpeedDuringTransform: 0.5
 --- !u!114 &6699528159406954920
 MonoBehaviour:
   m_ObjectHideFlags: 0

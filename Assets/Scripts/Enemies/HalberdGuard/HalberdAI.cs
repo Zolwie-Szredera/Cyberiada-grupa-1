@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(HalberdAttack))]
@@ -9,10 +7,12 @@ public class HalberdAI : Enemy
 {
     public Animator animator;
     public float walkDistance;
+    public ParticleSystem sparkParticles;
     private HalberdAttack meelee;
     enum State { Idle, Walk, Attack }
     private State currentState;
     private EnemyJump jumpScript;
+    private bool isAttacking;
     public override void Start()
     {
         base.Start();
@@ -24,48 +24,104 @@ public class HalberdAI : Enemy
     {
         base.FixedUpdate();
         //state management
-        if(currentState == State.Attack)
+        if (currentState == State.Walk)
         {
-            animator.SetBool("attack", true);
-            attackCooldown = attackSpeed;
-        }
-        else
-        {
-            animator.SetBool("attack", false);
-        }
-        if(currentState == State.Idle)
-        {
-            animator.SetBool("walk", false);
-        }
-        else if(currentState == State.Walk)
-        {
-            animator.SetBool("walk", true);
             WalkToPlayer(1);
             //jump if needed
             jumpScript.CheckForJump();
         }
         //state transitions
-        //if attack cooldown != 0 sit idle
-        if (Physics2D.OverlapCircle(meelee.attackPoint.position, meelee.attackRange, LayerMask.GetMask("Player")) && attackCooldown <= 0)
+        bool playerInRange = Physics2D.OverlapCircle
+        (
+            meelee.attackPoint.position,
+            meelee.attackRange,
+            LayerMask.GetMask("Player")
+        );
+        if (!isAttacking && playerInRange)
         {
-            //Debug.Log("State: Attack");
-            currentState = State.Attack;
-            return;
+            ChangeState(State.Attack);
         }
-        else if (distanceToPlayer < walkDistance && attackCooldown <= 0)
+        else if (!isAttacking && distanceToPlayer < walkDistance)
         {
-            currentState = State.Walk;
-            //Debug.Log("State: Walk");
+            ChangeState(State.Walk);
+        }
+        else if (!isAttacking)
+        {
+            ChangeState(State.Idle);
+        }
+    }
+    public void OnEndAttackAnimation() //for animation event
+    {
+        isAttacking = false;
+    }
+    private void ChangeState(State newState)
+    {
+        if (currentState == newState)
+            return;
+
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case State.Attack:
+                EnterAttack();
+                break;
+
+            case State.Walk:
+                EnterWalk();
+                break;
+
+            case State.Idle:
+                EnterIdle();
+                break;
+        }
+
+    }
+    private void EnterAttack()
+    {
+        isAttacking = true;
+        animator.SetTrigger("attack");
+        attackCooldown = attackSpeed;
+        blockFlip = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.mass = 1000;
+    }
+
+    private void EnterWalk()
+    {
+        animator.SetBool("walk", true);
+        blockFlip = false;
+        rb.mass = 1;
+    }
+
+    private void EnterIdle()
+    {
+        animator.SetBool("walk", false);
+        blockFlip = true;
+    }
+    public void PlaySparks() //for animation event
+    {
+        // Flip spark particles based on facing direction
+        if (facingRight)
+        {
+            sparkParticles.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
-            currentState = State.Idle;
-            //Debug.Log("State: Idle");
+            sparkParticles.transform.localScale = new Vector3(-1, 1, 1);
         }
+        sparkParticles.Play();
     }
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.darkBlue;
         Gizmos.DrawWireSphere(transform.position, walkDistance);
     }
+    #if UNITY_EDITOR
+    public void OnDrawGizmos()
+    {
+        // Display current state above the enemy
+        UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, currentState.ToString());
+    }
+    #endif
 }

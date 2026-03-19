@@ -2,17 +2,37 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
-public class PlaceTiles : MonoBehaviour
+public class PlaceTiles : Action
 {
     public TileBase tileToPlace;
-    [HideInInspector] public Dictionary<Vector3Int, TileBase> originalTiles = new Dictionary<Vector3Int, TileBase>(); // store the original tile to restore it on reset
-    public Vector2Int[] positionsToPlace;
+    [HideInInspector] public Dictionary<Vector3Int, TileBase> originalTiles = new(); // store the original tile to restore it on reset
     public Tilemap tilemap;
+    public Vector2Int[] positionsToPlace;
     [Tooltip("If true position 0 is left bottom corner and position 1 is top right corner. Ensure only 2 positions exist")]
     public bool fillMode = false;
+
+    public override void ExecuteAction()
+    {
+        PlaceTile();
+        if(tileToPlace != null)
+        {
+            Debug.Log("Executed PlaceTiles action: placed " + tileToPlace.name + " at " + positionsToPlace.Length + " positions.");
+        }
+        else
+        {
+            Debug.Log("Executed PlaceTiles action: removed tiles at " + positionsToPlace.Length + " positions.");
+        }
+    }
+    public override void UndoAction()
+    {
+        RemoveTile();
+        Debug.Log("Undid PlaceTiles action");
+    }
+
     public void Start()
     {
         originalTiles.Clear();
+        // Store original tiles at the specified positions
         if (fillMode)
         {
             if (positionsToPlace.Length != 2)
@@ -38,7 +58,7 @@ public class PlaceTiles : MonoBehaviour
             }
         }
     }
-    public void PlaceTile()
+    private void PlaceTile()
     {
         if (fillMode)
         {
@@ -68,7 +88,7 @@ public class PlaceTiles : MonoBehaviour
         }
         else
         {
-            foreach (Vector2Int position in positionsToPlace) //place tiles after encounter
+            foreach (Vector2Int position in positionsToPlace)
             {
                 Vector3Int tilePosition = new(position.x, position.y, 0);
                 if (!originalTiles.ContainsKey(tilePosition))
@@ -79,7 +99,7 @@ public class PlaceTiles : MonoBehaviour
             }
         }
     }
-    public void RemoveTile() //& restore original tile if needed
+    private void RemoveTile() //& restore original tile if needed
     {
         if (fillMode)
         {
@@ -96,7 +116,6 @@ public class PlaceTiles : MonoBehaviour
                     if (originalTiles.ContainsKey(tilePosition))
                     {
                         tilemap.SetTile(tilePosition, originalTiles[tilePosition]);
-                        originalTiles.Remove(tilePosition);
                     }
                 }
             }
@@ -109,7 +128,6 @@ public class PlaceTiles : MonoBehaviour
                 if (originalTiles.ContainsKey(tilePosition))
                 {
                     tilemap.SetTile(tilePosition, originalTiles[tilePosition]);
-                    originalTiles.Remove(tilePosition);
                 }
             }
         }

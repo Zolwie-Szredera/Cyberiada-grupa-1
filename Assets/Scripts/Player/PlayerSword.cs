@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerSword : PlayerWeapons
 {
     [Header("Sword stats")]
@@ -9,7 +10,13 @@ public class PlayerSword : PlayerWeapons
     [Header("Attack Position")]
     [Tooltip("Distance from weapon center to attack point (along weapon direction)")]
     public float attackDistance = 0.5f;
-    
+    private AudioSource audioSource;
+    public override void Start()
+    {
+        base.Start();
+        audioSource = GetComponent<AudioSource>();
+    }
+
     // Calculate actual attack position (follows weapon rotation)
     private Vector2 GetAttackPosition()
     {
@@ -24,7 +31,7 @@ public class PlayerSword : PlayerWeapons
         // (player flipped) corrupts the world-space euler angles.
         Vector2 weaponPos = transform.position;
         Vector2 playerPos = player != null ? player.transform.position : weaponPos;
-        Vector2 direction = (mousePosition - playerPos);
+        Vector2 direction = mousePosition - playerPos;
         if (direction.sqrMagnitude < 0.0001f)
             direction = Vector2.right;
         direction.Normalize();
@@ -77,7 +84,7 @@ public class PlayerSword : PlayerWeapons
         // Draw weapon direction arrow (using player-to-mouse direction, same as GetAttackPosition)
         Gizmos.color = Color.magenta;
         Vector2 playerPos2 = player != null ? player.transform.position : transform.position;
-        Vector2 direction = (mousePosition - playerPos2);
+        Vector2 direction = mousePosition - playerPos2;
         if (direction.sqrMagnitude < 0.0001f) direction = Vector2.right;
         direction.Normalize();
         Gizmos.DrawRay(transform.position, direction * (attackDistance + attackRange));
@@ -116,9 +123,10 @@ public class PlayerSword : PlayerWeapons
             Gizmos.DrawWireSphere(attackPos, attackRange);
         }
     }
-    public void ApplyDamage()
+    public void ApplyDamage() //&play sound
     {
         BasicAttack();
+        audioSource.Play();
     }
     public override void OnAttack(InputAction.CallbackContext context)
     {

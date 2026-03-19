@@ -30,8 +30,7 @@ public class CheckpointSystem : MonoBehaviour
         // this function will be much more complicated in the future to handle enemies, pickups etc.
         Time.timeScale = 1f;
         player.GetComponent<PlayerController>().enabled = true;
-        playerHealth.currentBlood = playerHealth.maxBlood;
-        playerHealth.currentBlackBile = 0;
+        playerHealth.RestoreToMax();
         player.transform.position = currentCheckpoint.transform.position;
         //reset all enemy spawners
         foreach(EncounterHandler encounter in encounters)

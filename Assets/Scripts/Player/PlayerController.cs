@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask platformLayer;
     [Header("Animation")]
     public Animator animator;
-    private bool isGrounded;
+    [HideInInspector]public bool isGrounded;
 
     private bool isWallJumping = false;
     private bool isJumping = false;
@@ -335,6 +335,7 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * wallCheckDistance);
         }
     }
+    //-------------------------------------------------------------------------------
 
     public void OnAttack(InputAction.CallbackContext context)
     {

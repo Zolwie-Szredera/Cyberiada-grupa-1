@@ -8,6 +8,7 @@ public class PlayerRanged : PlayerWeapons
     public float projectileTTL;
     public float bloodCost;
     private bool isAttacking;
+    public Animator animator;
     public override void OnAttack(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -50,11 +51,17 @@ public class PlayerRanged : PlayerWeapons
     public override void ForceAttackStart()
     {
         isAttacking = true;
-        animator.SetBool("attack", true);
+        if (animator != null)
+        {
+            animator.SetBool("attack", true);
+        }
     }
     public override void ForceAttackStop()
     {
         isAttacking = false;
-        animator.SetBool("attack", false);
+        if (animator != null)
+        {
+            animator.SetBool("attack", false);
+        }
     }
 }

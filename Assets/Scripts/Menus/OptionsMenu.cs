@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 
+[RequireComponent(typeof(AudioSource))]
 public class OptionsMenu : MonoBehaviour
 {
     [Header("Menu")]
@@ -15,6 +16,7 @@ public class OptionsMenu : MonoBehaviour
     public AudioMixer audioMixer;
     public TextMeshProUGUI volumeValueText;
     private float savedVolumeValue;
+    private AudioSource audioSource;
     //TODO: change comments to english
     public void OnEnable() //ta sekcja będzie się robić strasznie długa jak będziemy dodawać kolejne opcje
     {
@@ -26,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
         // Bufor = wartość suwaka = PlayerPrefs
         savedVolumeValue = PlayerPrefs.GetFloat("volume");
         volumeSlider.value = savedVolumeValue;
+        audioSource = GetComponent<AudioSource>();
     }
     public void SetVolume(float value)
     {
@@ -44,6 +47,7 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("volume", savedVolumeValue);
         volumeSlider.value = savedVolumeValue;
         Debug.Log("Volume set to: " + savedVolumeValue + " (dB: " + dB + ")");
+        PlaySound();
     }
     //----------- Are you sure prompt -----------
     public void ConfirmChanges()
@@ -51,6 +55,7 @@ public class OptionsMenu : MonoBehaviour
         SaveChanges();
         BackToMenu();
         areYouSurePrompt.SetActive(false);
+        PlaySound();
     }
     public void DiscardChanges()
     {
@@ -58,11 +63,13 @@ public class OptionsMenu : MonoBehaviour
         optionsPanel.SetActive(false);
         MenuPanel.SetActive(true);
         areYouSurePrompt.SetActive(false);
+        PlaySound();
     }
     public void CancelDecision()
     {
         areYouSurePrompt.SetActive(false);
         optionsPanel.SetActive(true);
+        PlaySound();
     }
     //------------------------------------
     //language button is handled in localization script
@@ -78,6 +85,7 @@ public class OptionsMenu : MonoBehaviour
             optionsPanel.SetActive(false);
             MenuPanel.SetActive(true);
         }
+        PlaySound();
     }
     public bool ChangesMade()
     {
@@ -87,5 +95,12 @@ public class OptionsMenu : MonoBehaviour
     {
         SetVolume(1f);
         ConfirmChanges();
+        PlaySound();
+    }
+
+    //----------- SOUND -----------
+    private void PlaySound()
+    {
+        audioSource.Play();
     }
 }

@@ -6,7 +6,7 @@ public class TempVicScreen : Button
     public Canvas victoryScreen;
     public override void Interaction()
     {
-        allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+        allCanvases = FindObjectsByType<Canvas>();
         foreach(Canvas canvas in allCanvases)
         {
             canvas.gameObject.SetActive(false);

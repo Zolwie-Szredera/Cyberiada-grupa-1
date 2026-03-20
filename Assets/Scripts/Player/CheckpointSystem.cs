@@ -22,7 +22,7 @@ public class CheckpointSystem : MonoBehaviour
         }
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
-        encounters = FindObjectsByType<EncounterHandler>(FindObjectsSortMode.None);
+        encounters = FindObjectsByType<EncounterHandler>();
     }
     public void Respawn()
     {
@@ -38,12 +38,12 @@ public class CheckpointSystem : MonoBehaviour
             encounter.ResetEncounter();
         }
         //destroy all projectiles in the scene
-        foreach(Projectile projectile in FindObjectsByType<Projectile>(FindObjectsSortMode.None))
+        foreach(Projectile projectile in FindObjectsByType<Projectile>())
         {
             Destroy(projectile.gameObject);
         }
         //destroy all active enemies in the scene
-        foreach(Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+        foreach(Enemy enemy in FindObjectsByType<Enemy>())
         {
             Destroy(enemy.gameObject);
         }

@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         {
             interactText.gameObject.SetActive(false);
         }
-        weaponsManager = FindFirstObjectByType<WeaponsManager>();
+        weaponsManager = FindAnyObjectByType<WeaponsManager>(); // Assuming there's only one WeaponsManager in the scene
         if (weaponsManager != null)
             weaponsManager.OnWeaponChanged += OnWeaponChanged;
         UpdateCurrentWeapon();

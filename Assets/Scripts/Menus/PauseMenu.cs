@@ -36,6 +36,11 @@ public class PauseMenu : MonoBehaviour
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+        if (GetComponent<OptionsMenu>().areYouSurePrompt.activeSelf)
+        {
+            Debug.Log("Cannot pause/unpause while the 'Are you sure?' prompt is active.");
+            return;
+        }
         if (!isPaused) //begin pause
         {
             if (playerDetected)

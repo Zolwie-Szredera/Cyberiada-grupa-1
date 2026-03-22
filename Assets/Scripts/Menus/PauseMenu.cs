@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     private GameObject weapons;
     private bool playerDetected = true;
     private AudioSource audioSource;
+    private PlayerInput playerInput;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         playerHealth = player.GetComponent<PlayerHealth>();
+        playerInput = player.GetComponent<PlayerInput>();
         weapons = player.transform.Find("Weapons").gameObject;
     }
     public void OnPause(InputAction.CallbackContext context)
@@ -38,6 +40,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (playerDetected)
             {
+                playerInput.actions.Disable();
                 playerController.enabled = false;
                 weapons.SetActive(false);
             }
@@ -68,6 +71,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (playerDetected)
         {
+            playerInput.actions.Enable();
             playerController.enabled = true;
             weapons.SetActive(true);
         }

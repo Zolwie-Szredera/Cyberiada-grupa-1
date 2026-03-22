@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public Image bloodFill;
     public Image blackBileFill;
     public Canvas deathScreen;
+    public ParticleSystem bloodParticles;
     [HideInInspector] public float currentBlackBile;
     [HideInInspector] public float currentBlood;
     void Start()
@@ -17,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         currentBlood = maxBlood;
         currentBlackBile = 0;
-        
+
         // Try to auto-discover UI elements if not assigned
         if (bloodFill == null)
         {
@@ -31,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
                 Debug.Log("PlayerHealth: Auto-discovered bloodFill UI element.");
             }
         }
-        
+
         if (blackBileFill == null)
         {
             blackBileFill = FindUIElement("BlackBileFill") ?? FindUIElement("BlackBileSlider/Fill Area/Fill");
@@ -50,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
             blackBileFill.fillAmount = 0;
         }
     }
-    
+
     private Image FindUIElement(string path)
     {
         GameObject obj = GameObject.Find(path);
@@ -66,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
         {
             bloodFill.fillAmount = currentBlood / maxBlood;
         }
-        if(currentBlackBile > 0)
+        if (currentBlackBile > 0)
         {
             if (blackBileFill != null)
             {
@@ -92,10 +93,12 @@ public class PlayerHealth : MonoBehaviour
     {
         currentBlood -= damage;
         Debug.Log($"Player took {damage} damage. Current health: {currentBlood}/{maxBlood}");
-        
+
         if (bloodFill != null)
         {
             bloodFill.fillAmount = currentBlood / maxBlood;
+            ParticleSystem ps = Instantiate(bloodParticles, transform.position, Quaternion.identity);
+            ps.Play();
         }
         if (currentBlood <= 0)
         {

@@ -88,6 +88,10 @@ MonoBehaviour:
     m_Localized: Click R to respawn
     m_Metadata:
       m_Items: []
+  - m_Id: 46663325614137344
+    m_Localized: 'Returning to main menu in:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

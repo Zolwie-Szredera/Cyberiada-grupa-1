@@ -90,6 +90,10 @@ MonoBehaviour:
     m_Localized: "Kliknij R by spr\xF3bowa\u0107 jeszcze raz"
     m_Metadata:
       m_Items: []
+  - m_Id: 46663325614137344
+    m_Localized: "Powr\xF3t do menu za:"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

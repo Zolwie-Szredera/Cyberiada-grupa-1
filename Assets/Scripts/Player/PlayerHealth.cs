@@ -82,6 +82,12 @@ public class PlayerHealth : MonoBehaviour
         deathScreen.gameObject.SetActive(true);
         Debug.Log("You died! Click R to respawn at the last checkpoint.");
     }
+    public void RestoreToMax()
+    {
+        currentBlood = maxBlood;
+        currentBlackBile = 0f;
+        blackBileFill.fillAmount = 0f;
+    }
     public void TakeDamage(float damage)
     {
         currentBlood -= damage;

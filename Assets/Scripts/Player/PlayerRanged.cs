@@ -50,11 +50,17 @@ public class PlayerRanged : PlayerWeapons
     public override void ForceAttackStart()
     {
         isAttacking = true;
-        animator.SetBool("attack", true);
+        if (animator != null)
+        {
+            animator.SetBool("attack", true);
+        }
     }
     public override void ForceAttackStop()
     {
         isAttacking = false;
-        animator.SetBool("attack", false);
+        if (animator != null)
+        {
+            animator.SetBool("attack", false);
+        }
     }
 }

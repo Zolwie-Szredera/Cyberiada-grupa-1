@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (controls == null)
+        {
+            Debug.LogWarning("[PlayerController] controls was null in OnEnable, initializing now.");
+            controls = new PlayerControls();
+        }
         controls.Enable();
         controls.player.Attack.started += OnAttack;
         controls.player.Attack.canceled += OnAttack;

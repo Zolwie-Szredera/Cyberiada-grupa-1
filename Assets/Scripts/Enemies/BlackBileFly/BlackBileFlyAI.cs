@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BlackBileFlyAttack))]
+[RequireComponent(typeof(AudioSource))]
 public class BlackBileFlyAI : Enemy
 {
     [Header("Shooting")]
@@ -22,6 +23,7 @@ public class BlackBileFlyAI : Enemy
     private float hoverPointTimer;
     private Vector2 currentHoverPoint;
     private BlackBileFlyAttack attackScript;
+    private AudioSource transformAudioSource;
     private State currentState;
     enum State
     {
@@ -38,6 +40,7 @@ public class BlackBileFlyAI : Enemy
         currentState = State.Idle;
         hoverPointTimer = hoverPointInterval;
         currentHoverPoint = GetHoverPoint();
+        transformAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -136,6 +139,7 @@ public class BlackBileFlyAI : Enemy
     }
     public override void Die()
     {
+        transformAudioSource.Play();
         float chance = Random.Range(0f,1f);
         invulnerable = true; //prevent taking damage during transform
         if(chance <= chanceToTransform)

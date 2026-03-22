@@ -956,6 +956,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1295,6 +1296,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1734,6 +1736,26 @@ PrefabInstance:
       propertyPath: pauseMenuCanvas
       value: 
       objectReference: {fileID: 754158246}
+    - target: {fileID: 848766109627003510, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848766109627003510, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848766109627003510, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 23ae6a1c86fac4d4fb964cafdc11f22e, type: 3}
+    - target: {fileID: 848766109627003510, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 848766109627003510, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: bc636abff56242a40bdee59e249b3359, type: 2}
     - target: {fileID: 1455886191929049775, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.61432

@@ -1,18 +1,13 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Light2D))]
 public class Checkpoint : MonoBehaviour
 {
     private CheckpointSystem checkpointSystem;
-    private new Light2D light;
     void Start()
     {
         checkpointSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<CheckpointSystem>();
-        light = GetComponent<Light2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,42 +24,6 @@ public class Checkpoint : MonoBehaviour
             {
                 placeTiles.PlaceTile();
             }
-            StartCoroutine(LightEffectCoroutine());
         }
     }
-    IEnumerator LightEffectCoroutine()
-    {
-        //------------------- LIGHT INTENSITY FUNCTION
-        //....X..............
-        //...X.X.............
-        //..X...XXXXXXXXXXXXX
-        //.X.................
-        //X..................
-        //-------------------
-        float duration = 3f; // Duration of the light effect in seconds
-        float startIntensity = 0f;
-        float endIntensity = 2f;
-        float maxIntensity = 4;
-        float time = 0f;
-        float maxPoint = 1f;
-        
-        light.intensity = startIntensity; // Start from 0
-        
-        while (time < maxPoint)
-        {
-            time += Time.deltaTime;
-            light.intensity = Mathf.Lerp(startIntensity, maxIntensity, time / maxPoint);
-            yield return null;
-        }
-        while(time < duration)
-        {
-            time += Time.deltaTime;
-            float t = (time - maxPoint) / (duration - maxPoint);
-            light.intensity = Mathf.Lerp(maxIntensity, endIntensity, Mathf.Clamp01(t));
-            yield return null;
-        }
-        
-        light.intensity = endIntensity; // Ensure it ends at the target intensity
-    }
-    //TODO: add no-longer-active state
 }

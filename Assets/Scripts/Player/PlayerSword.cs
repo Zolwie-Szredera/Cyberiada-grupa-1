@@ -7,41 +7,16 @@ public class PlayerSword : PlayerWeapons
     [Header("Sword stats")]
     public float attackRange;
     
-    [Header("Attack Position")]
-    [Tooltip("Distance from weapon center to attack point (along weapon direction)")]
-    public float attackDistance = 0.5f;
     private AudioSource audioSource;
     public override void Start()
     {
         base.Start();
         audioSource = GetComponent<AudioSource>();
     }
-
-    // Calculate actual attack position (follows weapon rotation)
-    private Vector2 GetAttackPosition()
-    {
-        // If attackOrigin is assigned and is a child of this weapon, use it
-        if (attackOrigin != null && attackOrigin.parent == transform)
-        {
-            return attackOrigin.position;
-        }
-        
-        // Use the direction from player to mouse to determine attack position.
-        // We cannot rely on transform.eulerAngles.z because a negative parent scale
-        // (player flipped) corrupts the world-space euler angles.
-        Vector2 weaponPos = transform.position;
-        Vector2 playerPos = player != null ? player.transform.position : weaponPos;
-        Vector2 direction = mousePosition - playerPos;
-        if (direction.sqrMagnitude < 0.0001f)
-            direction = Vector2.right;
-        direction.Normalize();
-        
-        return weaponPos + direction * attackDistance;
-    }
     
     public override void BasicAttack() //with life steal
     {
-        origin = GetAttackPosition();
+        origin = GetAttackPosition(attackDistance);
         Collider2D[] hits = Physics2D.OverlapCircleAll(origin, attackRange, damageableLayers);
         foreach (var hit in hits)
         {
@@ -62,8 +37,7 @@ public class PlayerSword : PlayerWeapons
     }
     private void OnDrawGizmosSelected()
     {
-        // Calculate current attack position
-        Vector2 attackPos = GetAttackPosition();
+        Vector2 attackPos = GetAttackPosition(attackDistance);
 
         // Draw attack range sphere (main attack box)
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f); // Semi-transparent red
@@ -106,10 +80,9 @@ public class PlayerSword : PlayerWeapons
 
     private void OnDrawGizmos()
     {
-        // Always show attack box during play mode (lighter color)
         if (Application.isPlaying)
         {
-            Vector2 attackPos = GetAttackPosition();
+            Vector2 attackPos = GetAttackPosition(attackDistance);
             
             // Show when on cooldown vs ready to attack
             bool isReady = attackCooldown <= 0;

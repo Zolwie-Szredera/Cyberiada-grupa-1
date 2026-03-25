@@ -1064,11 +1064,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="ManageWeaponsActions.UnregisterCallbacks(IManageWeaponsActions)" />
         public void SetCallbacks(IManageWeaponsActions instance)
         {
-            if (instance == null)
-            {
-                UnityEngine.Debug.LogWarning("[PlayerControls] SetCallbacks(IManageWeaponsActions) called with null instance! Callback registration skipped.");
-                return;
-            }
             foreach (var item in m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
             m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Clear();

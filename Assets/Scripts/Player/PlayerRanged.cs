@@ -8,6 +8,12 @@ public class PlayerRanged : PlayerWeapons
     public float projectileTTL;
     public float bloodCost;
     private bool isAttacking;
+
+    public PlayerRanged()
+    {
+        isRangedWeapon = true;
+    }
+
     public override void OnAttack(InputAction.CallbackContext context)
     {
         if (context.started)

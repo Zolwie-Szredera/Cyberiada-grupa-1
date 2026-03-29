@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    public float accelerationRate = 150f;
+    public float accelerationRate = 30f;
+    public float decelerationRate = 100f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -154,8 +155,10 @@ public class PlayerController : MonoBehaviour
         // 3. Horizontal Movement
         float targetSpeed = moveInput.x * moveSpeed;
         float velocityDifferenceX = targetSpeed - rb.linearVelocity.x;
-        float accelerationX = accelerationRate * Time.deltaTime;
-        float movementX = Mathf.Clamp(velocityDifferenceX, -accelerationX, accelerationX);
+
+        // Choose acceleration or deceleration depending on whether we're speeding up or slowing down
+        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? accelerationRate : decelerationRate) * Time.deltaTime;
+        float movementX = Mathf.Clamp(velocityDifferenceX, -maxSpeedChange, maxSpeedChange);
         rb.linearVelocity += new Vector2(movementX, 0f);
 
         // 4. Wall Jump

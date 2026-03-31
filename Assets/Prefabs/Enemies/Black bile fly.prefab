@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 6148705269630057710}
   - component: {fileID: 940918914854052046}
   - component: {fileID: 7936399806320335982}
+  - component: {fileID: 2009931600617453857}
   m_Layer: 11
   m_Name: Black bile fly
   m_TagString: Untagged
@@ -287,13 +288,10 @@ MonoBehaviour:
   spawner: {fileID: 0}
   direction: 0
   rb: {fileID: 0}
-  firstShotDelay: 2
+  firstShotDelay: 0.5
   hoverPointInterval: 3
-  animator: {fileID: 940918914854052046}
-  hoverPointRadiusMin: 5
-  hoverPointRadiusMax: 10
-  avoidGroundDistance: 1
   transformedEnemyPrefab: {fileID: 3282713837251980904, guid: 36e26c297b2fdb74db30a09e8c82d2a8, type: 3}
+  animator: {fileID: 940918914854052046}
   chanceToTransform: 0.5
   movementSpeedDuringTransform: 0.5
 --- !u!114 &6699528159406954920
@@ -473,3 +471,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2009931600617453857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093032326729963313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e26f34fbbc9784fa511e4e6b1d3a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHoverPointFly
+  hoverPointInterval: 3
+  hoverPointRadiusMin: 5
+  hoverPointRadiusMax: 10
+  avoidGroundDistance: 1

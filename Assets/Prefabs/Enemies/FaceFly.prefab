@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6681261404645977806}
   - component: {fileID: -7845264731916379728}
   - component: {fileID: 8123166582994179278}
+  - component: {fileID: 7285898966945301856}
   m_Layer: 11
   m_Name: FaceFly
   m_TagString: Untagged
@@ -178,10 +179,7 @@ MonoBehaviour:
   direction: 0
   rb: {fileID: 0}
   accelerationTime: 1
-  hoverPointRadiusMin: 0
-  hoverPointRadiusMax: 1
-  avoidGroundDistance: 0.1
-  hoverPointInterval: 1
+  hoverPointInterval: 0.7
 --- !u!114 &6681261404645977806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +195,7 @@ MonoBehaviour:
   damage: 10
   attackRange: 1.75
   attackPoint: {fileID: 4017715492594610422}
-  blackBile: 5
+  blackBile: 8
 --- !u!95 &-7845264731916379728
 Animator:
   serializedVersion: 7
@@ -256,3 +254,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.65}
   m_Radius: 1.75
+--- !u!114 &7285898966945301856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282713837251980904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e26f34fbbc9784fa511e4e6b1d3a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHoverPointFly
+  hoverPointRadiusMin: 0.05
+  hoverPointRadiusMax: 1
+  avoidGroundDistance: 0.5

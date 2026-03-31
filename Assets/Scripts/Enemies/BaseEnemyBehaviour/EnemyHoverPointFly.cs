@@ -13,7 +13,6 @@ public class EnemyHoverPointFly : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        movementSpeed = GetComponent<Enemy>().movementSpeed;
         groundLayer = LayerMask.GetMask("Ground", "StickyWall");
     }
     public Vector2 GetHoverPoint(Vector2 point)
@@ -48,6 +47,7 @@ public class EnemyHoverPointFly : MonoBehaviour
         float distance = direction.magnitude;
         direction.Normalize();
         float speedFactor = Mathf.Clamp01(distance / 3);
+        movementSpeed = GetComponent<Enemy>().movementSpeed;
         Vector2 desiredVelocity = movementSpeed * speedFactor * direction;
 
         rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, desiredVelocity, movementSpeed * Time.deltaTime);

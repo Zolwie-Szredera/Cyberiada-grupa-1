@@ -6,8 +6,8 @@ using UnityEngine;
 public class FaceFlyAI : Enemy
 {
     [Header("AI settings")]
-    public float accelerationTime = 5f;
-    public float hoverPointInterval = 3f;
+    public float accelerationTime;
+    public float hoverPointInterval;
     private FaceFlyAttack attack;
     private EnemyHoverPointFly flyScript;
     private float hoverPointTimer;
@@ -45,14 +45,22 @@ public class FaceFlyAI : Enemy
     }
     IEnumerator Accelerate()
     {
-        float time = 0f;
+        if (accelerationTime <= 0f)
+        {
+            // instant speed if no acceleration time set
+            yield break;
+        }
+        float elapsed = 0f;
         float maxSpeed = movementSpeed; // Store the original movement speed
         movementSpeed = 0f; // Start from 0 speed
-        while (time < accelerationTime)
+
+        while (elapsed < accelerationTime)
         {
-            time += Time.deltaTime;
-            movementSpeed = Mathf.Lerp(0, maxSpeed, time);
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / accelerationTime); // progress 0..1 over accelerationTime seconds
+            movementSpeed = Mathf.Lerp(0f, maxSpeed, t);
             yield return null;
         }
+        movementSpeed = maxSpeed;
     }
 }

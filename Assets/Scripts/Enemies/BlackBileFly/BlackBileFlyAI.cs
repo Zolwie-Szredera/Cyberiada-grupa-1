@@ -43,10 +43,6 @@ public class BlackBileFlyAI : Enemy
 
     private void Update()
     {
-        if (playerLocation == null)
-        {
-            Debug.LogError("player location is null in BlackBileFlyAI");
-        }
         bool isInRange = distanceToPlayer <= attackScript.attackRange;
         if (!playerInRange && isInRange)
         {

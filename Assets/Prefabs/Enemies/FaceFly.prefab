@@ -178,7 +178,7 @@ MonoBehaviour:
   spawner: {fileID: 0}
   direction: 0
   rb: {fileID: 0}
-  accelerationTime: 1
+  accelerationTime: 5
   hoverPointInterval: 0.7
 --- !u!114 &6681261404645977806
 MonoBehaviour:

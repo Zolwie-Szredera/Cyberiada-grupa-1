@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0;
             pauseMenuCanvas.SetActive(true);
             mainCanvas.SetActive(false);
-            if(tutorialCanvas.activeSelf || tutorialCanvas != null)
+            if (tutorialCanvas != null && tutorialCanvas.activeSelf)
             {
                 tutorialCanvas.SetActive(false);
             }

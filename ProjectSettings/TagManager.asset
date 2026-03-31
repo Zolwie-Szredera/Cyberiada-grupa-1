@@ -18,7 +18,7 @@ TagManager:
   - UI
   - Ground
   - StickyWall
-  - SlipperyWall
+  - Particle
   - Trap
   - Player
   - Enemy
@@ -48,3 +48,4 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 164777430740165100}
   - component: {fileID: 5207686298220729077}
   - component: {fileID: 746597351651715443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlackBileParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

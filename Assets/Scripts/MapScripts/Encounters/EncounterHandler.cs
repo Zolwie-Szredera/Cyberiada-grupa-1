@@ -10,7 +10,7 @@ public class EncounterHandler : MonoBehaviour
     /// Z tego co rozumiem System.Action pozwala jakby zapisać funkcję, żeby potem ją wywołać w innym skrypcie.
     /// TODO: bardziej na to popatrzeć, żeby zrozumieć o co dokładnie chodzi
     /// </summary>
-    
+
     public WaveSpawner[] wavesSpawners;
     [HideInInspector] public bool encounterCompleted = false;
     private AudioSource audioSource;
@@ -25,28 +25,32 @@ public class EncounterHandler : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(PLAYER_TAG) && !encounterStarted && !encounterCompleted)
         {
-            encounterStarted = true;
-            currentWave = 0; // Reset wave counter for new encounter
-            //place tiles for encounter start (e.g. closed doors)
-            if(ExecuteOnEncounterStart.Length > 0)
-            {
-                foreach (Action action in ExecuteOnEncounterStart)
-                {
-                    action.ExecuteAction();
-                }
-            }
-            Debug.Log("Encounter started");
-            if(audioSource.clip != null) //sometimes the audio source might not have a clip assigned
-            {
-                audioSource.Play();
-            }
-            NextWave();
+            StartEncounter();
         }
+    }
+    public void StartEncounter()
+    {
+        encounterStarted = true;
+        currentWave = 0; // Reset wave counter for new encounter
+        //place tiles for encounter start (e.g. closed doors)
+        if (ExecuteOnEncounterStart.Length > 0)
+        {
+            foreach (Action action in ExecuteOnEncounterStart)
+            {
+                action.ExecuteAction();
+            }
+        }
+        Debug.Log("Encounter started");
+        if (audioSource.clip != null) //sometimes the audio source might not have a clip assigned
+        {
+            audioSource.Play();
+        }
+        NextWave();
     }
     public void NextWave()
     {
@@ -71,7 +75,7 @@ public class EncounterHandler : MonoBehaviour
                 wavesSpawners[currentWave - 1].Cleanup();
                 encounterCompleted = true;
                 // Remove start tiles before placing end tiles
-                if(ExecuteOnEncounterStart.Length > 0)
+                if (ExecuteOnEncounterStart.Length > 0)
                 {
                     foreach (Action action in ExecuteOnEncounterStart)
                     {
@@ -79,7 +83,7 @@ public class EncounterHandler : MonoBehaviour
                     }
                 }
                 // Place end tiles
-                if(ExecuteOnEncounterEnd.Length > 0)
+                if (ExecuteOnEncounterEnd.Length > 0)
                 {
                     foreach (Action action in ExecuteOnEncounterEnd)
                     {
@@ -110,11 +114,11 @@ public class EncounterHandler : MonoBehaviour
             wavesSpawners[i].Cleanup();
         }
         // Remove all tiles placed during the encounter - restore original tiles if needed
-        foreach(Action action in ExecuteOnEncounterStart)
+        foreach (Action action in ExecuteOnEncounterStart)
         {
             action.UndoAction();
         }
-        foreach(Action action in ExecuteOnEncounterEnd)
+        foreach (Action action in ExecuteOnEncounterEnd)
         {
             action.UndoAction();
         }
@@ -125,7 +129,7 @@ public class EncounterHandler : MonoBehaviour
         {
             audioSource.Stop();
         }
-        
+
     }
     void OnDrawGizmos()
     {

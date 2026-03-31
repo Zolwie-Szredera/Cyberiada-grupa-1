@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    private static WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     [Header("Enemy")]
     public int hp;
     public float movementSpeed;
@@ -31,6 +30,7 @@ public class Enemy : MonoBehaviour
     protected bool blockFlip = false;
     protected bool justFlipped = false;
     protected bool invulnerable = false;
+    private static readonly WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();

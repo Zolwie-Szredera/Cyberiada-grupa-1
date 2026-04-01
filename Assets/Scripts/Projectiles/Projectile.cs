@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
             other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(gameObject);
         }
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("StickyWall"))
         {
             Destroy(gameObject);
         }

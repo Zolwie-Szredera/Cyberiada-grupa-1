@@ -1,12 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Sprites/Animations/HalberdGuardAnim/attack_0.controller.meta
-guid: b2fe465d241b7ef42a40cc9aa157460a
-========
 guid: 10770ea1456cb60418d8625de3d84dc8
->>>>>>>> main:Assets/TextMesh Pro/Fonts/OldeTome SDF.asset.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 9100000
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    public float accelerationRate = 150f;
+    public float accelerationRate = 30f;
+    public float decelerationRate = 100f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask platformLayer;
     [Header("Animation")]
     public Animator animator;
-    private bool isGrounded;
+    [HideInInspector]public bool isGrounded;
 
     private bool isWallJumping = false;
     private bool isJumping = false;
@@ -43,6 +44,33 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private bool isHoldingDown = false;
     private GameManager gameManager;
+    private PlayerControls controls;
+    private WeaponsManager weaponsManager;
+    private PlayerWeapons currentWeapon;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        if (controls == null)
+        {
+            Debug.LogWarning("[PlayerController] controls was null in OnEnable, initializing now.");
+            controls = new PlayerControls();
+        }
+        controls.Enable();
+        controls.player.Attack.started += OnAttack;
+        controls.player.Attack.canceled += OnAttack;
+    }
+
+    private void OnDisable()
+    {
+        controls.player.Attack.started -= OnAttack;
+        controls.player.Attack.canceled -= OnAttack;
+        controls.Disable();
+    }
 
     private void Start()
     {
@@ -53,6 +81,23 @@ public class PlayerController : MonoBehaviour
         {
             interactText.gameObject.SetActive(false);
         }
+        weaponsManager = FindAnyObjectByType<WeaponsManager>(); // Assuming there's only one WeaponsManager in the scene
+        if (weaponsManager != null)
+            weaponsManager.OnWeaponChanged += OnWeaponChanged;
+        UpdateCurrentWeapon();
+    }
+
+    private void OnDestroy()
+    {
+        if (weaponsManager != null)
+            weaponsManager.OnWeaponChanged -= OnWeaponChanged;
+    }
+
+    private void UpdateCurrentWeapon()
+    {
+        var weaponObj = weaponsManager.GetCurrentWeapon();
+        if (weaponObj != null)
+            currentWeapon = weaponObj.GetComponent<PlayerWeapons>();
     }
 
     // Receive input from "Move" action.
@@ -110,8 +155,10 @@ public class PlayerController : MonoBehaviour
         // 3. Horizontal Movement
         float targetSpeed = moveInput.x * moveSpeed;
         float velocityDifferenceX = targetSpeed - rb.linearVelocity.x;
-        float accelerationX = accelerationRate * Time.deltaTime;
-        float movementX = Mathf.Clamp(velocityDifferenceX, -accelerationX, accelerationX);
+
+        // Choose acceleration or deceleration depending on whether we're speeding up or slowing down
+        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? accelerationRate : decelerationRate) * Time.deltaTime;
+        float movementX = Mathf.Clamp(velocityDifferenceX, -maxSpeedChange, maxSpeedChange);
         rb.linearVelocity += new Vector2(movementX, 0f);
 
         // 4. Wall Jump
@@ -294,6 +341,28 @@ public class PlayerController : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * wallCheckDistance);
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * wallCheckDistance);
+        }
+    }
+    //-------------------------------------------------------------------------------
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (currentWeapon != null)
+            currentWeapon.OnAttack(context);
+    }
+
+    public void OnWeaponChanged()
+    {
+        UpdateCurrentWeapon();
+        if (currentWeapon == null) return;
+        // Check if the attack button is held
+        if (controls.player.Attack.ReadValue<float>() > 0.5f)
+        {
+            currentWeapon.ForceAttackStart();
+        }
+        else
+        {
+            currentWeapon.ForceAttackStop();
         }
     }
 }

@@ -47,4 +47,20 @@ public class PlayerRanged : PlayerWeapons
         currentProjectile.timeToLive = projectileTTL;
         attackCooldown = attackSpeed;
     }
+    public override void ForceAttackStart()
+    {
+        isAttacking = true;
+        if (animator != null)
+        {
+            animator.SetBool("attack", true);
+        }
+    }
+    public override void ForceAttackStop()
+    {
+        isAttacking = false;
+        if (animator != null)
+        {
+            animator.SetBool("attack", false);
+        }
+    }
 }

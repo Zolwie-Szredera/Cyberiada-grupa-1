@@ -67,16 +67,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 37310631422255104
-    m_Localized: "A i D by si\u0119 porusza\u0107, skakanie na spacj\u0119. LPM,
-      \u017Ceby atakowa\u0107, R by zrestartowa\u0107 do poprzedniego punktu kontrolnego.
-      1 by zmieni\u0107 bro\u0144 na miecz, 2 by zmieni\u0107 bro\u0144 na zakl\u0119cie
-      krwi."
+    m_Localized: "A i D by si\u0119 porusza\u0107, \nspacja - skok,\nLPM - atak,\nR
+      - restart do poprzedniego punktu kontrolnego, \n1 - zmiana broni na miecz,\n2
+      - zmiana broni na zakl\u0119cie krwi."
     m_Metadata:
       m_Items: []
   - m_Id: 37315326152859648
-    m_Localized: "Trafienie przeciwnika mieczem leczy ci\u0119. U\u017Cycie zakl\u0119cia
-      krwi zadaje obra\u017Cenia. Skocz w powietrzu, by wykona\u0107 podw\xF3jny
-      skok"
+    m_Localized: "Trafienie przeciwnika mieczem leczy ci\u0119. \nU\u017Cycie zakl\u0119cia
+      krwi zadaje obra\u017Cenia. \nSkocz w powietrzu, by wykona\u0107 podw\xF3jny
+      skok."
     m_Metadata:
       m_Items: []
   - m_Id: 39841178782588928
@@ -89,6 +88,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 39841393623228416
     m_Localized: "Kliknij R by spr\xF3bowa\u0107 jeszcze raz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46663325614137344
+    m_Localized: "Powr\xF3t do menu za:"
     m_Metadata:
       m_Items: []
   references:

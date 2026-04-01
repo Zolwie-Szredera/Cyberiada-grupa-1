@@ -65,7 +65,6 @@ MonoBehaviour:
     - line: '|     height: 1'
     - line: '|   m_SplashScreenLogos: []'
     - line: '|   m_VirtualRealitySplashScreen: {instanceID: 0}'
-    - line: '|   m_HolographicTrackingLossScreen: {instanceID: 0}'
     - line: '|   defaultScreenWidth: 1200'
     - line: '|   defaultScreenHeight: 600'
     - line: '|   defaultScreenWidthWeb: 960'
@@ -138,6 +137,7 @@ MonoBehaviour:
     - line: '|   xboxEnableGuest: 0'
     - line: '|   xboxEnablePIXSampling: 0'
     - line: '|   metalFramebufferOnly: 0'
+    - line: '|   metalUseMetalDisplayLink: 0'
     - line: '|   xboxOneResolution: 0'
     - line: '|   xboxOneSResolution: 0'
     - line: '|   xboxOneXResolution: 3'
@@ -167,16 +167,14 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.11'
+    - line: '|   bundleVersion: 0.18'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
-    - line: '|   m_HolographicPauseOnTrackingLoss: 1'
     - line: '|   xboxOneDisableKinectGpuReservation: 1'
     - line: '|   xboxOneEnable7thCore: 1'
     - line: '|   vrSettings:'
     - line: '|     enable360StereoCapture: 0'
-    - line: '|   isWsaHolographicRemotingEnabled: 0'
     - line: '|   enableFrameTimingStats: 0'
     - line: '|   enableOpenGLProfilerGPURecorders: 1'
     - line: '|   allowHDRDisplaySupport: 0'
@@ -757,5 +755,6 @@ MonoBehaviour:
         m_Architecture: 0
         m_CreateSolution: 0
         m_CopyPDBFiles: 0
+        m_EnableDirectStorage: 0
         m_WindowsDevicePortalAddress: 
         m_WindowsDevicePortalUsername: 

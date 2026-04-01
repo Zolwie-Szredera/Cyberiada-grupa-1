@@ -12,6 +12,7 @@ public class DebugScript : MonoBehaviour
     public TextMeshProUGUI playerVelocityTextX;
     public TextMeshProUGUI playerVelocityTextY;
     public AudioSource audioSource;
+    public TempVicScreen tempVicScreen;
     private bool isDebugModeActive = false;
 
     private GameObject player;
@@ -90,7 +91,7 @@ public class DebugScript : MonoBehaviour
         {
             Debug.Log("Debug action3");
             //put stuff here
-
+            tempVicScreen.Win();
         }
     }
 }

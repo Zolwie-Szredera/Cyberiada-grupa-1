@@ -31,6 +31,11 @@ public class chat_box : MonoBehaviour
     public int marginBottom = 10;
     public float buttonSpacing = 15f;
 
+    [Header("Audio Settings")]
+    public AudioSource audioSource;
+    public AudioClip typingSound;
+    [Range(0, 1)] public float volume = 0.5f;
+
     private DialogueData currentData;
     private string[] sentences;
     private int index;
@@ -92,11 +97,21 @@ public class chat_box : MonoBehaviour
     {
         isTyping = true;
         textDisplay.text = "";
+
         if (index < sentences.Length)
         {
             foreach (char letter in sentences[index].ToCharArray())
             {
                 textDisplay.text += letter;
+
+                // --- AUDIO LOGIC START ---
+                if (audioSource != null && typingSound != null)
+                {
+                    // PlayOneShot allows sounds to overlap if the typing speed is very fast
+                    audioSource.PlayOneShot(typingSound, volume);
+                }
+                // --- AUDIO LOGIC END ---
+
                 yield return new WaitForSeconds(typingSpeed);
             }
         }
@@ -207,6 +222,7 @@ public class chat_box : MonoBehaviour
             }
         }
     }
+
 
     GameObject CreateNewRow()
     {

@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(BlackBileFlyAttack))]
+[RequireComponent(typeof(AudioSource))]
 public class BlackBileFlyAI : Enemy
 {
     [Header("Shooting")]
@@ -11,18 +13,24 @@ public class BlackBileFlyAI : Enemy
     public float hoverPointRadiusMin = 5f;
     public float hoverPointRadiusMax = 10f;
     public float avoidGroundDistance = 1f;
+    [Header("Transformation")]
+    public GameObject transformedEnemyPrefab;
+    public float chanceToTransform;
+    public float movementSpeedDuringTransform = 0.5f;
     private bool playerInRange;
     private bool firstShotDone;
     private float firstShotTimer;
     private float hoverPointTimer;
     private Vector2 currentHoverPoint;
     private BlackBileFlyAttack attackScript;
+    private AudioSource transformAudioSource;
     private State currentState;
     enum State
     {
         Idle,
         Moving,
-        Attacking
+        Attacking,
+        Transforming
     }
 
     public override void Start()
@@ -32,6 +40,7 @@ public class BlackBileFlyAI : Enemy
         currentState = State.Idle;
         hoverPointTimer = hoverPointInterval;
         currentHoverPoint = GetHoverPoint();
+        transformAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -39,7 +48,7 @@ public class BlackBileFlyAI : Enemy
         if (playerLocation == null)
         {
             Debug.LogError("player location is null in BlackBileFlyAI");
-        };
+        }
         bool isInRange = distanceToPlayer <= attackScript.attackRange;
 
         //  RESET usunięty — enemy nie cofnie shrink ani liczby strzałów
@@ -88,6 +97,10 @@ public class BlackBileFlyAI : Enemy
         {
             animator.SetBool("isAttacking", false);
         }
+        if(currentState == State.Transforming)
+        {
+            MoveTowards(playerLocationVector2);
+        }
     }
     Vector2 GetHoverPoint()
     {
@@ -126,6 +139,31 @@ public class BlackBileFlyAI : Enemy
     }
     public override void Die()
     {
+        transformAudioSource.Play();
+        float chance = Random.Range(0f,1f);
+        invulnerable = true; //prevent taking damage during transform
+        if(chance <= chanceToTransform)
+        {
+            animator.SetBool("deathTransform", true);
+            currentState = State.Transforming;
+            movementSpeed = movementSpeedDuringTransform;
+        } else
+        {
+            animator.SetBool("explosiveTransform", true);
+            currentState = State.Transforming;
+        }
+    }
+    public void TransfurComplete() //animator calls this after transform animation is finished
+    { //I can't contain the silly
+        GameObject newEnemy = Instantiate(transformedEnemyPrefab, transform.position, transform.rotation);
+        if(spawner != null)
+        {
+            newEnemy.GetComponent<Enemy>().spawner = spawner;
+        }
+        Destroy(gameObject);
+    }
+    public void ExplosiveTransfur()
+    { //transfur into a bomb lol
         attackScript.Explode();
         base.Die();
     }

@@ -655,6 +655,22 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 24300002, guid: bc636abff56242a40bdee59e249b3359, type: 2}
+    - target: {fileID: 3568726367091530892, guid: 5c64540cc32bab947b415e4c54e0f929, type: 3}
+      propertyPath: mainCanvas
+      value: 
+      objectReference: {fileID: 7311691706261718391}
+    - target: {fileID: 3568726367091530892, guid: 5c64540cc32bab947b415e4c54e0f929, type: 3}
+      propertyPath: textDisplay
+      value: 
+      objectReference: {fileID: 9031274601553374675}
+    - target: {fileID: 3568726367091530892, guid: 5c64540cc32bab947b415e4c54e0f929, type: 3}
+      propertyPath: dialogueCanvas
+      value: 
+      objectReference: {fileID: 4460090828232775441}
+    - target: {fileID: 3568726367091530892, guid: 5c64540cc32bab947b415e4c54e0f929, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 1879057228395284601}
     - target: {fileID: 4871745336762894584, guid: 5c64540cc32bab947b415e4c54e0f929, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1022,6 +1038,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7598047800404691472}
   m_SourcePrefab: {fileID: 100100000, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+--- !u!95 &1879057228395284601 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6033959841811657607, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+  m_PrefabInstance: {fileID: 5309513158573325310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2534379951146489816 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7675474299409607718, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
@@ -2053,6 +2074,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -7564478997517400832, guid: ee4d17d8f644af146b2a7798b7cc8d3a, type: 3}
+    - target: {fileID: 8745751035130016667, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 5866080083754043448}
     - target: {fileID: 8829539757343180748, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
       propertyPath: m_Type
       value: 0
@@ -2205,6 +2230,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &4460090828232775441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5535598617031120821, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
+  m_PrefabInstance: {fileID: 8157999589224497316}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5142265162319892290 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3921500084938985446, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
@@ -2283,6 +2313,17 @@ GameObject:
 --- !u!114 &8979623818459120254 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 984319291214447322, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
+  m_PrefabInstance: {fileID: 8157999589224497316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &9031274601553374675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 892417518392241527, guid: ec5eb67ff24edfa4ebef719fb935d470, type: 3}
   m_PrefabInstance: {fileID: 8157999589224497316}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

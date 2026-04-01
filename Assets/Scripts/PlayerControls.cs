@@ -181,6 +181,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ContinueDialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""74535bb0-90c5-41f8-9853-b264c3f145a1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -335,6 +344,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ActivateMovementAccessory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c05ed805-f8f5-46f5-8766-2b80b15e866d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f160e2ae-94bb-4bd5-8fbd-fcfac45fa389"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""385c4f5f-fa8c-415f-aed2-11fb9b438bd4"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""196efa3e-bcf6-47e3-a49d-e44a8a2fc615"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -531,6 +584,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_player_Down = m_player.FindAction("Down", throwIfNotFound: true);
         m_player_Pause = m_player.FindAction("Pause", throwIfNotFound: true);
         m_player_ActivateMovementAccessory = m_player.FindAction("ActivateMovementAccessory", throwIfNotFound: true);
+        m_player_ContinueDialogue = m_player.FindAction("ContinueDialogue", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_DebugAction1 = m_Debug.FindAction("DebugAction1", throwIfNotFound: true);
@@ -635,6 +689,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_player_Down;
     private readonly InputAction m_player_Pause;
     private readonly InputAction m_player_ActivateMovementAccessory;
+    private readonly InputAction m_player_ContinueDialogue;
     /// <summary>
     /// Provides access to input actions defined in input action map "player".
     /// </summary>
@@ -686,6 +741,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "player/ActivateMovementAccessory".
         /// </summary>
         public InputAction @ActivateMovementAccessory => m_Wrapper.m_player_ActivateMovementAccessory;
+        /// <summary>
+        /// Provides access to the underlying input action "player/ContinueDialogue".
+        /// </summary>
+        public InputAction @ContinueDialogue => m_Wrapper.m_player_ContinueDialogue;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -742,6 +801,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ActivateMovementAccessory.started += instance.OnActivateMovementAccessory;
             @ActivateMovementAccessory.performed += instance.OnActivateMovementAccessory;
             @ActivateMovementAccessory.canceled += instance.OnActivateMovementAccessory;
+            @ContinueDialogue.started += instance.OnContinueDialogue;
+            @ContinueDialogue.performed += instance.OnContinueDialogue;
+            @ContinueDialogue.canceled += instance.OnContinueDialogue;
         }
 
         /// <summary>
@@ -783,6 +845,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ActivateMovementAccessory.started -= instance.OnActivateMovementAccessory;
             @ActivateMovementAccessory.performed -= instance.OnActivateMovementAccessory;
             @ActivateMovementAccessory.canceled -= instance.OnActivateMovementAccessory;
+            @ContinueDialogue.started -= instance.OnContinueDialogue;
+            @ContinueDialogue.performed -= instance.OnContinueDialogue;
+            @ContinueDialogue.canceled -= instance.OnContinueDialogue;
         }
 
         /// <summary>
@@ -1151,6 +1216,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnActivateMovementAccessory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ContinueDialogue" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnContinueDialogue(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Debug" which allows adding and removing callbacks.

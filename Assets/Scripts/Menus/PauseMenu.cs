@@ -11,14 +11,17 @@ public class PauseMenu : MonoBehaviour
     public GameObject tutorialCanvas;
     public bool isPaused = false;
     private GameObject player;
-    private PlayerController playerController;
     private PlayerHealth playerHealth;
+    private PlayerController playerController;
     private GameObject weapons;
+    private PlayerInput playerInput;
     private bool playerDetected = true;
     private AudioSource audioSource;
-    private PlayerInput playerInput;
+    private DialogueHandler dialogueHandler;
+
     private void Start()
     {
+        dialogueHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponentInChildren<DialogueHandler>();
         audioSource = GetComponent<AudioSource>();
         //this script is also used in the main menu, so we need to check if there is a player in the scene before trying to access its components
         if (GameObject.FindGameObjectWithTag("Player") == null)
@@ -43,20 +46,7 @@ public class PauseMenu : MonoBehaviour
         }
         if (!isPaused) //begin pause
         {
-            if (playerDetected)
-            {
-                playerInput.actions.Disable();
-                playerController.enabled = false;
-                weapons.SetActive(false);
-            }
-            isPaused = true;
-            Time.timeScale = 0;
-            pauseMenuCanvas.SetActive(true);
-            mainCanvas.SetActive(false);
-            if (tutorialCanvas != null && tutorialCanvas.activeSelf)
-            {
-                tutorialCanvas.SetActive(false);
-            }
+            BeginPause();
         }
         else //end pause
         {
@@ -66,26 +56,63 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                BackToGame();
+                EndPause();
             }
+            PlaySound();
         }
-        PlaySound();
     }
-    //----------- BUTTONS -----------
-    public void BackToGame()
+    public void BeginPause()
     {
+        if (dialogueHandler.isOpen) //if player is in dialogue
+        {
+            dialogueHandler.PauseDialogue();
+        }
         if (playerDetected)
         {
-            playerInput.actions.Enable();
-            playerController.enabled = true;
-            weapons.SetActive(true);
+            ParalyzePlayer();
+        }
+        isPaused = true;
+        Time.timeScale = 0;
+        pauseMenuCanvas.SetActive(true);
+        mainCanvas.SetActive(false);
+        if (tutorialCanvas != null && tutorialCanvas.activeSelf)
+        {
+            tutorialCanvas.SetActive(false);
+        }
+    }
+    public void EndPause()
+    {
+        if (dialogueHandler.isOpen) //if player is in dialogue
+        {
+            //go back to dialogue and unpause it
+            dialogueHandler.EndPauseDialogue();
+        } else
+        {
+            //not in dialogue: show HP bar
+            mainCanvas.SetActive(true);
+        }
+        if (playerDetected && dialogueHandler.isOpen == false)
+        {
+            UnparalyzePlayer();
         }
         isPaused = false;
         Time.timeScale = 1;
         pauseMenuCanvas.SetActive(false);
-        mainCanvas.SetActive(true);
         PlaySound();
     }
+    public void ParalyzePlayer()
+    {
+        playerInput.actions.Disable();
+        playerController.enabled = false;
+        weapons.SetActive(false);
+    }
+    public void UnparalyzePlayer()
+    {
+        playerInput.actions.Enable();
+        playerController.enabled = true;
+        weapons.SetActive(true);
+    }
+    //----------- BUTTONS -----------
     public void OpenOptions()
     {
         pauseMenuCanvas.SetActive(false);
@@ -94,8 +121,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void RestartToCheckpoint()
     {
-        BackToGame();
-        if(playerDetected)
+        EndPause();
+        if (playerDetected)
         {
             playerHealth.Die();
             player.GetComponent<CheckpointSystem>().Respawn();

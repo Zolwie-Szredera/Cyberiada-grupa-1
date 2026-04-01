@@ -10,9 +10,11 @@ using UnityEngine.EventSystems;
 public class DialogueHandler : MonoBehaviour
 {
     //TODO: I think choices should be handled in a separate script/scriptable object
-    [Header("UI Reference")]
+    [Header("Required References")]
     public TextMeshProUGUI textDisplay;
+    public GameObject dialogueCanvas; //the one with text and choices
     public GameObject mainCanvas; //so it can be disabled when dialogue is active. It's the one with HP bar
+    public Animator playerAnimator;
     [Header("Choice UI Reference")]
     public GameObject choiceContainer;
     public GameObject buttonPrefab;
@@ -27,18 +29,26 @@ public class DialogueHandler : MonoBehaviour
     public float buttonSpacing = 15f;
     public Color outlineHighlightColor = Color.red;
     //-----------------------------
+    [HideInInspector] public bool isOpen = false;
+    private bool pauseDialogue = false;
     private AudioSource audioSource;
-    private bool isOpen = false;
+    private PauseMenu pause;
+    private Rigidbody2D playerRb;
     private DialogueData currentData;
     private string[] sentences;
     private int index;
     private bool isTyping;
+    private bool noNewDialogue = false;
+    private static WaitForSeconds _waitForSeconds0_2 = new(0.2f);
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        pause = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>();
+        playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
     public void ContinueDialogue()
     {
+        if(pauseDialogue) return; //used to prevent advancing dialogue while paused
         if (!isOpen) //start dialogue. This shouldn't happen here, special button type starts dialogue directly, but just in case
         {
             StartDialogue(currentData);
@@ -54,15 +64,19 @@ public class DialogueHandler : MonoBehaviour
             isTyping = false;
         }
     }
-    public void OnAttack(InputAction.CallbackContext context) //so that attacking also advances dialogue, can be changed to something else if needed
+    public void OnContinueDialogue(InputAction.CallbackContext context) //so that attacking also advances dialogue, can be changed to something else if needed
     {
-        if (context.started)
+        if (context.started && isOpen)
         {
             ContinueDialogue();
         }
     }
     public void StartDialogue(DialogueData data)
     {
+        if (noNewDialogue) //I did that so E doesn't start a new dialogue immediately after closing one
+        {
+            return;
+        }
         if (data == null || data.sentences == null || data.sentences.Length == 0)
         {
             Debug.LogWarning("Incomplete data in dialogue");
@@ -72,20 +86,29 @@ public class DialogueHandler : MonoBehaviour
         {
             Debug.Log("No choices in dialogue.");
         }
+        dialogueCanvas.SetActive(true);
         mainCanvas.SetActive(false);
-        isOpen = true;
-        StopAllCoroutines();
-        isTyping = false;
-        choiceContainer.SetActive(false);
+        //prevent the player from doing anything while dialogue is active
+        pause.ParalyzePlayer();
+        //stop player movement immediately when dialogue starts, so they don't slide around while being paralyzed
+        playerRb.linearVelocity = Vector2.zero;
+        //reset player animation to idle
+        playerAnimator.SetBool("isWalking", false);
 
+        StopAllCoroutines();
+
+        isOpen = true;
+        isTyping = false;
         currentData = data;
         sentences = data.sentences;
         index = 0;
-        if (sentences != null && sentences.Length > 0)
+
+        if (sentences != null && sentences.Length > 0) //start dialogue normally
         {
+            Debug.Log("Starting dialogue: " + currentData.characterName);
             StartCoroutine(Type());
         }
-        else if (currentData != null && currentData.choices != null && currentData.choices.Length > 0)
+        else if (currentData != null && currentData.choices != null && currentData.choices.Length > 0) //start dialogue with choices, no sentences.
         {
             ShowChoices();
         } else
@@ -98,8 +121,19 @@ public class DialogueHandler : MonoBehaviour
     {
         StopAllCoroutines();
         mainCanvas.SetActive(true);
+        dialogueCanvas.SetActive(false);
+
         index = 0;
         isOpen = false;
+        pause.UnparalyzePlayer();
+        Debug.Log("Closing dialogue: " + currentData.characterName);
+        StartCoroutine(NoNewDialogueDelay());
+    }
+    IEnumerator NoNewDialogueDelay()
+    {
+        noNewDialogue = true;
+        yield return _waitForSeconds0_2;
+        noNewDialogue = false;
     }
 
     IEnumerator Type()
@@ -126,29 +160,13 @@ public class DialogueHandler : MonoBehaviour
         }
         isTyping = false;
     }
-
-    void Update()
-    {
-        if (!isOpen) return;
-        if (choiceContainer.activeSelf) return;
-        if (isTyping)
-        {
-            StopAllCoroutines();
-            textDisplay.text = sentences[index];
-            isTyping = false;
-        }
-        else
-        {
-            NextSentence();
-        }
-    }
-
     void NextSentence()
     {
         if (index < sentences.Length - 1)
         {
             index++;
             StartCoroutine(Type());
+            Debug.Log("Moving to next sentence: " + currentData.characterName);
         }
         else
         {
@@ -161,6 +179,18 @@ public class DialogueHandler : MonoBehaviour
                 CloseDialogue();
             }
         }
+    }
+    
+     //used in PauseMenu.cs when pausing the game while in dialogue, so then player can't mess with the dialogue while paused.
+    public void PauseDialogue()
+    {
+        pauseDialogue = true;
+        dialogueCanvas.SetActive(false);
+    }
+    public void EndPauseDialogue()
+    {
+        pauseDialogue = false;
+        dialogueCanvas.SetActive(true);
     }
     //----------------------------------------------------
     //This is where the code becomes extremely complicated

@@ -14,7 +14,7 @@ public class DialogueButton : Button
     }
     public override void Interaction()
     {
-        Debug.Log("Starting dialogue: " + currentData.characterName);
+        if(dialogueHandler.isOpen) return; //prevent starting a new dialogue while one is already active.
         dialogueHandler.StartDialogue(currentData);
     }
 }

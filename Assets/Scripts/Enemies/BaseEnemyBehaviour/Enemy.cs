@@ -12,8 +12,9 @@ public class Enemy : MonoBehaviour
     public float attackSpeed;
     public Transform groundCheck;
     public SpriteRenderer sprite;
-    [Header("particles")]
+    [Header("Particles")]
     public ParticleSystem bloodParticles;
+    public GameObject bleedPoint;
     [HideInInspector] public Transform playerLocation;
     [HideInInspector] public EnemySpawner spawner;
     [HideInInspector] public float direction;
@@ -68,8 +69,16 @@ public class Enemy : MonoBehaviour
     {
         if (invulnerable) return;
         hp -= damageTaken;
-        ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
-        ps.Play();
+        if(bleedPoint != null)
+        {
+            ParticleSystem ps = Instantiate(bloodParticles,bleedPoint.transform.position,Quaternion.identity);
+            ps.Play();
+        }
+        else
+        {
+            ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
+            ps.Play();
+        }
         if (hp <= 0)
         {
             Die();

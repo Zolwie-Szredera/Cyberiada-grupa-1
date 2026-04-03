@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2000333603770779158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2106211477425205642}
+  m_Layer: 11
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2106211477425205642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000333603770779158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.03125, y: 6.40625, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6666236341136130845}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4632226554166324385
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +44,7 @@ GameObject:
   - component: {fileID: 6731605477182253023}
   - component: {fileID: 4724562954164446280}
   - component: {fileID: 2279023331303051473}
+  - component: {fileID: 2839791441785023475}
   m_Layer: 11
   m_Name: Helion
   m_TagString: Untagged
@@ -35,6 +67,7 @@ Transform:
   m_Children:
   - {fileID: 7106145638503841428}
   - {fileID: 8569044084418895526}
+  - {fileID: 2106211477425205642}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &665248176386082835
@@ -192,6 +225,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.8125, y: 6.25}
   m_EdgeRadius: 0
+--- !u!114 &2839791441785023475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632226554166324385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0d2f0bff01c3d49933c5dee552d2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HelionAttack
+  damage: 10
+  attackRange: 1000
+  projectileSpeed: 5
+  projectileTimeToLive: 30
+  projectilePrefab: {fileID: 667607137140882554, guid: d731dc7c8dc507e479b8d952295c12f7, type: 3}
+  attackPoint: {fileID: 2106211477425205642}
 --- !u!1 &5774566198820305155
 GameObject:
   m_ObjectHideFlags: 0

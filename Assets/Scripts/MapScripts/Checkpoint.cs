@@ -13,6 +13,11 @@ public class Checkpoint : MonoBehaviour
     private new Light2D light;
     void Start()
     {
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            Debug.LogWarning("Player not found in the scene. That's ok if your in the main menu.");
+            return;
+        }
         checkpointSystem = GameObject.FindGameObjectWithTag("Player").GetComponent<CheckpointSystem>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         light = GetComponent<Light2D>();

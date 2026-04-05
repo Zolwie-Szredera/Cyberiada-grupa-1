@@ -42,6 +42,11 @@ public class DialogueHandler : MonoBehaviour
     private static WaitForSeconds _waitForSeconds0_2 = new(0.2f);
     public void Start()
     {
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            Debug.LogWarning("Player not found in the scene. That's ok if your in the main menu.");
+            return;
+        }
         audioSource = GetComponent<AudioSource>();
         pause = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseMenu>();
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();

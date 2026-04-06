@@ -17,8 +17,14 @@ public class TilemapEffectsHandler : MonoBehaviour
     private readonly Dictionary<Vector3Int, int> bloodTileLevel = new();
     private readonly Dictionary<Vector3Int, int> goopTileLevel = new();
     private readonly Dictionary<Vector3Int, int> blackBileTileLevel = new();
+    private Tilemap collisionTilemap;
     void Start()
     {
+        collisionTilemap = GameObject.FindGameObjectWithTag("CollisionTilemap").GetComponent<Tilemap>();
+        if(collisionTilemap == null)
+        {
+            Debug.LogError("Collision tilemap not found! Please ensure there is a tilemap with the tag 'CollisionTilemap' in the scene.");
+        }
         if (bloodTilemap == null || goopTilemap == null || blackBileTilemap == null)
         {
             Debug.LogWarning("One or more tilemaps not assigned in TilemapEffectsHandler.");
@@ -45,12 +51,18 @@ public class TilemapEffectsHandler : MonoBehaviour
 
     private void PlaceEffect(Tilemap tilemap, TileBase[] tiles, Dictionary<Vector3Int, int> tileLevels, Vector3 position, params int[] thresholds)
     {
-        if (tilemap == null || tiles == null || tiles.Length == 0)
+        if (collisionTilemap == null || tilemap == null || tiles == null || tiles.Length == 0)
         {
+            Debug.LogWarning("Tilemap or tiles not properly assigned in TilemapEffectsHandler. Cannot place effect.");
             return;
         }
 
         Vector3Int tilePos = tilemap.WorldToCell(position);
+        if (collisionTilemap.GetTile(tilePos) == null)
+        {
+            return;
+        }
+
         tileLevels.TryGetValue(tilePos, out int count);
         count++;
         tileLevels[tilePos] = count;
@@ -67,5 +79,14 @@ public class TilemapEffectsHandler : MonoBehaviour
 
         level = Mathf.Min(level, tiles.Length - 1);
         tilemap.SetTile(tilePos, tiles[level]);
+    }
+    public void ClearEffects() //use this when player respawns
+    {
+        bloodTilemap.ClearAllTiles();
+        goopTilemap.ClearAllTiles();
+        blackBileTilemap.ClearAllTiles();
+        bloodTileLevel.Clear();
+        goopTileLevel.Clear();
+        blackBileTileLevel.Clear();
     }
 }

@@ -588,6 +588,7 @@ GameObject:
   - component: {fileID: 3224187750939833675}
   - component: {fileID: 8255147519136677073}
   - component: {fileID: 3317916770444607577}
+  - component: {fileID: 4273261351473874158}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -867,3 +868,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4273261351473874158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4871745336762894584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692d4fa39db7f5d47beed0d0d0316bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TilemapEffectsHandler
+  bloodTilemap: {fileID: 0}
+  goopTilemap: {fileID: 0}
+  blackBileTilemap: {fileID: 0}
+  bloodTiles:
+  - {fileID: 11400000, guid: a75d168797706f340a3bfb689d6305e0, type: 2}
+  - {fileID: 11400000, guid: 7da2f72544e2e5e45bb7b548c2224e56, type: 2}
+  - {fileID: 11400000, guid: 871c8a06e94053f4496ab62e24c4367f, type: 2}
+  goopTiles:
+  - {fileID: 11400000, guid: 7dc01daad8a790b4c846bedcd95300fd, type: 2}
+  - {fileID: 11400000, guid: ea600e85440d96842a8bcea4461214c0, type: 2}
+  - {fileID: 11400000, guid: d748045377f64c945a9d49446bb03c0f, type: 2}
+  blackBileTiles:
+  - {fileID: 11400000, guid: 872d5eceb3b07144c8d886c1b1206984, type: 2}
+  - {fileID: 11400000, guid: af448e62dbc73ac458bbdacbb07d1a71, type: 2}
+  - {fileID: 11400000, guid: 9500ba0c523a0804091b1ed473ecaaa3, type: 2}

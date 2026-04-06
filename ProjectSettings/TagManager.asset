@@ -9,7 +9,7 @@ TagManager:
   - GameManager
   - Checkpoint
   - StartCheckpoint
-  - BloodTilemap
+  - CollisionTilemap
   layers:
   - Default
   - TransparentFX

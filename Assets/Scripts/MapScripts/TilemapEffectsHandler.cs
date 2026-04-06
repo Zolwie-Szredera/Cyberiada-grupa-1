@@ -1,0 +1,71 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class TilemapEffectsHandler : MonoBehaviour
+{
+    //this script handles effects of blood, goop and black bile on the tilemap. Only one should be on the scene.
+    //I hope this isn't too much of a problem optimization-wise.
+    //goop and black bile lowkey look like white and black latex from Changed
+    //maybe we will add yellow bile later.
+    public Tilemap bloodTilemap;
+    public Tilemap goopTilemap;
+    public Tilemap blackBileTilemap;
+    public TileBase[] bloodTiles;
+    public TileBase[] goopTiles;
+    public TileBase[] blackBileTiles;
+    private readonly Dictionary<Vector3Int, int> bloodTileLevel = new();
+    private readonly Dictionary<Vector3Int, int> goopTileLevel = new();
+    private readonly Dictionary<Vector3Int, int> blackBileTileLevel = new();
+    void Start()
+    {
+        if (bloodTilemap == null || goopTilemap == null || blackBileTilemap == null)
+        {
+            Debug.LogWarning("One or more tilemaps not assigned in TilemapEffectsHandler.");
+        }        
+        if (bloodTiles == null || goopTiles == null || blackBileTiles == null || bloodTiles.Length == 0 || goopTiles.Length == 0 || blackBileTiles.Length == 0)
+        {
+            Debug.LogWarning("One or more tile arrays not assigned or empty in TilemapEffectsHandler.");
+        }
+    }
+    public void PlaceBlood(Vector3 position)
+    {
+        PlaceEffect(bloodTilemap, bloodTiles, bloodTileLevel, position, 15, 30);
+    }
+
+    public void PlaceGoop(Vector3 position)
+    {
+        PlaceEffect(goopTilemap, goopTiles, goopTileLevel, position, 50, 100); //goop is placed by monument 50 times per second (fixed update).
+    }
+
+    public void PlaceBlackBile(Vector3 position)
+    {
+        PlaceEffect(blackBileTilemap, blackBileTiles, blackBileTileLevel, position, 15, 30);
+    }
+
+    private void PlaceEffect(Tilemap tilemap, TileBase[] tiles, Dictionary<Vector3Int, int> tileLevels, Vector3 position, params int[] thresholds)
+    {
+        if (tilemap == null || tiles == null || tiles.Length == 0)
+        {
+            return;
+        }
+
+        Vector3Int tilePos = tilemap.WorldToCell(position);
+        tileLevels.TryGetValue(tilePos, out int count);
+        count++;
+        tileLevels[tilePos] = count;
+
+        int level = 0;
+        for (int i = thresholds.Length - 1; i >= 0; i--)
+        {
+            if (count >= thresholds[i])
+            {
+                level = i + 1;
+                break;
+            }
+        }
+
+        level = Mathf.Min(level, tiles.Length - 1);
+        tilemap.SetTile(tilePos, tiles[level]);
+    }
+}

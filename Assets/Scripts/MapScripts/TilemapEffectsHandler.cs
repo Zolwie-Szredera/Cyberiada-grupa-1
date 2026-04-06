@@ -20,10 +20,13 @@ public class TilemapEffectsHandler : MonoBehaviour
     private Tilemap collisionTilemap;
     void Start()
     {
-        collisionTilemap = GameObject.FindGameObjectWithTag("CollisionTilemap").GetComponent<Tilemap>();
-        if(collisionTilemap == null)
+        if(GameObject.FindGameObjectWithTag("CollisionTilemap") == null)
         {
-            Debug.LogError("Collision tilemap not found! Please ensure there is a tilemap with the tag 'CollisionTilemap' in the scene.");
+            Debug.LogWarning("No tilemap with tag 'CollisionTilemap' found! Please ensure there is a tilemap with the tag 'CollisionTilemap' in the scene. Or that means you are in the main menu and it's ok");
+            return;
+        } else
+        {
+            collisionTilemap = GameObject.FindGameObjectWithTag("CollisionTilemap").GetComponent<Tilemap>();
         }
         if (bloodTilemap == null || goopTilemap == null || blackBileTilemap == null)
         {

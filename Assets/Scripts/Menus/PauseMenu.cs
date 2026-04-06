@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject mainCanvas;
     public GameObject tutorialCanvas;
     public bool isPaused = false;
+    private OptionsMenu optionsMenu;
     private GameObject player;
     private PlayerHealth playerHealth;
     private PlayerController playerController;
@@ -21,6 +22,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+        optionsMenu = GetComponent<OptionsMenu>();
         dialogueHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponentInChildren<DialogueHandler>();
         audioSource = GetComponent<AudioSource>();
         //this script is also used in the main menu, so we need to check if there is a player in the scene before trying to access its components
@@ -39,7 +41,7 @@ public class PauseMenu : MonoBehaviour
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        if (GetComponent<OptionsMenu>().areYouSurePrompt.activeSelf)
+        if (optionsMenu.areYouSurePrompt.activeSelf)
         {
             Debug.Log("Cannot pause/unpause while the 'Are you sure?' prompt is active.");
             return;
@@ -52,7 +54,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (optionsMenuCanvas.activeSelf)
             {
-                GetComponent<OptionsMenu>().BackToMenu();
+                optionsMenu.BackToMenu();
             }
             else
             {
@@ -117,6 +119,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuCanvas.SetActive(false);
         optionsMenuCanvas.SetActive(true);
+        optionsMenu.UpdateValues();
         PlaySound();
     }
     public void RestartToCheckpoint()

@@ -174,18 +174,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ActivateMovementAccessory"",
+                    ""name"": ""ContinueDialogue"",
                     ""type"": ""Button"",
-                    ""id"": ""6c440aa0-0101-4ec8-bc35-859a8f7fcdac"",
+                    ""id"": ""74535bb0-90c5-41f8-9853-b264c3f145a1"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ContinueDialogue"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
-                    ""id"": ""74535bb0-90c5-41f8-9853-b264c3f145a1"",
+                    ""id"": ""b3e0a6e2-d988-401a-ad5e-9141af70d5f4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -338,17 +338,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""29555c3c-9ac7-42a2-97c9-7fad29724272"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ActivateMovementAccessory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c05ed805-f8f5-46f5-8766-2b80b15e866d"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -388,6 +377,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0506cdea-0d82-479e-8769-037975cfcb1d"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -583,8 +583,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_player_Respawn = m_player.FindAction("Respawn", throwIfNotFound: true);
         m_player_Down = m_player.FindAction("Down", throwIfNotFound: true);
         m_player_Pause = m_player.FindAction("Pause", throwIfNotFound: true);
-        m_player_ActivateMovementAccessory = m_player.FindAction("ActivateMovementAccessory", throwIfNotFound: true);
         m_player_ContinueDialogue = m_player.FindAction("ContinueDialogue", throwIfNotFound: true);
+        m_player_Dash = m_player.FindAction("Dash", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_DebugAction1 = m_Debug.FindAction("DebugAction1", throwIfNotFound: true);
@@ -688,8 +688,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_player_Respawn;
     private readonly InputAction m_player_Down;
     private readonly InputAction m_player_Pause;
-    private readonly InputAction m_player_ActivateMovementAccessory;
     private readonly InputAction m_player_ContinueDialogue;
+    private readonly InputAction m_player_Dash;
     /// <summary>
     /// Provides access to input actions defined in input action map "player".
     /// </summary>
@@ -738,13 +738,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_player_Pause;
         /// <summary>
-        /// Provides access to the underlying input action "player/ActivateMovementAccessory".
-        /// </summary>
-        public InputAction @ActivateMovementAccessory => m_Wrapper.m_player_ActivateMovementAccessory;
-        /// <summary>
         /// Provides access to the underlying input action "player/ContinueDialogue".
         /// </summary>
         public InputAction @ContinueDialogue => m_Wrapper.m_player_ContinueDialogue;
+        /// <summary>
+        /// Provides access to the underlying input action "player/Dash".
+        /// </summary>
+        public InputAction @Dash => m_Wrapper.m_player_Dash;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -798,12 +798,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @ActivateMovementAccessory.started += instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.performed += instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.canceled += instance.OnActivateMovementAccessory;
             @ContinueDialogue.started += instance.OnContinueDialogue;
             @ContinueDialogue.performed += instance.OnContinueDialogue;
             @ContinueDialogue.canceled += instance.OnContinueDialogue;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         /// <summary>
@@ -842,12 +842,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @ActivateMovementAccessory.started -= instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.performed -= instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.canceled -= instance.OnActivateMovementAccessory;
             @ContinueDialogue.started -= instance.OnContinueDialogue;
             @ContinueDialogue.performed -= instance.OnContinueDialogue;
             @ContinueDialogue.canceled -= instance.OnContinueDialogue;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         /// <summary>
@@ -1210,19 +1210,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ActivateMovementAccessory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnActivateMovementAccessory(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "ContinueDialogue" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnContinueDialogue(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Debug" which allows adding and removing callbacks.

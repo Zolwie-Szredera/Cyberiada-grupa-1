@@ -1460,6 +1460,50 @@ PrefabInstance:
       propertyPath: m_NormalizedViewPortRect.height
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      value: 74535bb0-90c5-41f8-9853-b264c3f145a1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionId
+      value: b3e0a6e2-d988-401a-ad5e-9141af70d5f4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      value: 'player/ContinueDialogue[/Keyboard/space,/Keyboard/e,/Mouse/press,/Keyboard/enter]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
+      value: 'player/Dash[/Keyboard/leftShift]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5274496220615648304}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dash, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824170221524785914, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2058199456909963394, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
       propertyPath: m_CropFrame
       value: 0
@@ -1585,6 +1629,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4538534112938561204, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5274496220615648304}
     - targetCorrespondingSourceObject: {fileID: 264148421672843613, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7598047800404691472}
@@ -1706,17 +1753,44 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1785588018185319366, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
   m_PrefabInstance: {fileID: 5309513158573325310}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &6979029726250670881 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2987382546109980895, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+  m_PrefabInstance: {fileID: 5309513158573325310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8037489929900438726 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2748823700835454776, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
   m_PrefabInstance: {fileID: 5309513158573325310}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8598271831951308106}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 195c459b767cca5408c806539a1809fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!1 &8598271831951308106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4538534112938561204, guid: 6d1aa056f7165f9428f5cca58ababca4, type: 3}
+  m_PrefabInstance: {fileID: 5309513158573325310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5274496220615648304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598271831951308106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec3ca7e781eb6841bbdf4c4bc6dc1fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dash
+  dashDuration: 0.2
+  dashCooldown: 1
+  dashForce: 25
+  spriteRenderer: {fileID: 6979029726250670881}
+  dashAfterimagePrefab: {fileID: 7317970490243965358, guid: 8e5a828ae257d2b41b53d8ee5e91e827, type: 3}
 --- !u!1001 &8157999589224497316
 PrefabInstance:
   m_ObjectHideFlags: 0

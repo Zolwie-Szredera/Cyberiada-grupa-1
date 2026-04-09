@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,7 +26,6 @@ public class Enemy : MonoBehaviour
     protected bool facingRight = true;
     protected bool stopped = false;
     protected float attackCooldown;
-    protected Vector2 playerLocationVector2;
     protected bool blockFlip = false;
     protected bool justFlipped = false;
     protected bool invulnerable = false;
@@ -36,7 +34,6 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        playerLocationVector2 = playerLocation.position;
         groundLayer = LayerMask.GetMask("Ground");
         if (groundCheck == null)
         {

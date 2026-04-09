@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class ProjectileTrap : MonoBehaviour
 {
-    public GameObject projectile;
+    public Projectile projectile;
     public int frequency;
     public int speed;
     public int damage;
+    public float projectileTimeToLive;
     void Start()
     {
         StartCoroutine(Timer(frequency));
@@ -19,8 +20,7 @@ public class ProjectileTrap : MonoBehaviour
     }
     public void TrapActivation()
     {
-        GameObject newProjectile = Instantiate(projectile, gameObject.transform.position + transform.right * 0.5f, gameObject.transform.rotation);
-        newProjectile.GetComponent<Rigidbody2D>().linearVelocity = transform.right * speed;
-        newProjectile.GetComponent<Projectile>().damage = damage;
+        Projectile newProjectile = Instantiate(projectile, gameObject.transform.position + (transform.right * 0.5f), gameObject.transform.rotation);
+        newProjectile.Initiate(damage, projectileTimeToLive, speed, transform.right);
     }
 }

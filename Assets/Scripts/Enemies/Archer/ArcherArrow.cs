@@ -8,14 +8,6 @@ public class ArcherArrow : EnemyShooter
     public float arrowGravity = 1f;
     [Tooltip("How far ahead to predict player movement (in seconds)")]
     public float predictionTime = 0.3f;
-    private Collider2D archerCollider;
-
-    public override void Start()
-    {
-        base.Start();
-        archerCollider = GetComponent<Collider2D>();
-    }
-
     public override void ProjectileAttack(Vector2 direction)
     {
         Vector2 targetPosition = direction;
@@ -31,7 +23,7 @@ public class ArcherArrow : EnemyShooter
             velocity = (targetPosition - (Vector2)attackPoint.position).normalized * projectileSpeed;
         }
 
-        // Spawn arrow slightly forward to avoid self-collision
+        // Spawn arrow slightly forward to avoid self-collision. No longer necessary since we ignore collision with the shooter. REMOVE?
         Vector2 launchDirection = velocity.normalized;
         Vector3 spawnPosition = attackPoint.position + (Vector3)(launchDirection * 0.6f);
 
@@ -39,14 +31,8 @@ public class ArcherArrow : EnemyShooter
         GameObject arrow = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         if (arrow.TryGetComponent<Arrow>(out var arrowScript))
         {
-            arrowScript.damage = damage;
-            arrowScript.speed = projectileSpeed;
-            arrowScript.gravity = arrowGravity;
-
-            // Ignore collision with shooter
-            arrowScript.SetShooter(archerCollider);
-
-            arrowScript.Launch(velocity.normalized, velocity.magnitude);
+            arrowScript.Initialize(damage, projectileTimeToLive, velocity.magnitude, arrowGravity, velocity.normalized);
+            arrowScript.IgnoreParentObject(gameObject);
         }
         else
         {

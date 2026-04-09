@@ -247,7 +247,7 @@ MonoBehaviour:
   damage: 1
   attackRange: 10
   projectileSpeed: 10
-  projectileTimeToLive: 0
+  projectileTimeToLive: 5
   projectilePrefab: {fileID: 2219318002939193780, guid: a8ff6569ca1344a4da6edecb07c435f8, type: 3}
   attackPoint: {fileID: 6673685978188381917}
   arrowGravity: 1
@@ -270,5 +270,9 @@ MonoBehaviour:
   groundCheck: {fileID: 6647076780490094247}
   sprite: {fileID: 600423059883088552}
   bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
+  bleedPoint: {fileID: 7423900217410304165}
   playerLocation: {fileID: 0}
+  spawner: {fileID: 0}
+  direction: 0
+  rb: {fileID: 0}
   arrowScript: {fileID: 0}

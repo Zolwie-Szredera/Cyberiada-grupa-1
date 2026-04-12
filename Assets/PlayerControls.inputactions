@@ -88,9 +88,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ActivateMovementAccessory",
+                    "name": "ContinueDialogue",
                     "type": "Button",
-                    "id": "6c440aa0-0101-4ec8-bc35-859a8f7fcdac",
+                    "id": "74535bb0-90c5-41f8-9853-b264c3f145a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "b3e0a6e2-d988-401a-ad5e-9141af70d5f4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -243,12 +252,56 @@
                 },
                 {
                     "name": "",
-                    "id": "29555c3c-9ac7-42a2-97c9-7fad29724272",
-                    "path": "<Keyboard>/shift",
+                    "id": "c05ed805-f8f5-46f5-8766-2b80b15e866d",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ActivateMovementAccessory",
+                    "action": "ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f160e2ae-94bb-4bd5-8fbd-fcfac45fa389",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "385c4f5f-fa8c-415f-aed2-11fb9b438bd4",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "196efa3e-bcf6-47e3-a49d-e44a8a2fc615",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ContinueDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0506cdea-0d82-479e-8769-037975cfcb1d",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

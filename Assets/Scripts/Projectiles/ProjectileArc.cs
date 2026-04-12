@@ -20,9 +20,8 @@ public class ProjectileArc : Projectile
     private bool locked;
     [HideInInspector] public Vector2 target;
     // --------------------------------------------------
-    public override void Start()
+    public void Start()
     {
-        base.Start();
         Vector3 start = transform.position;
         Vector3 targetPos = new(target.x, target.y, start.z); //convert vector2 to vector3, keeping z the same as start
 
@@ -44,6 +43,17 @@ public class ProjectileArc : Projectile
         delayedTargetPos = targetPos;
         delayTimer = homingDelay;
         arcTimer = minArcTime;
+    }
+    public void Initiate(int damage, float timeToLive, Vector2 target, GameObject shooter)
+    {
+        this.damage = damage;
+        this.timeToLive = timeToLive;
+        this.target = target;
+
+        //ignore collision with the shooter
+        Physics2D.IgnoreCollision(projectileCollider, shooter.GetComponent<Collider2D>());
+
+        Destroy(gameObject, timeToLive);
     }
 
     // --------------------------------------------------

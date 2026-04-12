@@ -43,9 +43,8 @@ public class PlayerRanged : PlayerWeapons
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
         Projectile currentProjectile = Instantiate(projectile, origin, rotation);
-        currentProjectile.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
-        currentProjectile.damage = damage;
-        currentProjectile.timeToLive = projectileTTL;
+        currentProjectile.Initiate(damage, projectileTTL, projectileSpeed, direction);
+        currentProjectile.IgnoreParentObject(GameObject.FindGameObjectWithTag("Player"));
         attackCooldown = attackSpeed;
     }
     public override void ForceAttackStart()

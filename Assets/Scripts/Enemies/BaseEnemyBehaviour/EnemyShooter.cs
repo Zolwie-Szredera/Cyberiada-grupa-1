@@ -21,10 +21,8 @@ public class EnemyShooter : MonoBehaviour
     public virtual void ProjectileAttack(Vector2 direction)
     {
         GameObject currentProjectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.identity);
-        currentProjectile.GetComponent<Projectile>().timeToLive = projectileTimeToLive;
+        currentProjectile.GetComponent<Projectile>().Initiate(damage, projectileTimeToLive, projectileSpeed, direction.normalized);
         currentProjectile.GetComponent<Projectile>().IgnoreParentObject(gameObject);
-        currentProjectile.GetComponent<Projectile>().damage = damage;
-        currentProjectile.GetComponent<Rigidbody2D>().linearVelocity = direction * projectileSpeed;
     }
     public virtual void OnDrawGizmosSelected()
     {

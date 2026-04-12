@@ -18,6 +18,7 @@ public class ArcherAI : Enemy
         else if (attackCooldown <= 0)
         {
             arrowScript.ProjectileAttack(playerLocation.position);
+            Debug.Log(playerLocation.position);
             attackCooldown = attackSpeed;
         }
     }

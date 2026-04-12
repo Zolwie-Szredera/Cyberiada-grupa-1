@@ -9,8 +9,10 @@ public class CheckpointSystem : MonoBehaviour
     private PlayerHealth playerHealth;
     private GameObject player;
     private EncounterHandler[] encounters;
+    private TilemapEffectsHandler effectsHandler;
     public void Start()
     {
+        effectsHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<TilemapEffectsHandler>();
         if(currentCheckpoint == null)
         {
             // By default the "Map" game object should be tagged as "StartCheckpoint"
@@ -47,6 +49,13 @@ public class CheckpointSystem : MonoBehaviour
         {
             Destroy(enemy.gameObject);
         }
+        //destroy all active particles in the scene
+        foreach(ParticleSystem ps in FindObjectsByType<ParticleSystem>())
+        {
+            Destroy(ps.gameObject);
+        }
+        //clear all tilemap effects
+        effectsHandler.ClearEffects();
     }
     public void OnRespawn(InputAction.CallbackContext context)
     {

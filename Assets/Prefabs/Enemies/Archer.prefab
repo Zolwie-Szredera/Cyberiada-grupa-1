@@ -245,12 +245,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcherArrow
   damage: 1
-  attackRange: 10
-  projectileSpeed: 10
-  projectileTimeToLive: 0
+  attackRange: 15
+  projectileSpeed: 15
+  projectileTimeToLive: 10
   projectilePrefab: {fileID: 2219318002939193780, guid: a8ff6569ca1344a4da6edecb07c435f8, type: 3}
   attackPoint: {fileID: 6673685978188381917}
-  arrowGravity: 1
+  arrowGravity: 0.9
   predictionTime: 0.3
 --- !u!114 &1534218519087745862
 MonoBehaviour:
@@ -264,11 +264,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f619bc1e860b8f4bbd0d426bc13c14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcherAI
-  hp: 10
-  movementSpeed: 2
+  hp: 50
+  movementSpeed: 4
   attackSpeed: 1
   groundCheck: {fileID: 6647076780490094247}
   sprite: {fileID: 600423059883088552}
   bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
+  bleedPoint: {fileID: 7423900217410304165}
   playerLocation: {fileID: 0}
+  spawner: {fileID: 0}
+  direction: 0
+  rb: {fileID: 0}
   arrowScript: {fileID: 0}

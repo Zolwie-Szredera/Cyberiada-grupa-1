@@ -4,30 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Arrow : Projectile
 {
-    [Header("Arrow Physics")]
-    public float gravity = 1f;
-
-    private Rigidbody2D rb;
     private Vector2 velocity;
     private bool isStuck;
-    private Collider2D shooterCollider;
     private bool hasLaunched;
-    private Collider2D arrowCollider;
-
-    void Awake()
+    public void Start()
     {
-        // Get Rigidbody2D early so Launch() can use it
-        rb = GetComponent<Rigidbody2D>();
-        arrowCollider = GetComponent<Collider2D>();
-    }
-
-    public override void Start()
-    {
-        base.Start();
-        rb.gravityScale = gravity;
-
-        Physics2D.IgnoreCollision(arrowCollider, shooterCollider, true);
-
         // If Launch wasn't called, something is wrong
         if (!hasLaunched)
         {
@@ -49,21 +30,20 @@ public class Arrow : Projectile
         }
     }
 
-    public void Launch(Vector2 direction, float launchSpeed)
+    public void Initialize(int damage, float timeToLive, float speed, float gravity, Vector2 direction)
     {
         hasLaunched = true;
+        this.damage = damage;
+        this.timeToLive = timeToLive;
 
-        // Ensure rb is available (in case Launch is called before Awake)
-        if (rb == null)
-        {
-            rb = GetComponent<Rigidbody2D>();
-        }
+        Destroy(gameObject, timeToLive);
 
+        // Set initial velocity based on direction and speed
         if (rb != null)
         {
             // The direction comes from ballistic calculation which is already normalized
             // We multiply by speed to get the actual velocity magnitude
-            Vector2 launchVelocity = direction * launchSpeed;
+            Vector2 launchVelocity = direction * speed;
             rb.linearVelocity = launchVelocity;
 
             // Set initial rotation to face the launch direction
@@ -77,15 +57,9 @@ public class Arrow : Projectile
             Debug.LogError("Cannot launch arrow - Rigidbody2D is missing!");
         }
     }
-
-    public void SetShooter(Collider2D shooter)
-    {
-        shooterCollider = shooter;
-    }
-
     public override void ApplyCollisionEffect(Collider2D other)
     {
-        if (other.gameObject.layer == 9 || isStuck) //ignore traps
+        if (isStuck)
         {
             return;
         }
@@ -97,8 +71,12 @@ public class Arrow : Projectile
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+            Destroy(gameObject);
         }
-        StickToSurface();
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("StickyWall"))
+        {
+            StickToSurface();
+        }
     }
 
     private void StickToSurface()

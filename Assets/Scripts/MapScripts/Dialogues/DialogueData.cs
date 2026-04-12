@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization;
 
 [System.Serializable]
 public class Choice
@@ -14,9 +15,7 @@ public class DialogueData : ScriptableObject
 {
     public string characterName;
     public Sprite characterPortrait;
-
-    [TextArea(3, 10)]
-    public string[] sentences;
+    public LocalizedString[] sentences;
 
     public Choice[] choices;
 }

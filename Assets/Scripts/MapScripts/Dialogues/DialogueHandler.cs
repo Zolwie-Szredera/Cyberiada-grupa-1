@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
 
 [RequireComponent(typeof(AudioSource))]
 public class DialogueHandler : MonoBehaviour
@@ -35,7 +36,8 @@ public class DialogueHandler : MonoBehaviour
     private PauseMenu pause;
     private Rigidbody2D playerRb;
     private DialogueData currentData;
-    private string[] sentences;
+    private LocalizedString[] sentences;
+    private string currentTranslatedSentence;
     private int index;
     private bool isTyping;
     private bool noNewDialogue = false;
@@ -65,7 +67,7 @@ public class DialogueHandler : MonoBehaviour
         else //finish sentence
         {
             StopAllCoroutines();
-            textDisplay.text = sentences[index];
+            textDisplay.text = currentTranslatedSentence;
             isTyping = false;
         }
     }
@@ -148,12 +150,16 @@ public class DialogueHandler : MonoBehaviour
 
         if (index < sentences.Length)
         {
-            foreach (char letter in sentences[index].ToCharArray())
+            var operation = sentences[index].GetLocalizedStringAsync();
+            yield return operation;
+            currentTranslatedSentence = operation.Result;
+
+            foreach (char letter in currentTranslatedSentence.ToCharArray())
             {
                 textDisplay.text += letter;
 
                 // --- AUDIO LOGIC START ---
-                if (audioSource != null)
+                if (audioSource != null && audioSource.clip != null)
                 {
                     // PlayOneShot allows sounds to overlap if the typing speed is very fast
                     audioSource.PlayOneShot(audioSource.clip, volume);

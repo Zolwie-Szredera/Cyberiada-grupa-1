@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Dialogues_pl
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: pl
+  m_SharedData: {fileID: 11400000, guid: f0996fd03d3820b41b70c5cae92a57ef, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 9391366144
+    m_Localized: "Lilia pe\u0142na \u017Calu czeka na zerwanie,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64684875776
+    m_Localized: "Po\u0142\xF3\u017C j\u0105 na grobie swojej ukochanej..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2430775648256
+    m_Localized: "Cho\u0107 nikogo takiego nie pami\u0119tasz, \nto fragmenty pami\u0119ci
+      z innego \u015Bwiata \nprzepe\u0142niaj\u0105 ci\u0119 ch\u0119ci\u0105 do
+      ucieczki."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

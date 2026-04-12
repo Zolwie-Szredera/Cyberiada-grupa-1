@@ -18,7 +18,7 @@ public class OptionsMenu : MonoBehaviour
     private float savedVolumeValue;
     private AudioSource audioSource;
     //TODO: change comments to english
-    public void OnEnable() //ta sekcja będzie się robić strasznie długa jak będziemy dodawać kolejne opcje
+    public void Start() //ta sekcja będzie się robić strasznie długa jak będziemy dodawać kolejne opcje
     {
         if (!PlayerPrefs.HasKey("volume"))
         {
@@ -27,8 +27,12 @@ public class OptionsMenu : MonoBehaviour
         }
         // Bufor = wartość suwaka = PlayerPrefs
         savedVolumeValue = PlayerPrefs.GetFloat("volume");
-        volumeSlider.value = savedVolumeValue;
         audioSource = GetComponent<AudioSource>();
+    }
+
+    public void UpdateValues() //ta funkcja jest wywoływana przy zmianie wartości suwaka, żeby zaktualizować tekst obok
+    {
+        volumeSlider.value = PlayerPrefs.GetFloat("volume");
     }
     public void SetVolume(float value)
     {
@@ -75,7 +79,7 @@ public class OptionsMenu : MonoBehaviour
     //language button is handled in localization script
     public void BackToMenu()
     {
-        if(ChangesMade())
+        if (ChangesMade())
         {
             areYouSurePrompt.SetActive(true);
             optionsPanel.SetActive(false);

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 moveInput;
+    [HideInInspector] public Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI interactText;
 
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask platformLayer;
     [Header("Animation")]
     public Animator animator;
-    [HideInInspector]public bool isGrounded;
+    [HideInInspector] public bool isGrounded;
 
     private bool isWallJumping = false;
     private bool isJumping = false;
@@ -128,10 +128,11 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        if(moveInput.x > 0)
+        if (moveInput.x > 0)
         {
             ChangeSpriteDirection(true);
-        } else if(moveInput.x < 0)
+        }
+        else if (moveInput.x < 0)
         {
             ChangeSpriteDirection(false);
         }
@@ -175,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
         // 2. Wall Check
         WallCheck();
-        
+
         // 3. Horizontal Movement
         float targetSpeed = moveInput.x * moveSpeed;
         float velocityDifferenceX = targetSpeed - rb.linearVelocity.x;
@@ -208,7 +209,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset Y velocity for consistent jump height
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            
+
             // air jump deduction
             if (!isGrounded && !isTouchingWall)
             {
@@ -230,15 +231,21 @@ public class PlayerController : MonoBehaviour
         }
 
         // 7. Max Speed Check
-        rb.linearVelocity = new Vector2(
-            Mathf.Clamp(rb.linearVelocity.x, -moveSpeed * 2f, moveSpeed * 2f), // Allow some overshoot
+        //After dashing was implemented this was removed to allow dash overshoot, 
+        //but it may be worth reimplementing in some form if the player can reach unintended speeds through other means.
+        rb.linearVelocity = new Vector2
+        (
+            rb.linearVelocityX, // Remove horizontal speed cap to allow dash overshoot
+            //Mathf.Clamp(rb.linearVelocity.x, -moveSpeed * 2f, moveSpeed * 2f), // 
             Mathf.Clamp(rb.linearVelocity.y, -50f, 50f)
         );
+
         // 8. Update animation parameters
         if (Mathf.Abs(rb.linearVelocity.x) != 0)
         {
             animator.SetBool("isWalking", true);
-        } else
+        }
+        else
         {
             animator.SetBool("isWalking", false);
         }
@@ -316,10 +323,11 @@ public class PlayerController : MonoBehaviour
     }
     public void ActivateInteractionText(bool readyToInteract)
     {
-        if(readyToInteract)
+        if (readyToInteract)
         {
             interactText.gameObject.SetActive(true);
-        } else
+        }
+        else
         {
             interactText.gameObject.SetActive(false);
         }

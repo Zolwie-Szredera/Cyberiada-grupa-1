@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     private PlayerStats playerStats;
+    public bool isInvulnerable = false;
     private PlayerController playerController;
     private float maxBlood;
     public float MaxBlood => maxBlood;
@@ -149,6 +150,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isInvulnerable) return;
         currentBlood -= damage;
         Debug.Log($"Player took {damage} damage. Current health: {currentBlood}/{maxBlood}");
 
@@ -156,6 +158,7 @@ public class PlayerHealth : MonoBehaviour
         
         if (bloodParticles != null)
         {
+            bloodFill.fillAmount = currentBlood / maxBlood;
             ParticleSystem ps = Instantiate(bloodParticles, transform.position, Quaternion.identity);
             ps.Play();
         }

@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    private static WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     [Header("Enemy")]
     public int hp;
     public float movementSpeed;
@@ -13,8 +11,9 @@ public class Enemy : MonoBehaviour
     public float attackSpeed;
     public Transform groundCheck;
     public SpriteRenderer sprite;
-    [Header("particles")]
+    [Header("Particles")]
     public ParticleSystem bloodParticles;
+    public GameObject bleedPoint;
     [HideInInspector] public Transform playerLocation;
     [HideInInspector] public EnemySpawner spawner;
     [HideInInspector] public float direction;
@@ -27,15 +26,14 @@ public class Enemy : MonoBehaviour
     protected bool facingRight = true;
     protected bool stopped = false;
     protected float attackCooldown;
-    protected Vector2 playerLocationVector2;
     protected bool blockFlip = false;
     protected bool justFlipped = false;
     protected bool invulnerable = false;
+    private static readonly WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        playerLocationVector2 = playerLocation.position;
         groundLayer = LayerMask.GetMask("Ground");
         if (groundCheck == null)
         {
@@ -68,8 +66,16 @@ public class Enemy : MonoBehaviour
     {
         if (invulnerable) return;
         hp -= damageTaken;
-        ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
-        ps.Play();
+        if(bleedPoint != null)
+        {
+            ParticleSystem ps = Instantiate(bloodParticles,bleedPoint.transform.position,Quaternion.identity);
+            ps.Play();
+        }
+        else
+        {
+            ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
+            ps.Play();
+        }
         if (hp <= 0)
         {
             Die();

@@ -192,6 +192,7 @@ MonoBehaviour:
   groundCheck: {fileID: 3569487374401682602}
   sprite: {fileID: 1688984677021249989}
   bloodParticles: {fileID: 5207686298220729077, guid: 8c49f2d65fe7e7e4f951360c924c6890, type: 3}
+  bleedPoint: {fileID: 2075746037874299853}
   playerLocation: {fileID: 0}
   spawner: {fileID: 0}
   direction: 0
@@ -399,7 +400,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

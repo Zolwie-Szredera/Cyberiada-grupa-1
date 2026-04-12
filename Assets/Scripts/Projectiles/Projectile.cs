@@ -2,14 +2,18 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
-    public int damage;
-    public float timeToLive;
-    public float speed;
-    public virtual void Start()
+    protected int damage;
+    protected float timeToLive;
+    protected float speed;
+    protected Collider2D projectileCollider;
+    protected Rigidbody2D rb;
+    public virtual void Awake()
     {
-        Destroy(gameObject, timeToLive);
+        projectileCollider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -32,9 +36,18 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void IgnoreParentObject(GameObject gameObject)
+    public virtual void Initiate(int damage, float timeToLive, float speed, Vector2 direction)
     {
-        Collider2D projectileCollider = GetComponent<Collider2D>();
-        Physics2D.IgnoreCollision(projectileCollider, gameObject.GetComponent<Collider2D>());
+        this.damage = damage;
+        this.timeToLive = timeToLive;
+
+        //set velocity based on direction and speed
+        rb.linearVelocity = direction * speed;
+
+        Destroy(gameObject, timeToLive);
+    }
+    public void IgnoreParentObject(GameObject parent)
+    {
+        Physics2D.IgnoreCollision(projectileCollider, parent.GetComponent<Collider2D>(), true);
     }
 }

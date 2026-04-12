@@ -12,18 +12,17 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI interactText;
 
     [Header("Movement Settings")]
-    public float accelerationRate = 150f;
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
+    public float accelerationRate = 30f;
+    public float decelerationRate = 100f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
+    public int airJumps = 1;
     [HideInInspector] public int remainingAirJumps;
-
-    private PlayerStats playerStats;
-    private float moveSpeed => playerStats != null ? playerStats.moveSpeed : 12f;
-    private float jumpForce => playerStats != null ? playerStats.jumpForce : 15f;
-    private int airJumps => playerStats != null ? playerStats.airJumps : 1;
 
     [Header("Wall Check")]
     public Transform wallCheck;
@@ -75,7 +74,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        playerStats = GetComponent<PlayerStats>();
         remainingAirJumps = airJumps;
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -83,7 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             interactText.gameObject.SetActive(false);
         }
-        weaponsManager = FindAnyObjectByType<WeaponsManager>();
+        weaponsManager = FindAnyObjectByType<WeaponsManager>(); // Assuming there's only one WeaponsManager in the scene
         if (weaponsManager != null)
             weaponsManager.OnWeaponChanged += OnWeaponChanged;
         UpdateCurrentWeapon();
@@ -157,8 +155,10 @@ public class PlayerController : MonoBehaviour
         // 3. Horizontal Movement
         float targetSpeed = moveInput.x * moveSpeed;
         float velocityDifferenceX = targetSpeed - rb.linearVelocity.x;
-        float accelerationX = accelerationRate * Time.deltaTime;
-        float movementX = Mathf.Clamp(velocityDifferenceX, -accelerationX, accelerationX);
+
+        // Choose acceleration or deceleration depending on whether we're speeding up or slowing down
+        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? accelerationRate : decelerationRate) * Time.deltaTime;
+        float movementX = Mathf.Clamp(velocityDifferenceX, -maxSpeedChange, maxSpeedChange);
         rb.linearVelocity += new Vector2(movementX, 0f);
 
         // 4. Wall Jump

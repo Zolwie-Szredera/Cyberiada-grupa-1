@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(AccessoriesManager))]
 public class PlayerStats : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("Movement")] //rememer to use the stats without "base" in name during runtime
     public float baseMoveSpeed = 12f; //for: PlayerController.cs
     public float baseJumpForce = 15f; //for: PlayerController.cs
     public int baseAirJumps = 1; //for: PlayerController.cs

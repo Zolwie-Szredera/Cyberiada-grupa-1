@@ -161,8 +161,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSword
   animator: {fileID: 7466603192667911320}
-  baseDamage: 1
-  attackSpeed: 1
   attackOrigin: {fileID: 3775144879078233061}
   attackDistance: 0.5
   isRangedWeapon: 0
@@ -440,8 +438,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRanged
   animator: {fileID: 0}
-  baseDamage: 1
-  attackSpeed: 0.5
   attackOrigin: {fileID: 1234567891}
   attackDistance: 0.5
   isRangedWeapon: 1
@@ -1083,17 +1079,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195c459b767cca5408c806539a1809fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  moveInput: {x: 0, y: 0}
   interactText: {fileID: 0}
-  moveSpeed: 12
-  jumpForce: 15
-  accelerationRate: 30
-  decelerationRate: 100
   groundCheck: {fileID: 5759660906446352003}
   groundRadius: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  airJumps: 1
   remainingAirJumps: 0
   wallCheck: {fileID: 8065870175103866168}
   wallCheckDistance: 0.55
@@ -1118,6 +1110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3bc24e78ab81543905b9b575aa060f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  isInvulnerable: 0
   bloodFill: {fileID: 0}
   blackBileFill: {fileID: 0}
   deathScreen: {fileID: 0}
@@ -1151,7 +1144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AccessoriesManager
-  playerStats: {fileID: 1234567892}
 --- !u!114 &1234567892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,20 +1156,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3df8aa40bfdeabe9b0bab60f171f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  baseMaxBlood: 100
   baseMoveSpeed: 12
   baseJumpForce: 15
   baseAirJumps: 1
-  baseSwordDamage: 1
-  baseRangedDamage: 1
+  baseAccelerationRate: 30
+  baseDecelerationRate: 100
+  baseDashForce: 20
+  baseMaxBlood: 30
+  baseSwordDamage: 10
+  baseRangedDamage: 20
   baseAttackSpeed: 1
-  maxBlood: 0
-  moveSpeed: 0
-  jumpForce: 0
-  airJumps: 0
-  swordDamage: 0
-  rangedDamage: 0
-  attackSpeed: 0
 --- !u!1 &5191994991877499360
 GameObject:
   m_ObjectHideFlags: 0

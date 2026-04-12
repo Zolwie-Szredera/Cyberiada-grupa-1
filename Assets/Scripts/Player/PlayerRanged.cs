@@ -49,9 +49,9 @@ public class PlayerRanged : PlayerWeapons
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
         Projectile currentProjectile = Instantiate(projectile, origin, rotation);
-        currentProjectile.Initiate(damage, projectileTTL, projectileSpeed, direction);
+        currentProjectile.Initiate(PlayerStats.rangedDamage, projectileTTL, projectileSpeed, direction);
         currentProjectile.IgnoreParentObject(GameObject.FindGameObjectWithTag("Player"));
-        attackCooldown = attackSpeed;
+        attackCooldown = PlayerStats.attackSpeed;
     }
     public override void ForceAttackStart()
     {
@@ -84,7 +84,7 @@ public class PlayerRanged : PlayerWeapons
         #if UNITY_EDITOR
         UnityEditor.Handles.Label(
             attackPos + Vector2.up * 0.5f,
-            $"Ranged\nDamage: {damage}\nCost: {bloodCost}",
+            $"Ranged\nDamage: {PlayerStats.rangedDamage}\nCost: {bloodCost}",
             new GUIStyle()
             {
                 normal = new GUIStyleState() { textColor = Color.white },

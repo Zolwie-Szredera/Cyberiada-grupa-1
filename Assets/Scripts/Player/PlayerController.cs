@@ -6,22 +6,20 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    //In playerStats:
+    //float MoveSpeed
+    //float JumpForce
+    //int AirJumps
+    //float AccelerationRate
+    //float DecelerationRate
     private Rigidbody2D rb;
     [HideInInspector] public Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI interactText;
-
-    [Header("Movement Settings")]
-    [HideInInspector] public float moveSpeed = PlayerStats.moveSpeed;
-    [HideInInspector] public float jumpForce = PlayerStats.jumpForce;
-    [HideInInspector] public float accelerationRate = PlayerStats.accelerationRate;
-    [HideInInspector] public float decelerationRate = PlayerStats.decelerationRate;
-
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
-    public int airJumps = 1;
     [HideInInspector] public int remainingAirJumps;
 
     [Header("Wall Check")]
@@ -47,7 +45,6 @@ public class PlayerController : MonoBehaviour
     private PlayerControls controls;
     private WeaponsManager weaponsManager;
     private PlayerWeapons currentWeapon;
-    private PlayerStats playerStats;
 
     private void Awake()
     {
@@ -75,16 +72,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        remainingAirJumps = airJumps;
+        remainingAirJumps = PlayerStats.airJumps;
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        playerStats = GetComponent<PlayerStats>();
-        
-        if (playerStats != null)
-        {
-            playerStats.OnStatsChanged += UpdateStatsFromPlayerStats;
-            UpdateStatsFromPlayerStats();
-        }
         
         if (interactText != null)
         {
@@ -98,23 +88,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (playerStats != null)
-        {
-            playerStats.OnStatsChanged -= UpdateStatsFromPlayerStats;
-        }
         if (weaponsManager != null)
             weaponsManager.OnWeaponChanged -= OnWeaponChanged;
-    }
-
-    private void UpdateStatsFromPlayerStats()
-    {
-        moveSpeed = PlayerStats.moveSpeed;
-        jumpForce = PlayerStats.jumpForce;
-        accelerationRate = PlayerStats.accelerationRate;
-        decelerationRate = PlayerStats.decelerationRate;
-        airJumps = PlayerStats.airJumps;
-        remainingAirJumps = airJumps;
-        Debug.Log($"[PlayerController] Stats updated - Speed: {moveSpeed}");
     }
 
     private void UpdateCurrentWeapon()
@@ -171,18 +146,18 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer + platformLayer);
         if (isGrounded)
         {
-            remainingAirJumps = airJumps;
+            remainingAirJumps = PlayerStats.airJumps;
         }
 
         // 2. Wall Check
         WallCheck();
 
         // 3. Horizontal Movement
-        float targetSpeed = moveInput.x * moveSpeed;
+        float targetSpeed = moveInput.x * PlayerStats.moveSpeed;
         float velocityDifferenceX = targetSpeed - rb.linearVelocity.x;
 
         // Choose acceleration or deceleration depending on whether we're speeding up or slowing down
-        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? accelerationRate : decelerationRate) * Time.deltaTime;
+        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? PlayerStats.accelerationRate : PlayerStats.decelerationRate) * Time.deltaTime;
         float movementX = Mathf.Clamp(velocityDifferenceX, -maxSpeedChange, maxSpeedChange);
         rb.linearVelocity += new Vector2(movementX, 0f);
 
@@ -199,7 +174,7 @@ public class PlayerController : MonoBehaviour
             {
                 direction = 1; // bounce to the right
             }
-            rb.linearVelocity = new Vector2(direction * 7f, jumpForce);
+            rb.linearVelocity = new Vector2(direction * 7f, PlayerStats.jumpForce);
             isWallJumping = false;
             StartCoroutine(PreventAirJumpWaste(0.2f));
         }
@@ -208,7 +183,7 @@ public class PlayerController : MonoBehaviour
         if (isJumping)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset Y velocity for consistent jump height
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * PlayerStats.jumpForce, ForceMode2D.Impulse);
 
             // air jump deduction
             if (!isGrounded && !isTouchingWall)

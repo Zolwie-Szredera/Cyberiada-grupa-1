@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerHealth))]
 public class Dash : MonoBehaviour
 {
+    //In playerStats:
+    //float dashForce
     enum DashState
     {
         Ready,
@@ -16,7 +18,7 @@ public class Dash : MonoBehaviour
     //this can be changed with: when playerSpeedX <= 12 (movespeed) end dash, but I can't bother for now
     public float dashDuration; //the calculations need to do a dash duration based on phycics are too complicated, so it remains static for now.
     public float dashCooldown;
-    [HideInInspector] public float dashForce = PlayerStats.dashForce;
+    public float afterimageLifetime;
     public SpriteRenderer spriteRenderer;
     public GameObject dashAfterimagePrefab;
     private PlayerHealth playerHealth;
@@ -40,7 +42,7 @@ public class Dash : MonoBehaviour
             // Create afterimage
             GameObject afterimage = Instantiate(dashAfterimagePrefab, transform.position, Quaternion.identity);
             DashAfterimage dashAfterimage = afterimage.GetComponent<DashAfterimage>();
-            dashAfterimage.Setup(spriteRenderer.sprite, spriteRenderer.flipX, transform.localScale, spriteRenderer.color);
+            dashAfterimage.Setup(spriteRenderer.sprite, spriteRenderer.flipX, transform.localScale, spriteRenderer.color, afterimageLifetime);
 
             //change to cooldown state
             if (dashDurationTimer <= 0f)
@@ -75,9 +77,9 @@ public class Dash : MonoBehaviour
         { //requirements ok, perform dash
             dashState = DashState.Dashing;
             playerHealth.isInvulnerable = true; //make player invulnerable during dash
-            rb.linearVelocity += new Vector2(moveInput.x * dashForce, 0f);
+            rb.linearVelocity += new Vector2(moveInput.x * PlayerStats.dashForce, 0f);
             dashDurationTimer = dashDuration;
-            Debug.Log($"Dash performed!");
+            Debug.Log($"Dash performed! Dash force: " + PlayerStats.dashForce);
         }
         else if (moveInput.x != 0)
         {

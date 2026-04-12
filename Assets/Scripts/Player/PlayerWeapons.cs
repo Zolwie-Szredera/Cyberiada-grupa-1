@@ -5,8 +5,7 @@ public class PlayerWeapons : MonoBehaviour
 {
     public Animator animator;
     [Header("stats")]
-    public int baseDamage = 1;
-    public float attackSpeed = PlayerStats.attackSpeed;
+    public int baseDamage;
     public Transform attackOrigin;
     [Header("Attack Position")]
     [Tooltip("Distance from weapon to attack point (used if no attackOrigin assigned)")]
@@ -18,41 +17,18 @@ public class PlayerWeapons : MonoBehaviour
     protected float attackCooldown;
     protected LayerMask damageableLayers;
     protected GameObject player;
-    protected PlayerStats playerStats;
     protected Vector2 mousePosition;
     protected Vector2 origin;
     protected GameManager gameManager;
-
-    public int damage => PlayerStats.maxBlood > 0
-        ? (isRangedWeapon ? PlayerStats.rangedDamage : PlayerStats.swordDamage) 
-        : baseDamage;
-
     public virtual void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        playerStats = player != null ? player.GetComponent<PlayerStats>() : null;
         damageableLayers = LayerMask.GetMask("Enemy", "Destructible");
-        
-        if (playerStats != null)
-        {
-            playerStats.OnStatsChanged += OnStatsChanged;
-        }
-        else
-        {
-            Debug.LogWarning("[PlayerWeapons] PlayerStats not found! Using base damage.");
-        }
     }
 
     private void OnDestroy()
     {
-        if (playerStats != null)
-            playerStats.OnStatsChanged -= OnStatsChanged;
-    }
-
-    private void OnStatsChanged()
-    {
-        Debug.Log($"[PlayerWeapons] Stats changed. Current damage: {damage}");
     }
     public virtual void Update()
     {

@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     public int baseAirJumps = 1;
     public float baseAccelerationRate = 30f;
     public float baseDecelerationRate = 100f;
+    public float baseDashForce = 25f;
     // Player health
     public float baseMaxBlood = 30f;
     // Player damage
@@ -28,6 +29,7 @@ public class PlayerStats : MonoBehaviour
     [HideInInspector] public static float attackSpeed;
     [HideInInspector] public static float accelerationRate;
     [HideInInspector] public static float decelerationRate;
+    [HideInInspector] public static float dashForce;
 
     private readonly List<Accessory> activeAccessories = new();
 
@@ -69,6 +71,7 @@ public class PlayerStats : MonoBehaviour
         attackSpeed = baseAttackSpeed;
         accelerationRate = baseAccelerationRate;
         decelerationRate = baseDecelerationRate;
+        dashForce = baseDashForce;
         OnStatsChanged?.Invoke();
     }
 

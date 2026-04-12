@@ -6,7 +6,7 @@ public class PlayerWeapons : MonoBehaviour
     public Animator animator;
     [Header("stats")]
     public int baseDamage = 1;
-    public float attackSpeed = 1f;
+    public float attackSpeed = PlayerStats.attackSpeed;
     public Transform attackOrigin;
     [Header("Attack Position")]
     [Tooltip("Distance from weapon to attack point (used if no attackOrigin assigned)")]

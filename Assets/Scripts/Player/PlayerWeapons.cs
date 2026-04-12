@@ -5,7 +5,6 @@ public class PlayerWeapons : MonoBehaviour
 {
     public Animator animator;
     [Header("stats")]
-    public int baseDamage;
     public Transform attackOrigin;
     [Header("Attack Position")]
     [Tooltip("Distance from weapon to attack point (used if no attackOrigin assigned)")]

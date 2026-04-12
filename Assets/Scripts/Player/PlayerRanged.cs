@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerRanged : PlayerWeapons
 {
+    //In playerStats:
+    //int RangedDamage
+    //float baseAttackSpeed
     public Projectile projectile;
     public float projectileSpeed;
     public float projectileTTL;

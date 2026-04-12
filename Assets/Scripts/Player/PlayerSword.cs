@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(AudioSource))]
 public class PlayerSword : PlayerWeapons
 {
+    //In playerStats:
+    //int swordDamage
     [Header("Sword stats")]
     public float attackRange;
     private AudioSource audioSource;

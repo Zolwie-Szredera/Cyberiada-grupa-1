@@ -13,15 +13,15 @@ public class BloodthirstyCharm : Accessory
 
     public override void Apply(PlayerStats stats)
     {
-        stats.maxBlood += hpBonus;
-        stats.swordDamage += swordDamageBonus;
+        PlayerStats.maxBlood += hpBonus;
+        PlayerStats.swordDamage += swordDamageBonus;
         Debug.Log($"[{name}] Applied: +{hpBonus} HP, +{swordDamageBonus} Sword Damage");
     }
 
     public override void Remove(PlayerStats stats)
     {
-        stats.maxBlood -= hpBonus;
-        stats.swordDamage -= swordDamageBonus;
+        PlayerStats.maxBlood -= hpBonus;
+        PlayerStats.swordDamage -= swordDamageBonus;
         Debug.Log($"[{name}] Removed: -{hpBonus} HP, -{swordDamageBonus} Sword Damage");
     }
 }

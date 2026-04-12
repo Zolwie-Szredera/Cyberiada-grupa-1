@@ -38,7 +38,7 @@ public class AccessoriesTest : MonoBehaviour
     private void RunTest()
     {
         Debug.Log("=== Accessories System Test Started ===");
-        Debug.Log($"Initial Stats - MaxBlood: {playerStats.maxBlood}, SwordDamage: {playerStats.swordDamage}");
+        Debug.Log($"Initial Stats - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
         var charm = new BloodthirstyCharm();
         Debug.Log($"Created accessory: {charm.name}");
@@ -50,18 +50,18 @@ public class AccessoriesTest : MonoBehaviour
         Debug.Log("\n--- Equipping to slot 0 ---");
         bool equipped = accManager.Equip(0, 0);
         Debug.Log($"Equip result: {equipped}");
-        Debug.Log($"After Equip - MaxBlood: {playerStats.maxBlood}, SwordDamage: {playerStats.swordDamage}");
+        Debug.Log($"After Equip - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
         Debug.Log("\n--- Unequipping from slot 0 ---");
         bool unequipped = accManager.Unequip(0);
         Debug.Log($"Unequip result: {unequipped}");
-        Debug.Log($"After Unequip - MaxBlood: {playerStats.maxBlood}, SwordDamage: {playerStats.swordDamage}");
+        Debug.Log($"After Unequip - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
         Debug.Log("\n--- Adding another charm and equipping ---");
         var charm2 = new BloodthirstyCharm { hpBonus = 30f, swordDamageBonus = 2 };
         accManager.AddToInventory(charm2);
         accManager.Equip(1, 0);
-        Debug.Log($"With two charms - MaxBlood: {playerStats.maxBlood}, SwordDamage: {playerStats.swordDamage}");
+        Debug.Log($"With two charms - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
         Debug.Log("\n=== Accessories System Test Completed ===");
     }

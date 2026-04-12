@@ -23,8 +23,8 @@ public class PlayerWeapons : MonoBehaviour
     protected Vector2 origin;
     protected GameManager gameManager;
 
-    public int damage => playerStats != null 
-        ? (isRangedWeapon ? playerStats.rangedDamage : playerStats.swordDamage) 
+    public int damage => PlayerStats.maxBlood > 0
+        ? (isRangedWeapon ? PlayerStats.rangedDamage : PlayerStats.swordDamage) 
         : baseDamage;
 
     public virtual void Start()

@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
         
         if (playerStats != null)
         {
-            maxBlood = playerStats.maxBlood;
+            maxBlood = PlayerStats.maxBlood;
             playerStats.OnStatsChanged += OnStatsChanged;
         }
         else
@@ -82,7 +82,7 @@ public class PlayerHealth : MonoBehaviour
         if (playerStats == null) return;
         
         float previousMaxBlood = maxBlood;
-        maxBlood = playerStats.maxBlood;
+        maxBlood = PlayerStats.maxBlood;
         
         currentBlood = Mathf.Clamp(currentBlood, 0f, maxBlood);
         

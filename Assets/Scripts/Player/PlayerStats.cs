@@ -5,28 +5,35 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Base Stats")]
-    public float baseMaxBlood = 100f;
+    // Player movement
     public float baseMoveSpeed = 12f;
     public float baseJumpForce = 15f;
     public int baseAirJumps = 1;
+    public float baseAccelerationRate = 30f;
+    public float baseDecelerationRate = 20f;
+    // Player health
+    public float baseMaxBlood = 30f;
+    // Player damage
     public int baseSwordDamage = 1;
     public int baseRangedDamage = 1;
     public float baseAttackSpeed = 1f;
 
     [Header("Current Stats")]
-    [HideInInspector] public float maxBlood;
-    [HideInInspector] public float moveSpeed;
-    [HideInInspector] public float jumpForce;
-    [HideInInspector] public int airJumps;
-    [HideInInspector] public int swordDamage;
-    [HideInInspector] public int rangedDamage;
-    [HideInInspector] public float attackSpeed;
+    [HideInInspector] public static float maxBlood;
+    [HideInInspector] public static float moveSpeed;
+    [HideInInspector] public static float jumpForce;
+    [HideInInspector] public static int airJumps;
+    [HideInInspector] public static int swordDamage;
+    [HideInInspector] public static int rangedDamage;
+    [HideInInspector] public static float attackSpeed;
+    [HideInInspector] public static float accelerationRate;
+    [HideInInspector] public static float decelerationRate;
 
     private readonly List<Accessory> activeAccessories = new();
 
     public delegate void OnStatsChangedDelegate();
     public event OnStatsChangedDelegate OnStatsChanged;
-
+    
     private void Start()
     {
         InitializeStats();
@@ -60,6 +67,8 @@ public class PlayerStats : MonoBehaviour
         swordDamage = baseSwordDamage;
         rangedDamage = baseRangedDamage;
         attackSpeed = baseAttackSpeed;
+        accelerationRate = baseAccelerationRate;
+        decelerationRate = baseDecelerationRate;
         OnStatsChanged?.Invoke();
     }
 

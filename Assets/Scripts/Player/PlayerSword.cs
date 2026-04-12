@@ -6,7 +6,6 @@ public class PlayerSword : PlayerWeapons
 {
     [Header("Sword stats")]
     public float attackRange;
-    
     private AudioSource audioSource;
     public override void Start()
     {
@@ -22,8 +21,8 @@ public class PlayerSword : PlayerWeapons
         {
             if (hit.TryGetComponent(out Enemy enemy))
             {
-                enemy.TakeDamage(damage);
-                float bloodSteal = damage / 5.0f;
+                enemy.TakeDamage(PlayerStats.swordDamage);
+                float bloodSteal = PlayerStats.swordDamage / 5.0f;
                 player.GetComponent<PlayerHealth>().GainBlood(bloodSteal); //this is important. Current steal: 20%
                 //Debug.Log("Hit an enemy: " + hit.name + " and gained blood: " + bloodSteal);
             }
@@ -33,7 +32,7 @@ public class PlayerSword : PlayerWeapons
             //}
             //ADD DESTRUCTIBLES LATER
         }
-        attackCooldown = attackSpeed;
+        attackCooldown = PlayerStats.attackSpeed;
     }
     private void OnDrawGizmosSelected()
     {
@@ -67,7 +66,7 @@ public class PlayerSword : PlayerWeapons
         #if UNITY_EDITOR
         UnityEditor.Handles.Label(
             (Vector3)attackPos + Vector3.up * (attackRange + 0.3f),
-            $"Sword Attack Range\nRadius: {attackRange:F2}m\nDistance: {attackDistance:F2}m\nDamage: {damage}",
+            $"Sword Attack Range\nRadius: {attackRange:F2}m\nDistance: {attackDistance:F2}m\nDamage: {PlayerStats.swordDamage}",
             new GUIStyle()
             {
                 normal = new GUIStyleState() { textColor = Color.white },

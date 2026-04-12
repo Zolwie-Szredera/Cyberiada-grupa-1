@@ -36,10 +36,24 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnStatsChangedDelegate();
     public event OnStatsChangedDelegate OnStatsChanged;
     
+    private void Awake()
+    {
+        // Initialize current stats as early as possible so other components
+        // (like Dash/PlayerController) never read zeroed values during startup.
+        InitializeStats();
+    }
+
     private void Start()
     {
-        InitializeStats();
         InitializeAccessoriesManager();
+    }
+
+    private void OnValidate()
+    {
+        if (!Application.isPlaying)
+        {
+            InitializeStats();
+        }
     }
 
     private void InitializeAccessoriesManager()

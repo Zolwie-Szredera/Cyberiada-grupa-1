@@ -15,30 +15,41 @@ MonoBehaviour:
   characterName: 
   characterPortrait: {fileID: 0}
   sentences:
-  - 111111111111111
-  - 122222222222222222222222
-  - 23333333333333333333333333333333333333333333333333333333333333333333333333333
-  - "\u017Beby stworzy\u0107 nowy taki plik kliknij w folderze dialogues  prawym
-    przyciskiem, potem Create, na dole Dialogi i potem PAczki Dialogowe, potem to
-    mozna wrzucic  w skrypt"
+  - m_TableReference:
+      m_TableCollectionName: GUID:9ab494227d17e504bbc3db57b797e93c
+    m_TableEntryReference:
+      m_KeyId: 54265893806809088
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   choices:
-  - choiceText: 1
+  - choiceText:
+      m_TableReference:
+        m_TableCollectionName: GUID:9ab494227d17e504bbc3db57b797e93c
+      m_TableEntryReference:
+        m_KeyId: 54266019493322752
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     nextDialogue: {fileID: 0}
     onChoiceSelected:
       m_PersistentCalls:
         m_Calls: []
-  - choiceText: 2
+  - choiceText:
+      m_TableReference:
+        m_TableCollectionName: GUID:9ab494227d17e504bbc3db57b797e93c
+      m_TableEntryReference:
+        m_KeyId: 54265977814523904
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     nextDialogue: {fileID: 0}
     onChoiceSelected:
       m_PersistentCalls:
         m_Calls: []
-  - choiceText: 3
-    nextDialogue: {fileID: 0}
-    onChoiceSelected:
-      m_PersistentCalls:
-        m_Calls: []
-  - choiceText: 4
-    nextDialogue: {fileID: 0}
-    onChoiceSelected:
-      m_PersistentCalls:
-        m_Calls: []
+  references:
+    version: 2
+    RefIds: []

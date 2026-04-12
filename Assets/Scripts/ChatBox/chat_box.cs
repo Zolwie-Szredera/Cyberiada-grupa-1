@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
 
 public class chat_box : MonoBehaviour
 {
@@ -37,7 +38,8 @@ public class chat_box : MonoBehaviour
     [Range(0, 1)] public float volume = 0.5f;
 
     private DialogueData currentData;
-    private string[] sentences;
+    private LocalizedString[] sentences;
+    private string currentTranslatedSentence;
     private int index;
     private bool isTyping;
 
@@ -100,21 +102,31 @@ public class chat_box : MonoBehaviour
 
         if (index < sentences.Length)
         {
-            foreach (char letter in sentences[index].ToCharArray())
-            {
-                textDisplay.text += letter;
+            currentTranslatedSentence = sentences[index].GetLocalizedString();
+            char[] charArray = currentTranslatedSentence.ToCharArray();
 
-                // --- AUDIO LOGIC START ---
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                textDisplay.text += charArray[i];
+
+                // --- POPRAWIONA LOGIKA AUDIO ---
                 if (audioSource != null && typingSound != null)
                 {
-                    // PlayOneShot allows sounds to overlap if the typing speed is very fast
-                    audioSource.PlayOneShot(typingSound, volume);
+                    // 1. Sprawdzamy czy litera nie jest spacj¹ (nie chcemy dŸwiêku na spacjach)
+                    if (charArray[i] != ' ')
+                    {
+                        // 2. PlayOneShot nie przerywa poprzedniego dŸwiêku, 
+                        // dziêki czemu nie ma efektu "œciszania" przez ucinanie fali.
+                        audioSource.PlayOneShot(typingSound, volume);
+                    }
                 }
-                // --- AUDIO LOGIC END ---
+                // -------------------------------
 
                 yield return new WaitForSeconds(typingSpeed);
             }
         }
+
+        // Nie dajemy tutaj Stop(), ¿eby ostatnia litera wybrzmia³a do koñca naturalnie
         isTyping = false;
     }
 
@@ -131,7 +143,11 @@ public class chat_box : MonoBehaviour
             if (isTyping)
             {
                 StopAllCoroutines();
-                textDisplay.text = sentences[index];
+                textDisplay.text = currentTranslatedSentence;
+
+                // Uciszamy dŸwiêk natychmiast przy skipowaniu tekstu
+                if (audioSource != null) audioSource.Stop();
+
                 isTyping = false;
             }
             else
@@ -160,7 +176,6 @@ public class chat_box : MonoBehaviour
     void ShowChoices()
     {
         textDisplay.text = "";
-
         if (currentData.choices == null || currentData.choices.Length == 0)
         {
             CloseDialogue();
@@ -169,16 +184,12 @@ public class chat_box : MonoBehaviour
 
         choiceContainer.SetActive(true);
         choiceContainer.transform.SetAsLastSibling();
-
         foreach (Transform child in choiceContainer.transform) Destroy(child.gameObject);
 
         VerticalLayoutGroup vg = choiceContainer.GetComponent<VerticalLayoutGroup>();
         if (vg == null) vg = choiceContainer.AddComponent<VerticalLayoutGroup>();
-
         vg.padding = new RectOffset(0, 0, 0, 0);
         vg.spacing = 0;
-
-        // ZMIANA: W³¹czamy wymuszanie wysokoœci rzêdów, aby kontener je œciska³
         vg.childControlHeight = true;
         vg.childForceExpandHeight = true;
         vg.childControlWidth = true;
@@ -186,7 +197,6 @@ public class chat_box : MonoBehaviour
 
         int totalChoices = currentData.choices.Length;
         int columns = Mathf.CeilToInt(Mathf.Sqrt(totalChoices));
-
         GameObject currentRow = null;
         List<GameObject> allButtons = new List<GameObject>();
 
@@ -196,11 +206,7 @@ public class chat_box : MonoBehaviour
             allButtons.Add(CreateButton(currentData.choices[i], currentRow.transform));
         }
 
-        if (EventSystem.current != null)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-        }
-
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
         StartCoroutine(CheckMouseHover(allButtons));
     }
 
@@ -208,9 +214,7 @@ public class chat_box : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         if (Mouse.current == null) yield break;
-
         Vector2 mousePos = Mouse.current.position.ReadValue();
-
         foreach (GameObject btnObj in buttons)
         {
             if (btnObj == null) continue;
@@ -223,12 +227,10 @@ public class chat_box : MonoBehaviour
         }
     }
 
-
     GameObject CreateNewRow()
     {
         GameObject rowObj = new GameObject("Row", typeof(RectTransform));
         rowObj.transform.SetParent(choiceContainer.transform, false);
-
         RectTransform rt = rowObj.GetComponent<RectTransform>();
         rt.anchorMin = new Vector2(0, 0);
         rt.anchorMax = new Vector2(1, 0);
@@ -242,34 +244,27 @@ public class chat_box : MonoBehaviour
         hg.childForceExpandWidth = true;
         hg.childForceExpandHeight = true;
 
-        // ZMIANA: Zamiast sztywnego preferredHeight, u¿ywamy flexibleHeight.
-        // Dziêki temu przy ma³ej iloœci przycisków bêd¹ du¿e, a przy du¿ej - same siê œcisn¹.
         LayoutElement le = rowObj.AddComponent<LayoutElement>();
         le.flexibleHeight = 1;
-
         return rowObj;
     }
 
     GameObject CreateButton(Choice choice, Transform parent)
     {
         GameObject btnObj = Instantiate(buttonPrefab, parent);
-        btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice.choiceText;
-
+        btnObj.GetComponentInChildren<TextMeshProUGUI>().text = choice.choiceText.GetLocalizedString();
         UnityEngine.UI.Button b = btnObj.GetComponent<UnityEngine.UI.Button>();
         b.onClick.AddListener(() => {
             if (choice.onChoiceSelected != null) choice.onChoiceSelected.Invoke();
             SelectChoice(choice.nextDialogue);
         });
-
         b.transition = Selectable.Transition.None;
-
         Navigation nav = new Navigation();
         nav.mode = Navigation.Mode.None;
         b.navigation = nav;
 
         Outline outline = btnObj.GetComponent<Outline>();
         Color basicColor = (outline != null) ? outline.effectColor : Color.black;
-
         EventTrigger trigger = btnObj.GetComponent<EventTrigger>();
         if (trigger == null) trigger = btnObj.AddComponent<EventTrigger>();
 
@@ -282,7 +277,6 @@ public class chat_box : MonoBehaviour
         entryExit.eventID = EventTriggerType.PointerExit;
         entryExit.callback.AddListener((data) => { SetOutlineColor(btnObj, basicColor); });
         trigger.triggers.Add(entryExit);
-
         return btnObj;
     }
 
@@ -296,19 +290,14 @@ public class chat_box : MonoBehaviour
     public void SelectChoice(DialogueData nextData)
     {
         choiceContainer.SetActive(false);
-        if (nextData != null)
-        {
-            StartDialogue(nextData);
-        }
-        else
-        {
-            CloseDialogue();
-        }
+        if (nextData != null) StartDialogue(nextData);
+        else CloseDialogue();
     }
 
     void CloseDialogue()
     {
         StopAllCoroutines();
+        if (audioSource != null) audioSource.Stop();
         index = 0;
         isOpen = false;
         gameObject.SetActive(false);

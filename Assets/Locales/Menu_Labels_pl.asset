@@ -94,6 +94,30 @@ MonoBehaviour:
     m_Localized: "Powr\xF3t do menu za:"
     m_Metadata:
       m_Items: []
+  - m_Id: 54265893806809088
+    m_Localized: czesc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54265977814523904
+    m_Localized: 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54266019493322752
+    m_Localized: 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54266030830526464
+    m_Localized: 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54266041907683328
+    m_Localized: 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 54266050405343232
+    m_Localized: 5
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

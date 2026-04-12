@@ -5,23 +5,54 @@ public class PlayerWeapons : MonoBehaviour
 {
     public Animator animator;
     [Header("stats")]
-    public int damage;
-    public float attackSpeed; //in seconds: how often can you attack
-    public Transform attackOrigin; //where the attack begins: where the attack animation should begin
+    public int baseDamage = 1;
+    public float attackSpeed = PlayerStats.attackSpeed;
+    public Transform attackOrigin;
     [Header("Attack Position")]
     [Tooltip("Distance from weapon to attack point (used if no attackOrigin assigned)")]
     public float attackDistance = 0.5f;
-    protected float attackCooldown; //in seconds during gameplay: when can you attack again
+    [Header("Weapon Type")]
+    [Tooltip("If true, uses rangedDamage from PlayerStats. If false, uses swordDamage.")]
+    public bool isRangedWeapon = false;
+    
+    protected float attackCooldown;
     protected LayerMask damageableLayers;
     protected GameObject player;
+    protected PlayerStats playerStats;
     protected Vector2 mousePosition;
     protected Vector2 origin;
     protected GameManager gameManager;
+
+    public int damage => PlayerStats.maxBlood > 0
+        ? (isRangedWeapon ? PlayerStats.rangedDamage : PlayerStats.swordDamage) 
+        : baseDamage;
+
     public virtual void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerStats = player != null ? player.GetComponent<PlayerStats>() : null;
         damageableLayers = LayerMask.GetMask("Enemy", "Destructible");
+        
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged += OnStatsChanged;
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerWeapons] PlayerStats not found! Using base damage.");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (playerStats != null)
+            playerStats.OnStatsChanged -= OnStatsChanged;
+    }
+
+    private void OnStatsChanged()
+    {
+        Debug.Log($"[PlayerWeapons] Stats changed. Current damage: {damage}");
     }
     public virtual void Update()
     {

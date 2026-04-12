@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1234567890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234567891}
+  m_Layer: 10
+  m_Name: RangedAttackOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1234567891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234567890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8935368900587067280}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264148421672843613
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,11 +161,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSword
   animator: {fileID: 7466603192667911320}
-  damage: 1
+  baseDamage: 1
   attackSpeed: 1
   attackOrigin: {fileID: 3775144879078233061}
-  attackRange: 1
   attackDistance: 0.5
+  isRangedWeapon: 0
+  attackRange: 1
 --- !u!114 &5590004186035495534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +424,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9234567890123456789}
+  - {fileID: 1234567891}
   m_Father: {fileID: 5610339737927115390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7436663464623583209
@@ -408,9 +440,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRanged
   animator: {fileID: 0}
-  damage: 1
+  baseDamage: 1
   attackSpeed: 0.5
-  attackOrigin: {fileID: 9234567890123456789}
+  attackOrigin: {fileID: 1234567891}
+  attackDistance: 0.5
+  isRangedWeapon: 1
   projectile: {fileID: 5640423468389448380, guid: 22a19ff820a422c4abde2a1aebe8cb70, type: 3}
   projectileSpeed: 20
   projectileTTL: 5
@@ -513,37 +547,6 @@ MonoBehaviour:
   m_DefaultActionMap: player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!1 &9234567890123456780
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9234567890123456789}
-  m_Layer: 10
-  m_Name: RangedAttackOrigin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9234567890123456789
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9234567890123456780}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8935368900587067280}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1222343216336333699
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +819,7 @@ GameObject:
   - component: {fileID: 1242560431211818423}
   - component: {fileID: 5673461931028622329}
   - component: {fileID: 7898632803644309502}
+  - component: {fileID: 1234567892}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1114,7 +1118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3bc24e78ab81543905b9b575aa060f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxBlood: 100
   bloodFill: {fileID: 0}
   blackBileFill: {fileID: 0}
   deathScreen: {fileID: 0}
@@ -1145,23 +1148,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 4538534112938561204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdcfbb3a56964f144bfed1d4c9e9e7ec, type: 3}
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAccessories
-  currentHead: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
-  currentBody: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
-  currentArms: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
-  currentLegs: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
-  allHeadAccessories:
-  - {fileID: 11400000, guid: 2ef02e7ec9e3b7846a05b99bdda77b83, type: 2}
-  allBodyAccessories:
-  - {fileID: 11400000, guid: 2f47988f311ca5c4f950d644352388a9, type: 2}
-  allArmsAccessories:
-  - {fileID: 11400000, guid: c13d7ef8d1b5b89458418748439c81ea, type: 2}
-  allLegsAccessories:
-  - {fileID: 11400000, guid: f5b02452f4cde7d4391a2dfb22c7a993, type: 2}
-  - {fileID: 11400000, guid: 15231975c62446c4294286079c12eb1b, type: 2}
-  defaultAccessory: {fileID: 11400000, guid: 322a664c1ad274d4a9efd9c69666159b, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::AccessoriesManager
+  playerStats: {fileID: 1234567892}
+--- !u!114 &1234567892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538534112938561204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3df8aa40bfdeabe9b0bab60f171f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  baseMaxBlood: 100
+  baseMoveSpeed: 12
+  baseJumpForce: 15
+  baseAirJumps: 1
+  baseSwordDamage: 1
+  baseRangedDamage: 1
+  baseAttackSpeed: 1
+  maxBlood: 0
+  moveSpeed: 0
+  jumpForce: 0
+  airJumps: 0
+  swordDamage: 0
+  rangedDamage: 0
+  attackSpeed: 0
 --- !u!1 &5191994991877499360
 GameObject:
   m_ObjectHideFlags: 0

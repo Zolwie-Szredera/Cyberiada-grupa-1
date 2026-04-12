@@ -16,7 +16,7 @@ public class Dash : MonoBehaviour
     //this can be changed with: when playerSpeedX <= 12 (movespeed) end dash, but I can't bother for now
     public float dashDuration; //the calculations need to do a dash duration based on phycics are too complicated, so it remains static for now.
     public float dashCooldown;
-    public float dashForce;
+    [HideInInspector] public float dashForce = PlayerStats.dashForce;
     public SpriteRenderer spriteRenderer;
     public GameObject dashAfterimagePrefab;
     private PlayerHealth playerHealth;

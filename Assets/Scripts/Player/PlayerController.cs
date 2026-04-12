@@ -12,10 +12,10 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI interactText;
 
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    public float accelerationRate = 30f;
-    public float decelerationRate = 100f;
+    [HideInInspector] public float moveSpeed = PlayerStats.moveSpeed;
+    [HideInInspector] public float jumpForce = PlayerStats.jumpForce;
+    [HideInInspector] public float accelerationRate = PlayerStats.accelerationRate;
+    [HideInInspector] public float decelerationRate = PlayerStats.decelerationRate;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private PlayerControls controls;
     private WeaponsManager weaponsManager;
     private PlayerWeapons currentWeapon;
+    private PlayerStats playerStats;
 
     private void Awake()
     {
@@ -77,6 +78,14 @@ public class PlayerController : MonoBehaviour
         remainingAirJumps = airJumps;
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        playerStats = GetComponent<PlayerStats>();
+        
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged += UpdateStatsFromPlayerStats;
+            UpdateStatsFromPlayerStats();
+        }
+        
         if (interactText != null)
         {
             interactText.gameObject.SetActive(false);
@@ -89,8 +98,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged -= UpdateStatsFromPlayerStats;
+        }
         if (weaponsManager != null)
             weaponsManager.OnWeaponChanged -= OnWeaponChanged;
+    }
+
+    private void UpdateStatsFromPlayerStats()
+    {
+        moveSpeed = PlayerStats.moveSpeed;
+        jumpForce = PlayerStats.jumpForce;
+        accelerationRate = PlayerStats.accelerationRate;
+        decelerationRate = PlayerStats.decelerationRate;
+        airJumps = PlayerStats.airJumps;
+        remainingAirJumps = airJumps;
+        Debug.Log($"[PlayerController] Stats updated - Speed: {moveSpeed}");
     }
 
     private void UpdateCurrentWeapon()

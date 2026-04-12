@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1234567890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234567891}
+  m_Layer: 10
+  m_Name: RangedAttackOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1234567891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234567890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8935368900587067280}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264148421672843613
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +44,7 @@ GameObject:
   - component: {fileID: 7466603192667911320}
   - component: {fileID: 5671602557511200}
   - component: {fileID: 5590004186035495534}
+  - component: {fileID: 5613837772796350700}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -132,8 +164,9 @@ MonoBehaviour:
   baseDamage: 1
   attackSpeed: 1
   attackOrigin: {fileID: 3775144879078233061}
-  attackRange: 1
   attackDistance: 0.5
+  isRangedWeapon: 0
+  attackRange: 1
 --- !u!114 &5590004186035495534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +265,103 @@ MonoBehaviour:
   m_DefaultActionMap: player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!82 &5613837772796350700
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264148421672843613}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &437084837055027036
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,11 +443,12 @@ MonoBehaviour:
   baseDamage: 1
   attackSpeed: 0.5
   attackOrigin: {fileID: 1234567891}
+  attackDistance: 0.5
+  isRangedWeapon: 1
   projectile: {fileID: 5640423468389448380, guid: 22a19ff820a422c4abde2a1aebe8cb70, type: 3}
   projectileSpeed: 20
   projectileTTL: 5
   bloodCost: 1
-  isRangedWeapon: 1
 --- !u!114 &6993095762662670381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,37 +547,6 @@ MonoBehaviour:
   m_DefaultActionMap: player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!1 &1234567890
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1234567891}
-  m_Layer: 10
-  m_Name: RangedAttackOrigin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1234567891
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234567890}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8935368900587067280}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1222343216336333699
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,12 +973,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   interactText: {fileID: 0}
+  moveSpeed: 12
+  jumpForce: 15
   accelerationRate: 30
+  decelerationRate: 100
   groundCheck: {fileID: 5759660906446352003}
   groundRadius: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  airJumps: 1
+  remainingAirJumps: 0
   wallCheck: {fileID: 8065870175103866168}
   wallCheckDistance: 0.55
   stickyWallLayer:
@@ -889,6 +994,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   animator: {fileID: 6033959841811657607}
+  isGrounded: 0
 --- !u!114 &1242560431211818423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,6 +1011,8 @@ MonoBehaviour:
   blackBileFill: {fileID: 0}
   deathScreen: {fileID: 0}
   bloodParticles: {fileID: 0}
+  currentBlackBile: 0
+  currentBlood: 0
 --- !u!114 &5673461931028622329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +1060,13 @@ MonoBehaviour:
   baseSwordDamage: 1
   baseRangedDamage: 1
   baseAttackSpeed: 1
+  maxBlood: 0
+  moveSpeed: 0
+  jumpForce: 0
+  airJumps: 0
+  swordDamage: 0
+  rangedDamage: 0
+  attackSpeed: 0
 --- !u!1 &5191994991877499360
 GameObject:
   m_ObjectHideFlags: 0

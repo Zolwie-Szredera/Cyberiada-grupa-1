@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     public float baseJumpForce = 15f;
     public int baseAirJumps = 1;
     public float baseAccelerationRate = 30f;
-    public float baseDecelerationRate = 20f;
+    public float baseDecelerationRate = 100f;
     // Player health
     public float baseMaxBlood = 30f;
     // Player damage

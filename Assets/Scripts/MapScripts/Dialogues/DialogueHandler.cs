@@ -41,7 +41,9 @@ public class DialogueHandler : MonoBehaviour
     private int index;
     private bool isTyping;
     private bool noNewDialogue = false;
-    private static WaitForSeconds _waitForSeconds0_2 = new(0.2f);
+    private bool noSkippingTyping = false;
+    private static readonly WaitForSeconds _waitForSeconds0_2 = new(0.2f);
+    private static readonly WaitForSeconds _waitForSeconds0_01 = new(0.01f);
     public void Start()
     {
         if (GameObject.FindGameObjectWithTag("Player") == null)
@@ -64,11 +66,12 @@ public class DialogueHandler : MonoBehaviour
         {
             NextSentence();
         }
-        else //finish sentence
+        else if(!noSkippingTyping)//skip the typing
         {
             StopAllCoroutines();
             textDisplay.text = currentTranslatedSentence;
             isTyping = false;
+            Debug.Log("skipped typing");
         }
     }
     public void OnContinueDialogue(InputAction.CallbackContext context) //so that attacking also advances dialogue, can be changed to something else if needed
@@ -82,6 +85,7 @@ public class DialogueHandler : MonoBehaviour
     {
         if (noNewDialogue) //I did that so E doesn't start a new dialogue immediately after closing one
         {
+            Debug.Log("No new dialogue can be started yet.");
             return;
         }
         if (data == null || data.sentences == null || data.sentences.Length == 0)
@@ -93,6 +97,7 @@ public class DialogueHandler : MonoBehaviour
         {
             Debug.Log("No choices in dialogue.");
         }
+
         dialogueCanvas.SetActive(true);
         mainCanvas.SetActive(false);
         //prevent the player from doing anything while dialogue is active
@@ -105,7 +110,7 @@ public class DialogueHandler : MonoBehaviour
         StopAllCoroutines();
 
         isOpen = true;
-        isTyping = false;
+        isTyping = true;
         currentData = data;
         sentences = data.sentences;
         index = 0;
@@ -113,6 +118,7 @@ public class DialogueHandler : MonoBehaviour
         if (sentences != null && sentences.Length > 0) //start dialogue normally
         {
             Debug.Log("Starting dialogue: " + currentData.characterName);
+            StartCoroutine(PreventSkippingTyping());
             StartCoroutine(Type());
         }
         else if (currentData != null && currentData.choices != null && currentData.choices.Length > 0) //start dialogue with choices, no sentences.
@@ -142,6 +148,12 @@ public class DialogueHandler : MonoBehaviour
         yield return _waitForSeconds0_2;
         noNewDialogue = false;
     }
+    IEnumerator PreventSkippingTyping() //another coroutine that just waits to change a bool. That kinda sucks, but it works so whatever.
+    {
+        noSkippingTyping = true;
+        yield return _waitForSeconds0_01;
+        noSkippingTyping = false;
+    }
 
     IEnumerator Type()
     {
@@ -150,9 +162,8 @@ public class DialogueHandler : MonoBehaviour
 
         if (index < sentences.Length)
         {
-            var operation = sentences[index].GetLocalizedStringAsync();
-            yield return operation;
-            currentTranslatedSentence = operation.Result;
+            currentTranslatedSentence = sentences[index].GetLocalizedString();
+            Debug.Log($"Localized string at index {index}: '{currentTranslatedSentence}' (length: {currentTranslatedSentence.Length})");
 
             foreach (char letter in currentTranslatedSentence.ToCharArray())
             {
@@ -177,7 +188,6 @@ public class DialogueHandler : MonoBehaviour
         {
             index++;
             StartCoroutine(Type());
-            Debug.Log("Moving to next sentence: " + currentData.characterName);
         }
         else
         {

@@ -15,8 +15,23 @@ MonoBehaviour:
   characterName: Great Dragon
   characterPortrait: {fileID: 0}
   sentences:
-  - South of heaven,
-  - You found me lost!
-  - Follow my song,
-  - Into the endless waters!
+  - m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   choices: []
+  references:
+    version: 2
+    RefIds: []

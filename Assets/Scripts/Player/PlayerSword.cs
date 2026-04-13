@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerSword : PlayerWeapons
@@ -101,13 +100,6 @@ public class PlayerSword : PlayerWeapons
     {
         BasicAttack();
         audioSource.Play();
-    }
-    public override void HandleAttackInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            animator.SetBool("attack", true);
-        else if (context.canceled)
-            animator.SetBool("attack", false);
     }
     public override void ForceAttackStart()
     {

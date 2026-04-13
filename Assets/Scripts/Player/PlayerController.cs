@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    private static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
+
     private Rigidbody2D rb;
     [HideInInspector] public Vector2 moveInput;
     [Header("UI")]
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private bool justWallJumped; // to prevent wasted air jumps
     private bool facingRight = true;
     private bool isHoldingDown;
-    private bool wasRightPressed;
+    private bool isWalkingAnimated;
 
     private GameManager gameManager;
     private PlayerControls controls;
@@ -80,7 +82,6 @@ public class PlayerController : MonoBehaviour
 
         primaryWeapon?.ForceAttackStop();
         secondaryWeapon?.ForceAttackStop();
-        wasRightPressed = false;
     }
 
     private void Start()
@@ -238,7 +239,13 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = new Vector2(rb.linearVelocityX, Mathf.Clamp(rb.linearVelocity.y, -50f, 50f));
-        animator.SetBool("isWalking", Mathf.Abs(rb.linearVelocity.x) > 0f);
+
+        bool shouldWalkAnimate = Mathf.Abs(rb.linearVelocity.x) > 0f;
+        if (shouldWalkAnimate != isWalkingAnimated)
+        {
+            animator.SetBool(IsWalkingHash, shouldWalkAnimate);
+            isWalkingAnimated = shouldWalkAnimate;
+        }
 
         DrawDebugArrow();
     }
@@ -248,18 +255,15 @@ public class PlayerController : MonoBehaviour
         if (secondaryWeapon == null || Mouse.current == null)
             return;
 
-        bool rightPressed = Mouse.current.rightButton.isPressed;
-
-        if (rightPressed && !wasRightPressed)
+        if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             secondaryWeapon.ForceAttackStart();
         }
-        else if (!rightPressed && wasRightPressed)
+
+        if (Mouse.current.rightButton.wasReleasedThisFrame)
         {
             secondaryWeapon.ForceAttackStop();
         }
-
-        wasRightPressed = rightPressed;
     }
 
     private void DrawDebugArrow()

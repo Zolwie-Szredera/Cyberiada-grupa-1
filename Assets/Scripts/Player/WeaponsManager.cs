@@ -3,8 +3,8 @@ using UnityEngine;
 public class WeaponsManager : MonoBehaviour
 {
     [Header("Weapon References")]
-    [Tooltip("All weapon GameObjects")]
-    public GameObject[] weapons;
+    [Tooltip("Slot 0: Left Mouse Button (Melee)\nSlot 1: Right Mouse Button (Ranged)")]
+    public GameObject[] weapons = new GameObject[2];
 
     [Header("Orbit Configuration")]
     [Tooltip("Distance weapons orbit from player")]
@@ -29,25 +29,18 @@ public class WeaponsManager : MonoBehaviour
     public bool drawOrbitGizmos = true;
 
     private WeaponOrbit[] weaponOrbits;
-    private int currentWeaponIndex;
-
-    public System.Action OnWeaponChanged;
 
     void Start()
     {
         InitializeWeaponOrbits();
-
-        // Show only first weapon
-        if (weapons.Length > 0)
-        {
-            SwitchToWeapon(0);
-        }
+        ActivateAssignedWeapons();
     }
+
     void InitializeWeaponOrbits()
     {
-        if (weapons == null || weapons.Length == 0)
+        if (weapons == null || weapons.Length < 2)
         {
-            Debug.LogWarning("[WeaponsManager] No weapons assigned!");
+            Debug.LogWarning("[WeaponsManager] Requires 2 weapon slots (LMB and RMB). Currently has: " + (weapons?.Length ?? 0));
             return;
         }
 
@@ -61,91 +54,64 @@ public class WeaponsManager : MonoBehaviour
                 continue;
             }
 
-            // Get or add WeaponOrbit component
-            weaponOrbits[i] = weapons[i].GetComponent<WeaponOrbit>();
-            if (weaponOrbits[i] == null)
-            {
-                weaponOrbits[i] = weapons[i].AddComponent<WeaponOrbit>();
-            }
-
-            // Configure orbit
+            weaponOrbits[i] = weapons[i].GetComponent<WeaponOrbit>() ?? weapons[i].AddComponent<WeaponOrbit>();
             weaponOrbits[i].orbitRadius = orbitRadius;
             weaponOrbits[i].angleFollowSpeed = angleFollowSpeed;
             weaponOrbits[i].rotationOffset = globalRotationOffset;
             weaponOrbits[i].enableSpriteFlipping = enableSpriteFlipping;
 
-            // Add debug arrow if enabled
             if (addDebugArrows)
             {
                 AddDebugArrow(weapons[i]);
             }
-
-            Debug.Log($"[WeaponsManager] Initialized weapon {i}: {weapons[i].name}");
         }
+    }
+
+    void ActivateAssignedWeapons()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] != null)
+            {
+                weapons[i].SetActive(true);
+            }
+        }
+    }
+
+    public GameObject GetWeaponAt(int index)
+    {
+        if (index < 0 || index >= weapons.Length)
+        {
+            return null;
+        }
+
+        return weapons[index];
     }
 
     void AddDebugArrow(GameObject weapon)
     {
-        // Check if already has arrow
         WeaponDirectionIndicator existing = weapon.GetComponentInChildren<WeaponDirectionIndicator>();
         if (existing != null)
             return;
 
-        // Create arrow child object
         GameObject arrowObj = new("DebugArrow");
         arrowObj.transform.SetParent(weapon.transform);
         arrowObj.transform.localPosition = Vector3.zero;
         arrowObj.transform.localRotation = Quaternion.identity;
 
-        // Add indicator
         WeaponDirectionIndicator arrow = arrowObj.AddComponent<WeaponDirectionIndicator>();
         arrow.arrowLength = 2.0f;
         arrow.arrowColor = Color.red;
         arrow.showInGame = true;
     }
 
-    public void SwitchToWeapon(int index)
-    {
-        if (index < 0 || index >= weapons.Length)
-        {
-            Debug.LogWarning($"[WeaponsManager] Invalid weapon index: {index}");
-            return;
-        }
-
-        currentWeaponIndex = index;
-
-        // Hide all weapons
-        for (int i = 0; i < weapons.Length; i++)
-        {
-            if (weapons[i] != null)
-            {
-                weapons[i].SetActive(i == index);
-            }
-        }
-
-        Debug.Log($"[WeaponsManager] Switched to weapon: {weapons[index].name}");
-        OnWeaponChanged?.Invoke();
-    }
-
-    public int GetCurrentWeaponIndex()
-    {
-        return currentWeaponIndex;
-    }
-
-    public GameObject GetCurrentWeapon()
-    {
-        if (currentWeaponIndex >= 0 && currentWeaponIndex < weapons.Length)
-        {
-            return weapons[currentWeaponIndex];
-        }
-        return null;
-    }
-
-    // Update all weapon orbit settings at runtime
     public void UpdateOrbitSettings(float radius, float followSpeed)
     {
         orbitRadius = radius;
         angleFollowSpeed = followSpeed;
+
+        if (weaponOrbits == null)
+            return;
 
         foreach (var orbit in weaponOrbits)
         {
@@ -162,11 +128,10 @@ public class WeaponsManager : MonoBehaviour
         if (!drawOrbitGizmos)
             return;
 
-        // Draw orbit circle around player
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            Gizmos.color = new Color(1f, 1f, 0f, 0.3f); // Transparent yellow
+            Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
             DrawCircle(player.transform.position, orbitRadius, 48);
         }
     }

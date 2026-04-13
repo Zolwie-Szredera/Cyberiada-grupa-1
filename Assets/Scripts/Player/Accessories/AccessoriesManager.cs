@@ -4,12 +4,13 @@ using UnityEngine;
 public class AccessoriesManager : MonoBehaviour
 {
     private PlayerStats playerStats;
+
     public const int ActiveSlotsCount = 4;
     public const int InventorySlotsCount = 16;
 
     public Accessory[] activeSlots = new Accessory[ActiveSlotsCount];
     public Accessory[] inventory = new Accessory[InventorySlotsCount];
-    public void Start()
+    public void Start() //please stop removing this. Seriously, why!?
     {
         playerStats = GetComponent<PlayerStats>();
     }

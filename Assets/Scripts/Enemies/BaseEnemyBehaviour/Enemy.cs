@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour
     {
         if (invulnerable) return;
         hp -= damageTaken;
+        //Debug.Log(gameObject.name + " took " + damageTaken + " damage. Current HP: " + hp);
         if(bleedPoint != null)
         {
             ParticleSystem ps = Instantiate(bloodParticles,bleedPoint.transform.position,Quaternion.identity);

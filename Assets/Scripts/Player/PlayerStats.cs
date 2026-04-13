@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(AccessoriesManager))]
 public class PlayerStats : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("Movement")] //rememer to use the stats without "base" in name during runtime
     public float baseMoveSpeed = 12f; //for: PlayerController.cs
     public float baseJumpForce = 15f; //for: PlayerController.cs
     public int baseAirJumps = 1; //for: PlayerController.cs
@@ -13,7 +13,7 @@ public class PlayerStats : MonoBehaviour
     public float baseDashForce = 25f; //for: Dash.cs
     [Header("Health")]
     public float baseMaxBlood = 30f; //for: playerHealth.cs
-    [Header("Weapons")]
+    [Header("weapons")]
     public int baseSwordDamage = 10; //for: PlayerSword.cs
     public int baseRangedDamage = 20; //for: PlayerRanged.cs
     public float baseAttackSpeed = 1f; //for PlayerRanged.cs
@@ -37,40 +37,8 @@ public class PlayerStats : MonoBehaviour
     
     private void Awake()
     {
-        // Initialize current stats as early as possible so other components
-        // (like Dash/PlayerController) never read zeroed values during startup.
         InitializeStats();
-    }
-
-    private void Start()
-    {
-        InitializeAccessoriesManager();
-    }
-
-    private void OnValidate()
-    {
-        if (!Application.isPlaying)
-        {
-            InitializeStats();
-        }
-    }
-
-    private void InitializeAccessoriesManager()
-    {
-        var accManager = GetComponent<AccessoriesManager>();
-        if (accManager == null)
-        {
-            accManager = gameObject.AddComponent<AccessoriesManager>();
-            accManager.playerStats = this;
-        }
-        
-        var test = GetComponent<AccessoriesTest>();
-        if (test == null)
-        {
-            test = gameObject.AddComponent<AccessoriesTest>();
-            test.autoAddToPlayer = false;
-            test.runTestOnStart = true;
-        }
+        //CommenceAccessoryTest();
     }
 
     public void InitializeStats()
@@ -114,7 +82,6 @@ public class PlayerStats : MonoBehaviour
     {
         return activeAccessories.AsReadOnly();
     }
-
     //debug
     public void CommenceAccessoryTest()
     {

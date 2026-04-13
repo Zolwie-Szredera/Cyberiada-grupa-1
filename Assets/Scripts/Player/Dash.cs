@@ -38,12 +38,8 @@ public class Dash : MonoBehaviour
         if (dashState == DashState.Dashing)
         {
             dashDurationTimer -= Time.deltaTime;
-
-            // Create afterimage
-            GameObject afterimage = Instantiate(dashAfterimagePrefab, transform.position, Quaternion.identity);
-            DashAfterimage dashAfterimage = afterimage.GetComponent<DashAfterimage>();
-            dashAfterimage.Setup(spriteRenderer.sprite, spriteRenderer.flipX, transform.localScale, spriteRenderer.color, afterimageLifetime);
-
+            CreateAfterimage();
+            
             //change to cooldown state
             if (dashDurationTimer <= 0f)
             {
@@ -89,5 +85,11 @@ public class Dash : MonoBehaviour
         {
             Debug.Log("You can't dash without moving");
         }
+    }
+    public void CreateAfterimage()
+    {
+        GameObject afterimage = Instantiate(dashAfterimagePrefab, transform.position, Quaternion.identity);
+        DashAfterimage dashAfterimage = afterimage.GetComponent<DashAfterimage>();
+        dashAfterimage.Setup(spriteRenderer.sprite, spriteRenderer.flipX, transform.localScale, spriteRenderer.color, afterimageLifetime);
     }
 }

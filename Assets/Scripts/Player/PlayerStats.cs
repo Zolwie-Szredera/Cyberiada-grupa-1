@@ -35,7 +35,7 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnStatsChangedDelegate();
     public event OnStatsChangedDelegate OnStatsChanged;
     
-    private void Start()
+    private void Awake()
     {
         InitializeStats();
         //CommenceAccessoryTest();

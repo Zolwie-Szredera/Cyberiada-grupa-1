@@ -8,6 +8,13 @@ public class PlayerController : MonoBehaviour
 {
     private static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
 
+    private enum AttackOwner
+    {
+        None,
+        Primary,
+        Secondary
+    }
+
     private Rigidbody2D rb;
     [HideInInspector] public Vector2 moveInput;
     [Header("UI")]
@@ -48,6 +55,9 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private bool isHoldingDown;
     private bool isWalkingAnimated;
+    private bool primaryAttackHeld;
+    private bool secondaryAttackHeld;
+    private AttackOwner activeAttackOwner;
 
     private GameManager gameManager;
     private PlayerControls controls;
@@ -80,8 +90,10 @@ public class PlayerController : MonoBehaviour
         controls.player.Attack.canceled -= OnAttack;
         controls.Disable();
 
-        primaryWeapon?.ForceAttackStop();
-        secondaryWeapon?.ForceAttackStop();
+        StopAllAttacks();
+        primaryAttackHeld = false;
+        secondaryAttackHeld = false;
+        activeAttackOwner = AttackOwner.None;
     }
 
     private void Start()
@@ -252,18 +264,72 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSecondaryAttack()
     {
-        if (secondaryWeapon == null || Mouse.current == null)
+        if (Mouse.current == null)
             return;
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            secondaryWeapon.ForceAttackStart();
+            secondaryAttackHeld = true;
+            ResolveAttackOwner();
         }
 
         if (Mouse.current.rightButton.wasReleasedThisFrame)
         {
-            secondaryWeapon.ForceAttackStop();
+            secondaryAttackHeld = false;
+            ResolveAttackOwner();
         }
+    }
+
+    private void ResolveAttackOwner()
+    {
+        AttackOwner newOwner = activeAttackOwner;
+
+        if (activeAttackOwner == AttackOwner.None)
+        {
+            if (primaryAttackHeld)
+                newOwner = AttackOwner.Primary;
+            else if (secondaryAttackHeld)
+                newOwner = AttackOwner.Secondary;
+        }
+        else if (activeAttackOwner == AttackOwner.Primary && !primaryAttackHeld)
+        {
+            newOwner = secondaryAttackHeld ? AttackOwner.Secondary : AttackOwner.None;
+        }
+        else if (activeAttackOwner == AttackOwner.Secondary && !secondaryAttackHeld)
+        {
+            newOwner = primaryAttackHeld ? AttackOwner.Primary : AttackOwner.None;
+        }
+
+        if (newOwner == activeAttackOwner)
+            return;
+
+        switch (activeAttackOwner)
+        {
+            case AttackOwner.Primary:
+                primaryWeapon?.ForceAttackStop();
+                break;
+            case AttackOwner.Secondary:
+                secondaryWeapon?.ForceAttackStop();
+                break;
+        }
+
+        activeAttackOwner = newOwner;
+
+        switch (activeAttackOwner)
+        {
+            case AttackOwner.Primary:
+                primaryWeapon?.ForceAttackStart();
+                break;
+            case AttackOwner.Secondary:
+                secondaryWeapon?.ForceAttackStart();
+                break;
+        }
+    }
+
+    private void StopAllAttacks()
+    {
+        primaryWeapon?.ForceAttackStop();
+        secondaryWeapon?.ForceAttackStop();
     }
 
     private void DrawDebugArrow()
@@ -387,7 +453,15 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (primaryWeapon != null)
-            primaryWeapon.HandleAttackInput(context);
+        if (context.started)
+        {
+            primaryAttackHeld = true;
+            ResolveAttackOwner();
+        }
+        else if (context.canceled)
+        {
+            primaryAttackHeld = false;
+            ResolveAttackOwner();
+        }
     }
 }

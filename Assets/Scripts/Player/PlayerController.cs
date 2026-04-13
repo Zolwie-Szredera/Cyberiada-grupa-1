@@ -6,45 +6,65 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    //In playerStats:
-    //float MoveSpeed
-    //float JumpForce
-    //int AirJumps
-    //float AccelerationRate
-    //float DecelerationRate
+    private static readonly int IsWalkingHash = Animator.StringToHash("isWalking");
+
+    private enum AttackOwner
+    {
+        None,
+        Primary,
+        Secondary
+    }
+
     private Rigidbody2D rb;
     [HideInInspector] public Vector2 moveInput;
     [Header("UI")]
     public TextMeshProUGUI interactText;
+
+    [Header("Movement Settings")]
+    [HideInInspector] public float moveSpeed = PlayerStats.moveSpeed;
+    [HideInInspector] public float jumpForce = PlayerStats.jumpForce;
+    [HideInInspector] public float accelerationRate = PlayerStats.accelerationRate;
+    [HideInInspector] public float decelerationRate = PlayerStats.decelerationRate;
+
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
+    public int airJumps = 1;
     [HideInInspector] public int remainingAirJumps;
 
     [Header("Wall Check")]
     public Transform wallCheck;
     public float wallCheckDistance = 0.55f;
     public LayerMask stickyWallLayer;
-    private bool isTouchingWall = false; //with coyote time
-    private bool wallCoyoteActive = false;
+    private bool isTouchingWall; // with coyote time
+    private bool wallCoyoteActive;
     public float wallCoyoteTime = 0.15f;
-    private float wallCoyoteTimer = 0f;
+    private float wallCoyoteTimer;
+
     [Header("Platforms")]
     public LayerMask platformLayer;
+
     [Header("Animation")]
     public Animator animator;
     [HideInInspector] public bool isGrounded;
 
-    private bool isWallJumping = false;
-    private bool isJumping = false;
-    private bool justWallJumped = false; //to prevent wasted air jumps
+    private bool isWallJumping;
+    private bool isJumping;
+    private bool justWallJumped; // to prevent wasted air jumps
     private bool facingRight = true;
-    private bool isHoldingDown = false;
+    private bool isHoldingDown;
+    private bool isWalkingAnimated;
+    private bool primaryAttackHeld;
+    private bool secondaryAttackHeld;
+    private AttackOwner activeAttackOwner;
+
     private GameManager gameManager;
     private PlayerControls controls;
     private WeaponsManager weaponsManager;
-    private PlayerWeapons currentWeapon;
+    private PlayerWeapons primaryWeapon;
+    private PlayerWeapons secondaryWeapon;
+    private PlayerStats playerStats;
 
     private void Awake()
     {
@@ -58,6 +78,7 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("[PlayerController] controls was null in OnEnable, initializing now.");
             controls = new PlayerControls();
         }
+
         controls.Enable();
         controls.player.Attack.started += OnAttack;
         controls.player.Attack.canceled += OnAttack;
@@ -68,38 +89,69 @@ public class PlayerController : MonoBehaviour
         controls.player.Attack.started -= OnAttack;
         controls.player.Attack.canceled -= OnAttack;
         controls.Disable();
+
+        StopAllAttacks();
+        primaryAttackHeld = false;
+        secondaryAttackHeld = false;
+        activeAttackOwner = AttackOwner.None;
     }
 
     private void Start()
     {
-        remainingAirJumps = PlayerStats.airJumps;
+        remainingAirJumps = airJumps;
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        
+        playerStats = GetComponent<PlayerStats>();
+
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged += UpdateStatsFromPlayerStats;
+            UpdateStatsFromPlayerStats();
+        }
+
         if (interactText != null)
         {
             interactText.gameObject.SetActive(false);
         }
-        weaponsManager = FindAnyObjectByType<WeaponsManager>(); // Assuming there's only one WeaponsManager in the scene
-        if (weaponsManager != null)
-            weaponsManager.OnWeaponChanged += OnWeaponChanged;
-        UpdateCurrentWeapon();
+
+        weaponsManager = FindAnyObjectByType<WeaponsManager>();
+        CacheWeaponSlots();
     }
 
     private void OnDestroy()
     {
-        if (weaponsManager != null)
-            weaponsManager.OnWeaponChanged -= OnWeaponChanged;
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged -= UpdateStatsFromPlayerStats;
+        }
     }
 
-    private void UpdateCurrentWeapon()
+    private void CacheWeaponSlots()
     {
-        var weaponObj = weaponsManager.GetCurrentWeapon();
-        if (weaponObj != null)
-            currentWeapon = weaponObj.GetComponent<PlayerWeapons>();
+        if (weaponsManager == null)
+        {
+            Debug.LogWarning("[PlayerController] WeaponsManager not found.");
+            return;
+        }
+
+        var weapon0 = weaponsManager.GetWeaponAt(0);
+        var weapon1 = weaponsManager.GetWeaponAt(1);
+
+        primaryWeapon = weapon0 != null ? weapon0.GetComponent<PlayerWeapons>() : null;
+        secondaryWeapon = weapon1 != null ? weapon1.GetComponent<PlayerWeapons>() : null;
     }
 
-    // Receive input from "Move" action.
+    private void UpdateStatsFromPlayerStats()
+    {
+        moveSpeed = PlayerStats.moveSpeed;
+        jumpForce = PlayerStats.jumpForce;
+        accelerationRate = PlayerStats.accelerationRate;
+        decelerationRate = PlayerStats.decelerationRate;
+        airJumps = PlayerStats.airJumps;
+        remainingAirJumps = airJumps;
+        Debug.Log($"[PlayerController] Stats updated - Speed: {moveSpeed}");
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -119,7 +171,6 @@ public class PlayerController : MonoBehaviour
         {
             isWallJumping = true;
         }
-        // air and normal jumps
         else if (context.started && (isGrounded || remainingAirJumps > 0) && !justWallJumped)
         {
             isJumping = true;
@@ -129,6 +180,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Prevented unnecessary air jump");
         }
     }
+
     public void OnDown(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -140,92 +192,144 @@ public class PlayerController : MonoBehaviour
             isHoldingDown = false;
         }
     }
+
     void Update()
     {
-        // 1. Ground Check
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer + platformLayer);
         if (isGrounded)
         {
-            remainingAirJumps = PlayerStats.airJumps;
+            remainingAirJumps = airJumps;
         }
 
-        // 2. Wall Check
         WallCheck();
 
-        // 3. Horizontal Movement
-        float targetSpeed = moveInput.x * PlayerStats.moveSpeed;
+        float targetSpeed = moveInput.x * moveSpeed;
         float velocityDifferenceX = targetSpeed - rb.linearVelocity.x;
-
-        // Choose acceleration or deceleration depending on whether we're speeding up or slowing down
-        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? PlayerStats.accelerationRate : PlayerStats.decelerationRate) * Time.deltaTime;
+        float maxSpeedChange = (Mathf.Abs(targetSpeed) > Mathf.Abs(rb.linearVelocity.x) ? accelerationRate : decelerationRate) * Time.deltaTime;
         float movementX = Mathf.Clamp(velocityDifferenceX, -maxSpeedChange, maxSpeedChange);
         rb.linearVelocity += new Vector2(movementX, 0f);
 
-        // 4. Wall Jump
+        HandleSecondaryAttack();
+
         if (isWallJumping)
         {
-            rb.linearVelocity = new Vector2(0f, 0f);
+            rb.linearVelocity = Vector2.zero;
             int direction = 0;
-            if (Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, stickyWallLayer)) // you are stuck from the right
+            if (Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, stickyWallLayer))
             {
-                direction = -1; // bounce to the left
+                direction = -1;
             }
-            else if (Physics2D.Raycast(wallCheck.position, Vector2.left, wallCheckDistance, stickyWallLayer)) // you are stuck from the left
+            else if (Physics2D.Raycast(wallCheck.position, Vector2.left, wallCheckDistance, stickyWallLayer))
             {
-                direction = 1; // bounce to the right
+                direction = 1;
             }
-            rb.linearVelocity = new Vector2(direction * 7f, PlayerStats.jumpForce);
+            rb.linearVelocity = new Vector2(direction * 7f, jumpForce);
             isWallJumping = false;
             StartCoroutine(PreventAirJumpWaste(0.2f));
         }
 
-        // 5. Jump
         if (isJumping)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset Y velocity for consistent jump height
-            rb.AddForce(Vector2.up * PlayerStats.jumpForce, ForceMode2D.Impulse);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-            // air jump deduction
             if (!isGrounded && !isTouchingWall)
             {
                 remainingAirJumps--;
             }
             isJumping = false;
         }
-        // 6. Handle platform drop through
+
         if (isHoldingDown && isGrounded)
         {
             PlatformDrop();
         }
 
-        // 7. Gravity modification
-        // increase gravity if falling
         if (rb.linearVelocity.y < -0.2f && rb.linearVelocity.y > -50.0f)
         {
             rb.linearVelocity += 1.5f * Physics2D.gravity.y * Time.deltaTime * Vector2.up;
         }
 
-        // 7. Max Speed Check
-        //After dashing was implemented this was removed to allow dash overshoot, 
-        //but it may be worth reimplementing in some form if the player can reach unintended speeds through other means.
-        rb.linearVelocity = new Vector2
-        (
-            rb.linearVelocityX, // Remove horizontal speed cap to allow dash overshoot
-            //Mathf.Clamp(rb.linearVelocity.x, -moveSpeed * 2f, moveSpeed * 2f), // 
-            Mathf.Clamp(rb.linearVelocity.y, -50f, 50f)
-        );
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, Mathf.Clamp(rb.linearVelocity.y, -50f, 50f));
 
-        // 8. Update animation parameters
-        if (Mathf.Abs(rb.linearVelocity.x) != 0)
+        bool shouldWalkAnimate = Mathf.Abs(rb.linearVelocity.x) > 0f;
+        if (shouldWalkAnimate != isWalkingAnimated)
         {
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
+            animator.SetBool(IsWalkingHash, shouldWalkAnimate);
+            isWalkingAnimated = shouldWalkAnimate;
         }
 
         DrawDebugArrow();
+    }
+
+    private void HandleSecondaryAttack()
+    {
+        if (Mouse.current == null)
+            return;
+
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            secondaryAttackHeld = true;
+            ResolveAttackOwner();
+        }
+
+        if (Mouse.current.rightButton.wasReleasedThisFrame)
+        {
+            secondaryAttackHeld = false;
+            ResolveAttackOwner();
+        }
+    }
+
+    private void ResolveAttackOwner()
+    {
+        AttackOwner newOwner = activeAttackOwner;
+
+        if (activeAttackOwner == AttackOwner.None)
+        {
+            if (primaryAttackHeld)
+                newOwner = AttackOwner.Primary;
+            else if (secondaryAttackHeld)
+                newOwner = AttackOwner.Secondary;
+        }
+        else if (activeAttackOwner == AttackOwner.Primary && !primaryAttackHeld)
+        {
+            newOwner = secondaryAttackHeld ? AttackOwner.Secondary : AttackOwner.None;
+        }
+        else if (activeAttackOwner == AttackOwner.Secondary && !secondaryAttackHeld)
+        {
+            newOwner = primaryAttackHeld ? AttackOwner.Primary : AttackOwner.None;
+        }
+
+        if (newOwner == activeAttackOwner)
+            return;
+
+        switch (activeAttackOwner)
+        {
+            case AttackOwner.Primary:
+                primaryWeapon?.ForceAttackStop();
+                break;
+            case AttackOwner.Secondary:
+                secondaryWeapon?.ForceAttackStop();
+                break;
+        }
+
+        activeAttackOwner = newOwner;
+
+        switch (activeAttackOwner)
+        {
+            case AttackOwner.Primary:
+                primaryWeapon?.ForceAttackStart();
+                break;
+            case AttackOwner.Secondary:
+                secondaryWeapon?.ForceAttackStart();
+                break;
+        }
+    }
+
+    private void StopAllAttacks()
+    {
+        primaryWeapon?.ForceAttackStop();
+        secondaryWeapon?.ForceAttackStop();
     }
 
     private void DrawDebugArrow()
@@ -233,8 +337,7 @@ public class PlayerController : MonoBehaviour
         if (gameManager == null) return;
 
         Vector3 start = transform.position;
-        // Assuming gameManager.mousePosition is in world coordinates as implied by previous usage
-        Vector3 mousePos = (Vector3)gameManager.mousePosition;
+        Vector3 mousePos = gameManager.mousePosition;
         mousePos.z = 0;
         start.z = 0;
 
@@ -245,7 +348,6 @@ public class PlayerController : MonoBehaviour
 
         Debug.DrawLine(start, end, color);
 
-        // Arrow head
         float arrowHeadSize = 0.5f;
         Vector3 right = Quaternion.Euler(0, 0, 135) * direction * arrowHeadSize;
         Vector3 left = Quaternion.Euler(0, 0, -135) * direction * arrowHeadSize;
@@ -256,26 +358,27 @@ public class PlayerController : MonoBehaviour
 
     void WallCheck()
     {
-        bool wallContact = Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, stickyWallLayer) || Physics2D.Raycast(wallCheck.position, Vector2.left, wallCheckDistance, stickyWallLayer);
-        // if you are touching a sticky wall
+        bool wallContact = Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, stickyWallLayer) ||
+                           Physics2D.Raycast(wallCheck.position, Vector2.left, wallCheckDistance, stickyWallLayer);
+
         if (wallContact)
         {
             isTouchingWall = true;
             wallCoyoteActive = false;
-            wallCoyoteTimer = 0;
+            wallCoyoteTimer = 0f;
             return;
         }
-        // stopped touching a wall, acivate coyote time
-        if (!wallContact && isTouchingWall && !wallCoyoteActive)
+
+        if (isTouchingWall && !wallCoyoteActive)
         {
             wallCoyoteActive = true;
             wallCoyoteTimer = wallCoyoteTime;
         }
-        // countdown
+
         if (wallCoyoteActive)
         {
             wallCoyoteTimer -= Time.deltaTime;
-            if (wallCoyoteTimer > 0)
+            if (wallCoyoteTimer > 0f)
             {
                 isTouchingWall = true;
             }
@@ -290,24 +393,20 @@ public class PlayerController : MonoBehaviour
             isTouchingWall = false;
         }
     }
+
     IEnumerator PreventAirJumpWaste(float time)
     {
         justWallJumped = true;
         yield return new WaitForSeconds(time);
         justWallJumped = false;
     }
+
     public void ActivateInteractionText(bool readyToInteract)
     {
-        if (readyToInteract)
-        {
-            interactText.gameObject.SetActive(true);
-        }
-        else
-        {
-            interactText.gameObject.SetActive(false);
-        }
+        interactText.gameObject.SetActive(readyToInteract);
     }
-    public void ChangeSpriteDirection(bool direction) //true = right, false = left
+
+    public void ChangeSpriteDirection(bool direction)
     {
         if (direction && !facingRight)
         {
@@ -324,6 +423,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = scale;
         }
     }
+
     public void PlatformDrop()
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll((Vector2)groundCheck.position + Vector2.down * 0.1f, new Vector2(0.8f, 0.2f), 0.0f, platformLayer);
@@ -335,7 +435,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    //-----------------------------------------DEBUG-------------------------------, remove before release
+
     private void OnDrawGizmosSelected()
     {
         if (groundCheck != null)
@@ -350,26 +450,18 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * wallCheckDistance);
         }
     }
-    //-------------------------------------------------------------------------------
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (currentWeapon != null)
-            currentWeapon.OnAttack(context);
-    }
-
-    public void OnWeaponChanged()
-    {
-        UpdateCurrentWeapon();
-        if (currentWeapon == null) return;
-        // Check if the attack button is held
-        if (controls.player.Attack.ReadValue<float>() > 0.5f)
+        if (context.started)
         {
-            currentWeapon.ForceAttackStart();
+            primaryAttackHeld = true;
+            ResolveAttackOwner();
         }
-        else
+        else if (context.canceled)
         {
-            currentWeapon.ForceAttackStop();
+            primaryAttackHeld = false;
+            ResolveAttackOwner();
         }
     }
 }

@@ -40,7 +40,7 @@ public class AccessoriesTest : MonoBehaviour
         Debug.Log("=== Accessories System Test Started ===");
         Debug.Log($"Initial Stats - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
-        var charm = new BloodthirstyCharm();
+        var charm = new LilyOfShadows();
         Debug.Log($"Created accessory: {charm.name}");
 
         Debug.Log("\n--- Adding to inventory ---");
@@ -57,12 +57,6 @@ public class AccessoriesTest : MonoBehaviour
         Debug.Log($"Unequip result: {unequipped}");
         Debug.Log($"After Unequip - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
-        Debug.Log("\n--- Adding another charm and equipping ---");
-        var charm2 = new BloodthirstyCharm { hpBonus = 30f, swordDamageBonus = 2 };
-        accManager.AddToInventory(charm2);
-        accManager.Equip(1, 0);
-        Debug.Log($"With two charms - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
-
         Debug.Log("\n=== Accessories System Test Completed ===");
     }
 
@@ -71,7 +65,7 @@ public class AccessoriesTest : MonoBehaviour
         if (accManager == null) accManager = GetComponent<AccessoriesManager>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
         
-        var charm = new BloodthirstyCharm();
+        var charm = new LilyOfShadows();
         accManager.AddToInventory(charm);
         accManager.Equip(0, 0);
     }

@@ -17,12 +17,13 @@ public class PlayerRanged : PlayerWeapons
         isRangedWeapon = true;
     }
 
-    public override void OnAttack(InputAction.CallbackContext context)
+    public override void HandleAttackInput(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             isAttacking = true;
-        } else if(context.canceled)
+        }
+        else if (context.canceled)
         {
             isAttacking = false;
         }

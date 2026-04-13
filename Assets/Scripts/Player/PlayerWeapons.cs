@@ -58,7 +58,7 @@ public class PlayerWeapons : MonoBehaviour
     {
         mousePosition = gameManager.mousePosition;
     }
-    public virtual void OnAttack(InputAction.CallbackContext context)
+    public virtual void HandleAttackInput(InputAction.CallbackContext context)
     {
         if(context.started)
             animator.SetBool("attack", true);

@@ -102,7 +102,7 @@ public class PlayerSword : PlayerWeapons
         BasicAttack();
         audioSource.Play();
     }
-    public override void OnAttack(InputAction.CallbackContext context)
+    public override void HandleAttackInput(InputAction.CallbackContext context)
     {
         if (context.started)
             animator.SetBool("attack", true);

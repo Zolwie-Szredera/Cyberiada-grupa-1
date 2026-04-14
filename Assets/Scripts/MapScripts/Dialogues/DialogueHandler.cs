@@ -139,6 +139,13 @@ public class DialogueHandler : MonoBehaviour
         index = 0;
         isOpen = false;
         pause.UnparalyzePlayer();
+        
+        // Execute end action if assigned
+        if (currentData.endAction != null)
+        {
+            currentData.endAction.GainAccessory();
+        }
+        
         Debug.Log("Closing dialogue: " + currentData.characterName);
         StartCoroutine(NoNewDialogueDelay());
     }
@@ -317,6 +324,13 @@ public class DialogueHandler : MonoBehaviour
         b.onClick.AddListener(() =>
         {
             choice.onChoiceSelected?.Invoke();
+            
+            // Execute choice reward if assigned
+            if (choice.rewardAction != null)
+            {
+                choice.rewardAction.GainAccessory();
+            }
+            
             SelectChoice(choice.nextDialogue);
         });
 

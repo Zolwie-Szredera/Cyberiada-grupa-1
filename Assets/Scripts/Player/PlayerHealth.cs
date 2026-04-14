@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
-[RequireComponent(typeof(PlayerStats))]
 public class PlayerHealth : MonoBehaviour
 {
-    //In playerStats:
-    //float maxBlood
+    private PlayerStats playerStats;
     public bool isInvulnerable = false;
     private PlayerController playerController;
+    private float maxBlood;
+    public float MaxBlood => maxBlood;
     public Image bloodFill;
     public Image blackBileFill;
     public Canvas deathScreen;
@@ -19,8 +20,20 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        playerStats = GetComponent<PlayerStats>();
         
-        currentBlood = PlayerStats.maxBlood;
+        if (playerStats != null)
+        {
+            maxBlood = PlayerStats.maxBlood;
+            playerStats.OnStatsChanged += OnStatsChanged;
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerHealth] PlayerStats not found! Using default max blood.");
+            maxBlood = 100f;
+        }
+        
+        currentBlood = maxBlood;
         currentBlackBile = 0;
 
         UpdateHealthUI();
@@ -57,11 +70,36 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged -= OnStatsChanged;
+        }
+    }
+
+    private void OnStatsChanged()
+    {
+        if (playerStats == null) return;
+        
+        float previousMaxBlood = maxBlood;
+        maxBlood = PlayerStats.maxBlood;
+        
+        currentBlood = Mathf.Clamp(currentBlood, 0f, maxBlood);
+        
+        if (Mathf.Approximately(previousMaxBlood, maxBlood) == false)
+        {
+            Debug.Log($"[PlayerHealth] Max blood changed: {previousMaxBlood} -> {maxBlood}");
+        }
+        
+        UpdateHealthUI();
+    }
+
     private void UpdateHealthUI()
     {
         if (bloodFill != null)
         {
-            bloodFill.fillAmount = PlayerStats.maxBlood > 0 ? currentBlood / PlayerStats.maxBlood : 0f;
+            bloodFill.fillAmount = maxBlood > 0 ? currentBlood / maxBlood : 0f;
         }
     }
 
@@ -79,13 +117,13 @@ public class PlayerHealth : MonoBehaviour
     {
         if (bloodFill != null)
         {
-            bloodFill.fillAmount = currentBlood / PlayerStats.maxBlood;
+            bloodFill.fillAmount = currentBlood / maxBlood;
         }
         if (currentBlackBile > 0)
         {
             if (blackBileFill != null)
             {
-                blackBileFill.fillAmount = currentBlackBile / PlayerStats.maxBlood;
+                blackBileFill.fillAmount = currentBlackBile / maxBlood;
             }
             currentBlackBile -= Time.deltaTime;
         }
@@ -101,7 +139,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void RestoreToMax()
     {
-        currentBlood = PlayerStats.maxBlood;
+        currentBlood = maxBlood;
         currentBlackBile = 0f;
         UpdateHealthUI();
         if (blackBileFill != null)
@@ -114,13 +152,13 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isInvulnerable) return;
         currentBlood -= damage;
-        Debug.Log($"Player took {damage} damage. Current health: {currentBlood}/{PlayerStats.maxBlood}");
+        Debug.Log($"Player took {damage} damage. Current health: {currentBlood}/{maxBlood}");
 
         UpdateHealthUI();
         
         if (bloodParticles != null)
         {
-            bloodFill.fillAmount = currentBlood / PlayerStats.maxBlood;
+            bloodFill.fillAmount = currentBlood / maxBlood;
             ParticleSystem ps = Instantiate(bloodParticles, transform.position, Quaternion.identity);
             ps.Play();
         }
@@ -133,9 +171,9 @@ public class PlayerHealth : MonoBehaviour
     public void GainBlood(float gain)
     {
         currentBlood += gain;
-        if (currentBlood > PlayerStats.maxBlood || currentBlackBile != 0)
+        if (currentBlood > maxBlood || currentBlackBile != 0)
         {
-            currentBlood = Mathf.Clamp(currentBlood, 0, PlayerStats.maxBlood - currentBlackBile);
+            currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood - currentBlackBile);
         }
         UpdateHealthUI();
     }
@@ -143,6 +181,6 @@ public class PlayerHealth : MonoBehaviour
     public void GainBlackBile(float amount)
     {
         currentBlackBile += amount;
-        currentBlackBile = Mathf.Clamp(currentBlackBile, 0f, PlayerStats.maxBlood - currentBlood);
+        currentBlackBile = Mathf.Clamp(currentBlackBile, 0f, maxBlood - currentBlood);
     }
 }

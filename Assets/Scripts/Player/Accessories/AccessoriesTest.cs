@@ -9,6 +9,9 @@ public class AccessoriesTest : MonoBehaviour
     [Tooltip("Set to true to auto-add this component to player if not present")]
     public bool autoAddToPlayer = true;
 
+    [Header("Test Accessory")]
+    public Accessory testAccessory;
+
     private AccessoriesManager accManager;
     private PlayerStats playerStats;
     private static bool wasInitialized = false;
@@ -40,11 +43,16 @@ public class AccessoriesTest : MonoBehaviour
         Debug.Log("=== Accessories System Test Started ===");
         Debug.Log($"Initial Stats - MaxBlood: {PlayerStats.maxBlood}, SwordDamage: {PlayerStats.swordDamage}");
 
-        var charm = new LilyOfShadows();
-        Debug.Log($"Created accessory: {charm.name}");
+        if (testAccessory == null)
+        {
+            Debug.LogWarning("AccessoriesTest: No testAccessory assigned.");
+            return;
+        }
+
+        Debug.Log($"Using accessory: {testAccessory.Name}");
 
         Debug.Log("\n--- Adding to inventory ---");
-        bool added = accManager.AddToInventory(charm);
+        bool added = accManager.AddToInventory(testAccessory);
         Debug.Log($"AddToInventory result: {added}");
 
         Debug.Log("\n--- Equipping to slot 0 ---");
@@ -65,8 +73,13 @@ public class AccessoriesTest : MonoBehaviour
         if (accManager == null) accManager = GetComponent<AccessoriesManager>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
         
-        var charm = new LilyOfShadows();
-        accManager.AddToInventory(charm);
+        if (testAccessory == null)
+        {
+            Debug.LogWarning("AccessoriesTest: No testAccessory assigned.");
+            return;
+        }
+
+        accManager.AddToInventory(testAccessory);
         accManager.Equip(0, 0);
     }
 

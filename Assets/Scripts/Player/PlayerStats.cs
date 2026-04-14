@@ -63,7 +63,7 @@ public class PlayerStats : MonoBehaviour
         activeAccessories.Add(accessory);
         accessory.Apply(this);
         OnStatsChanged?.Invoke();
-        Debug.Log($"[PlayerStats] Added accessory: {accessory.name}");
+        Debug.Log($"[PlayerStats] Added accessory: {accessory.Name}");
     }
 
     public void RemoveAccessory(Accessory accessory)
@@ -74,7 +74,7 @@ public class PlayerStats : MonoBehaviour
         {
             accessory.Remove(this);
             OnStatsChanged?.Invoke();
-            Debug.Log($"[PlayerStats] Removed accessory: {accessory.name}");
+            Debug.Log($"[PlayerStats] Removed accessory: {accessory.Name}");
         }
     }
 

@@ -23,12 +23,12 @@ public class AccessoriesManager : MonoBehaviour
             if (inventory[i] == null)
             {
                 inventory[i] = accessory;
-                Debug.Log($"[AccessoriesManager] Added {accessory.name} to inventory slot {i}");
+                Debug.Log($"[AccessoriesManager] Added {accessory.Name} to inventory slot {i}");
                 return true;
             }
         }
 
-        Debug.LogWarning($"[AccessoriesManager] Inventory full! Cannot add {accessory.name}");
+        Debug.LogWarning($"[AccessoriesManager] Inventory full! Cannot add {accessory.Name}");
         return false;
     }
 
@@ -85,7 +85,7 @@ public class AccessoriesManager : MonoBehaviour
 
         activeSlots[activeSlotIndex] = accessory;
         playerStats.AddAccessory(accessory);
-        Debug.Log($"[AccessoriesManager] Equipped {accessory.name} to active slot {activeSlotIndex}");
+        Debug.Log($"[AccessoriesManager] Equipped {accessory.Name} to active slot {activeSlotIndex}");
         return true;
     }
 
@@ -114,7 +114,7 @@ public class AccessoriesManager : MonoBehaviour
         playerStats.RemoveAccessory(accessory);
         activeSlots[activeSlotIndex] = null;
         inventory[freeInventorySlot] = accessory;
-        Debug.Log($"[AccessoriesManager] Unequipped {accessory.name} from slot {activeSlotIndex} to inventory slot {freeInventorySlot}");
+        Debug.Log($"[AccessoriesManager] Unequipped {accessory.Name} from slot {activeSlotIndex} to inventory slot {freeInventorySlot}");
         return true;
     }
 

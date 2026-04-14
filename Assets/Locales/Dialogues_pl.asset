@@ -32,6 +32,11 @@ MonoBehaviour:
       ucieczki."
     m_Metadata:
       m_Items: []
+  - m_Id: 692238749589504
+    m_Localized: "Wi\u0119c uciekaj! Zdobyto Lili\u0119 Cieni,\nsi\u0142a dasha zosta\u0142a
+      zwi\u0119kszona"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

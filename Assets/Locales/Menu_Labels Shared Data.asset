@@ -63,14 +63,6 @@ MonoBehaviour:
     m_Key: menu.exitGame
     m_Metadata:
       m_Items: []
-  - m_Id: 37310631422255104
-    m_Key: HowToPlay1Controls
-    m_Metadata:
-      m_Items: []
-  - m_Id: 37315326152859648
-    m_Key: HowToPlay2Blood+jump
-    m_Metadata:
-      m_Items: []
   - m_Id: 39841178782588928
     m_Key: Victory
     m_Metadata:

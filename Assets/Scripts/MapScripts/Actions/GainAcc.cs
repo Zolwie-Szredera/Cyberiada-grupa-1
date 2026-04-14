@@ -6,7 +6,7 @@ public enum AccessoryType
 }
 
 [CreateAssetMenu(fileName = "NewGainAccReward", menuName = "Rewards/Gain Accessory")]
-public class GainAcc : ScriptableObject
+public class GainAcc : DialogueAction
 {
     [Tooltip("Wybierz akcesorium do przyznania")]
     public AccessoryType accessoryToGain = AccessoryType.LilyOfShadows;
@@ -17,7 +17,7 @@ public class GainAcc : ScriptableObject
     [Tooltip("Jeśli włączone, dodane akcesorium spróbuje od razu trafić do aktywnego slota")]
     public bool autoEquip;
 
-    public void GainAccessory()
+    public override void Execute()
     {
         AccessoriesManager accessoriesManager = GameObject.FindGameObjectWithTag("Player")?.GetComponent<AccessoriesManager>();
 
@@ -49,6 +49,11 @@ public class GainAcc : ScriptableObject
         }
 
         Debug.Log($"[GainAcc] Added {quantity}x {accessoryToGain} to inventory");
+    }
+
+    public void GainAccessory()
+    {
+        Execute();
     }
 
     private bool TryAutoEquip(AccessoriesManager accessoriesManager, Accessory accessory)

@@ -140,15 +140,30 @@ public class DialogueHandler : MonoBehaviour
         isOpen = false;
         pause.UnparalyzePlayer();
         
-        // Execute end action if assigned
-        if (currentData.endAction != null)
-        {
-            currentData.endAction.GainAccessory();
-        }
+        ExecuteEndActions();
         
         Debug.Log("Closing dialogue: " + currentData.characterName);
         StartCoroutine(NoNewDialogueDelay());
     }
+
+    private void ExecuteEndActions()
+    {
+        if (currentData == null || currentData.endActions == null || currentData.endActions.Count == 0)
+        {
+            return;
+        }
+
+        foreach (DialogueAction endAction in currentData.endActions)
+        {
+            if (endAction == null)
+            {
+                continue;
+            }
+
+            endAction.Execute();
+        }
+    }
+
     IEnumerator NoNewDialogueDelay()
     {
         noNewDialogue = true;
@@ -328,7 +343,7 @@ public class DialogueHandler : MonoBehaviour
             // Execute choice reward if assigned
             if (choice.rewardAction != null)
             {
-                choice.rewardAction.GainAccessory();
+                choice.rewardAction.Execute();
             }
             
             SelectChoice(choice.nextDialogue);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
@@ -9,7 +10,7 @@ public class Choice
     public DialogueData nextDialogue;
 
     [Tooltip("Akcja do wykonania gdy gracz wybierze tę opcję")]
-    public GainAcc rewardAction;
+    public DialogueAction rewardAction;
 
     public UnityEvent onChoiceSelected; // TO DODAJEMY: okno na Twoje skrypty w Inspektorze
 }
@@ -21,8 +22,8 @@ public class DialogueData : ScriptableObject
     public Sprite characterPortrait;
     public LocalizedString[] sentences;
 
-    [Tooltip("Akcja do wykonania po zamknięciu dialogu")]
-    public GainAcc endAction;
+    [Tooltip("Lista akcji do wykonania po zamknięciu dialogu")]
+    public List<DialogueAction> endActions;
 
     public Choice[] choices;
 }

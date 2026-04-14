@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce5814d8d96c08c4985551fa8f5d9c2f, type: 3}
-  m_Name: BitterRing
-  m_EditorClassIdentifier: Assembly-CSharp::BitterRing
-  slot: 2
+  m_Script: {fileID: 11500000, guid: 19315c769c4b4a3ebc20ba92d4cde376, type: 3}
+  m_Name: FilyOfShadows
+  m_EditorClassIdentifier: Assembly-CSharp::LilyOfShadows
+  displayName: LilyOdShadows
+  description: 
+  icon: {fileID: 0}
+  dashBonus: 15

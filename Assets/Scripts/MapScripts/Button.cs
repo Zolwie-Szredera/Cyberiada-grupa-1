@@ -1,9 +1,12 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Button : MonoBehaviour
 {
+    public bool executeActionOnInteract = false;
+    public Action[] actions;
     [HideInInspector]public GameObject interactText;
     private PlayerController playerController;
     private bool readyToInteract = false;
@@ -37,6 +40,23 @@ public class Button : MonoBehaviour
     //remember to re-add player input -> events -> player when you change this in any way or use a script that inherits from this.
     public virtual void Interaction()
     {
-        Debug.Log("Interaction! U forgot to override this method OR u need to re-add player input -> events -> player");
+        Debug.Log("Interaction!");
+        if(executeActionOnInteract)
+        {
+            ExecuteAllActions();
+        }
+        //put more stuff after base.Interaction() in scripts that inherit from button.cs cuz base does *nothing
+    }
+    //store Actions
+    public void ExecuteAllActions()
+    {
+        if(actions.Length == 0)
+        {
+            Debug.LogWarning("no actions to execute");
+        }
+        foreach(Action action in actions)
+        {
+            action.ExecuteAction();
+        }
     }
 }

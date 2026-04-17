@@ -2,8 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class Arrow : Projectile
+public class GravityProjectile : Projectile
 {
+    public bool stickToSurface = true;
     private Vector2 velocity;
     private bool isStuck;
     private bool hasLaunched;
@@ -50,7 +51,7 @@ public class Arrow : Projectile
             float angle = Mathf.Atan2(launchVelocity.y, launchVelocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            Debug.Log($"Arrow launched with velocity: {rb.linearVelocity} (magnitude: {rb.linearVelocity.magnitude}), angle: {angle}°");
+            //Debug.Log($"Arrow launched with velocity: {rb.linearVelocity} (magnitude: {rb.linearVelocity.magnitude}), angle: {angle}°");
         }
         else
         {
@@ -75,10 +76,17 @@ public class Arrow : Projectile
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("StickyWall"))
         {
-            StickToSurface();
+            if(stickToSurface)
+            {
+                StickToSurface();
+            } else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
+    //we should move this to Projectile.cs tbh
     private void StickToSurface()
     {
         isStuck = true;
@@ -88,6 +96,9 @@ public class Arrow : Projectile
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
             rb.bodyType = RigidbodyType2D.Kinematic;
+        } else
+        {
+            Debug.LogError("Can't get stuck into a surface without a RB");
         }
 
         // Destroy arrow after some time when stuck

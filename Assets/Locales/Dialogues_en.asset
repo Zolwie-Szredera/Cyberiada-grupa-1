@@ -31,6 +31,12 @@ MonoBehaviour:
       fragments of \nmemory fill you with the urge to run away.\n"
     m_Metadata:
       m_Items: []
+  - m_Id: 692238749589504
+    m_Localized: 'Run then! You found a Lily of Shadows,
+
+      dash strength increased.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

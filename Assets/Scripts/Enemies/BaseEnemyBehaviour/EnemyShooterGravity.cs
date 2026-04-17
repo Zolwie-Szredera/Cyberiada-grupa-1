@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class ArcherArrow : EnemyShooter
+public class EnemyShooterGravity : EnemyShooter
 {
-    [Header("Archer Settings")]
+    //this type of shooter knows howto handle projectiles that are affected by gravity
+    [Header("Gravity-affected projectile settings")]
     [Tooltip("Gravity multiplier for arrow physics (higher = more arc)")]
-    public float arrowGravity = 1f;
+    public float projectileGravity = 1f;
     [Tooltip("How far ahead to predict player movement (in seconds)")]
     public float predictionTime = 0.3f;
     public override void ProjectileAttack(Vector2 direction)
@@ -14,7 +15,7 @@ public class ArcherArrow : EnemyShooter
         Rigidbody2D playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         targetPosition += playerRb.linearVelocity * predictionTime;
         // Calculate ballistic trajectory with gravity compensation
-        Vector2 velocity = CalculateBallisticTrajectory(attackPoint.position, targetPosition, projectileSpeed, arrowGravity);
+        Vector2 velocity = CalculateBallisticTrajectory(attackPoint.position, targetPosition, projectileSpeed, projectileGravity);
 
         // Fallback to direct aim if ballistic calculation fails
         if (velocity == Vector2.zero)
@@ -23,15 +24,11 @@ public class ArcherArrow : EnemyShooter
             velocity = (targetPosition - (Vector2)attackPoint.position).normalized * projectileSpeed;
         }
 
-        // Spawn arrow slightly forward to avoid self-collision. No longer necessary since we ignore collision with the shooter. REMOVE?
-        Vector2 launchDirection = velocity.normalized;
-        Vector3 spawnPosition = attackPoint.position + (Vector3)(launchDirection * 0.6f);
-
-        // Instantiate and setup arrow
-        GameObject arrow = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
-        if (arrow.TryGetComponent<Arrow>(out var arrowScript))
+        // Instantiate and setup arrow/grav pojectile
+        GameObject arrow = Instantiate(projectilePrefab, attackPoint.position, Quaternion.identity);
+        if (arrow.TryGetComponent<GravityProjectile>(out var arrowScript))
         {
-            arrowScript.Initialize(damage, projectileTimeToLive, velocity.magnitude, arrowGravity, velocity.normalized);
+            arrowScript.Initialize(damage, projectileTimeToLive, velocity.magnitude, projectileGravity, velocity.normalized);
             arrowScript.IgnoreParentObject(gameObject);
         }
         else
@@ -44,7 +41,7 @@ public class ArcherArrow : EnemyShooter
     /// Calculates launch velocity to hit a target accounting for gravity.
     /// Returns velocity vector to apply to the arrow (Vector2.zero if target unreachable).
     /// </summary>
-    Vector2 CalculateBallisticTrajectory(Vector2 origin, Vector2 target, float speed, float gravity)
+    protected Vector2 CalculateBallisticTrajectory(Vector2 origin, Vector2 target, float speed, float gravity)
     {
         Vector2 displacement = target - origin;
         float horizontalDirection = Mathf.Sign(displacement.x);

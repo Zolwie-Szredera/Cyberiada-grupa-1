@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ArcherArrow))]
+[RequireComponent(typeof(EnemyShooterGravity))]
 public class ArcherAI : Enemy
 {
-    [HideInInspector] public ArcherArrow arrowScript;
+    [HideInInspector] public EnemyShooterGravity arrowScript;
     public override void Start()
     {
         base.Start();
-        arrowScript = GetComponent<ArcherArrow>();
+        arrowScript = GetComponent<EnemyShooterGravity>();
     }
     void Update()
     {

@@ -114,11 +114,11 @@ public class EncounterHandler : MonoBehaviour
             wavesSpawners[i].Cleanup();
         }
         // Remove all tiles placed during the encounter - restore original tiles if needed
-        foreach (Action action in ExecuteOnEncounterStart)
+        foreach (Action action in ExecuteOnEncounterEnd)
         {
             action.UndoAction();
         }
-        foreach (Action action in ExecuteOnEncounterEnd)
+        foreach (Action action in ExecuteOnEncounterStart)
         {
             action.UndoAction();
         }

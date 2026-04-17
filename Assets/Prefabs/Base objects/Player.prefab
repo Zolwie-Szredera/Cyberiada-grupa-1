@@ -161,6 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSword
   animator: {fileID: 7466603192667911320}
+  baseDamage: 1
+  attackSpeed: 0
   attackOrigin: {fileID: 3775144879078233061}
   attackDistance: 0.5
   isRangedWeapon: 0
@@ -438,6 +440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRanged
   animator: {fileID: 0}
+  baseDamage: 1
+  attackSpeed: 0
   attackOrigin: {fileID: 1234567891}
   attackDistance: 0.5
   isRangedWeapon: 1
@@ -1144,6 +1148,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AccessoriesManager
+  activeSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1234567892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,7 +1187,7 @@ MonoBehaviour:
   baseAirJumps: 1
   baseAccelerationRate: 30
   baseDecelerationRate: 100
-  baseDashForce: 20
+  baseDashForce: 25
   baseMaxBlood: 30
   baseSwordDamage: 10
   baseRangedDamage: 20

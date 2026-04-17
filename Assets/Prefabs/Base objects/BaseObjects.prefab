@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dash
   dashDuration: 0.2
   dashCooldown: 1
-  dashForce: 25
+  afterimageLifetime: 0.25
   spriteRenderer: {fileID: 6979029726250670881}
   dashAfterimagePrefab: {fileID: 7317970490243965358, guid: 8e5a828ae257d2b41b53d8ee5e91e827, type: 3}
 --- !u!1001 &8157999589224497316

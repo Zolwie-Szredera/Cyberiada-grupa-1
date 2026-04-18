@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 50108981248
-    m_Localized: Play
+    m_Localized: New game
     m_Metadata:
       m_Items: []
   - m_Id: 136968822784
@@ -80,6 +80,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 46663325614137344
     m_Localized: 'Returning to main menu in:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56442836417306624
+    m_Localized: Continue
     m_Metadata:
       m_Items: []
   references:

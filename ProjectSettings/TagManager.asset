@@ -10,6 +10,7 @@ TagManager:
   - Checkpoint
   - StartCheckpoint
   - CollisionTilemap
+  - BossHealthBar
   layers:
   - Default
   - TransparentFX

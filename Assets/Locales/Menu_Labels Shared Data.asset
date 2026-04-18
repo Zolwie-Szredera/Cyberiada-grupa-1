@@ -79,6 +79,10 @@ MonoBehaviour:
     m_Key: returningIn
     m_Metadata:
       m_Items: []
+  - m_Id: 56442836417306624
+    m_Key: menu.continue
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -193,19 +193,19 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 71b090a2-b7d0-4a4a-ad4c-c0acae5a2801
-    m_ActionName: 'player/Move[/Keyboard/a,/Keyboard/d]'
+    m_ActionName: player/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 403ba79c-2a92-40e6-9332-9dc68957ed16
-    m_ActionName: 'player/Jump[/Keyboard/space]'
+    m_ActionName: player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f2b667d4-2e88-496a-9455-2fb23e1c3f24
-    m_ActionName: 'player/Interact[/Keyboard/e]'
+    m_ActionName: player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e7f0b0a4-e423-4ce9-b2e6-75495547ed4f
-    m_ActionName: 'player/crosshair[/Mouse/delta]'
+    m_ActionName: player/crosshair[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5671602557511200}
@@ -221,43 +221,43 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: e4acee36-fd77-4770-8d57-8419b054c65c
-    m_ActionName: 'player/Attack[/Mouse/leftButton]'
+    m_ActionName: player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ae77ecbf-3b0c-4baa-bb52-18a1d9601c20
-    m_ActionName: 'player/MousePosition[/Mouse/position]'
+    m_ActionName: player/MousePosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8f10291b-da72-4e2a-809d-d8029f6c9066
-    m_ActionName: 'Debug/DebugAction1[/Keyboard/i]'
+    m_ActionName: Debug/DebugAction1[/Keyboard/i]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3f7b263c-6389-424a-a81e-c6623d3d702c
-    m_ActionName: 'Debug/DebugAction2[/Keyboard/o]'
+    m_ActionName: Debug/DebugAction2[/Keyboard/o]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0fad25ea-325c-43b8-824d-505285ac9f23
-    m_ActionName: 'Debug/DebugAction3[/Keyboard/p]'
+    m_ActionName: Debug/DebugAction3[/Keyboard/p]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f7c0ed57-3919-45b0-acff-aa886be18fc3
-    m_ActionName: 'Debug/EnableDebug[/Keyboard/backquote]'
+    m_ActionName: Debug/EnableDebug[/Keyboard/backquote]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 16062808-e1e0-4a7d-ad0b-7fa5fff24532
-    m_ActionName: 'ManageWeapons/ChangeWeapon1[/Keyboard/1]'
+    m_ActionName: ManageWeapons/ChangeWeapon1[/Keyboard/1]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8d5aaca5-c73a-4e91-b533-c5001db1a018
-    m_ActionName: 'ManageWeapons/ChangeWeapon2[/Keyboard/2]'
+    m_ActionName: ManageWeapons/ChangeWeapon2[/Keyboard/2]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 93cd3ee8-7e3c-43d6-9a74-40746e1c4179
-    m_ActionName: 'ManageWeapons/ChangeWeapon3[/Keyboard/3]'
+    m_ActionName: ManageWeapons/ChangeWeapon3[/Keyboard/3]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
-    m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/4]'
+    m_ActionName: ManageWeapons/ChangeWeapon4[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -473,19 +473,19 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 71b090a2-b7d0-4a4a-ad4c-c0acae5a2801
-    m_ActionName: 'player/Move[/Keyboard/a,/Keyboard/d]'
+    m_ActionName: player/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 403ba79c-2a92-40e6-9332-9dc68957ed16
-    m_ActionName: 'player/Jump[/Keyboard/space]'
+    m_ActionName: player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f2b667d4-2e88-496a-9455-2fb23e1c3f24
-    m_ActionName: 'player/Interact[/Keyboard/e]'
+    m_ActionName: player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e7f0b0a4-e423-4ce9-b2e6-75495547ed4f
-    m_ActionName: 'player/crosshair[/Mouse/delta]'
+    m_ActionName: player/crosshair[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7436663464623583209}
@@ -501,43 +501,43 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: e4acee36-fd77-4770-8d57-8419b054c65c
-    m_ActionName: 'player/Attack[/Mouse/leftButton]'
+    m_ActionName: player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ae77ecbf-3b0c-4baa-bb52-18a1d9601c20
-    m_ActionName: 'player/MousePosition[/Mouse/position]'
+    m_ActionName: player/MousePosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8f10291b-da72-4e2a-809d-d8029f6c9066
-    m_ActionName: 'Debug/DebugAction1[/Keyboard/i]'
+    m_ActionName: Debug/DebugAction1[/Keyboard/i]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3f7b263c-6389-424a-a81e-c6623d3d702c
-    m_ActionName: 'Debug/DebugAction2[/Keyboard/o]'
+    m_ActionName: Debug/DebugAction2[/Keyboard/o]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0fad25ea-325c-43b8-824d-505285ac9f23
-    m_ActionName: 'Debug/DebugAction3[/Keyboard/p]'
+    m_ActionName: Debug/DebugAction3[/Keyboard/p]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f7c0ed57-3919-45b0-acff-aa886be18fc3
-    m_ActionName: 'Debug/EnableDebug[/Keyboard/backquote]'
+    m_ActionName: Debug/EnableDebug[/Keyboard/backquote]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 16062808-e1e0-4a7d-ad0b-7fa5fff24532
-    m_ActionName: 'ManageWeapons/ChangeWeapon1[/Keyboard/1]'
+    m_ActionName: ManageWeapons/ChangeWeapon1[/Keyboard/1]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8d5aaca5-c73a-4e91-b533-c5001db1a018
-    m_ActionName: 'ManageWeapons/ChangeWeapon2[/Keyboard/2]'
+    m_ActionName: ManageWeapons/ChangeWeapon2[/Keyboard/2]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 93cd3ee8-7e3c-43d6-9a74-40746e1c4179
-    m_ActionName: 'ManageWeapons/ChangeWeapon3[/Keyboard/3]'
+    m_ActionName: ManageWeapons/ChangeWeapon3[/Keyboard/3]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
-    m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/4]'
+    m_ActionName: ManageWeapons/ChangeWeapon4[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -587,6 +587,7 @@ GameObject:
   - component: {fileID: 6033959841811657607}
   - component: {fileID: 8216767081518279731}
   - component: {fileID: 946455277480449385}
+  - component: {fileID: 3551021244170150587}
   m_Layer: 0
   m_Name: Player Sprite
   m_TagString: Untagged
@@ -799,6 +800,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3551021244170150587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168076235023819290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c19ad877d414216a04e0971fbe240dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlash
+  flashMaterial: {fileID: 2100000, guid: 9b8b35208a36529409f1f5db7479650f, type: 2}
+  duration: 0.1
 --- !u!1 &4538534112938561204
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +972,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 71b090a2-b7d0-4a4a-ad4c-c0acae5a2801
-    m_ActionName: 'player/move[/Keyboard/w]'
+    m_ActionName: player/move[/Keyboard/w]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2748823700835454776}
@@ -973,15 +988,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 403ba79c-2a92-40e6-9332-9dc68957ed16
-    m_ActionName: 'player/jump[/Keyboard/space]'
+    m_ActionName: player/jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f2b667d4-2e88-496a-9455-2fb23e1c3f24
-    m_ActionName: 'player/Interact[/Keyboard/e]'
+    m_ActionName: player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e7f0b0a4-e423-4ce9-b2e6-75495547ed4f
-    m_ActionName: 'player/crosshair[/Mouse/delta]'
+    m_ActionName: player/crosshair[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e4acee36-fd77-4770-8d57-8419b054c65c
@@ -989,39 +1004,23 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8f10291b-da72-4e2a-809d-d8029f6c9066
-    m_ActionName: 'Debug/DebugAction1[/Keyboard/i]'
+    m_ActionName: Debug/DebugAction1[/Keyboard/i]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3f7b263c-6389-424a-a81e-c6623d3d702c
-    m_ActionName: 'Debug/DebugAction2[/Keyboard/o]'
+    m_ActionName: Debug/DebugAction2[/Keyboard/o]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0fad25ea-325c-43b8-824d-505285ac9f23
-    m_ActionName: 'Debug/DebugAction3[/Keyboard/p]'
+    m_ActionName: Debug/DebugAction3[/Keyboard/p]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f7c0ed57-3919-45b0-acff-aa886be18fc3
-    m_ActionName: 'Debug/EnableDebug[/Keyboard/backquote]'
+    m_ActionName: Debug/EnableDebug[/Keyboard/backquote]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ae77ecbf-3b0c-4baa-bb52-18a1d9601c20
-    m_ActionName: 'player/MousePosition[/Mouse/position]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 16062808-e1e0-4a7d-ad0b-7fa5fff24532
-    m_ActionName: 'ManageWeapons/ChangeWeapon1[/Keyboard/1]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8d5aaca5-c73a-4e91-b533-c5001db1a018
-    m_ActionName: 'ManageWeapons/ChangeWeapon2[/Keyboard/2]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 93cd3ee8-7e3c-43d6-9a74-40746e1c4179
-    m_ActionName: 'ManageWeapons/ChangeWeapon3[/Keyboard/3]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
-    m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/4]'
+    m_ActionName: player/MousePosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5673461931028622329}
@@ -1037,7 +1036,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 7b3a1d53-384b-4772-9963-dcc38f51f1fb
-    m_ActionName: 'player/Respawn[/Keyboard/r]'
+    m_ActionName: player/Respawn[/Keyboard/r]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2748823700835454776}
@@ -1053,15 +1052,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 842b86ef-4ae3-4834-a16e-c58c62e93826
-    m_ActionName: 'player/Down[/Keyboard/s]'
+    m_ActionName: player/Down[/Keyboard/s]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 35c14841-ee84-4635-a15d-ebcdde7b1d4a
-    m_ActionName: 'player/Pause[/Keyboard/escape]'
+    m_ActionName: player/Pause[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6c440aa0-0101-4ec8-bc35-859a8f7fcdac
-    m_ActionName: 'player/ActivateMovementAccessory[/Keyboard/shift]'
+    m_ActionId: 74535bb0-90c5-41f8-9853-b264c3f145a1
+    m_ActionName: player/ContinueDialogue[/Keyboard/space,/Keyboard/e,/Mouse/press,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b3e0a6e2-d988-401a-ad5e-9141af70d5f4
+    m_ActionName: player/Dash[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -1156,13 +1159,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3df8aa40bfdeabe9b0bab60f171f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  baseMaxBlood: 30
   baseMoveSpeed: 12
   baseJumpForce: 15
   baseAirJumps: 1
   baseAccelerationRate: 30
   baseDecelerationRate: 100
-  baseDashForce: 20
-  baseMaxBlood: 30
+  baseDashForce: 25
   baseSwordDamage: 10
   baseRangedDamage: 20
   baseAttackSpeed: 1
@@ -1316,43 +1319,43 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 71b090a2-b7d0-4a4a-ad4c-c0acae5a2801
-    m_ActionName: 'player/Move[/Keyboard/a,/Keyboard/d]'
+    m_ActionName: player/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 403ba79c-2a92-40e6-9332-9dc68957ed16
-    m_ActionName: 'player/Jump[/Keyboard/space]'
+    m_ActionName: player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f2b667d4-2e88-496a-9455-2fb23e1c3f24
-    m_ActionName: 'player/Interact[/Keyboard/e]'
+    m_ActionName: player/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e7f0b0a4-e423-4ce9-b2e6-75495547ed4f
-    m_ActionName: 'player/crosshair[/Mouse/delta]'
+    m_ActionName: player/crosshair[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e4acee36-fd77-4770-8d57-8419b054c65c
-    m_ActionName: 'player/Attack[/Mouse/leftButton]'
+    m_ActionName: player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ae77ecbf-3b0c-4baa-bb52-18a1d9601c20
-    m_ActionName: 'player/MousePosition[/Mouse/position]'
+    m_ActionName: player/MousePosition[/Mouse/position]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8f10291b-da72-4e2a-809d-d8029f6c9066
-    m_ActionName: 'Debug/DebugAction1[/Keyboard/i]'
+    m_ActionName: Debug/DebugAction1[/Keyboard/i]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3f7b263c-6389-424a-a81e-c6623d3d702c
-    m_ActionName: 'Debug/DebugAction2[/Keyboard/o]'
+    m_ActionName: Debug/DebugAction2[/Keyboard/o]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0fad25ea-325c-43b8-824d-505285ac9f23
-    m_ActionName: 'Debug/DebugAction3[/Keyboard/p]'
+    m_ActionName: Debug/DebugAction3[/Keyboard/p]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f7c0ed57-3919-45b0-acff-aa886be18fc3
-    m_ActionName: 'Debug/EnableDebug[/Keyboard/backquote]'
+    m_ActionName: Debug/EnableDebug[/Keyboard/backquote]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
@@ -1368,7 +1371,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 16062808-e1e0-4a7d-ad0b-7fa5fff24532
-    m_ActionName: 'ManageWeapons/ChangeWeapon1[/Keyboard/1]'
+    m_ActionName: ManageWeapons/ChangeWeapon1[/Keyboard/1]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
@@ -1384,7 +1387,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 8d5aaca5-c73a-4e91-b533-c5001db1a018
-    m_ActionName: 'ManageWeapons/ChangeWeapon2[/Keyboard/1]'
+    m_ActionName: ManageWeapons/ChangeWeapon2[/Keyboard/1]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
@@ -1400,7 +1403,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 93cd3ee8-7e3c-43d6-9a74-40746e1c4179
-    m_ActionName: 'ManageWeapons/ChangeWeapon3[/Keyboard/1]'
+    m_ActionName: ManageWeapons/ChangeWeapon3[/Keyboard/1]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5465731224267836061}
@@ -1416,19 +1419,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
-    m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/1]'
+    m_ActionName: ManageWeapons/ChangeWeapon4[/Keyboard/1]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7b3a1d53-384b-4772-9963-dcc38f51f1fb
-    m_ActionName: 'player/Respawn[/Keyboard/r]'
+    m_ActionName: player/Respawn[/Keyboard/r]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 842b86ef-4ae3-4834-a16e-c58c62e93826
-    m_ActionName: 'player/Down[/Keyboard/s]'
+    m_ActionName: player/Down[/Keyboard/s]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 35c14841-ee84-4635-a15d-ebcdde7b1d4a
-    m_ActionName: 'player/Pause[/Keyboard/escape]'
+    m_ActionName: player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ManageWeapons

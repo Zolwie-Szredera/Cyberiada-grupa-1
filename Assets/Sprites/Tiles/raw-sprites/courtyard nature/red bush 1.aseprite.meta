@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: sus bush_0
+  - name: innocent-bush
     originalName: 
     pivot: {x: 0.22857143, y: 0.36363637}
     alignment: 9
@@ -162,6 +162,27 @@ ScriptedImporter:
       width: 35
       height: 22
     spriteID: ba48fe6a1d34bac43a0f1f72736efa20
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: sus-bush
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 35
+      height: 23
+    spriteID: 73ba2915b93f8b64b938d56689a60c33
     spriteBone: []
     spriteOutline: []
     vertices: []

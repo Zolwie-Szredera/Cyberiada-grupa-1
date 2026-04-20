@@ -7,9 +7,20 @@ public class EnemySpawner : MonoBehaviour
     public System.Action OnSpawnerComplete;
     public void Spawn()
     {
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        enemy.GetComponent<Enemy>().spawner = this;
-        spawnedEnemies.Add(enemy);
+        //search for enemy component in prefab
+        GameObject enemyGO = Instantiate(enemyPrefab, transform.position, Quaternion.identity); //enemyGO as in: enemy game object
+        Enemy enemy = enemyGO.GetComponentInChildren<Enemy>(true);
+
+        if (enemy != null)
+        {
+            enemy.spawner = this;
+        }
+        else
+        {
+            Debug.LogWarning("Spawned object has no Enemy component in children.");
+        }
+
+        spawnedEnemies.Add(enemyGO);
         activeEnemies++;
     }
     public void OnEnemyDeath()
@@ -63,12 +74,12 @@ public class EnemySpawner : MonoBehaviour
             if (encounterHandler != null)
             {
                 int waveIndex = System.Array.IndexOf(encounterHandler.wavesSpawners, waveSpawner);
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 if (waveIndex != -1)
                 {
                     UnityEditor.Handles.Label(transform.position, (waveIndex + 1).ToString());
                 }
-                #endif
+#endif
             }
         }
     }

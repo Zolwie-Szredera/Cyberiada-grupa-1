@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
 public class Enemy : MonoBehaviour
 {
-    private static WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     [Header("Enemy")]
     public int hp;
     public float movementSpeed;
@@ -13,8 +12,9 @@ public class Enemy : MonoBehaviour
     public float attackSpeed;
     public Transform groundCheck;
     public SpriteRenderer sprite;
-    [Header("particles")]
+    [Header("Particles")]
     public ParticleSystem bloodParticles;
+    public GameObject bleedPoint;
     [HideInInspector] public Transform playerLocation;
     [HideInInspector] public EnemySpawner spawner;
     [HideInInspector] public float direction;
@@ -27,15 +27,15 @@ public class Enemy : MonoBehaviour
     protected bool facingRight = true;
     protected bool stopped = false;
     protected float attackCooldown;
-    protected Vector2 playerLocationVector2;
     protected bool blockFlip = false;
     protected bool justFlipped = false;
     protected bool invulnerable = false;
+    protected Vector2 colliderOffset;
+    private static readonly WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerLocation = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        playerLocationVector2 = playerLocation.position;
         groundLayer = LayerMask.GetMask("Ground");
         if (groundCheck == null)
         {
@@ -44,6 +44,23 @@ public class Enemy : MonoBehaviour
         if (sprite == null)
         {
             Debug.LogWarning("Sprite not found for: " + gameObject.name);
+        }
+        //get a reference to collider
+        if(TryGetComponent<BoxCollider2D>(out var box))
+        {
+            colliderOffset = box.offset;
+        } else if(TryGetComponent<CircleCollider2D>(out var circle))
+        {
+            colliderOffset = circle.offset;
+        } else if(TryGetComponent<CapsuleCollider2D>(out var capsule))
+        {
+            colliderOffset = capsule.offset;
+        } else if(TryGetComponent<PolygonCollider2D>(out var polygon))
+        {
+            colliderOffset = polygon.offset;
+        } else
+        {
+            Debug.LogWarning("collider not found in enemy. Supported collider types: box, capsule, circle, polygon");
         }
         // Initialize facing based on the local X scale so flipping is consistent
         facingRight = transform.localScale.x > 0f;
@@ -68,8 +85,17 @@ public class Enemy : MonoBehaviour
     {
         if (invulnerable) return;
         hp -= damageTaken;
-        ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
-        ps.Play();
+        //Debug.Log(gameObject.name + " took " + damageTaken + " damage. Current HP: " + hp);
+        if(bleedPoint != null)
+        {
+            ParticleSystem ps = Instantiate(bloodParticles,bleedPoint.transform.position,Quaternion.identity);
+            ps.Play();
+        }
+        else
+        {
+            ParticleSystem ps = Instantiate(bloodParticles,transform.position,Quaternion.identity);
+            ps.Play();
+        }
         if (hp <= 0)
         {
             Die();
@@ -95,7 +121,6 @@ public class Enemy : MonoBehaviour
     protected virtual void FacePlayer()
     {
         // Flip the whole transform's X scale
-        // this enemy has a collision box offset of x = -0.75f, so when flipping we need to 
         // move the enemy to keep the collision box (and sprite) in the same place relative to the player
         if(blockFlip || justFlipped) return;
         if (direction > 0 && !facingRight)
@@ -104,7 +129,8 @@ public class Enemy : MonoBehaviour
             Vector3 s = transform.localScale;
             s.x = Mathf.Abs(s.x);
             transform.localScale = s;
-            transform.position = new Vector3(transform.position.x + 0.75f, transform.position.y, transform.position.z);
+            
+            transform.position = new Vector3(transform.position.x - colliderOffset.x, transform.position.y, transform.position.z);
             StartCoroutine(JustFlipped());
         }
         else if (direction < 0 && facingRight)
@@ -113,7 +139,7 @@ public class Enemy : MonoBehaviour
             Vector3 s = transform.localScale;
             s.x = -Mathf.Abs(s.x);
             transform.localScale = s;
-            transform.position = new Vector3(transform.position.x - 0.75f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x + colliderOffset.x, transform.position.y, transform.position.z);
             StartCoroutine(JustFlipped());
         }   
     }

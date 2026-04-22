@@ -5,26 +5,60 @@ public class PlayerWeapons : MonoBehaviour
 {
     public Animator animator;
     [Header("stats")]
-    public int damage;
-    public float attackSpeed; //in seconds: how often can you attack
-    public Transform attackOrigin; //where the attack begins: where the attack animation should begin
-    protected float attackCooldown; //in seconds during gameplay: when can you attack again
+    public int baseDamage = 1;
+    public float attackSpeed = PlayerStats.attackSpeed;
+    public Transform attackOrigin;
+    [Header("Attack Position")]
+    [Tooltip("Distance from weapon to attack point (used if no attackOrigin assigned)")]
+    public float attackDistance = 0.5f;
+    [Header("Weapon Type")]
+    [Tooltip("If true, uses rangedDamage from PlayerStats. If false, uses swordDamage.")]
+    public bool isRangedWeapon = false;
+    
+    protected float attackCooldown;
     protected LayerMask damageableLayers;
     protected GameObject player;
+    protected PlayerStats playerStats;
     protected Vector2 mousePosition;
     protected Vector2 origin;
     protected GameManager gameManager;
+
+    public int damage => PlayerStats.maxBlood > 0
+        ? (isRangedWeapon ? PlayerStats.rangedDamage : PlayerStats.swordDamage) 
+        : baseDamage;
+
     public virtual void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerStats = player != null ? player.GetComponent<PlayerStats>() : null;
         damageableLayers = LayerMask.GetMask("Enemy", "Destructible");
+        
+        if (playerStats != null)
+        {
+            playerStats.OnStatsChanged += OnStatsChanged;
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerWeapons] PlayerStats not found! Using base damage.");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (playerStats != null)
+            playerStats.OnStatsChanged -= OnStatsChanged;
+    }
+
+    private void OnStatsChanged()
+    {
+        Debug.Log($"[PlayerWeapons] Stats changed. Current damage: {damage}");
     }
     public virtual void Update()
     {
         mousePosition = gameManager.mousePosition;
     }
-    public virtual void OnAttack(InputAction.CallbackContext context)
+    public virtual void HandleAttackInput(InputAction.CallbackContext context)
     {
         if(context.started)
             animator.SetBool("attack", true);
@@ -42,5 +76,36 @@ public class PlayerWeapons : MonoBehaviour
     public virtual void BasicAttack()
     {
         Debug.LogWarning("You forgot to override BasicAttack"); //this must be overriden in every weapon. I can't use "abstract" because reasons
+    }
+
+    protected Vector2 GetAttackPosition(float customAttackDistance = -1f)
+    {
+        if (attackOrigin != null && attackOrigin.parent == transform)
+        {
+            return attackOrigin.position;
+        }
+
+        Vector2 weaponPos = transform.position;
+        Vector2 playerPos = player != null ? player.transform.position : weaponPos;
+        Vector2 direction = mousePosition - playerPos;
+
+        if (direction.sqrMagnitude < 0.0001f)
+            direction = Vector2.right;
+        direction.Normalize();
+
+        float distance = customAttackDistance >= 0f ? customAttackDistance : attackDistance;
+        return weaponPos + direction * distance;
+    }
+
+    protected Vector2 GetAttackDirection()
+    {
+        Vector2 playerPos = player != null ? player.transform.position : transform.position;
+        Vector2 direction = mousePosition - playerPos;
+
+        if (direction.sqrMagnitude < 0.0001f)
+            direction = Vector2.right;
+        direction.Normalize();
+
+        return direction;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyShooter))]
 public class TwoStateAI : Enemy
 {
+    //nothing here works. This is a template for the two state enemy, it will be implemented in the future.
     [Header("TwoState")]
     public GameObject attackPointRanged;
     public float attackRadius;
@@ -109,14 +110,14 @@ public class TwoStateAI : Enemy
         if (Mathf.Abs(distanceToPlayer - attackDistanceRange) <= 0.5f) //hold position if close to ideal distance
         {
 
-            GetComponent<EnemyShooter>().ProjectileAttack(playerLocationVector2);
+            //GetComponent<EnemyShooter>().ProjectileAttack(playerLocationVector2);
             attackCooldown = attackSpeed;
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
         else
             if (distanceToPlayer < attackDistanceRange) //disengage
             {
-                GetComponent<EnemyShooter>().ProjectileAttack(playerLocationVector2);
+                //GetComponent<EnemyShooter>().ProjectileAttack(playerLocationVector2);
                 attackCooldown = attackSpeed;
                 WalkToPlayer(-1);
             }

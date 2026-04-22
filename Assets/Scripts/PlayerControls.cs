@@ -174,9 +174,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ActivateMovementAccessory"",
+                    ""name"": ""ContinueDialogue"",
                     ""type"": ""Button"",
-                    ""id"": ""6c440aa0-0101-4ec8-bc35-859a8f7fcdac"",
+                    ""id"": ""74535bb0-90c5-41f8-9853-b264c3f145a1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3e0a6e2-d988-401a-ad5e-9141af70d5f4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -329,12 +338,56 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""29555c3c-9ac7-42a2-97c9-7fad29724272"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""c05ed805-f8f5-46f5-8766-2b80b15e866d"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ActivateMovementAccessory"",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f160e2ae-94bb-4bd5-8fbd-fcfac45fa389"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""385c4f5f-fa8c-415f-aed2-11fb9b438bd4"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""196efa3e-bcf6-47e3-a49d-e44a8a2fc615"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContinueDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0506cdea-0d82-479e-8769-037975cfcb1d"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -431,90 +484,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             ""name"": ""ManageWeapons"",
             ""id"": ""afb27921-a556-4913-ae2f-e29fe325e245"",
-            ""actions"": [
-                {
-                    ""name"": ""ChangeWeapon1"",
-                    ""type"": ""Button"",
-                    ""id"": ""16062808-e1e0-4a7d-ad0b-7fa5fff24532"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ChangeWeapon2"",
-                    ""type"": ""Button"",
-                    ""id"": ""8d5aaca5-c73a-4e91-b533-c5001db1a018"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ChangeWeapon3"",
-                    ""type"": ""Button"",
-                    ""id"": ""93cd3ee8-7e3c-43d6-9a74-40746e1c4179"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ChangeWeapon4"",
-                    ""type"": ""Button"",
-                    ""id"": ""c7e6c19f-1b18-4b4d-be00-526ad5ac586d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""d78999ae-1f39-4055-a17e-3f80a65eda94"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ChangeWeapon1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""47d738d5-22c6-4d5e-954c-2571a98c9b23"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ChangeWeapon2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cebe2773-b17b-4b23-946e-4bf55f8f83ae"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ChangeWeapon3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c771fa95-0445-4b13-b2e1-c4286837834d"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ChangeWeapon4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": []
@@ -530,7 +501,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_player_Respawn = m_player.FindAction("Respawn", throwIfNotFound: true);
         m_player_Down = m_player.FindAction("Down", throwIfNotFound: true);
         m_player_Pause = m_player.FindAction("Pause", throwIfNotFound: true);
-        m_player_ActivateMovementAccessory = m_player.FindAction("ActivateMovementAccessory", throwIfNotFound: true);
+        m_player_ContinueDialogue = m_player.FindAction("ContinueDialogue", throwIfNotFound: true);
+        m_player_Dash = m_player.FindAction("Dash", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_DebugAction1 = m_Debug.FindAction("DebugAction1", throwIfNotFound: true);
@@ -539,10 +511,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Debug_EnableDebug = m_Debug.FindAction("EnableDebug", throwIfNotFound: true);
         // ManageWeapons
         m_ManageWeapons = asset.FindActionMap("ManageWeapons", throwIfNotFound: true);
-        m_ManageWeapons_ChangeWeapon1 = m_ManageWeapons.FindAction("ChangeWeapon1", throwIfNotFound: true);
-        m_ManageWeapons_ChangeWeapon2 = m_ManageWeapons.FindAction("ChangeWeapon2", throwIfNotFound: true);
-        m_ManageWeapons_ChangeWeapon3 = m_ManageWeapons.FindAction("ChangeWeapon3", throwIfNotFound: true);
-        m_ManageWeapons_ChangeWeapon4 = m_ManageWeapons.FindAction("ChangeWeapon4", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -634,7 +602,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_player_Respawn;
     private readonly InputAction m_player_Down;
     private readonly InputAction m_player_Pause;
-    private readonly InputAction m_player_ActivateMovementAccessory;
+    private readonly InputAction m_player_ContinueDialogue;
+    private readonly InputAction m_player_Dash;
     /// <summary>
     /// Provides access to input actions defined in input action map "player".
     /// </summary>
@@ -683,9 +652,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_player_Pause;
         /// <summary>
-        /// Provides access to the underlying input action "player/ActivateMovementAccessory".
+        /// Provides access to the underlying input action "player/ContinueDialogue".
         /// </summary>
-        public InputAction @ActivateMovementAccessory => m_Wrapper.m_player_ActivateMovementAccessory;
+        public InputAction @ContinueDialogue => m_Wrapper.m_player_ContinueDialogue;
+        /// <summary>
+        /// Provides access to the underlying input action "player/Dash".
+        /// </summary>
+        public InputAction @Dash => m_Wrapper.m_player_Dash;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -739,9 +712,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @ActivateMovementAccessory.started += instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.performed += instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.canceled += instance.OnActivateMovementAccessory;
+            @ContinueDialogue.started += instance.OnContinueDialogue;
+            @ContinueDialogue.performed += instance.OnContinueDialogue;
+            @ContinueDialogue.canceled += instance.OnContinueDialogue;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         /// <summary>
@@ -780,9 +756,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @ActivateMovementAccessory.started -= instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.performed -= instance.OnActivateMovementAccessory;
-            @ActivateMovementAccessory.canceled -= instance.OnActivateMovementAccessory;
+            @ContinueDialogue.started -= instance.OnContinueDialogue;
+            @ContinueDialogue.performed -= instance.OnContinueDialogue;
+            @ContinueDialogue.canceled -= instance.OnContinueDialogue;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         /// <summary>
@@ -949,10 +928,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // ManageWeapons
     private readonly InputActionMap m_ManageWeapons;
     private List<IManageWeaponsActions> m_ManageWeaponsActionsCallbackInterfaces = new List<IManageWeaponsActions>();
-    private readonly InputAction m_ManageWeapons_ChangeWeapon1;
-    private readonly InputAction m_ManageWeapons_ChangeWeapon2;
-    private readonly InputAction m_ManageWeapons_ChangeWeapon3;
-    private readonly InputAction m_ManageWeapons_ChangeWeapon4;
     /// <summary>
     /// Provides access to input actions defined in input action map "ManageWeapons".
     /// </summary>
@@ -964,22 +939,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public ManageWeaponsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon1".
-        /// </summary>
-        public InputAction @ChangeWeapon1 => m_Wrapper.m_ManageWeapons_ChangeWeapon1;
-        /// <summary>
-        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon2".
-        /// </summary>
-        public InputAction @ChangeWeapon2 => m_Wrapper.m_ManageWeapons_ChangeWeapon2;
-        /// <summary>
-        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon3".
-        /// </summary>
-        public InputAction @ChangeWeapon3 => m_Wrapper.m_ManageWeapons_ChangeWeapon3;
-        /// <summary>
-        /// Provides access to the underlying input action "ManageWeapons/ChangeWeapon4".
-        /// </summary>
-        public InputAction @ChangeWeapon4 => m_Wrapper.m_ManageWeapons_ChangeWeapon4;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1006,18 +965,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_ManageWeaponsActionsCallbackInterfaces.Add(instance);
-            @ChangeWeapon1.started += instance.OnChangeWeapon1;
-            @ChangeWeapon1.performed += instance.OnChangeWeapon1;
-            @ChangeWeapon1.canceled += instance.OnChangeWeapon1;
-            @ChangeWeapon2.started += instance.OnChangeWeapon2;
-            @ChangeWeapon2.performed += instance.OnChangeWeapon2;
-            @ChangeWeapon2.canceled += instance.OnChangeWeapon2;
-            @ChangeWeapon3.started += instance.OnChangeWeapon3;
-            @ChangeWeapon3.performed += instance.OnChangeWeapon3;
-            @ChangeWeapon3.canceled += instance.OnChangeWeapon3;
-            @ChangeWeapon4.started += instance.OnChangeWeapon4;
-            @ChangeWeapon4.performed += instance.OnChangeWeapon4;
-            @ChangeWeapon4.canceled += instance.OnChangeWeapon4;
         }
 
         /// <summary>
@@ -1029,18 +976,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="ManageWeaponsActions" />
         private void UnregisterCallbacks(IManageWeaponsActions instance)
         {
-            @ChangeWeapon1.started -= instance.OnChangeWeapon1;
-            @ChangeWeapon1.performed -= instance.OnChangeWeapon1;
-            @ChangeWeapon1.canceled -= instance.OnChangeWeapon1;
-            @ChangeWeapon2.started -= instance.OnChangeWeapon2;
-            @ChangeWeapon2.performed -= instance.OnChangeWeapon2;
-            @ChangeWeapon2.canceled -= instance.OnChangeWeapon2;
-            @ChangeWeapon3.started -= instance.OnChangeWeapon3;
-            @ChangeWeapon3.performed -= instance.OnChangeWeapon3;
-            @ChangeWeapon3.canceled -= instance.OnChangeWeapon3;
-            @ChangeWeapon4.started -= instance.OnChangeWeapon4;
-            @ChangeWeapon4.performed -= instance.OnChangeWeapon4;
-            @ChangeWeapon4.canceled -= instance.OnChangeWeapon4;
         }
 
         /// <summary>
@@ -1145,12 +1080,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ActivateMovementAccessory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "ContinueDialogue" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnActivateMovementAccessory(InputAction.CallbackContext context);
+        void OnContinueDialogue(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Debug" which allows adding and removing callbacks.
@@ -1195,33 +1137,5 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <seealso cref="ManageWeaponsActions.RemoveCallbacks(IManageWeaponsActions)" />
     public interface IManageWeaponsActions
     {
-        /// <summary>
-        /// Method invoked when associated input action "ChangeWeapon1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnChangeWeapon1(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ChangeWeapon2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnChangeWeapon2(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ChangeWeapon3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnChangeWeapon3(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ChangeWeapon4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnChangeWeapon4(InputAction.CallbackContext context);
     }
 }

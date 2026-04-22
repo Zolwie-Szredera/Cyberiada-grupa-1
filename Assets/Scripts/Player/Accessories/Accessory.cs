@@ -2,8 +2,11 @@ using UnityEngine;
 
 public abstract class Accessory : ScriptableObject
 {
-    public int slot; // 0 - head, 1 - body, 2 - arms, 3 - legs, 4 - all (for no accossory)
-    //I don't think this int will be useful for anything besdides identifying the type of accessory
-    public abstract void Apply();
-    public abstract void Remove();
+    public string displayName = "Unknown Accessory";
+    public string description = "";
+    public Sprite icon;
+    //if display name, show normal name
+    public string Name => string.IsNullOrEmpty(displayName) ? name : displayName;
+    public abstract void Apply(PlayerStats stats);
+    public abstract void Remove(PlayerStats stats);
 }

@@ -63,14 +63,6 @@ MonoBehaviour:
     m_Key: menu.exitGame
     m_Metadata:
       m_Items: []
-  - m_Id: 37310631422255104
-    m_Key: HowToPlay1Controls
-    m_Metadata:
-      m_Items: []
-  - m_Id: 37315326152859648
-    m_Key: HowToPlay2Blood+jump
-    m_Metadata:
-      m_Items: []
   - m_Id: 39841178782588928
     m_Key: Victory
     m_Metadata:
@@ -85,30 +77,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 46663325614137344
     m_Key: returningIn
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54265893806809088
-    m_Key: hi
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54265977814523904
-    m_Key: 1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54266019493322752
-    m_Key: 2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54266030830526464
-    m_Key: 3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54266041907683328
-    m_Key: 4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 54266050405343232
-    m_Key: 5
     m_Metadata:
       m_Items: []
   m_Metadata:

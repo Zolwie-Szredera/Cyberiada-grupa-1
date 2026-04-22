@@ -3,16 +3,13 @@ using UnityEngine;
 public class BlackBileFlyAttack : EnemyShooter
 {
     [Header("Warning: explosion uses regular damage, not arc damage!")]
-    public int arcProjectileDamage = 10;
+    public int arcProjectileDamage;
     [SerializeField] private ProjectileArc projectileArcPrefab;
     [SerializeField] private int explosionProjectileCount = 8;
     public void ProjectileArcAttack(Transform target)
     {
         ProjectileArc projectile = Instantiate(projectileArcPrefab, attackPoint.position, Quaternion.identity);
-        projectile.IgnoreParentObject(gameObject);
-        projectile.GetComponent<Projectile>().timeToLive = projectileTimeToLive;
-        projectile.damage = arcProjectileDamage;
-        projectile.target = target.position;
+        projectile.Initiate(arcProjectileDamage, projectileTimeToLive, target.position, gameObject);
         // projectile.speed is set in the prefab (ProjectileArc.cs), not here, because it is used to calculate the arc trajectory.
     }
     public void Explode()

@@ -74,14 +74,15 @@ public class EncounterHandler : MonoBehaviour
             {
                 wavesSpawners[currentWave - 1].Cleanup();
                 encounterCompleted = true;
+                //FIX THIS: I had to remove this because doors got closed at the wrong time.
                 // Remove start tiles before placing end tiles
-                if (ExecuteOnEncounterStart.Length > 0)
-                {
-                    foreach (Action action in ExecuteOnEncounterStart)
-                    {
-                        action.UndoAction();
-                    }
-                }
+                //if (ExecuteOnEncounterStart.Length > 0)
+                //{
+                //    foreach (Action action in ExecuteOnEncounterStart)
+                //    {
+                //        action.UndoAction();
+                //    }
+                //}
                 // Place end tiles
                 if (ExecuteOnEncounterEnd.Length > 0)
                 {

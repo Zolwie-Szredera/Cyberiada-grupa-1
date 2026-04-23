@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic; // Wymagane dla Listy
 
-public class MuffetInputMovement : MonoBehaviour
+public class lines_movement : MonoBehaviour
 {
     [Header("Linie (Przeci¹gnij obiekty z hierarchii)")]
     public Transform[] lineAnchors;
@@ -14,9 +15,8 @@ public class MuffetInputMovement : MonoBehaviour
 
     private float horizontalInput = 0f;
 
-    // Zmienne do œledzenia stanu klawiszy
-    private bool isLeftPressed = false;
-    private bool isRightPressed = false;
+    // Lista przechowuj¹ca wciœniête kierunki w kolejnoœci ich naciskania
+    private List<float> inputStack = new List<float>();
 
     // --- LOGIKA SKOKU (Góra/Dó³) ---
 
@@ -24,9 +24,7 @@ public class MuffetInputMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Klikniêto: GÓRA");
-            if (currentLine > 0)
-                currentLine--;
+            if (currentLine > 0) currentLine--;
         }
     }
 
@@ -34,27 +32,25 @@ public class MuffetInputMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Klikniêto: DÓ£");
-            // Dodano bezpieczne sprawdzenie d³ugoœci tablicy
             if (lineAnchors != null && lineAnchors.Length > 0 && currentLine < lineAnchors.Length - 1)
                 currentLine++;
         }
     }
 
-    // --- LOGIKA RUCHU BOKIEM (Lewo/Prawo) ---
+    // --- LOGIKA RUCHU BOKIEM (Priorytet ostatniego klawisza) ---
 
     public void OnGoLeft(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log("Wciœniêto: LEWO");
-            isLeftPressed = true;
+            // Dodaj -1 (lewo) na koniec listy
+            if (!inputStack.Contains(-1f)) inputStack.Add(-1f);
         }
         else if (context.canceled)
         {
-            isLeftPressed = false;
+            // Usuñ -1 z listy gdy puœcisz klawisz
+            inputStack.Remove(-1f);
         }
-
         UpdateHorizontalInput();
     }
 
@@ -62,32 +58,23 @@ public class MuffetInputMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Wciœniêto: PRAWO");
-            isRightPressed = true;
+            // Dodaj 1 (prawo) na koniec listy
+            if (!inputStack.Contains(1f)) inputStack.Add(1f);
         }
         else if (context.canceled)
         {
-            isRightPressed = false;
+            // Usuñ 1 z listy gdy puœcisz klawisz
+            inputStack.Remove(1f);
         }
-
         UpdateHorizontalInput();
     }
 
-    // Decyduje o kierunku na podstawie wciœniêtych klawiszy
     private void UpdateHorizontalInput()
     {
-        if (isLeftPressed && isRightPressed)
+        if (inputStack.Count > 0)
         {
-            // Jeœli trzymasz oba, stoisz w miejscu (jak w Undertale)
-            horizontalInput = 0f;
-        }
-        else if (isLeftPressed)
-        {
-            horizontalInput = -1f;
-        }
-        else if (isRightPressed)
-        {
-            horizontalInput = 1f;
+            // horizontalInput to ostatni element dodany do listy
+            horizontalInput = inputStack[inputStack.Count - 1];
         }
         else
         {
@@ -97,23 +84,17 @@ public class MuffetInputMovement : MonoBehaviour
 
     void Update()
     {
-        // 1. Obliczanie pozycji poziomej (X)
         float newX = transform.position.x + (horizontalInput * moveSpeed * Time.deltaTime);
         newX = Mathf.Clamp(newX, -boundaryX, boundaryX);
 
-        // 2. Obliczanie pozycji pionowej (Y)
         float targetY = transform.position.y;
-
         if (lineAnchors != null && lineAnchors.Length > 0)
         {
             currentLine = Mathf.Clamp(currentLine, 0, lineAnchors.Length - 1);
             targetY = lineAnchors[currentLine].position.y;
         }
 
-        // 3. P³ynne przesuwanie serca
         float smoothY = Mathf.MoveTowards(transform.position.y, targetY, transitionSpeed * Time.deltaTime);
-
-        // Aplikacja nowej pozycji (z zachowaniem oryginalnego Z)
         transform.position = new Vector3(newX, smoothY, transform.position.z);
     }
 }

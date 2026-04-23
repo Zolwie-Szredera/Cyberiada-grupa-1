@@ -5,17 +5,20 @@ public class MuffetInputMovement : MonoBehaviour
 {
     [Header("Linie (Przeci¹gnij obiekty z hierarchii)")]
     public Transform[] lineAnchors;
-    private int currentLine = 1; // Start na œrodkowej linii
+    private int currentLine = 1;
 
     [Header("Parametry Ruchu")]
     public float moveSpeed = 5f;
     public float transitionSpeed = 20f;
-    public float boundaryX = 3f; // Szerokoœæ Twojego pude³ka
+    public float boundaryX = 3f;
 
     private float horizontalInput = 0f;
 
+    // Zmienne do œledzenia stanu klawiszy
+    private bool isLeftPressed = false;
+    private bool isRightPressed = false;
+
     // --- LOGIKA SKOKU (Góra/Dó³) ---
-    // Te metody podpinasz w Player Input -> Events
 
     public void OnGoUp(InputAction.CallbackContext context)
     {
@@ -32,7 +35,8 @@ public class MuffetInputMovement : MonoBehaviour
         if (context.performed)
         {
             Debug.Log("Klikniêto: DÓ£");
-            if (lineAnchors != null && currentLine < lineAnchors.Length - 1)
+            // Dodano bezpieczne sprawdzenie d³ugoœci tablicy
+            if (lineAnchors != null && lineAnchors.Length > 0 && currentLine < lineAnchors.Length - 1)
                 currentLine++;
         }
     }
@@ -44,12 +48,14 @@ public class MuffetInputMovement : MonoBehaviour
         if (context.performed)
         {
             Debug.Log("Wciœniêto: LEWO");
-            horizontalInput = -1f;
+            isLeftPressed = true;
         }
         else if (context.canceled)
         {
-            horizontalInput = 0f;
+            isLeftPressed = false;
         }
+
+        UpdateHorizontalInput();
     }
 
     public void OnGoRight(InputAction.CallbackContext context)
@@ -57,9 +63,33 @@ public class MuffetInputMovement : MonoBehaviour
         if (context.performed)
         {
             Debug.Log("Wciœniêto: PRAWO");
-            horizontalInput = 1f;
+            isRightPressed = true;
         }
         else if (context.canceled)
+        {
+            isRightPressed = false;
+        }
+
+        UpdateHorizontalInput();
+    }
+
+    // Decyduje o kierunku na podstawie wciœniêtych klawiszy
+    private void UpdateHorizontalInput()
+    {
+        if (isLeftPressed && isRightPressed)
+        {
+            // Jeœli trzymasz oba, stoisz w miejscu (jak w Undertale)
+            horizontalInput = 0f;
+        }
+        else if (isLeftPressed)
+        {
+            horizontalInput = -1f;
+        }
+        else if (isRightPressed)
+        {
+            horizontalInput = 1f;
+        }
+        else
         {
             horizontalInput = 0f;
         }
@@ -72,21 +102,18 @@ public class MuffetInputMovement : MonoBehaviour
         newX = Mathf.Clamp(newX, -boundaryX, boundaryX);
 
         // 2. Obliczanie pozycji pionowej (Y)
-        float targetY = transform.position.y; // Domyœlnie zostajemy na obecnym Y
+        float targetY = transform.position.y;
 
-        // Sprawdzamy, czy lista linii nie jest pusta, aby unikn¹æ b³êdu IndexOutOfRange
         if (lineAnchors != null && lineAnchors.Length > 0)
         {
-            // Zabezpieczenie: upewnij siê, ¿e currentLine mieœci siê w tablicy
             currentLine = Mathf.Clamp(currentLine, 0, lineAnchors.Length - 1);
-
             targetY = lineAnchors[currentLine].position.y;
         }
 
         // 3. P³ynne przesuwanie serca
         float smoothY = Mathf.MoveTowards(transform.position.y, targetY, transitionSpeed * Time.deltaTime);
 
-        // Aplikacja nowej pozycji
+        // Aplikacja nowej pozycji (z zachowaniem oryginalnego Z)
         transform.position = new Vector3(newX, smoothY, transform.position.z);
     }
 }

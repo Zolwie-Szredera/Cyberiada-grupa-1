@@ -486,6 +486,138 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""afb27921-a556-4913-ae2f-e29fe325e245"",
             ""actions"": [],
             ""bindings"": []
+        },
+        {
+            ""name"": ""SecretLevel"",
+            ""id"": ""a6d53a47-7b95-4496-82c2-762bac29caed"",
+            ""actions"": [
+                {
+                    ""name"": ""MoveLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5f4d357-ce6f-488b-9a12-9b060e788984"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""a528de1d-f03e-4927-9cbe-67d2f3c64cb0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea6e9561-4622-4d33-b816-1b75ef550060"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fe11614-6dc3-40aa-9e42-75d5a5a4bb7a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""609106af-52f7-4f41-83f9-17b28cfffd94"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4dd87484-b1f6-427f-a606-0715de114825"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3617f438-91d4-41e1-9b39-89cc47d542d3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e8baafa-5311-4bfb-87c6-040d229f5213"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3a1224a-d04f-4ae4-87b9-15785d904e44"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09ae7c81-4b8d-4f2c-bf65-a7c3ce344a9e"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cc9a379-f05f-414a-8030-9f8a68ff65a6"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a343140a-1931-466f-9d5a-113ed99c8747"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -511,6 +643,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Debug_EnableDebug = m_Debug.FindAction("EnableDebug", throwIfNotFound: true);
         // ManageWeapons
         m_ManageWeapons = asset.FindActionMap("ManageWeapons", throwIfNotFound: true);
+        // SecretLevel
+        m_SecretLevel = asset.FindActionMap("SecretLevel", throwIfNotFound: true);
+        m_SecretLevel_MoveLeft = m_SecretLevel.FindAction("MoveLeft", throwIfNotFound: true);
+        m_SecretLevel_MoveRight = m_SecretLevel.FindAction("MoveRight", throwIfNotFound: true);
+        m_SecretLevel_MoveUp = m_SecretLevel.FindAction("MoveUp", throwIfNotFound: true);
+        m_SecretLevel_MoveDown = m_SecretLevel.FindAction("MoveDown", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -518,6 +656,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_player.enabled, "This will cause a leak and performance issues, PlayerControls.player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Debug.enabled, "This will cause a leak and performance issues, PlayerControls.Debug.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_ManageWeapons.enabled, "This will cause a leak and performance issues, PlayerControls.ManageWeapons.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_SecretLevel.enabled, "This will cause a leak and performance issues, PlayerControls.SecretLevel.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1009,6 +1148,135 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="ManageWeaponsActions" /> instance referencing this action map.
     /// </summary>
     public ManageWeaponsActions @ManageWeapons => new ManageWeaponsActions(this);
+
+    // SecretLevel
+    private readonly InputActionMap m_SecretLevel;
+    private List<ISecretLevelActions> m_SecretLevelActionsCallbackInterfaces = new List<ISecretLevelActions>();
+    private readonly InputAction m_SecretLevel_MoveLeft;
+    private readonly InputAction m_SecretLevel_MoveRight;
+    private readonly InputAction m_SecretLevel_MoveUp;
+    private readonly InputAction m_SecretLevel_MoveDown;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "SecretLevel".
+    /// </summary>
+    public struct SecretLevelActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public SecretLevelActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "SecretLevel/MoveLeft".
+        /// </summary>
+        public InputAction @MoveLeft => m_Wrapper.m_SecretLevel_MoveLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "SecretLevel/MoveRight".
+        /// </summary>
+        public InputAction @MoveRight => m_Wrapper.m_SecretLevel_MoveRight;
+        /// <summary>
+        /// Provides access to the underlying input action "SecretLevel/MoveUp".
+        /// </summary>
+        public InputAction @MoveUp => m_Wrapper.m_SecretLevel_MoveUp;
+        /// <summary>
+        /// Provides access to the underlying input action "SecretLevel/MoveDown".
+        /// </summary>
+        public InputAction @MoveDown => m_Wrapper.m_SecretLevel_MoveDown;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_SecretLevel; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="SecretLevelActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(SecretLevelActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="SecretLevelActions" />
+        public void AddCallbacks(ISecretLevelActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SecretLevelActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SecretLevelActionsCallbackInterfaces.Add(instance);
+            @MoveLeft.started += instance.OnMoveLeft;
+            @MoveLeft.performed += instance.OnMoveLeft;
+            @MoveLeft.canceled += instance.OnMoveLeft;
+            @MoveRight.started += instance.OnMoveRight;
+            @MoveRight.performed += instance.OnMoveRight;
+            @MoveRight.canceled += instance.OnMoveRight;
+            @MoveUp.started += instance.OnMoveUp;
+            @MoveUp.performed += instance.OnMoveUp;
+            @MoveUp.canceled += instance.OnMoveUp;
+            @MoveDown.started += instance.OnMoveDown;
+            @MoveDown.performed += instance.OnMoveDown;
+            @MoveDown.canceled += instance.OnMoveDown;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="SecretLevelActions" />
+        private void UnregisterCallbacks(ISecretLevelActions instance)
+        {
+            @MoveLeft.started -= instance.OnMoveLeft;
+            @MoveLeft.performed -= instance.OnMoveLeft;
+            @MoveLeft.canceled -= instance.OnMoveLeft;
+            @MoveRight.started -= instance.OnMoveRight;
+            @MoveRight.performed -= instance.OnMoveRight;
+            @MoveRight.canceled -= instance.OnMoveRight;
+            @MoveUp.started -= instance.OnMoveUp;
+            @MoveUp.performed -= instance.OnMoveUp;
+            @MoveUp.canceled -= instance.OnMoveUp;
+            @MoveDown.started -= instance.OnMoveDown;
+            @MoveDown.performed -= instance.OnMoveDown;
+            @MoveDown.canceled -= instance.OnMoveDown;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="SecretLevelActions.UnregisterCallbacks(ISecretLevelActions)" />.
+        /// </summary>
+        /// <seealso cref="SecretLevelActions.UnregisterCallbacks(ISecretLevelActions)" />
+        public void RemoveCallbacks(ISecretLevelActions instance)
+        {
+            if (m_Wrapper.m_SecretLevelActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="SecretLevelActions.AddCallbacks(ISecretLevelActions)" />
+        /// <seealso cref="SecretLevelActions.RemoveCallbacks(ISecretLevelActions)" />
+        /// <seealso cref="SecretLevelActions.UnregisterCallbacks(ISecretLevelActions)" />
+        public void SetCallbacks(ISecretLevelActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SecretLevelActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SecretLevelActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="SecretLevelActions" /> instance referencing this action map.
+    /// </summary>
+    public SecretLevelActions @SecretLevel => new SecretLevelActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "player" which allows adding and removing callbacks.
     /// </summary>
@@ -1137,5 +1405,41 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <seealso cref="ManageWeaponsActions.RemoveCallbacks(IManageWeaponsActions)" />
     public interface IManageWeaponsActions
     {
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "SecretLevel" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="SecretLevelActions.AddCallbacks(ISecretLevelActions)" />
+    /// <seealso cref="SecretLevelActions.RemoveCallbacks(ISecretLevelActions)" />
+    public interface ISecretLevelActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "MoveLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMoveLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MoveRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMoveRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MoveUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMoveUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MoveDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMoveDown(InputAction.CallbackContext context);
     }
 }

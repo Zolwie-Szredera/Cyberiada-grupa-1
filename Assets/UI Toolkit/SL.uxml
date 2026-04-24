@@ -1,7 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/SL.uss?fileID=7433441132597879392&amp;guid=90c80d087d37ddeb08a623692dffa9bf&amp;type=3#SL"/>
     <ui:VisualElement style="flex-grow: 1;">
-        <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement style="flex-grow: 1;"/>
+        <ui:VisualElement style="flex-grow: 1;"/>
+        <ui:VisualElement style="flex-grow: 1; justify-content: flex-end;">
             <ui:VisualElement name="Gambling" class="gambling">
                 <ui:VisualElement name="LP" class="box lp slot-l">
                     <ui:Label text="N"/>
@@ -25,7 +27,5 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1;"/>
-        <ui:VisualElement style="flex-grow: 1;"/>
     </ui:VisualElement>
 </ui:UXML>

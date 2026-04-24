@@ -10,6 +10,7 @@
     -unity-text-outline-color: black    ;
     border-color: gold;
     border-width: 2px;
+    width: 10%;
     flex-direction: row;
     align-self: center;
     scale: 2;

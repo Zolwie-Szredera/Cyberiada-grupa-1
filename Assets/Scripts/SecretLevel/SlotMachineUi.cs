@@ -13,7 +13,7 @@ namespace SecretLevel
         [Header("Roll animation")]
         [SerializeField] private float rollDuration = 0.8f;
         [SerializeField] private float rollStepInterval = 0.06f;
-        [SerializeField] private float resultVisibleDuration = 1.0f;
+        [SerializeField] private float resultVisibleDuration = 3.0f;
 
         private UIDocument _uiDocument;
         private VisualElement _slotRoot;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class SecretPlayer : MonoBehaviour
 {
+    public float mainTimer = 0;
+    public GameObject tutorialCanvas;
     // --- NOWE POLA DLA SERC ---
     [Header("UI Serca")]
     public GameObject[] hearts; // Przeciągnij tutaj swoje serca z hierarchii
@@ -105,6 +107,11 @@ public class SecretPlayer : MonoBehaviour
         {
             immuneTimer = 0f;
             SetImmuneVisual(false);
+        }
+        mainTimer += Time.deltaTime;
+        if(mainTimer > 15f)
+        {
+            tutorialCanvas.SetActive(false);
         }
     }
 

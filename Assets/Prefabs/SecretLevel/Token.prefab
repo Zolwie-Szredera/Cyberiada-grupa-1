@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1269883285017476426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6481408365927566396}
+  m_Layer: 10
+  m_Name: attackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6481408365927566396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269883285017476426}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3458674365519643059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4359942040933025519
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,8 +46,9 @@ GameObject:
   - component: {fileID: 3231922074548244138}
   - component: {fileID: 4717995888913330840}
   - component: {fileID: 4380660332674550983}
+  - component: {fileID: -8244199431602997653}
   m_Layer: 10
-  m_Name: Player
+  m_Name: Token
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +66,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -10.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6481408365927566396}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &521590268737719331
@@ -86,7 +119,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 5124950127162372247, guid: f7d252441147d2b4fb836ac04671aa2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,17 +163,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.8885696}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.9375, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9375, y: 1.7771392}
   m_EdgeRadius: 0
 --- !u!50 &1715597132652976334
 Rigidbody2D:
@@ -323,7 +356,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4717995888913330840}
         m_TargetAssemblyTypeName: SecretPlayerShoot, Assembly-CSharp
         m_MethodName: OnShoot
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -351,9 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755feebdaed4db746b3a854557329b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SecretPlayerShoot
-  projectilePrefab: {fileID: 667607137140882554, guid: 21f2f0ad0a2a8b5419dfad43de961ca9, type: 3}
+  projectilePrefab: {fileID: 667607137140882554, guid: 5b5d9a269575ba84c9dfb8234ddbe56a, type: 3}
   shootCooldown: 1
-  projectileSpeed: 5
+  projectileSpeed: 10
+  attackPoint: {fileID: 6481408365927566396}
 --- !u!114 &4380660332674550983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,8 +400,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09ebfb6fa876db4daf12d63598fb4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SecretPlayer
-  lineAnchors: []
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lineAnchors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   moveSpeed: 5
   transitionSpeed: 20
-  boundaryX: 3
-  maxHealth: 100
+  boundaryX: 19.5
+  maxHealth: 5
+  immunityDuration: 1
+  spriteFlash: {fileID: 0}
+--- !u!114 &-8244199431602997653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359942040933025519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c19ad877d414216a04e0971fbe240dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlash
+  flashMaterial: {fileID: 2100000, guid: 9b8b35208a36529409f1f5db7479650f, type: 2}
+  duration: 0.1

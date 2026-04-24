@@ -16,8 +16,9 @@ public class SecretPlayer : MonoBehaviour
     public float maxHealth = 100f;
     private float currentHealth;
     private float horizontalInput = 0f;
+    public float immunityDuration;
 
-    public float iFrames = 0f;
+    private float immuneTimer = 0;
     private readonly List<float> inputStack = new();
 
     public void OnGoUp(InputAction.CallbackContext context)
@@ -96,6 +97,11 @@ public class SecretPlayer : MonoBehaviour
 
         float smoothY = Mathf.MoveTowards(transform.position.y, targetY, transitionSpeed * Time.deltaTime);
         transform.position = new Vector3(newX, smoothY, transform.position.z);
+
+        if(immuneTimer > 0)
+        {
+            immuneTimer -= Time.deltaTime;
+        }
     }
 
     void Start()
@@ -107,16 +113,13 @@ public class SecretPlayer : MonoBehaviour
     // Metoda do zadawania obra�e�, kt�r� mo�esz wywo�a� z innych skrypt�w
     public void TakeDamage(float amount)
     {
-        if(iFrames > 0)
+        if(immuneTimer > 0)
         {
-            iFrames -= 1f;
             return;
         }
-
-        iFrames = 5f;
         currentHealth -= amount;
-        Debug.Log("Gracz otrzyma� obra�enia. Aktualne HP: " + currentHealth);
-
+        Debug.Log("Gracz otrzymal obrazenia: " + amount +  ". Aktualne HP: " + currentHealth);
+        immuneTimer = immunityDuration;
         // Sprawdzenie czy gracz powinien znikn��
         if (currentHealth <= 0)
         {

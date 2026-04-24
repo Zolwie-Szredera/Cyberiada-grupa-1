@@ -13,8 +13,10 @@ namespace SecretLevel
         [Header("Roll animation")]
         [SerializeField] private float rollDuration = 0.8f;
         [SerializeField] private float rollStepInterval = 0.06f;
+        [SerializeField] private float resultVisibleDuration = 1.0f;
 
         private UIDocument _uiDocument;
+        private VisualElement _slotRoot;
         private Label _st3Label;
         private Coroutine _rollCoroutine;
 
@@ -26,6 +28,18 @@ namespace SecretLevel
         private void OnEnable()
         {
             CacheSt3Label();
+            SetSlotVisible(false);
+        }
+
+        private void OnDisable()
+        {
+            if (_rollCoroutine != null)
+            {
+                StopCoroutine(_rollCoroutine);
+                _rollCoroutine = null;
+            }
+
+            SetSlotVisible(false);
         }
 
         public PowerUpType? RollRandomItem(List<PowerUpType> items)
@@ -67,6 +81,7 @@ namespace SecretLevel
                 StopCoroutine(_rollCoroutine);
             }
 
+            SetSlotVisible(true);
             _rollCoroutine = StartCoroutine(RollVisualToFinal(items, finalItem));
         }
 
@@ -96,6 +111,13 @@ namespace SecretLevel
             }
 
             _st3Label.text = GetDisplayName(finalItem);
+
+            if (resultVisibleDuration > 0f)
+            {
+                yield return new WaitForSeconds(resultVisibleDuration);
+            }
+
+            SetSlotVisible(false);
             _rollCoroutine = null;
         }
 
@@ -108,10 +130,12 @@ namespace SecretLevel
 
             if (_uiDocument == null || _uiDocument.rootVisualElement == null)
             {
+                _slotRoot = null;
                 _st3Label = null;
                 return;
             }
 
+            _slotRoot = _uiDocument.rootVisualElement.Q<VisualElement>("Gambling");
             VisualElement st3 = _uiDocument.rootVisualElement.Q<VisualElement>("ST3");
             _st3Label = st3 != null ? st3.Q<Label>() : null;
         }
@@ -136,7 +160,23 @@ namespace SecretLevel
                 _rollCoroutine = null;
             }
 
+            SetSlotVisible(true);
             _st3Label.text = GetDisplayName(item);
+        }
+
+        private void SetSlotVisible(bool isVisible)
+        {
+            if (_slotRoot == null)
+            {
+                CacheSt3Label();
+            }
+
+            if (_slotRoot == null)
+            {
+                return;
+            }
+
+            _slotRoot.style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         private static string GetDisplayName(PowerUpType value)

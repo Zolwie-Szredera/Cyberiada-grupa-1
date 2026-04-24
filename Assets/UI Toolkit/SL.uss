@@ -7,17 +7,21 @@
     /*margin-bottom: 50px;*/
     color: white;
     -unity-text-outline-width: 1px;
-    -unity-text-outline-color: black;
+    -unity-text-outline-color: black    ;
+    border-color: gold;
+    border-width: 2px;
     flex-direction: row;
-    align-self: flex-end;
+    align-self: center;
+    scale: 2;
+    margin-bottom: 600px;
     /*scale: 1.5;*/
     -unity-font-style: bold;
-    font-size: 150%;
-    margin: 1%;
-    margin-right: 4%;
+    /*font-size: 1%;*/
     /*padding: 20;*4
     /*background-color: black;*/
     /*border-radius: 8px;*/
+    background-color: black;
+    padding: 20px;
 }
 
 .main-box {
@@ -33,12 +37,12 @@
 }
 
 .slot-item {
-    opacity: 0.60;
+    opacity: 0.70;
 }
 
 .slot-item2 {
     opacity: 0.35;
-    display: none;
+    /*display: none;*/
 }
 
 /*.slot-item--near {*/

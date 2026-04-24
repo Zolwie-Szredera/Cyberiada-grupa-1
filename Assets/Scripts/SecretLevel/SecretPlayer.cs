@@ -16,6 +16,8 @@ public class SecretPlayer : MonoBehaviour
     public float maxHealth = 100f;
     private float currentHealth;
     private float horizontalInput = 0f;
+
+    public float iFrames = 0f;
     private readonly List<float> inputStack = new();
 
     public void OnGoUp(InputAction.CallbackContext context)
@@ -105,6 +107,13 @@ public class SecretPlayer : MonoBehaviour
     // Metoda do zadawania obra�e�, kt�r� mo�esz wywo�a� z innych skrypt�w
     public void TakeDamage(float amount)
     {
+        if(iFrames > 0)
+        {
+            iFrames -= 1f;
+            return;
+        }
+
+        iFrames = 5f;
         currentHealth -= amount;
         Debug.Log("Gracz otrzyma� obra�enia. Aktualne HP: " + currentHealth);
 

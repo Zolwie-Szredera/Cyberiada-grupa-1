@@ -6,12 +6,17 @@ namespace SecretLevel
     [RequireComponent(typeof(Collider2D))]
     public class SlotMachineTriggerRoll : MonoBehaviour
     {
-        [SerializeField] private SlotMachineUi _slotMachineUi;
-        [SerializeField] private List<PowerUpType> _allowedPowerUps = new();
-        [SerializeField] private string _targetTag = "Player";
-        [SerializeField] private bool _triggerOnlyOnce = true;
+        [SerializeField] private SlotMachineUi slotMachineUi;
+        [SerializeField] private List<PowerUpType> allowedPowerUps = new();
+        [SerializeField] private string targetTag = "Player";
+        [SerializeField] private bool triggerOnlyOnce = true;
 
         private bool _used;
+
+        private void Awake()
+        {
+            TryResolveSlotMachineUi();
+        }
 
         private void Reset()
         {
@@ -24,30 +29,57 @@ namespace SecretLevel
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (_triggerOnlyOnce && _used)
+            if (triggerOnlyOnce && _used)
             {
                 return;
             }
 
-            if (!other.CompareTag(_targetTag))
+            if (!other.CompareTag(targetTag))
             {
                 return;
             }
 
-            if (_slotMachineUi == null)
+            if (slotMachineUi == null)
+            {
+                TryResolveSlotMachineUi();
+            }
+
+            if (slotMachineUi == null)
             {
                 Debug.LogWarning("[SlotMachineTriggerRoll] Missing SlotMachineUi reference.");
                 return;
             }
 
-            PowerUpType? rolled = (_allowedPowerUps != null && _allowedPowerUps.Count > 0)
-                ? _slotMachineUi.RollRandomItem(_allowedPowerUps)
-                : _slotMachineUi.RollRandomItem();
+            PowerUpType? rolled = (allowedPowerUps != null && allowedPowerUps.Count > 0)
+                ? slotMachineUi.RollRandomItem(allowedPowerUps)
+                : slotMachineUi.RollRandomItem();
 
             if (rolled.HasValue)
             {
                 _used = true;
             }
+        }
+
+        private void TryResolveSlotMachineUi()
+        {
+            if (slotMachineUi != null)
+            {
+                return;
+            }
+
+            slotMachineUi = GetComponent<SlotMachineUi>();
+            if (slotMachineUi != null)
+            {
+                return;
+            }
+
+            slotMachineUi = GetComponentInParent<SlotMachineUi>();
+            if (slotMachineUi != null)
+            {
+                return;
+            }
+
+            slotMachineUi = FindAnyObjectByType<SlotMachineUi>();
         }
     }
 }

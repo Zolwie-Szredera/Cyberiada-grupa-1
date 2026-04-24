@@ -22,16 +22,19 @@ public class Dash : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public GameObject dashAfterimagePrefab;
     private PlayerHealth playerHealth;
+    private SpriteFlash spriteFlash;
     private PlayerController playerController;
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private float dashTimer;
     private float dashDurationTimer;
-    public void Start()
+    private void Awake()
     {
+        spriteFlash = GetComponentInChildren<SpriteFlash>(true);
         playerHealth = GetComponent<PlayerHealth>();
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
     }
     public void Update()
     {
@@ -55,6 +58,7 @@ public class Dash : MonoBehaviour
             if (dashTimer <= 0f)
             {
                 dashState = DashState.Ready;
+                spriteFlash.CallFlash();
             }
         }
     }

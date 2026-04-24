@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 6033959841811657607}
   - component: {fileID: 8216767081518279731}
   - component: {fileID: 946455277480449385}
+  - component: {fileID: 3551021244170150587}
   m_Layer: 0
   m_Name: Player Sprite
   m_TagString: Untagged
@@ -803,6 +804,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3551021244170150587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168076235023819290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c19ad877d414216a04e0971fbe240dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlash
+  flashMaterial: {fileID: 2100000, guid: 9b8b35208a36529409f1f5db7479650f, type: 2}
+  duration: 0.1
 --- !u!1 &4538534112938561204
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +835,7 @@ GameObject:
   - component: {fileID: 5673461931028622329}
   - component: {fileID: 7898632803644309502}
   - component: {fileID: 1234567892}
+  - component: {fileID: 9058750630403479489}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1011,22 +1027,6 @@ MonoBehaviour:
     m_ActionId: ae77ecbf-3b0c-4baa-bb52-18a1d9601c20
     m_ActionName: 'player/MousePosition[/Mouse/position]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 16062808-e1e0-4a7d-ad0b-7fa5fff24532
-    m_ActionName: 'ManageWeapons/ChangeWeapon1[/Keyboard/1]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8d5aaca5-c73a-4e91-b533-c5001db1a018
-    m_ActionName: 'ManageWeapons/ChangeWeapon2[/Keyboard/2]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 93cd3ee8-7e3c-43d6-9a74-40746e1c4179
-    m_ActionName: 'ManageWeapons/ChangeWeapon3[/Keyboard/3]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c7e6c19f-1b18-4b4d-be00-526ad5ac586d
-    m_ActionName: 'ManageWeapons/ChangeWeapon4[/Keyboard/4]'
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5673461931028622329}
         m_TargetAssemblyTypeName: CheckpointSystem, Assembly-CSharp
@@ -1064,8 +1064,32 @@ MonoBehaviour:
     m_ActionName: 'player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6c440aa0-0101-4ec8-bc35-859a8f7fcdac
-    m_ActionName: 'player/ActivateMovementAccessory[/Keyboard/shift]'
+    m_ActionId: 74535bb0-90c5-41f8-9853-b264c3f145a1
+    m_ActionName: 'player/ContinueDialogue[/Keyboard/space,/Keyboard/e,/Mouse/press,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b3e0a6e2-d988-401a-ad5e-9141af70d5f4
+    m_ActionName: 'player/Dash[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c5f4d357-ce6f-488b-9a12-9b060e788984
+    m_ActionName: 'SecretLevel/MoveLeft[/Keyboard/a,/Keyboard/leftArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a528de1d-f03e-4927-9cbe-67d2f3c64cb0
+    m_ActionName: 'SecretLevel/MoveRight[/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ea6e9561-4622-4d33-b816-1b75ef550060
+    m_ActionName: 'SecretLevel/MoveUp[/Keyboard/w,/Keyboard/upArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2fe11614-6dc3-40aa-9e42-75d5a5a4bb7a
+    m_ActionName: 'SecretLevel/MoveDown[/Keyboard/s,/Keyboard/downArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7f348501-785e-45a0-bd1b-b3152ea051d2
+    m_ActionName: 'SecretLevel/Shoot[/Mouse/leftButton,/Keyboard/z]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: player
@@ -1192,6 +1216,20 @@ MonoBehaviour:
   baseSwordDamage: 10
   baseRangedDamage: 20
   baseAttackSpeed: 1
+--- !u!114 &9058750630403479489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538534112938561204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c19ad877d414216a04e0971fbe240dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlash
+  flashMaterial: {fileID: 2100000, guid: 9b8b35208a36529409f1f5db7479650f, type: 2}
+  duration: 0.05
 --- !u!1 &5191994991877499360
 GameObject:
   m_ObjectHideFlags: 0

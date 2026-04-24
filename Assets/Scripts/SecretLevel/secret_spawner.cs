@@ -7,9 +7,9 @@ public class secret_spawner : MonoBehaviour
     [System.Serializable]
     public struct ScheduledSpawn
     {
-        public string name;      // Opcjonalne: dla porz¹dku w inspektorze
+        public string name;
         public GameObject prefab;
-        public float timeOffset; // Czas oczekiwania przed tym konkretnym spawnem
+        public float timeOffset;
     }
 
     [Header("G³ówny Prze³¹cznik")]
@@ -24,6 +24,10 @@ public class secret_spawner : MonoBehaviour
     [Header("Ustawienia Listy (Kolejki)")]
     public List<ScheduledSpawn> spawnQueue;
 
+    [Header("Ustawienia Kierunku")]
+    [Tooltip("Jeœli zaznaczone, obiekt zostanie obrócony o 180 stopni przy spawnowaniu.")]
+    public bool faceLeft = false;
+
     void Start()
     {
         if (useRandomSpawning)
@@ -36,7 +40,6 @@ public class secret_spawner : MonoBehaviour
         }
     }
 
-    // --- LOGIKA LOSOWA ---
     IEnumerator RandomSpawnRoutine()
     {
         while (true)
@@ -52,12 +55,10 @@ public class secret_spawner : MonoBehaviour
         }
     }
 
-    // --- LOGIKA Z LISTY ---
     IEnumerator ScheduledSpawnRoutine()
     {
         foreach (var item in spawnQueue)
         {
-            // Czeka tyle, ile zdefiniowano dla tego konkretnego elementu
             yield return new WaitForSeconds(item.timeOffset);
 
             if (item.prefab != null)
@@ -68,8 +69,18 @@ public class secret_spawner : MonoBehaviour
         Debug.Log("Secret Spawner: Kolejka pusta.");
     }
 
+
     public void Spawn(GameObject prefab)
     {
-        Instantiate(prefab, transform.position, transform.rotation);
+
+        GameObject spawnedObject = Instantiate(prefab, transform.position, transform.rotation);
+
+
+        if (faceLeft)
+        {
+            spawnedObject.transform.Rotate(0, 180, 0);
+
+
+        }
     }
 }

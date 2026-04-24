@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class moving_in_left : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class moving_in_left : MonoBehaviour
         transform.Translate(Vector3.left * speed * Time.deltaTime);
 
         // Opcjonalnie: Zniszcz obiekt, jeœli wyleci daleko poza ekran (np. X < -15)
-        if (transform.position.x < -15f)
+        if (transform.position.x < -15f || transform.position.x > 15f)
         {
             Destroy(gameObject);
         }

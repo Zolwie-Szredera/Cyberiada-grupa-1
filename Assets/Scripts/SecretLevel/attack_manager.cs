@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class AttackManager : MonoBehaviour
 {
-    [Header("Podepnij spawny (Kolejnoœæ: L_G, L_S, L_D, R_G, R_S, R_D)")]
-    public secret_spawner[] spawners;
+    [Header("Podepnij spawny (Kolejnoï¿½ï¿½: L_G, L_S, L_D, R_G, R_S, R_D)")]
+    public SecretSpawner[] spawners;
 
-    [Header("Sekwencja Ataków")]
-    [Tooltip("Lista patternów, które zostan¹ wykonane po kolei.")]
+    [Header("Sekwencja Atakï¿½w")]
+    [Tooltip("Lista patternï¿½w, ktï¿½re zostanï¿½ wykonane po kolei.")]
     public List<AttackPattern> attackSequence;
 
     public float cooldownBetweenPatterns = 2f;
@@ -46,22 +46,22 @@ public class AttackManager : MonoBehaviour
 
                 Debug.Log($"Rozpoczynam pattern: {pattern.name}");
 
-                // Odpalamy pattern i czekamy, a¿ siê skoñczy
+                // Odpalamy pattern i czekamy, aï¿½ siï¿½ skoï¿½czy
                 yield return StartCoroutine(ExecutePattern(pattern));
 
-                Debug.Log($"Pattern zakoñczony. Cooldown: {cooldownBetweenPatterns}s");
+                Debug.Log($"Pattern zakoï¿½czony. Cooldown: {cooldownBetweenPatterns}s");
                 yield return new WaitForSeconds(cooldownBetweenPatterns);
             }
         } while (loopSequence);
 
         isPlaying = false;
-        Debug.Log("Ca³a sekwencja ataków dobieg³a koñca.");
+        Debug.Log("Caï¿½a sekwencja atakï¿½w dobiegï¿½a koï¿½ca.");
     }
 
     IEnumerator ExecutePattern(AttackPattern pattern)
     {
-        // Tutaj odpalamy 6 korutyn dla ka¿dej linii
-        // U¿ywamy CoroutineGroup, aby wiedzieæ, kiedy wszystkie linie skoñczy³y
+        // Tutaj odpalamy 6 korutyn dla kaï¿½dej linii
+        // Uï¿½ywamy CoroutineGroup, aby wiedzieï¿½, kiedy wszystkie linie skoï¿½czyï¿½y
         List<Coroutine> activeLanes = new List<Coroutine>();
 
         activeLanes.Add(StartCoroutine(ExecuteLane(pattern.spawner_L_G, spawners[0])));
@@ -71,14 +71,14 @@ public class AttackManager : MonoBehaviour
         activeLanes.Add(StartCoroutine(ExecuteLane(pattern.spawner_R_S, spawners[4])));
         activeLanes.Add(StartCoroutine(ExecuteLane(pattern.spawner_R_D, spawners[5])));
 
-        // Czekamy, a¿ wszystkie 6 linii skoñczy spawnowaæ swoje obiekty
+        // Czekamy, aï¿½ wszystkie 6 linii skoï¿½czy spawnowaï¿½ swoje obiekty
         foreach (var lane in activeLanes)
         {
             yield return lane;
         }
     }
 
-    IEnumerator ExecuteLane(List<AttackPattern.SpawnStep> steps, secret_spawner spawner)
+    IEnumerator ExecuteLane(List<AttackPattern.SpawnStep> steps, SecretSpawner spawner)
     {
         if (steps == null || steps.Count == 0) yield break;
 

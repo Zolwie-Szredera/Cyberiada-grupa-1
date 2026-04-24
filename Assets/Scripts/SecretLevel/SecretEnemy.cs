@@ -12,6 +12,7 @@ public class SecretEnemy : MonoBehaviour
         transform.Translate(movementSpeed * Time.deltaTime * Vector3.right);
         if (math.abs(transform.position.x) > 25f)
         {
+            Debug.Log("Enemy left the map");
             Destroy(gameObject);
         }
     }
@@ -25,11 +26,11 @@ public class SecretEnemy : MonoBehaviour
     }
     public void Die()
     {
+        Debug.Log("Enemy died");
         Destroy(gameObject);
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("Kolizja z: " + other.gameObject.name);
         if (other.gameObject.TryGetComponent<SecretPlayer>(out var player))
         {
             player.TakeDamage(damage);

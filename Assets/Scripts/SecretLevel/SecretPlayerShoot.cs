@@ -9,6 +9,7 @@ public class SecretPlayerShoot : MonoBehaviour
 
     private float shootTimer;
     private Vector2 mousePosition;
+    private bool isShooting = false;
 
     void Start()
     {
@@ -20,16 +21,24 @@ public class SecretPlayerShoot : MonoBehaviour
         shootTimer -= Time.deltaTime;
 
         mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-    }
-
-    public void OnShoot()
-    {
-        if (shootTimer <= 0)
+        if (isShooting && shootTimer <= 0)
         {
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
 
             ProjectileAttack(direction);
             shootTimer = shootCooldown;
+        }
+    }
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            isShooting = true;
+        }
+        if (context.canceled)
+        {
+            isShooting = false;
         }
     }
 

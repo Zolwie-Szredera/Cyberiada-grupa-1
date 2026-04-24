@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class secret_spawner : MonoBehaviour
+public class SecretSpawner : MonoBehaviour
 {
     [System.Serializable]
     public struct ScheduledSpawn
@@ -12,8 +12,8 @@ public class secret_spawner : MonoBehaviour
         public float timeOffset;
     }
 
-    [Header("G³ówny Prze³¹cznik")]
-    [Tooltip("Zaznacz, by losowaæ. Odznacz, by lecieæ wed³ug listy.")]
+    [Header("Gï¿½ï¿½wny Przeï¿½ï¿½cznik")]
+    [Tooltip("Zaznacz, by losowaï¿½. Odznacz, by lecieï¿½ wedï¿½ug listy.")]
     public bool useRandomSpawning = true;
 
     [Header("Ustawienia Losowania")]
@@ -25,7 +25,7 @@ public class secret_spawner : MonoBehaviour
     public List<ScheduledSpawn> spawnQueue;
 
     [Header("Ustawienia Kierunku")]
-    [Tooltip("Jeœli zaznaczone, obiekt zostanie obrócony o 180 stopni przy spawnowaniu.")]
+    [Tooltip("Jeï¿½li zaznaczone, obiekt zostanie obrï¿½cony o 180 stopni przy spawnowaniu.")]
     public bool faceLeft = false;
 
     void Start()

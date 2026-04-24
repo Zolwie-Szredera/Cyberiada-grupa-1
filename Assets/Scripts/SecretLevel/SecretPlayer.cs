@@ -24,10 +24,12 @@ public class SecretPlayer : MonoBehaviour
     private float currentHealth;
     public float immunityDuration = 1f;
 
-
-
     [Header("Efekt Odporności")]
     [SerializeField] private SpriteFlash spriteFlash;
+
+    // --- DODANE ODNOŚNIKI ---
+    private SecretPlayerShoot shootingScript;
+    // -------------------------
 
     private float immuneTimer = 0;
     private float horizontalInput = 0f;
@@ -40,6 +42,9 @@ public class SecretPlayer : MonoBehaviour
         {
             spriteFlash = GetComponent<SpriteFlash>();
         }
+
+        // Pobieramy skrypt strzelania z tego samego obiektu
+        shootingScript = GetComponent<SecretPlayerShoot>();
 
         currentHealth = maxHealth;
         UpdateHeartsUI();
@@ -67,6 +72,13 @@ public class SecretPlayer : MonoBehaviour
         currentHealth -= amount;
         UpdateHeartsUI();
 
+        // --- BRAKUJĄCY FRAGMENT: UTRATA UPGRADE'U ---
+        if (shootingScript != null)
+        {
+            shootingScript.LoseUpgrade();
+        }
+        // --------------------------------------------
+
         immuneTimer = immunityDuration;
         SetImmuneVisual(true);
 
@@ -79,9 +91,6 @@ public class SecretPlayer : MonoBehaviour
         if (currentHealth > maxHealth) currentHealth = maxHealth;
         UpdateHeartsUI();
     }
-
-    // --- METODA DLA BONUSU NOKAUT ---
-
 
     void Update()
     {
@@ -107,9 +116,6 @@ public class SecretPlayer : MonoBehaviour
             immuneTimer = 0f;
             SetImmuneVisual(false);
         }
-
-        // --- OBSŁUGA BONUSU NOKAUT ---
-
 
         // Tutorial timer
         mainTimer += Time.deltaTime;

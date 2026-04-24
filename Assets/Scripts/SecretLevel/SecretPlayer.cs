@@ -27,16 +27,25 @@ public class SecretPlayer : MonoBehaviour
     [Header("Efekt Odporności")]
     [SerializeField] private SpriteFlash spriteFlash;
 
+    [Header("Death UI")]
+    [SerializeField] private SecretLevel.SecretDeathUi deathUi;
+
     private float immuneTimer = 0;
     private float horizontalInput = 0f;
     private readonly List<float> inputStack = new();
     private bool _immuneVisualActive;
+    private bool _isDead;
 
     void Start()
     {
         if (spriteFlash == null)
         {
             spriteFlash = GetComponent<SpriteFlash>();
+        }
+
+        if (deathUi == null)
+        {
+            deathUi = FindAnyObjectByType<SecretLevel.SecretDeathUi>();
         }
 
         currentHealth = maxHealth;
@@ -62,6 +71,11 @@ public class SecretPlayer : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         if (immuneTimer > 0)
         {
             SetImmuneVisual(true);
@@ -88,6 +102,11 @@ public class SecretPlayer : MonoBehaviour
 
     void Update()
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         // Ruch poziomy i pionowy (twój istniejący kod)
         float newX = transform.position.x + (horizontalInput * moveSpeed * Time.deltaTime);
         newX = Mathf.Clamp(newX, -boundaryX, boundaryX);
@@ -143,5 +162,28 @@ public class SecretPlayer : MonoBehaviour
     public void OnGoLeft(InputAction.CallbackContext context) { if (context.performed) { if (!inputStack.Contains(-1f)) inputStack.Add(-1f); } else if (context.canceled) inputStack.Remove(-1f); UpdateHorizontalInput(); }
     public void OnGoRight(InputAction.CallbackContext context) { if (context.performed) { if (!inputStack.Contains(1f)) inputStack.Add(1f); } else if (context.canceled) inputStack.Remove(1f); UpdateHorizontalInput(); }
     private void UpdateHorizontalInput() { if (inputStack.Count > 0) horizontalInput = inputStack[^1]; else horizontalInput = 0f; }
-    void Die() { Debug.Log("Gracz zginął!"); Destroy(gameObject); }
+    void Die()
+    {
+        if (_isDead)
+        {
+            return;
+        }
+
+        _isDead = true;
+        horizontalInput = 0f;
+        immuneTimer = 0f;
+        SetImmuneVisual(false);
+
+        if (deathUi == null)
+        {
+            deathUi = FindAnyObjectByType<SecretLevel.SecretDeathUi>();
+        }
+
+        if (deathUi != null)
+        {
+            deathUi.ShowDeathScreen();
+        }
+
+        Debug.Log("Gracz zginął!");
+    }
 }

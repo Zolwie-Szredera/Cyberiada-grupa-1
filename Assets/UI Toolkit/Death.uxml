@@ -3,14 +3,13 @@
          editor-extension-mode="False">
     <Style
         src="project://database/Assets/UI%20Toolkit/Death.uss?fileID=7433441132597879392&amp;guid=65ffc653b6893370fbcb7cce7cf7bec2&amp;type=3#Death" />
-    <ui:VisualElement class="death" style="flex-grow: 1;">
+    <ui:VisualElement name="DeathRoot" class="death" style="flex-grow: 1;">
         <ui:VisualElement style="flex-grow: 1; justify-content: center;">
-            <ui:VisualElement name="Death" class="box death-box">
+            <ui:VisualElement name="DeathTitle" class="box death-box">
                 <ui:Label text="You Died" class="death-label" />
             </ui:VisualElement>
-            <ui:VisualElement name="Death" class="buttons">
-                <ui:Button text="Wyjdź" />
-                <ui:Button text="Jeszcze Raz" />
+            <ui:VisualElement name="DeathButtons" class="buttons">
+                <ui:Button name="ExitButton" text="Wyjdź" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

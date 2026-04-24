@@ -1,7 +1,11 @@
 :root {
-    background-color: black ;
     -unity-font-definition: url("project:/Assets/UI Toolkit/Fonts/PixelifySans-VariableFont_wght.ttf");
     color: red;
+}
+
+.death {
+    display: none;
+    background-color: black;
 }
 
 .death-box {

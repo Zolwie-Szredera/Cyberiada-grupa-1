@@ -1,3 +1,16 @@
 :root {
     background-color: black ;
+    -unity-font-definition: url("project:/Assets/UI Toolkit/Fonts/PixelifySans-VariableFont_wght.ttf");
+    color: red;
+}
+
+.death-box {
+    align-self: center;
+    font-size: 800%;
+}
+
+.buttons {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
 }

@@ -3,18 +3,21 @@
 }
 
 .gambling {
-    margin-right: 300px;
-    margin-bottom: 50px;
+    /*margin-right: 300px;*/
+    /*margin-bottom: 50px;*/
     color: white;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: black;
     flex-direction: row;
     align-self: flex-end;
-    scale: 1.5;
+    /*scale: 1.5;*/
     -unity-font-style: bold;
-    font-size: 20;
+    font-size: 150%;
+    margin: 1%;
+    margin-right: 4%;
+    /*padding: 20;*4
     /*background-color: black;*/
-    border-radius: 8px;
+    /*border-radius: 8px;*/
 }
 
 .main-box {

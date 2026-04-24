@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic; // Wymagane dla Listy
+using System.Collections.Generic;
 
 public class SecretPlayer : MonoBehaviour
 {
-    [Header("Linie (Przecignij obiekty z hierarchii)")]
+    // --- NOWE POLA DLA SERC ---
+    [Header("UI Serca")]
+    public GameObject[] hearts; // Przeciągnij tutaj swoje serca z hierarchii
+
+    [Header("Linie (Przeciągnij obiekty z hierarchii)")]
     public Transform[] lineAnchors;
     private int currentLine = 1;
 
@@ -12,79 +16,63 @@ public class SecretPlayer : MonoBehaviour
     public float moveSpeed = 5f;
     public float transitionSpeed = 20f;
     public float boundaryX = 3f;
+
     [Header("Statystyki")]
-    public float maxHealth = 100f;
+    public float maxHealth = 5f; // Zmieniamy na 5, skoro mamy 5 serc
     private float currentHealth;
-    private float horizontalInput = 0f;
-    public float immunityDuration;
+    public float immunityDuration = 1f;
 
     private float immuneTimer = 0;
+    private float horizontalInput = 0f;
     private readonly List<float> inputStack = new();
 
-    public void OnGoUp(InputAction.CallbackContext context)
+    void Start()
     {
-        if (context.performed)
+        currentHealth = maxHealth;
+        UpdateHeartsUI(); // Odśwież serca na starcie
+    }
+
+    // --- KLUCZOWA FUNKCJA DO AKTUALIZACJI UI ---
+    void UpdateHeartsUI()
+    {
+        for (int i = 0; i < hearts.Length; i++)
         {
-            if (currentLine > 0) currentLine--;
+            // Jeśli numer serca jest mniejszy niż obecne HP, pokaż je. W przeciwnym razie ukryj.
+            if (i < currentHealth)
+            {
+                hearts[i].SetActive(true);
+            }
+            else
+            {
+                hearts[i].SetActive(false);
+            }
         }
     }
 
-    public void OnGoDown(InputAction.CallbackContext context)
+    public void TakeDamage(float amount)
     {
-        if (context.performed)
+        if (immuneTimer > 0) return;
+
+        currentHealth -= amount;
+        Debug.Log("HP: " + currentHealth);
+
+        UpdateHeartsUI(); // AKTUALIZACJA PO OBRAŻENIACH
+
+        immuneTimer = immunityDuration;
+
+        if (currentHealth <= 0)
         {
-            if (lineAnchors != null && lineAnchors.Length > 0 && currentLine < lineAnchors.Length - 1)
-                currentLine++;
+            Die();
         }
     }
 
-    // --- LOGIKA RUCHU BOKIEM (Priorytet ostatniego klawisza) ---
-
-    public void OnGoLeft(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            // Dodaj -1 (lewo) na koniec listy
-            if (!inputStack.Contains(-1f)) inputStack.Add(-1f);
-        }
-        else if (context.canceled)
-        {
-            // Usu� -1 z listy gdy pu�cisz klawisz
-            inputStack.Remove(-1f);
-        }
-        UpdateHorizontalInput();
-    }
-
-    public void OnGoRight(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            // Dodaj 1 (prawo) na koniec listy
-            if (!inputStack.Contains(1f)) inputStack.Add(1f);
-        }
-        else if (context.canceled)
-        {
-            // Usu� 1 z listy gdy pu�cisz klawisz
-            inputStack.Remove(1f);
-        }
-        UpdateHorizontalInput();
-    }
-
-    private void UpdateHorizontalInput()
-    {
-        if (inputStack.Count > 0)
-        {
-            // horizontalInput to ostatni element dodany do listy
-            horizontalInput = inputStack[^1];
-        }
-        else
-        {
-            horizontalInput = 0f;
-        }
-    }
+    // --- RESZTA TWOJEGO KODU (OnGoUp, Update, etc.) ---
+    // Pamiętaj, aby zachować pozostałe metody bez zmian, 
+    // tylko upewnij się, że Update() korzysta z Twoich zmiennych.
 
     void Update()
     {
+        // Ruch poziomy i pionowy (twój istniejący kod)
         float newX = transform.position.x + (horizontalInput * moveSpeed * Time.deltaTime);
         newX = Mathf.Clamp(newX, -boundaryX, boundaryX);
 
@@ -98,43 +86,15 @@ public class SecretPlayer : MonoBehaviour
         float smoothY = Mathf.MoveTowards(transform.position.y, targetY, transitionSpeed * Time.deltaTime);
         transform.position = new Vector3(newX, smoothY, transform.position.z);
 
-        if(immuneTimer > 0)
-        {
-            immuneTimer -= Time.deltaTime;
-        }
+        if (immuneTimer > 0) immuneTimer -= Time.deltaTime;
     }
 
-    void Start()
-    {
-        // Na starcie ustawiamy HP na maksimum
-        currentHealth = maxHealth;
-    }
+    // ... (metody OnGoLeft, OnGoRight, UpdateHorizontalInput, Die pozostają bez zmian)
 
-    // Metoda do zadawania obra�e�, kt�r� mo�esz wywo�a� z innych skrypt�w
-    public void TakeDamage(float amount)
-    {
-        if(immuneTimer > 0)
-        {
-            return;
-        }
-        currentHealth -= amount;
-        Debug.Log("Gracz otrzymal obrazenia: " + amount +  ". Aktualne HP: " + currentHealth);
-        immuneTimer = immunityDuration;
-        // Sprawdzenie czy gracz powinien znikn��
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    void Die()
-    {
-        Debug.Log("Gracz zgin��!");
-
-        // Niszczy obiekt gracza
-        Destroy(gameObject);
-
-        // Opcjonalnie: Tutaj mo�esz doda� kod na spawn efektu wybuchu 
-        // lub pokazanie ekranu "Game Over"
-    }
+    public void OnGoUp(InputAction.CallbackContext context) { if (context.performed && currentLine > 0) currentLine--; }
+    public void OnGoDown(InputAction.CallbackContext context) { if (context.performed && lineAnchors != null && currentLine < lineAnchors.Length - 1) currentLine++; }
+    public void OnGoLeft(InputAction.CallbackContext context) { if (context.performed) { if (!inputStack.Contains(-1f)) inputStack.Add(-1f); } else if (context.canceled) inputStack.Remove(-1f); UpdateHorizontalInput(); }
+    public void OnGoRight(InputAction.CallbackContext context) { if (context.performed) { if (!inputStack.Contains(1f)) inputStack.Add(1f); } else if (context.canceled) inputStack.Remove(1f); UpdateHorizontalInput(); }
+    private void UpdateHorizontalInput() { if (inputStack.Count > 0) horizontalInput = inputStack[^1]; else horizontalInput = 0f; }
+    void Die() { Debug.Log("Gracz zginął!"); Destroy(gameObject); }
 }

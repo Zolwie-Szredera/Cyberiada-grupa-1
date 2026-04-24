@@ -10,14 +10,18 @@ namespace SecretLevel
     [RequireComponent(typeof(UIDocument))]
     public class SlotMachineUi : MonoBehaviour
     {
+        private static readonly string[] SlotNames = { "ST1", "ST2", "ST3", "ST4", "ST5" };
+
         [Header("Roll animation")]
         [SerializeField] private float rollDuration = 0.8f;
         [SerializeField] private float rollStepInterval = 0.06f;
         [SerializeField] private float resultVisibleDuration = 3.0f;
+        [SerializeField] private float maxStepIntervalMultiplier = 2.4f;
 
         private UIDocument _uiDocument;
         private VisualElement _slotRoot;
-        private Label _st3Label;
+        private Label[] _slotLabels;
+        private PowerUpType[] _reelValues;
         private Coroutine _rollCoroutine;
 
         private void Awake()
@@ -27,7 +31,7 @@ namespace SecretLevel
 
         private void OnEnable()
         {
-            CacheSt3Label();
+            CacheSlotElements();
             SetSlotVisible(false);
         }
 
@@ -49,8 +53,8 @@ namespace SecretLevel
                 return null;
             }
 
-            CacheSt3Label();
-            if (_st3Label == null)
+            CacheSlotElements();
+            if (!HasAllSlotLabels())
             {
                 return null;
             }
@@ -87,8 +91,15 @@ namespace SecretLevel
 
         private IEnumerator RollVisualToFinal(List<PowerUpType> items, PowerUpType finalItem)
         {
-            CacheSt3Label();
-            if (_st3Label == null)
+            CacheSlotElements();
+            if (!HasAllSlotLabels())
+            {
+                _rollCoroutine = null;
+                yield break;
+            }
+
+            List<PowerUpType> uniquePool = BuildUniquePool(items);
+            if (uniquePool.Count == 0)
             {
                 _rollCoroutine = null;
                 yield break;
@@ -96,21 +107,43 @@ namespace SecretLevel
 
             if (rollDuration <= 0f || rollStepInterval <= 0f)
             {
-                _st3Label.text = GetDisplayName(finalItem);
+                SetFinalLayout(uniquePool, finalItem);
                 _rollCoroutine = null;
                 yield break;
             }
 
+            FillSlotsWithRandom(uniquePool);
+            RenderReel();
+
             float elapsed = 0f;
             while (elapsed < rollDuration)
             {
-                PowerUpType preview = items[UnityEngine.Random.Range(0, items.Count)];
-                _st3Label.text = GetDisplayName(preview);
-                yield return new WaitForSeconds(rollStepInterval);
-                elapsed += rollStepInterval;
+                ShiftLeftAndAppend(ChooseUniqueForWindow(uniquePool));
+                RenderReel();
+
+                float progress = Mathf.Clamp01(elapsed / rollDuration);
+                float stepDuration = Mathf.Lerp(rollStepInterval * 0.45f, rollStepInterval * maxStepIntervalMultiplier, progress);
+                yield return new WaitForSeconds(stepDuration);
+                elapsed += stepDuration;
             }
 
-            _st3Label.text = GetDisplayName(finalItem);
+            // Extra slow settle steps to sell the "slot machine" stop feeling.
+            ShiftLeftAndAppend(finalItem);
+            RenderReel();
+            yield return new WaitForSeconds(rollStepInterval * maxStepIntervalMultiplier);
+
+            ShiftLeftAndAppend(ChooseUniqueForWindow(uniquePool));
+            RenderReel();
+            yield return new WaitForSeconds(rollStepInterval * (maxStepIntervalMultiplier + 0.35f));
+
+            ShiftLeftAndAppend(ChooseUniqueForWindow(uniquePool));
+            RenderReel();
+
+            SetFinalLayout(uniquePool, finalItem);
+
+            // Safety: final selected item must always stay in ST3.
+            _reelValues[2] = finalItem;
+            RenderReel();
 
             if (resultVisibleDuration > 0f)
             {
@@ -121,7 +154,7 @@ namespace SecretLevel
             _rollCoroutine = null;
         }
 
-        private void CacheSt3Label()
+        private void CacheSlotElements()
         {
             if (_uiDocument == null)
             {
@@ -131,13 +164,18 @@ namespace SecretLevel
             if (_uiDocument == null || _uiDocument.rootVisualElement == null)
             {
                 _slotRoot = null;
-                _st3Label = null;
+                _slotLabels = null;
                 return;
             }
 
             _slotRoot = _uiDocument.rootVisualElement.Q<VisualElement>("Gambling");
-            VisualElement st3 = _uiDocument.rootVisualElement.Q<VisualElement>("ST3");
-            _st3Label = st3 != null ? st3.Q<Label>() : null;
+            _slotLabels = new Label[SlotNames.Length];
+            _reelValues = new PowerUpType[SlotNames.Length];
+            for (int i = 0; i < SlotNames.Length; i++)
+            {
+                VisualElement slot = _uiDocument.rootVisualElement.Q<VisualElement>(SlotNames[i]);
+                _slotLabels[i] = slot != null ? slot.Q<Label>() : null;
+            }
         }
 
         public void ShowRandomItem(List<PowerUpType> items)
@@ -147,9 +185,9 @@ namespace SecretLevel
 
         public void ShowItem(PowerUpType item)
         {
-            CacheSt3Label();
+            CacheSlotElements();
 
-            if (_st3Label == null)
+            if (!HasAllSlotLabels())
             {
                 return;
             }
@@ -161,14 +199,14 @@ namespace SecretLevel
             }
 
             SetSlotVisible(true);
-            _st3Label.text = GetDisplayName(item);
+            SetFinalLayout(new List<PowerUpType> { item }, item);
         }
 
         private void SetSlotVisible(bool isVisible)
         {
             if (_slotRoot == null)
             {
-                CacheSt3Label();
+                CacheSlotElements();
             }
 
             if (_slotRoot == null)
@@ -177,6 +215,161 @@ namespace SecretLevel
             }
 
             _slotRoot.style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        private bool HasAllSlotLabels()
+        {
+            if (_slotLabels == null || _slotLabels.Length != SlotNames.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < _slotLabels.Length; i++)
+            {
+                if (_slotLabels[i] == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void FillSlotsWithRandom(List<PowerUpType> pool)
+        {
+            List<PowerUpType> shuffled = new(pool);
+            Shuffle(shuffled);
+
+            for (int i = 0; i < _reelValues.Length; i++)
+            {
+                if (i < shuffled.Count)
+                {
+                    _reelValues[i] = shuffled[i];
+                }
+                else
+                {
+                    _reelValues[i] = shuffled[UnityEngine.Random.Range(0, shuffled.Count)];
+                }
+            }
+        }
+
+        private void ShiftLeftAndAppend(PowerUpType newItem)
+        {
+            for (int i = 0; i < _reelValues.Length - 1; i++)
+            {
+                _reelValues[i] = _reelValues[i + 1];
+            }
+
+            _reelValues[^1] = newItem;
+        }
+
+        private void SetFinalLayout(List<PowerUpType> pool, PowerUpType finalItem)
+        {
+            HashSet<string> usedNames = new() { GetDisplayName(finalItem) };
+
+            for (int i = 0; i < _reelValues.Length; i++)
+            {
+                PowerUpType value = finalItem;
+                if (i != 2 && pool.Count > 0)
+                {
+                    List<PowerUpType> candidates = new();
+                    for (int c = 0; c < pool.Count; c++)
+                    {
+                        string displayName = GetDisplayName(pool[c]);
+                        if (!usedNames.Contains(displayName))
+                        {
+                            candidates.Add(pool[c]);
+                        }
+                    }
+
+                    List<PowerUpType> source = candidates.Count > 0 ? candidates : pool;
+                    value = source[UnityEngine.Random.Range(0, source.Count)];
+                }
+
+                _reelValues[i] = value;
+                if (i != 2)
+                {
+                    usedNames.Add(GetDisplayName(value));
+                }
+            }
+
+            _reelValues[2] = finalItem;
+            RenderReel();
+        }
+
+        private void RenderReel()
+        {
+            for (int i = 0; i < _slotLabels.Length; i++)
+            {
+                _slotLabels[i].text = GetDisplayName(_reelValues[i]);
+            }
+        }
+
+        private List<PowerUpType> BuildUniquePool(List<PowerUpType> pool)
+        {
+            List<PowerUpType> uniquePool = new();
+            HashSet<string> usedNames = new();
+
+            for (int i = 0; i < pool.Count; i++)
+            {
+                string displayName = GetDisplayName(pool[i]);
+                if (usedNames.Add(displayName))
+                {
+                    uniquePool.Add(pool[i]);
+                }
+            }
+
+            return uniquePool;
+        }
+
+        private PowerUpType ChooseUniqueForWindow(List<PowerUpType> pool, int targetIndex = -1, PowerUpType? forcedCenter = null)
+        {
+            if (pool.Count == 0)
+            {
+                return default;
+            }
+
+            HashSet<string> forbiddenNames = new();
+            for (int i = 0; i < _reelValues.Length; i++)
+            {
+                if (i == targetIndex)
+                {
+                    continue;
+                }
+
+                if (forcedCenter.HasValue && i == 2)
+                {
+                    forbiddenNames.Add(GetDisplayName(forcedCenter.Value));
+                    continue;
+                }
+
+                forbiddenNames.Add(GetDisplayName(_reelValues[i]));
+            }
+
+            List<PowerUpType> candidates = new();
+            for (int i = 0; i < pool.Count; i++)
+            {
+                if (!forbiddenNames.Contains(GetDisplayName(pool[i])))
+                {
+                    candidates.Add(pool[i]);
+                }
+            }
+
+            if (candidates.Count == 0)
+            {
+                candidates.AddRange(pool);
+            }
+
+            return candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        }
+
+        private static void Shuffle(List<PowerUpType> values)
+        {
+            for (int i = values.Count - 1; i > 0; i--)
+            {
+                int swapIndex = UnityEngine.Random.Range(0, i + 1);
+                (values[i], values[swapIndex]) = (values[swapIndex], values[i]);
+            }
         }
 
         private static string GetDisplayName(PowerUpType value)

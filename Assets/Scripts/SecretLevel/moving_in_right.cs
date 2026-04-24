@@ -12,7 +12,7 @@ public class moving_in_right : MonoBehaviour
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
         // Opcjonalnie: Zniszcz obiekt, jeœli wyleci daleko poza ekran (np. X < -15)
-        if (transform.position.x < -15f)
+        if (transform.position.x > 15f)
         {
             Destroy(gameObject);
         }

@@ -4,22 +4,22 @@ namespace SecretLevel
 {
     public enum PowerUpType
     {
-        [InspectorName("Nokaut")]
+        [InspectorName("okaut")]
         DamageBoost,
 
-        [InspectorName("Nieśmiertelność")]
+        [InspectorName("ieśmiertelność")]
         Invincibility,
 
-        [InspectorName("Natarcie")]
+        [InspectorName("atarcie")]
         Onslaught,
 
-        [InspectorName("Nadwaga")]
+        [InspectorName("adwaga")]
         Slowness,
 
-        [InspectorName("Niewidzialność")]
+        [InspectorName("iewidzialność")]
         Invisibility,
 
-        [InspectorName("Nasycenie")]
+        [InspectorName("asycenie")]
         Saturation
     }
 }

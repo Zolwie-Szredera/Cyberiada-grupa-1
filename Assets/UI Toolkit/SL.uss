@@ -3,10 +3,15 @@
 
 .gambling {
     color: white;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: black;
     flex-direction: row;
     align-self: center;
-    padding: 10px;
     scale: 2%;
+    -unity-font-style: bold;
+    font-size: 20;
+    background-color: black;
+    border-radius: 8px;
 }
 
 .main-box {
@@ -22,22 +27,32 @@
 }
 
 .slot-item {
-    opacity: 0.55;
+    opacity: 0.70;
 }
 
 .slot-item2 {
     opacity: 0.35;
 }
 
-.slot-item--near {
-    opacity: 0.6;
-}
+/*.slot-item--near {*/
+/*    opacity: 0.6;*/
+/*}*/
 
-.slot-item--active {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.12);
-}
+/*.slot-item--active {*/
+/*    opacity: 1;*/
+/*    background-color: rgba(255, 255, 255, 0.12);*/
+/*}*/
 
 .slot-item--far {
     opacity: 0.22;
+}
+
+.slot-r {
+    background-color: gray;
+    margin-left: -1px;
+}
+
+.slot-l {
+    background-color: gray;
+    margin-right: -1px;
 }

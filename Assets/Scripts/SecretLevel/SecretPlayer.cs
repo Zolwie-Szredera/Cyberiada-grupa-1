@@ -35,9 +35,11 @@ public class SecretPlayer : MonoBehaviour
     private readonly List<float> inputStack = new();
     private bool _immuneVisualActive;
     private bool _isDead;
+    private AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         if (spriteFlash == null)
         {
             spriteFlash = GetComponent<SpriteFlash>();
@@ -84,6 +86,7 @@ public class SecretPlayer : MonoBehaviour
 
         currentHealth -= amount;
         Debug.Log("HP: " + currentHealth);
+        audioSource.Play();
 
         UpdateHeartsUI(); // AKTUALIZACJA PO OBRAŻENIACH
 

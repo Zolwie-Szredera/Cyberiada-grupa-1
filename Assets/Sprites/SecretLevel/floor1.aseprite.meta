@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f7d252441147d2b4fb836ac04671aa2e
+guid: 5b0aa54d3ef11d14089c2ec0275d24d8
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639126241400032877
+  platformSettingsDirtyTick: 639126279925683208
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: player
+  - name: floor1
     originalName: 
-    pivot: {x: 0.53846157, y: 0}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 13
-      height: 28
-    spriteID: 07618d11df3066b49be89c7b200477fd
+      width: 640
+      height: 128
+    spriteID: cf64d992e6ae39b4bb0398ab9d836b98
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: player_0
+  - name: floor1_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -157,11 +157,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 3
-      y: 4
-      width: 15
-      height: 32
-    spriteID: 1e24fff3878fbd94f9f35294e033803f
+      x: 4
+      y: 6
+      width: 640
+      height: 128
+    spriteID: 49a943786005feb459df32281b3195d8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -174,25 +174,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 1875821083
+      value0: 323018417
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: player
+    name: floor1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: player
+    - name: floor1
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 9
+        x: 0
         y: 0
-        width: 13
-        height: 28
-      spriteId: 07618d11df3066b49be89c7b200477fd
+        width: 640
+        height: 128
+      spriteId: cf64d992e6ae39b4bb0398ab9d836b98
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -226,5 +226,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
-  previousTextureSize: {x: 32, y: 64}
+  canvasSize: {x: 640, y: 128}
+  previousTextureSize: {x: 1024, y: 256}

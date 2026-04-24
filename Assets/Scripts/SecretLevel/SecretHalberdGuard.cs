@@ -25,7 +25,14 @@ public class SecretHalberdEnemy : SecretEnemy
         baseSpeed = movementSpeed;
 
         if (animator == null)
+        {
             animator = GetComponent<Animator>();
+        }
+
+        Vector3 s = transform.localScale;
+        s.x = -Mathf.Abs(s.x);
+        transform.localScale = s;
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
     void Update()
@@ -95,5 +102,14 @@ public class SecretHalberdEnemy : SecretEnemy
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+    //---useless
+    public void PlaySparks()
+    {
+        
+    }
+    public void PlayAttackSound()
+    {
+        
     }
 }

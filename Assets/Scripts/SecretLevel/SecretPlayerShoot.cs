@@ -6,6 +6,7 @@ public class SecretPlayerShoot : MonoBehaviour
     public GameObject projectilePrefab;
     public float shootCooldown;
     public float projectileSpeed;
+    public Transform attackPoint;
 
     private float shootTimer;
     private Vector2 mousePosition;
@@ -23,7 +24,7 @@ public class SecretPlayerShoot : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         if (isShooting && shootTimer <= 0)
         {
-            Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+            Vector2 direction = (mousePosition - (Vector2)attackPoint.position).normalized;
 
             ProjectileAttack(direction);
             shootTimer = shootCooldown;
@@ -44,7 +45,7 @@ public class SecretPlayerShoot : MonoBehaviour
 
     public void ProjectileAttack(Vector2 direction)
     {
-        GameObject currentProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject currentProjectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.identity);
 
         SecretProjectile proj = currentProjectile.GetComponent<SecretProjectile>();
         proj.Initiate(1, 100, projectileSpeed, direction);

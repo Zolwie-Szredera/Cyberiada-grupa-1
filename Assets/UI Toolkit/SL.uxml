@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style
+        src="project://database/Assets/SL.uss?fileID=7433441132597879392&amp;guid=90c80d087d37ddeb08a623692dffa9bf&amp;type=3#SL" />
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:VisualElement name="Gambling" class="gambling" style="flex-grow: 1;">
+                <ui:VisualElement name="LP" class="box lp">
+                    <ui:Label text="N" />
+                </ui:VisualElement>
+                <ui:VisualElement name="RP" class="box lp">
+                    <ui:VisualElement name="ST1" class="box slot-item2">
+                        <ui:Label text="Label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ST2" class="box slot-item">
+                        <ui:Label text="Label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ST3" class="box main-box">
+                        <ui:Label text="Label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ST4" class="box slot-item">
+                        <ui:Label text="Label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ST5" class="box slot-item2">
+                        <ui:Label text="Label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;">
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;">
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

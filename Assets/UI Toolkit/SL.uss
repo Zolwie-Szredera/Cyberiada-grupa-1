@@ -1,0 +1,43 @@
+:root {
+}
+
+.gambling {
+    color: white;
+    flex-direction: row;
+    align-self: center;
+    padding: 10px;
+    scale: 2%;
+}
+
+.main-box {
+    flex-direction: row;
+}
+
+.box {
+    flex-grow: initial;
+}
+
+.lp {
+    align-self: center;
+}
+
+.slot-item {
+    opacity: 0.55;
+}
+
+.slot-item2 {
+    opacity: 0.35;
+}
+
+.slot-item--near {
+    opacity: 0.6;
+}
+
+.slot-item--active {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.slot-item--far {
+    opacity: 0.22;
+}

@@ -121,6 +121,13 @@ public class SecretPlayer : MonoBehaviour
             spriteFlash.SetInverted(isEnabled);
         }
     }
+    public void AddHealth(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+
+        UpdateHeartsUI(); // To odświeży serca na ekranie
+    }
 
     // ... (metody OnGoLeft, OnGoRight, UpdateHorizontalInput, Die pozostają bez zmian)
 

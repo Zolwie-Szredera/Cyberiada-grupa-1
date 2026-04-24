@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic; // Wymagane dla Listy
 
-public class lines_movement : MonoBehaviour
+public class SecretPlayer : MonoBehaviour
 {
-    [Header("Linie (Przeci¹gnij obiekty z hierarchii)")]
+    [Header("Linie (Przecignij obiekty z hierarchii)")]
     public Transform[] lineAnchors;
     private int currentLine = 1;
 
@@ -12,13 +12,11 @@ public class lines_movement : MonoBehaviour
     public float moveSpeed = 5f;
     public float transitionSpeed = 20f;
     public float boundaryX = 3f;
-
+    [Header("Statystyki")]
+    public float maxHealth = 100f;
+    private float currentHealth;
     private float horizontalInput = 0f;
-
-    // Lista przechowuj¹ca wciœniête kierunki w kolejnoœci ich naciskania
-    private List<float> inputStack = new List<float>();
-
-    // --- LOGIKA SKOKU (Góra/Dó³) ---
+    private readonly List<float> inputStack = new();
 
     public void OnGoUp(InputAction.CallbackContext context)
     {
@@ -48,7 +46,7 @@ public class lines_movement : MonoBehaviour
         }
         else if (context.canceled)
         {
-            // Usuñ -1 z listy gdy puœcisz klawisz
+            // Usuï¿½ -1 z listy gdy puï¿½cisz klawisz
             inputStack.Remove(-1f);
         }
         UpdateHorizontalInput();
@@ -63,7 +61,7 @@ public class lines_movement : MonoBehaviour
         }
         else if (context.canceled)
         {
-            // Usuñ 1 z listy gdy puœcisz klawisz
+            // Usuï¿½ 1 z listy gdy puï¿½cisz klawisz
             inputStack.Remove(1f);
         }
         UpdateHorizontalInput();
@@ -74,7 +72,7 @@ public class lines_movement : MonoBehaviour
         if (inputStack.Count > 0)
         {
             // horizontalInput to ostatni element dodany do listy
-            horizontalInput = inputStack[inputStack.Count - 1];
+            horizontalInput = inputStack[^1];
         }
         else
         {
@@ -96,5 +94,35 @@ public class lines_movement : MonoBehaviour
 
         float smoothY = Mathf.MoveTowards(transform.position.y, targetY, transitionSpeed * Time.deltaTime);
         transform.position = new Vector3(newX, smoothY, transform.position.z);
+    }
+
+    void Start()
+    {
+        // Na starcie ustawiamy HP na maksimum
+        currentHealth = maxHealth;
+    }
+
+    // Metoda do zadawania obraï¿½eï¿½, ktï¿½rï¿½ moï¿½esz wywoï¿½aï¿½ z innych skryptï¿½w
+    public void TakeDamage(float amount)
+    {
+        currentHealth -= amount;
+        Debug.Log("Gracz otrzymaï¿½ obraï¿½enia. Aktualne HP: " + currentHealth);
+
+        // Sprawdzenie czy gracz powinien zniknï¿½ï¿½
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Gracz zginï¿½ï¿½!");
+
+        // Niszczy obiekt gracza
+        Destroy(gameObject);
+
+        // Opcjonalnie: Tutaj moï¿½esz dodaï¿½ kod na spawn efektu wybuchu 
+        // lub pokazanie ekranu "Game Over"
     }
 }

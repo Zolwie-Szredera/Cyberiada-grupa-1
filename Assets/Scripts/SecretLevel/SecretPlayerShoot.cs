@@ -37,7 +37,7 @@ public class SecretPlayerShoot : MonoBehaviour
     {
         GameObject currentProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
-        Projectile proj = currentProjectile.GetComponent<Projectile>();
+        SecretProjectile proj = currentProjectile.GetComponent<SecretProjectile>();
         proj.Initiate(1, 100, projectileSpeed, direction);
         proj.IgnoreParentObject(gameObject);
     }

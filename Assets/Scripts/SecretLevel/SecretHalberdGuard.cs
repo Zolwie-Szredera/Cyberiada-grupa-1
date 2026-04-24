@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class SecretHalberdEnemy : SecretEnemy
 {
+    public AudioSource audioSource;
     [Header("Attack")]
     public Transform attackPoint;
     public float attackRange = 1.5f;
@@ -110,6 +111,6 @@ public class SecretHalberdEnemy : SecretEnemy
     }
     public void PlayAttackSound()
     {
-        
+        audioSource.Play();
     }
 }

@@ -20,7 +20,6 @@ public class SecretPlayer : MonoBehaviour
     public float boundaryX = 3f;
 
     [Header("Statystyki")]
-    public float maxHealth = 5f;
 
     public float maxHealth = 5f; // Zmieniamy na 5, skoro mamy 5 serc
     [HideInInspector] public float currentHealth;

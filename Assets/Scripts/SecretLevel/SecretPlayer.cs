@@ -22,12 +22,21 @@ public class SecretPlayer : MonoBehaviour
     private float currentHealth;
     public float immunityDuration = 1f;
 
+    [Header("Efekt Odporności")]
+    [SerializeField] private SpriteFlash spriteFlash;
+
     private float immuneTimer = 0;
     private float horizontalInput = 0f;
     private readonly List<float> inputStack = new();
+    private bool _immuneVisualActive;
 
     void Start()
     {
+        if (spriteFlash == null)
+        {
+            spriteFlash = GetComponent<SpriteFlash>();
+        }
+
         currentHealth = maxHealth;
         UpdateHeartsUI(); // Odśwież serca na starcie
     }
@@ -51,7 +60,11 @@ public class SecretPlayer : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (immuneTimer > 0) return;
+        if (immuneTimer > 0)
+        {
+            SetImmuneVisual(true);
+            return;
+        }
 
         currentHealth -= amount;
         Debug.Log("HP: " + currentHealth);
@@ -59,6 +72,7 @@ public class SecretPlayer : MonoBehaviour
         UpdateHeartsUI(); // AKTUALIZACJA PO OBRAŻENIACH
 
         immuneTimer = immunityDuration;
+        SetImmuneVisual(true);
 
         if (currentHealth <= 0)
         {
@@ -87,6 +101,25 @@ public class SecretPlayer : MonoBehaviour
         transform.position = new Vector3(newX, smoothY, transform.position.z);
 
         if (immuneTimer > 0) immuneTimer -= Time.deltaTime;
+        if (immuneTimer <= 0f)
+        {
+            immuneTimer = 0f;
+            SetImmuneVisual(false);
+        }
+    }
+
+    private void SetImmuneVisual(bool isEnabled)
+    {
+        if (_immuneVisualActive == isEnabled)
+        {
+            return;
+        }
+
+        _immuneVisualActive = isEnabled;
+        if (spriteFlash != null)
+        {
+            spriteFlash.SetInverted(isEnabled);
+        }
     }
 
     // ... (metody OnGoLeft, OnGoRight, UpdateHorizontalInput, Die pozostają bez zmian)

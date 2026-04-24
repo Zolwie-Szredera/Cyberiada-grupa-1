@@ -13,6 +13,7 @@ public class SpriteFlash : MonoBehaviour
     private SpriteRenderer spriteRenderer;  
     private Material originalMaterial;
     private Coroutine flashCoroutine;
+    private bool isInverted;
 
     void Start()
     {
@@ -35,6 +36,30 @@ public class SpriteFlash : MonoBehaviour
         flashCoroutine = StartCoroutine(FlashRoutine());
     }
 
+    public void SetInverted(bool isEnabled)
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        if (isEnabled)
+        {
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+                flashCoroutine = null;
+            }
+
+            spriteRenderer.material = flashMaterial;
+            isInverted = true;
+            return;
+        }
+
+        spriteRenderer.material = originalMaterial;
+        isInverted = false;
+    }
+
     private IEnumerator FlashRoutine()
     {
         // 1. Zmień materiał na flash
@@ -44,7 +69,10 @@ public class SpriteFlash : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         // 3. Przywróć oryginalny materiał
-        spriteRenderer.material = originalMaterial;
+        if (!isInverted)
+        {
+            spriteRenderer.material = originalMaterial;
+        }
 
         // Wyczyść referencję do coroutine
         flashCoroutine = null;

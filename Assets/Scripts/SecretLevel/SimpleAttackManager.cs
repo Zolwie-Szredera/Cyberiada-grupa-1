@@ -4,12 +4,16 @@ public class SimpleAttackManager : MonoBehaviour
 {
     public Transform[] spawners;
     public GameObject[] enemyPrefabs;
-    public float spawnInterval = 2f;
+    public float startSpawnInterval;
+    public float endSpawnInterval;
+    public float intervalDecrease;
+    private float spawnInterval;
     private float spawnTimer;
 
     void Start()
     {
-        spawnTimer = spawnInterval;
+        spawnInterval = startSpawnInterval;
+        spawnTimer = startSpawnInterval;
     }
 
     void Update()
@@ -20,6 +24,9 @@ public class SimpleAttackManager : MonoBehaviour
         {
             SpawnEnemy();
             spawnTimer = spawnInterval;
+
+            // zmniejszanie interwału (z limitem)
+            spawnInterval = Mathf.Max(endSpawnInterval, spawnInterval - intervalDecrease);
         }
     }
 

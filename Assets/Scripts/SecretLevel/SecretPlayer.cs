@@ -21,7 +21,9 @@ public class SecretPlayer : MonoBehaviour
 
     [Header("Statystyki")]
     public float maxHealth = 5f;
-    private float currentHealth;
+
+    public float maxHealth = 5f; // Zmieniamy na 5, skoro mamy 5 serc
+    [HideInInspector] public float currentHealth;
     public float immunityDuration = 1f;
 
 
@@ -29,7 +31,7 @@ public class SecretPlayer : MonoBehaviour
     [Header("Efekt Odporności")]
     [SerializeField] private SpriteFlash spriteFlash;
 
-    private float immuneTimer = 0;
+    [HideInInspector] public float immuneTimer = 0;
     private float horizontalInput = 0f;
     private readonly List<float> inputStack = new();
     private bool _immuneVisualActive;

@@ -7,6 +7,7 @@ public class SecretPlayerShoot : MonoBehaviour
     public float shootCooldown;
     public float projectileSpeed;
     public Transform attackPoint;
+    public int damage = 1;
 
     private float shootTimer;
     private Vector2 mousePosition;
@@ -48,7 +49,7 @@ public class SecretPlayerShoot : MonoBehaviour
         GameObject currentProjectile = Instantiate(projectilePrefab, attackPoint.position, Quaternion.identity);
 
         SecretProjectile proj = currentProjectile.GetComponent<SecretProjectile>();
-        proj.Initiate(1, 100, projectileSpeed, direction);
+        proj.Initiate(damage, 100, projectileSpeed, direction);
         proj.IgnoreParentObject(gameObject);
     }
 }

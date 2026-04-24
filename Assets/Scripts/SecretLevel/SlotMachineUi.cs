@@ -7,6 +7,7 @@ using System.Reflection;
 
 namespace SecretLevel
 {
+    [RequireComponent(typeof(PowerupEffect))]
     [RequireComponent(typeof(UIDocument))]
     public class SlotMachineUi : MonoBehaviour
     {
@@ -23,6 +24,7 @@ namespace SecretLevel
         private Label[] _slotLabels;
         private PowerUpType[] _reelValues;
         private Coroutine _rollCoroutine;
+        private PowerupEffect powerupEffect;
 
         private void Awake()
         {
@@ -44,6 +46,10 @@ namespace SecretLevel
             }
 
             SetSlotVisible(false);
+        }
+        public void Start()
+        {
+            powerupEffect = GetComponent<PowerupEffect>();
         }
 
         public PowerUpType? RollRandomItem(List<PowerUpType> items)
@@ -144,6 +150,8 @@ namespace SecretLevel
             // Safety: final selected item must always stay in ST3.
             _reelValues[2] = finalItem;
             RenderReel();
+
+            TriggerEffect(finalItem);
 
             if (resultVisibleDuration > 0f)
             {
@@ -383,6 +391,36 @@ namespace SecretLevel
             InspectorNameAttribute inspectorName = field.GetCustomAttribute<InspectorNameAttribute>();
             return inspectorName != null ? inspectorName.displayName : value.ToString();
         }
+        private void TriggerEffect(PowerUpType type)
+        {
+            switch (type)
+            {
+                case PowerUpType.DamageBoost:
+                    powerupEffect.DamageBoost();
+                    break;
+
+                case PowerUpType.Invincibility:
+                    powerupEffect.Invincibility();
+                    break;
+
+                case PowerUpType.Onslaught:
+                    powerupEffect.Onslaught();
+                    break;
+
+                case PowerUpType.Slowness:
+                    powerupEffect.Slowness();
+                    break;
+
+                case PowerUpType.Saturation:
+                    powerupEffect.Saturation();
+                    break;
+
+                case PowerUpType.Invisibility:
+                    //unim
+                    break;
+            }
+        }
     }
+
 }
 

@@ -6,9 +6,9 @@ public class SecretPlayer : MonoBehaviour
 {
     public float mainTimer = 0;
     public GameObject tutorialCanvas;
-    // --- NOWE POLA DLA SERC ---
+
     [Header("UI Serca")]
-    public GameObject[] hearts; // Przeciągnij tutaj swoje serca z hierarchii
+    public GameObject[] hearts;
 
     [Header("Linie (Przeciągnij obiekty z hierarchii)")]
     public Transform[] lineAnchors;
@@ -20,9 +20,11 @@ public class SecretPlayer : MonoBehaviour
     public float boundaryX = 3f;
 
     [Header("Statystyki")]
-    public float maxHealth = 5f; // Zmieniamy na 5, skoro mamy 5 serc
+    public float maxHealth = 5f;
     private float currentHealth;
     public float immunityDuration = 1f;
+
+
 
     [Header("Efekt Odporności")]
     [SerializeField] private SpriteFlash spriteFlash;
@@ -40,23 +42,17 @@ public class SecretPlayer : MonoBehaviour
         }
 
         currentHealth = maxHealth;
-        UpdateHeartsUI(); // Odśwież serca na starcie
+        UpdateHeartsUI();
     }
 
-    // --- KLUCZOWA FUNKCJA DO AKTUALIZACJI UI ---
     void UpdateHeartsUI()
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            // Jeśli numer serca jest mniejszy niż obecne HP, pokaż je. W przeciwnym razie ukryj.
             if (i < currentHealth)
-            {
                 hearts[i].SetActive(true);
-            }
             else
-            {
                 hearts[i].SetActive(false);
-            }
         }
     }
 
@@ -69,29 +65,31 @@ public class SecretPlayer : MonoBehaviour
         }
 
         currentHealth -= amount;
-        Debug.Log("HP: " + currentHealth);
-
-        UpdateHeartsUI(); // AKTUALIZACJA PO OBRAŻENIACH
+        UpdateHeartsUI();
 
         immuneTimer = immunityDuration;
         SetImmuneVisual(true);
 
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth <= 0) Die();
     }
 
-    // --- RESZTA TWOJEGO KODU (OnGoUp, Update, etc.) ---
-    // Pamiętaj, aby zachować pozostałe metody bez zmian, 
-    // tylko upewnij się, że Update() korzysta z Twoich zmiennych.
+    public void AddHealth(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        UpdateHeartsUI();
+    }
+
+    // --- METODA DLA BONUSU NOKAUT ---
+
 
     void Update()
     {
-        // Ruch poziomy i pionowy (twój istniejący kod)
+        // Ruch poziomy
         float newX = transform.position.x + (horizontalInput * moveSpeed * Time.deltaTime);
         newX = Mathf.Clamp(newX, -boundaryX, boundaryX);
 
+        // Ruch pionowy (Linie)
         float targetY = transform.position.y;
         if (lineAnchors != null && lineAnchors.Length > 0)
         {
@@ -102,14 +100,20 @@ public class SecretPlayer : MonoBehaviour
         float smoothY = Mathf.MoveTowards(transform.position.y, targetY, transitionSpeed * Time.deltaTime);
         transform.position = new Vector3(newX, smoothY, transform.position.z);
 
+        // Licznik odporności
         if (immuneTimer > 0) immuneTimer -= Time.deltaTime;
         if (immuneTimer <= 0f)
         {
             immuneTimer = 0f;
             SetImmuneVisual(false);
         }
+
+        // --- OBSŁUGA BONUSU NOKAUT ---
+
+
+        // Tutorial timer
         mainTimer += Time.deltaTime;
-        if(mainTimer > 15f)
+        if (mainTimer > 15f && tutorialCanvas != null)
         {
             tutorialCanvas.SetActive(false);
         }
@@ -117,26 +121,10 @@ public class SecretPlayer : MonoBehaviour
 
     private void SetImmuneVisual(bool isEnabled)
     {
-        if (_immuneVisualActive == isEnabled)
-        {
-            return;
-        }
-
+        if (_immuneVisualActive == isEnabled) return;
         _immuneVisualActive = isEnabled;
-        if (spriteFlash != null)
-        {
-            spriteFlash.SetInverted(isEnabled);
-        }
+        if (spriteFlash != null) spriteFlash.SetInverted(isEnabled);
     }
-    public void AddHealth(float amount)
-    {
-        currentHealth += amount;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
-
-        UpdateHeartsUI(); // To odświeży serca na ekranie
-    }
-
-    // ... (metody OnGoLeft, OnGoRight, UpdateHorizontalInput, Die pozostają bez zmian)
 
     public void OnGoUp(InputAction.CallbackContext context) { if (context.performed && currentLine > 0) currentLine--; }
     public void OnGoDown(InputAction.CallbackContext context) { if (context.performed && lineAnchors != null && currentLine < lineAnchors.Length - 1) currentLine++; }

@@ -24,6 +24,10 @@ public class SecretEnemy : MonoBehaviour
             Die();
         }
     }
+    public virtual void Update()
+    {
+        MoveInLine();
+    }
     public void Die()
     {
         Debug.Log("Enemy died");

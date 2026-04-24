@@ -35,7 +35,7 @@ public class SecretHalberdEnemy : SecretEnemy
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
-    void Update()
+    public override void Update()
     {
         attackTimer -= Time.deltaTime;
 

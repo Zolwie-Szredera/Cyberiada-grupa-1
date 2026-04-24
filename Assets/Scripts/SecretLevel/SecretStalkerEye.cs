@@ -25,7 +25,7 @@ public class SecretStalkerEye : SecretEnemy
         currentProjectile.GetComponent<SecretProjectile>().Initiate(damage, projectileTimeToLive, projectileSpeed, direction.normalized);
         currentProjectile.GetComponent<SecretProjectile>().IgnoreParentObject(gameObject);
     }
-    public void Update()
+    public override void Update()
     {
         MoveInLine();
         attackCooldown -= Time.deltaTime;

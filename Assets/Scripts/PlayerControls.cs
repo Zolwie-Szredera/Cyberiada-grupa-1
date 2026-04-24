@@ -526,6 +526,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f348501-785e-45a0-bd1b-b3152ea051d2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -616,6 +625,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""283e2d0d-b388-4db5-aa93-c4aca7682449"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""453975db-9818-4182-9366-bb484547a312"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -649,6 +680,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_SecretLevel_MoveRight = m_SecretLevel.FindAction("MoveRight", throwIfNotFound: true);
         m_SecretLevel_MoveUp = m_SecretLevel.FindAction("MoveUp", throwIfNotFound: true);
         m_SecretLevel_MoveDown = m_SecretLevel.FindAction("MoveDown", throwIfNotFound: true);
+        m_SecretLevel_Shoot = m_SecretLevel.FindAction("Shoot", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -1156,6 +1188,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_SecretLevel_MoveRight;
     private readonly InputAction m_SecretLevel_MoveUp;
     private readonly InputAction m_SecretLevel_MoveDown;
+    private readonly InputAction m_SecretLevel_Shoot;
     /// <summary>
     /// Provides access to input actions defined in input action map "SecretLevel".
     /// </summary>
@@ -1183,6 +1216,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "SecretLevel/MoveDown".
         /// </summary>
         public InputAction @MoveDown => m_Wrapper.m_SecretLevel_MoveDown;
+        /// <summary>
+        /// Provides access to the underlying input action "SecretLevel/Shoot".
+        /// </summary>
+        public InputAction @Shoot => m_Wrapper.m_SecretLevel_Shoot;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1221,6 +1258,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveDown.started += instance.OnMoveDown;
             @MoveDown.performed += instance.OnMoveDown;
             @MoveDown.canceled += instance.OnMoveDown;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         /// <summary>
@@ -1244,6 +1284,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveDown.started -= instance.OnMoveDown;
             @MoveDown.performed -= instance.OnMoveDown;
             @MoveDown.canceled -= instance.OnMoveDown;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         /// <summary>
@@ -1441,5 +1484,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

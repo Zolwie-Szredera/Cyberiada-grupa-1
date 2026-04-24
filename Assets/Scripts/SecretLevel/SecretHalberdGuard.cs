@@ -66,7 +66,7 @@ public class SecretHalberdEnemy : SecretEnemy
         isAttacking = true;
         attackTimer = attackCooldown;
 
-        movementSpeed = 0f; // zatrzymaj się jak w Undertale
+        movementSpeed = -2f;
         animator.SetBool("walk", false);
         animator.SetTrigger("attack");
     }

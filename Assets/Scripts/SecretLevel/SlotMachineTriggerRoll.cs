@@ -58,6 +58,7 @@ namespace SecretLevel
             {
                 _used = true;
             }
+            Destroy(gameObject);
         }
 
         private void TryResolveSlotMachineUi()

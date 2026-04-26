@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fcb7614fd3a34498fd7664aa535b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StalkerEyeAttack
-  damage: 1
+  damage: 3
   attackRange: 10
   projectileSpeed: 15
   projectileTimeToLive: 10

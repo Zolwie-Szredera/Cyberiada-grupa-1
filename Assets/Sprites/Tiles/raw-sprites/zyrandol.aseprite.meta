@@ -130,7 +130,7 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: zyrandol_0
     originalName: 
-    pivot: {x: 0.22222222, y: 0.125}
+    pivot: {x: 0.2777778, y: 0.125}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 

@@ -36,6 +36,10 @@ public class TilemapEffectsHandler : MonoBehaviour
         {
             Debug.LogWarning("One or more tile arrays not assigned or empty in TilemapEffectsHandler.");
         }
+        //activate tilemaps - they are disabled when editing the scene so that they don't get in the way but they need to be active for the script to work.
+        bloodTilemap.gameObject.SetActive(true);
+        goopTilemap.gameObject.SetActive(true);
+        blackBileTilemap.gameObject.SetActive(true);
     }
     public void PlaceBlood(Vector3 position)
     {

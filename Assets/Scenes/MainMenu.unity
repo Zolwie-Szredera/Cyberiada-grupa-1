@@ -518,8 +518,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1310682725}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1240340611}
+        m_TargetAssemblyTypeName: GameStateManager, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -651,9 +651,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1310682725}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: OpenLevel
+      - m_Target: {fileID: 1240340611}
+        m_TargetAssemblyTypeName: GameStateManager, Assembly-CSharp
+        m_MethodName: StartNewGame
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -962,16 +962,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1310682725}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: OpenLevel
-        m_Mode: 5
+      - m_Target: {fileID: 1240340611}
+        m_TargetAssemblyTypeName: GameStateManager, Assembly-CSharp
+        m_MethodName: ContinueGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Test-Grap1
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &555984150
@@ -1333,6 +1333,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826073288}
   m_CullTransparentMesh: 1
+--- !u!1 &913011327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 913011328}
+  - component: {fileID: 913011329}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &913011328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913011327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -66, y: -29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &913011329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913011327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9190e23e20443f90235cf647d6cccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
 --- !u!1 &993166263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,6 +1617,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188070151}
   m_CullTransparentMesh: 1
+--- !u!1 &1240340609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240340610}
+  - component: {fileID: 1240340611}
+  m_Layer: 0
+  m_Name: GameStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240340610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240340609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -66, y: -29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1240340611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240340609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b448534f7c4f5aa25001ad71bc1c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
 --- !u!1 &1310682719 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7374395267303848663, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
@@ -1862,6 +1950,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 605786230511088447, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 680723400866629476, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: mainCanvas
       value: 
@@ -1930,11 +2022,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1462084691528199843, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: mainCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1462084691528199843, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2492254538916702126, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1993318583}
     - target: {fileID: 3623384391143627664, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3771767385280664304, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
@@ -1950,10 +2054,42 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5889767273442501280, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889767273442501280, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889767273442501280, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6295147243264151294, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: MenuPanel
       value: 
       objectReference: {fileID: 754158246}
+    - target: {fileID: 7731816324107000605, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: bloodText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731816324107000605, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: airJumpText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731816324107000605, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: debugCanvas
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731816324107000605, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: playerVelocityTextX
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731816324107000605, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
+      propertyPath: playerVelocityTextY
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8421757509934808310, guid: b29264f1ea565d7488bf029594aecb59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2691,3 +2827,5 @@ SceneRoots:
   - {fileID: 784190910}
   - {fileID: 1689775032}
   - {fileID: 1993318584}
+  - {fileID: 913011328}
+  - {fileID: 1240340610}

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,10 +5,11 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     private PlayerStats playerStats;
-    public bool isInvulnerable = false;
+    public bool isInvulnerable;
     private PlayerController playerController;
     private float maxBlood;
     public float MaxBlood => maxBlood;
+    public bool preventLethalBloodSpellCosts;
     public Image bloodFill;
     public Image blackBileFill;
     public Canvas deathScreen;
@@ -150,22 +150,41 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (isInvulnerable) return;
-        currentBlood -= damage;
-        Debug.Log($"Player took {damage} damage. Current health: {currentBlood}/{maxBlood}");
+        ApplyBloodLoss(damage, false);
+    }
+
+    public bool SpendBlood(float amount)
+    {
+        return ApplyBloodLoss(amount, true);
+    }
+
+    private bool ApplyBloodLoss(float amount, bool allowFatalProtection)
+    {
+        if (isInvulnerable || amount <= 0f)
+        {
+            return true;
+        }
+
+        float resultingBlood = currentBlood - amount;
+        bool preventedDeath = allowFatalProtection && preventLethalBloodSpellCosts && currentBlood > 0f && resultingBlood <= 0f;
+
+        currentBlood = preventedDeath ? 1f : Mathf.Max(0f, resultingBlood);
 
         UpdateHealthUI();
-        
+
         if (bloodParticles != null)
         {
-            bloodFill.fillAmount = currentBlood / maxBlood;
             ParticleSystem ps = Instantiate(bloodParticles, transform.position, Quaternion.identity);
             ps.Play();
         }
-        if (currentBlood <= 0)
+
+        if (!preventedDeath && currentBlood <= 0f)
         {
             Die();
+            return false;
         }
+
+        return true;
     }
 
     public void GainBlood(float gain)

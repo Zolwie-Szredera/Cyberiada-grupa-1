@@ -38,7 +38,7 @@ public class PlayerStats : MonoBehaviour
     private void Awake()
     {
         InitializeStats();
-        //CommenceAccessoryTest();
+        //CommenceAccessoryTest(); // uncomment when you want to use AccessoriesTest.cs
     }
 
     public void InitializeStats()

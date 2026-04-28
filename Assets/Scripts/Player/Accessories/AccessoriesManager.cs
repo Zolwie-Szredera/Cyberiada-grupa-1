@@ -10,7 +10,7 @@ public class AccessoriesManager : MonoBehaviour
 
     public Accessory[] activeSlots = new Accessory[ActiveSlotsCount];
     public Accessory[] inventory = new Accessory[InventorySlotsCount];
-    public void Start() //please stop removing this. Seriously, why!?
+    private void Awake() //move from start to awake bc otherwise it didn't work
     {
         playerStats = GetComponent<PlayerStats>();
     }

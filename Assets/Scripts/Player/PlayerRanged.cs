@@ -44,7 +44,11 @@ public class PlayerRanged : PlayerWeapons
     }
     public override void BasicAttack()
     {
-        player.GetComponent<PlayerHealth>().TakeDamage(bloodCost);
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth == null || !playerHealth.SpendBlood(bloodCost))
+        {
+            return;
+        }
         
         origin = GetAttackPosition(0f);
         

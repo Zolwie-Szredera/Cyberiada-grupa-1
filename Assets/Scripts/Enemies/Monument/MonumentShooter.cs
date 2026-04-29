@@ -9,6 +9,10 @@ public class MonumentShooter : EnemyShooter
     {
         StartCoroutine(ShootSeriesCoroutine());
     }
+    public void ShootHeavy()
+    {
+        HeavyAttack(playerLocation.position - attackPoint.position);
+    }
     public void HeavyAttack(Vector2 direction) //for animation event
     {
         GameObject currentProjectile = Instantiate(heavyProjectilePrefab, attackPoint.position, Quaternion.identity);

@@ -1,75 +1,71 @@
 using System.Collections;
 using UnityEngine;
-[RequireComponent(typeof(MonumentMelee))]
-
-[RequireComponent(typeof(MonumentShooter))]
 [RequireComponent(typeof(Animator))]
 public class MonumentAI : Enemy
 {
-    private static readonly int AttackRangedHash = Animator.StringToHash("attackRanged");
-    private static readonly int AttackRangedMoveHash = Animator.StringToHash("attackRangedMove");
-    private static readonly int AttackHash = Animator.StringToHash("attackMelee");
+    private static readonly int AttackRangedHash = Animator.StringToHash("AttackLaser");
+    private static readonly int AttackRangedMoveHash = Animator.StringToHash("AttackShootWalk");
+    private static readonly int AttackHash = Animator.StringToHash("AttackMelee");
+    private static readonly int WalkHash = Animator.StringToHash("Walk");
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
     //animations: attack melee, attack ranged with movement, walk, attack ranged without movement
 
     enum State
     {
         Idle,
         Walk, //and try to attack if in range
-        AttackHeavyRanged, //and not moving
+        AttackLaser, //and not moving
+        AttackShootWalk, //shoot and walk, try to stay in ranged range
         AttackMelee, //and not moving
-        AttackRangedAndMoving,
-
     }
+    [Header("Monument")]
     public float meleeRange; //melee player if in range
     public float tryToMeleeRange; //walk to player if in range
-    public float rangedRange; //shoot if in range - heavy and sit or shoot and walk (randomly)
-    public float heavyAttackChance;
+    public float rangedRange; //shoot if in range - laser or projectile depends on roll
+    public float LaserAttackChance; //chance to shoot laser instead of walk and shoot when player is in ranged range
     public GameObject[] goopPoints;
     private TilemapEffectsHandler effectsHandler;
     private State currentState;
-    private MonumentMelee meleeScript;
-    private MonumentShooter rangedScript;
     private Animator animator;
     private bool blockStateChange = false;
     public override void Start()
     {
         base.Start();
         effectsHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<TilemapEffectsHandler>();
-        meleeScript = GetComponent<MonumentMelee>();
-        rangedScript = GetComponent<MonumentShooter>();
         animator = GetComponent<Animator>();
     }
     public void Update()
     {
-        //STATE MANAGEMENT
-        if (!blockStateChange)
-        {
-            if (distanceToPlayer <= meleeRange)
-            {
-                //melee the player
-                EnterAttackMelee();
-            }
-            else if (distanceToPlayer <= tryToMeleeRange)
-            {
-                //try to walk to player to melee him
-                EnterWalk();
-            }
-            else if (distanceToPlayer <= rangedRange)
-            {
-                //try to shoot the player, maybe walk and shoot, maybe just shoot heavy
-                EnterAttackRanged();
-            }
-            else
-            {
-                EnterIdle();
-            }
-        }
-
         //STATE BEHAVIOUR
-        if(currentState == State.Walk || currentState == State.AttackRangedAndMoving)
+        if (currentState == State.Walk || currentState == State.AttackShootWalk)
         {
             WalkToPlayer(1);
         }
+        
+        //STATE TRANSITIONS
+        if (blockStateChange) return;
+
+        State nextState;
+
+        if (distanceToPlayer <= meleeRange)
+        {
+            nextState = State.AttackMelee;
+        }
+        else if (distanceToPlayer <= tryToMeleeRange)
+        {
+            nextState = State.Walk;
+        }
+        else if (distanceToPlayer <= rangedRange)
+        {
+            float roll = Random.value;
+            nextState = roll >= LaserAttackChance ? State.AttackShootWalk : State.AttackLaser;
+        }
+        else
+        {
+            nextState = State.Idle;
+        }
+        SetState(nextState);
+
         //most of the stuff like "instatiate projectiles" is handled via animator
     }
     public override void FixedUpdate()
@@ -83,38 +79,81 @@ public class MonumentAI : Enemy
             }
         }
     }
-    private void EnterAttackMelee()
+    private void SetState(State newState)
     {
-        currentState = State.AttackMelee;
-        animator.SetTrigger(AttackHash);
-        rb.linearVelocity = Vector2.zero;
-        blockFlip = true;
-    }
-    private void EnterAttackRanged()
-    {
-        attackCooldown = attackSpeed;
-        blockFlip = false;
+        if (currentState == newState || blockStateChange) return;
 
-        float roll = Random.Range(0f, 1f);
-        if (roll <= heavyAttackChance)
+        currentState = newState;
+
+        animator.ResetTrigger(AttackHash);
+        animator.ResetTrigger(AttackRangedHash);
+        animator.ResetTrigger(AttackRangedMoveHash);
+        animator.ResetTrigger(WalkHash);
+        animator.ResetTrigger(IdleHash);
+
+        switch (currentState)
         {
-            currentState = State.AttackHeavyRanged;
-            animator.SetTrigger(AttackRangedMoveHash);
+            case State.Idle:
+                animator.SetTrigger(IdleHash);
+                blockFlip = false;
+                break;
+
+            case State.Walk:
+                animator.SetTrigger(WalkHash);
+                blockFlip = false;
+                break;
+
+            case State.AttackMelee:
+                animator.SetTrigger(AttackHash);
+                rb.linearVelocity = Vector2.zero;
+                blockFlip = true;
+                blockStateChange = true; //block state change until animation event calls ExitAttackd
+                break;
+
+            case State.AttackLaser:
+                animator.SetTrigger(AttackRangedHash);
+                blockFlip = true;
+                blockStateChange = true; //block state change until animation event calls ExitAttack
+                break;
+
+            case State.AttackShootWalk:
+                animator.SetTrigger(AttackRangedMoveHash);
+                blockFlip = false;
+                blockStateChange = true; //block state change until animation event calls ExitAttack
+                //with the exception that if player gets too close, it will switch to melee attack
+                break;
+        }
+
+        attackCooldown = attackSpeed;
+    }
+    public void ExitAttack() //animation event
+    {
+        blockStateChange = false;
+        if(blockFlip) //temporarily allow flipping to face player after attack
+        {
+            blockFlip = false;
+            FacePlayer();
             blockFlip = true;
-        } else
-        {
-            currentState = State.AttackRangedAndMoving;
-            animator.SetTrigger(AttackRangedHash);
         }
     }
-    private void EnterWalk()
+
+#if UNITY_EDITOR
+    public void OnDrawGizmos()
     {
-        currentState = State.Walk;
-        blockFlip = false;
+        // Display current state above the enemy
+        UnityEditor.Handles.Label(transform.position + Vector3.up * 6f, currentState.ToString());
     }
-    private void EnterIdle()
+    public void OnDrawGizmosSelected()
     {
-        blockFlip = false;
-        currentState = State.Idle;
+        // Draw melee range
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, meleeRange);
+        // Draw try to melee range
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, tryToMeleeRange);
+        // Draw ranged range
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, rangedRange);
     }
+#endif
 }

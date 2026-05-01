@@ -5,6 +5,9 @@
 [RequireComponent(typeof(EnemyHoverPointFly))]
 public class BlackBileFlyAI : Enemy
 {
+    private static readonly int ExplosiveTransformHash = Animator.StringToHash("explosiveTransform");
+    private static readonly int DeathTransformHash = Animator.StringToHash("deathTransform");
+    private static readonly int IsAttackingHash = Animator.StringToHash("isAttacking");
     [Header("AI settings")]
     public float firstShotDelay = 0.5f; //delay after spawning before first shot 
     public float hoverPointInterval = 3f; //in seconds: how often to pick a new hover point
@@ -79,14 +82,14 @@ public class BlackBileFlyAI : Enemy
         }
         if (currentState == State.Attacking)
         {
-            animator.SetBool("isAttacking", true);
+            animator.SetBool(IsAttackingHash, true);
             attackCooldown = attackSpeed;
             currentState = State.Moving;
             hoverPointTimer = hoverPointInterval;
             currentHoverPoint = flyScript.GetHoverPoint((Vector2)playerLocation.position);
         } else
         {
-            animator.SetBool("isAttacking", false);
+            animator.SetBool(IsAttackingHash, false);
         }
         if(currentState == State.Transforming)
         {
@@ -101,12 +104,12 @@ public class BlackBileFlyAI : Enemy
         invulnerable = true; //prevent taking damage during transform
         if(chance <= chanceToTransform)
         {
-            animator.SetBool("deathTransform", true);
+            animator.SetBool(DeathTransformHash, true);
             currentState = State.Transforming;
             movementSpeed = movementSpeedDuringTransform;
         } else
         {
-            animator.SetBool("explosiveTransform", true);
+            animator.SetBool(ExplosiveTransformHash, true);
             currentState = State.Transforming;
         }
     }

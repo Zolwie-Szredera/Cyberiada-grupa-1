@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExplosiveProjectile
   explosionRadius: 5
   knockbackForce: 5
-  explosionEffect: {fileID: 1514070184384136761, guid: 49a6f4dd1443b104898246f123da7e61, type: 3}
+  explosionEffect: {fileID: 0}
 --- !u!82 &6389830099594861121
 AudioSource:
   m_ObjectHideFlags: 0

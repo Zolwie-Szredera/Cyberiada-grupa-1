@@ -12,7 +12,7 @@ public class GameStateManager : MonoBehaviour
         // Ensure SaveManager exists
         if (FindAnyObjectByType<SaveManager>() == null)
         {
-            GameObject saveMgr = new GameObject("SaveManager");
+            GameObject saveMgr = new("SaveManager");
             saveMgr.AddComponent<SaveManager>();
         }
     }

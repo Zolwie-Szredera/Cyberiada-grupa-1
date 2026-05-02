@@ -11,7 +11,7 @@ System zapisu **automatycznie** zapisuje stan gry w momencie dotknięcia checkpo
 - ✅ **Scena** - nazwa aktualnej mapy
 - ✅ **Checkpoint** - nazwa ostatnio dotknętego checkpointa
 - ✅ **Pozycja gracza** - X, Y, Z
-- ✅ **Zdrowie gracza** - aktualne HP/krew
+- ✅ **Zdrowie gracza** - aktualne HP/krew <--- niepotrzebne
 - ✅ **Akcesoria wyposażone** - 4 sloty
 - ✅ **Akcesoria w ekwipunku** - 16 slotów
 - ✅ **Czas zapisu** - data i godzina

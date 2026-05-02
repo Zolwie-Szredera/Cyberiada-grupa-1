@@ -30,13 +30,14 @@ public class BossHealthBarHandler : MonoBehaviour
     {
         if(inBattle)
         {
-            Debug.LogError("Tried to iniliate boss battle while one was already active");
+            Debug.LogError("Tried to initiate boss battle while one was already active");
         }
         inBattle = true;
         healthBar.SetActive(true);
         text.text = boss.gameObject.name;
         maxBossHealth = boss.hp;
         this.boss = boss;
+        Debug.Log("Boss battle initiated with boss " + boss.gameObject.name);
     }
     public void EndBossBattle()
     {
@@ -44,5 +45,6 @@ public class BossHealthBarHandler : MonoBehaviour
         healthBar.SetActive(false);
         boss = null;
         inBattle = false;
+        Debug.Log("Boss battle ended");
     }
 }

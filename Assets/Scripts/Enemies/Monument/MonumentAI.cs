@@ -3,12 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class MonumentAI : Enemy
 {
+    private static readonly int DeathHash = Animator.StringToHash("Death");
     private static readonly int AttackRangedHash = Animator.StringToHash("AttackLaser");
     private static readonly int AttackRangedMoveHash = Animator.StringToHash("AttackShootWalk");
     private static readonly int AttackHash = Animator.StringToHash("AttackMelee");
     private static readonly int WalkHash = Animator.StringToHash("Walk");
     private static readonly int IdleHash = Animator.StringToHash("Idle");
-    //animations: attack melee, attack ranged with movement, walk, attack ranged without movement
+    //animations: attack melee, attack ranged with movement, walk, attack ranged without movement, death, idle
 
     enum State
     {
@@ -33,6 +34,9 @@ public class MonumentAI : Enemy
         base.Start();
         effectsHandler = GameObject.FindGameObjectWithTag("GameManager").GetComponent<TilemapEffectsHandler>();
         animator = GetComponent<Animator>();
+        //preemptively set distance to player so that it doesn't have to wait for fixedupdate to do it, which causes weirdness with the initial state
+        distanceToPlayer = Vector2.Distance(transform.position, playerLocation.position);
+        SetState(State.Idle);
     }
     public void Update()
     {
@@ -135,6 +139,15 @@ public class MonumentAI : Enemy
             FacePlayer();
             blockFlip = true;
         }
+    }
+    public override void Die()
+    {
+        animator.SetTrigger(DeathHash);
+        rb.linearVelocity = Vector2.zero;
+    }
+    public void DestroyAfterDeathAnimation() //animation event
+    {
+        base.Die();
     }
 
 #if UNITY_EDITOR

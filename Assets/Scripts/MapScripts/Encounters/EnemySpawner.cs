@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     {
         //search for enemy component in prefab
         GameObject enemyGO = Instantiate(enemyPrefab, transform.position, Quaternion.identity); //enemyGO as in: enemy game object
+        enemyGO.name = enemyPrefab.name;
         Enemy enemy = enemyGO.GetComponentInChildren<Enemy>(true);
 
         if (enemy != null)

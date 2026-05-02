@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3787883039411884545}
   - component: {fileID: 8993162828435361222}
   m_Layer: 0
-  m_Name: Penumbral Torch 2
+  m_Name: LightLamp3 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7704631445651979819, guid: b2e78096181ee4549bdd297c291416b4, type: 3}
+  m_Sprite: {fileID: 4836057439155391944, guid: 877b4033ac42f0f43a4c0c2d5b200225, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

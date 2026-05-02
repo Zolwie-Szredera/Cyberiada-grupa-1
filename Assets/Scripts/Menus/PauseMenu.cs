@@ -65,6 +65,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void BeginPause()
     {
+        Debug.Log("Pausing game...");
         if (dialogueHandler.isOpen) //if player is in dialogue
         {
             dialogueHandler.PauseDialogue();
@@ -84,6 +85,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void EndPause()
     {
+        Debug.Log("Unpausing game...");
         if (dialogueHandler.isOpen) //if player is in dialogue
         {
             //go back to dialogue and unpause it
@@ -117,6 +119,7 @@ public class PauseMenu : MonoBehaviour
     //----------- BUTTONS -----------
     public void OpenOptions()
     {
+        Debug.Log("Opening options menu...");
         pauseMenuCanvas.SetActive(false);
         optionsMenuCanvas.SetActive(true);
         optionsMenu.UpdateValues();
@@ -124,6 +127,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void RestartToCheckpoint()
     {
+        Debug.Log("Restarting to checkpoint...");
         EndPause();
         if (playerDetected)
         {
@@ -134,6 +138,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void QuitToMainMenu()
     {
+        Debug.Log("Quitting to main menu...");
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         //can't play sound here because the scene is changing, but we can play it in the main menu's start method

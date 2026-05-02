@@ -37,6 +37,13 @@ public class Checkpoint : MonoBehaviour
                 action.ExecuteAction();
             }
             playerHealth.RestoreToMax();
+            
+            // Save the game automatically
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.SaveGame();
+            }
+            
             StartCoroutine(LightEffectCoroutine());
         }
     }

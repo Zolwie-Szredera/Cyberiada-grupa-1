@@ -28,12 +28,9 @@ public class EnemyMeelee : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
             }
-            //if(hit.TryGetComponent(out Destructible destructible))
-            //{
-            //    destructible.TakeDamage(damage);
-            //}
-            //ADD DESTRUCTIBLES LATER
         }
+
+        DestructibleTilemapUtility.DamageAt(attackPoint.position, attackRange);
     }
     public virtual void OnDrawGizmosSelected()
     {

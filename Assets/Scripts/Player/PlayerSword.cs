@@ -27,12 +27,9 @@ public class PlayerSword : PlayerWeapons
                 player.GetComponent<PlayerHealth>().GainBlood(bloodSteal); //this is important. Current steal: 20%
                 //Debug.Log("Hit an enemy: " + hit.name + " and gained blood: " + bloodSteal);
             }
-            //if(hit.TryGetComponent(out Destructible destructible))
-            //{
-            //    destructible.TakeDamage(damage);
-            //}
-            //ADD DESTRUCTIBLES LATER
         }
+
+        DestructibleTilemapUtility.DamageAt(origin, attackRange);
         attackCooldown = PlayerStats.attackSpeed;
     }
     private void OnDrawGizmosSelected()

@@ -9,6 +9,14 @@ public class BouncyProjectile : Projectile
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             Destroy(gameObject);
+            return;
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Destructible"))
+        {
+            DestructibleTilemapUtility.DamageAt(other.ClosestPoint(transform.position));
+            Destroy(gameObject);
+            return;
         }
         //this type doesn't do friendly fire
 

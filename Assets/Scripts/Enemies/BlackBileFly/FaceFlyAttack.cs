@@ -18,11 +18,8 @@ public class FaceFlyAttack : EnemyMeelee
                 playerHealth.GainBlackBile(blackBile);
                 Debug.Log(gameObject.name + " hit the player");
             } //no friendly fire for this enemy
-            //if(hit.TryGetComponent(out Destructible destructible))
-            //{
-            //    destructible.TakeDamage(damage);
-            //}
-            //ADD DESTRUCTIBLES LATER
         }
+
+        DestructibleTilemapUtility.DamageAt(attackPoint.position, attackRange);
     }
 }

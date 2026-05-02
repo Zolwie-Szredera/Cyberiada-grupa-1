@@ -14,54 +14,91 @@ public class TilemapEffectsHandler : MonoBehaviour
     public TileBase[] bloodTiles;
     public TileBase[] goopTiles;
     public TileBase[] blackBileTiles;
-    private readonly Dictionary<Vector3Int, int> bloodTileLevel = new();
-    private readonly Dictionary<Vector3Int, int> goopTileLevel = new();
-    private readonly Dictionary<Vector3Int, int> blackBileTileLevel = new();
-    private Tilemap collisionTilemap;
+    [Header("Destructible walls")]
+    public Tilemap destructibleTilemap;
+
+    private readonly Dictionary<Vector3Int, int> _bloodTileLevel = new();
+    private readonly Dictionary<Vector3Int, int> _goopTileLevel = new();
+    private readonly Dictionary<Vector3Int, int> _blackBileTileLevel = new();
+    private readonly Dictionary<Vector3Int, TileBase> _destructibleTileBackup = new();
+    private Tilemap _collisionTilemap;
+
     void Start()
     {
-        if(GameObject.FindGameObjectWithTag("CollisionTilemap") == null)
+        GameObject collisionObject = GameObject.FindGameObjectWithTag("CollisionTilemap");
+        if (collisionObject == null)
         {
             Debug.LogWarning("No tilemap with tag 'CollisionTilemap' found! Please ensure there is a tilemap with the tag 'CollisionTilemap' in the scene. Or that means you are in the main menu and it's ok");
             return;
-        } else
-        {
-            collisionTilemap = GameObject.FindGameObjectWithTag("CollisionTilemap").GetComponent<Tilemap>();
         }
+
+        _collisionTilemap = collisionObject.GetComponent<Tilemap>();
+        if (destructibleTilemap == null)
+        {
+            destructibleTilemap = _collisionTilemap;
+        }
+
         if (bloodTilemap == null || goopTilemap == null || blackBileTilemap == null)
         {
             Debug.LogWarning("One or more tilemaps not assigned in TilemapEffectsHandler.");
-        }        
+        }
         if (bloodTiles == null || goopTiles == null || blackBileTiles == null || bloodTiles.Length == 0 || goopTiles.Length == 0 || blackBileTiles.Length == 0)
         {
             Debug.LogWarning("One or more tile arrays not assigned or empty in TilemapEffectsHandler.");
         }
+
+        CacheDestructibleTiles();
     }
+
+    private Tilemap GetDestructibleTilemap()
+    {
+        return destructibleTilemap != null ? destructibleTilemap : _collisionTilemap;
+    }
+
+    private void CacheDestructibleTiles()
+    {
+        Tilemap tilemap = GetDestructibleTilemap();
+        if (tilemap == null)
+        {
+            return;
+        }
+
+        _destructibleTileBackup.Clear();
+        foreach (Vector3Int position in tilemap.cellBounds.allPositionsWithin)
+        {
+            TileBase tile = tilemap.GetTile(position);
+            if (tile != null)
+            {
+                _destructibleTileBackup[position] = tile;
+            }
+        }
+    }
+
     public void PlaceBlood(Vector3 position)
     {
-        PlaceEffect(bloodTilemap, bloodTiles, bloodTileLevel, position, 15, 30);
+        PlaceEffect(bloodTilemap, bloodTiles, _bloodTileLevel, position, 15, 30);
     }
 
     public void PlaceGoop(Vector3 position)
     {
-        PlaceEffect(goopTilemap, goopTiles, goopTileLevel, position, 50, 100); //goop is placed by monument 50 times per second (fixed update).
+        PlaceEffect(goopTilemap, goopTiles, _goopTileLevel, position, 50, 100); //goop is placed by monument 50 times per second (fixed update).
     }
 
     public void PlaceBlackBile(Vector3 position)
     {
-        PlaceEffect(blackBileTilemap, blackBileTiles, blackBileTileLevel, position, 15, 30);
+        PlaceEffect(blackBileTilemap, blackBileTiles, _blackBileTileLevel, position, 15, 30);
     }
 
     private void PlaceEffect(Tilemap tilemap, TileBase[] tiles, Dictionary<Vector3Int, int> tileLevels, Vector3 position, params int[] thresholds)
     {
-        if (collisionTilemap == null || tilemap == null || tiles == null || tiles.Length == 0)
+        if (_collisionTilemap == null || tilemap == null || tiles == null || tiles.Length == 0)
         {
             Debug.LogWarning("Tilemap or tiles not properly assigned in TilemapEffectsHandler. Cannot place effect.");
             return;
         }
 
         Vector3Int tilePos = tilemap.WorldToCell(position);
-        if (collisionTilemap.GetTile(tilePos) == null)
+        if (_collisionTilemap.GetTile(tilePos) == null)
         {
             return;
         }
@@ -83,13 +120,96 @@ public class TilemapEffectsHandler : MonoBehaviour
         level = Mathf.Min(level, tiles.Length - 1);
         tilemap.SetTile(tilePos, tiles[level]);
     }
+
+    public bool DamageDestructibleAt(Vector3 worldPosition, float radius = 0f)
+    {
+        Tilemap tilemap = GetDestructibleTilemap();
+        if (tilemap == null)
+        {
+            Debug.LogWarning("No destructible tilemap assigned in TilemapEffectsHandler.");
+            return false;
+        }
+
+        if (radius <= 0f)
+        {
+            return DestroyTileAtWorldPosition(tilemap, worldPosition);
+        }
+
+        return DestroyTilesInRadius(tilemap, worldPosition, radius);
+    }
+
+    private bool DestroyTileAtWorldPosition(Tilemap tilemap, Vector3 worldPosition)
+    {
+        Vector3Int tilePos = tilemap.WorldToCell(worldPosition);
+        if (!tilemap.HasTile(tilePos))
+        {
+            return false;
+        }
+
+        tilemap.SetTile(tilePos, null);
+        return true;
+    }
+
+    private bool DestroyTilesInRadius(Tilemap tilemap, Vector3 worldPosition, float radius)
+    {
+        Vector3 minWorld = worldPosition - new Vector3(radius, radius, 0f);
+        Vector3 maxWorld = worldPosition + new Vector3(radius, radius, 0f);
+        Vector3Int minCell = tilemap.WorldToCell(minWorld);
+        Vector3Int maxCell = tilemap.WorldToCell(maxWorld);
+
+        int minX = Mathf.Min(minCell.x, maxCell.x);
+        int maxX = Mathf.Max(minCell.x, maxCell.x);
+        int minY = Mathf.Min(minCell.y, maxCell.y);
+        int maxY = Mathf.Max(minCell.y, maxCell.y);
+
+        bool destroyedAny = false;
+        float sqrRadius = radius * radius;
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                Vector3Int cell = new Vector3Int(x, y, 0);
+                if (!tilemap.HasTile(cell))
+                {
+                    continue;
+                }
+
+                Vector3 cellCenter = tilemap.GetCellCenterWorld(cell);
+                if ((cellCenter - worldPosition).sqrMagnitude <= sqrRadius)
+                {
+                    tilemap.SetTile(cell, null);
+                    destroyedAny = true;
+                }
+            }
+        }
+
+        return destroyedAny;
+    }
+
+    private void RestoreDestructibleTiles()
+    {
+        Tilemap tilemap = GetDestructibleTilemap();
+        if (tilemap == null || _destructibleTileBackup.Count == 0)
+        {
+            return;
+        }
+
+        tilemap.ClearAllTiles();
+        foreach (KeyValuePair<Vector3Int, TileBase> tile in _destructibleTileBackup)
+        {
+            tilemap.SetTile(tile.Key, tile.Value);
+        }
+    }
+
     public void ClearEffects() //use this when player respawns
     {
+        RestoreDestructibleTiles();
         bloodTilemap.ClearAllTiles();
         goopTilemap.ClearAllTiles();
         blackBileTilemap.ClearAllTiles();
-        bloodTileLevel.Clear();
-        goopTileLevel.Clear();
-        blackBileTileLevel.Clear();
+        _bloodTileLevel.Clear();
+        _goopTileLevel.Clear();
+        _blackBileTileLevel.Clear();
     }
 }

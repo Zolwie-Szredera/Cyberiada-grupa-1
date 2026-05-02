@@ -25,11 +25,19 @@ public class Projectile : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             Destroy(gameObject);
+            return;
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(gameObject);
+            return;
+        }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Destructible"))
+        {
+            DestructibleTilemapUtility.DamageAt(other.ClosestPoint(transform.position));
+            Destroy(gameObject);
+            return;
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("StickyWall"))
         {

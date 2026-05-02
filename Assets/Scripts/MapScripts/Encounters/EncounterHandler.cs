@@ -11,7 +11,7 @@ public class EncounterHandler : MonoBehaviour
     /// TODO: bardziej na to popatrzeć, żeby zrozumieć o co dokładnie chodzi
     /// </summary>
 
-    public WaveSpawner[] wavesSpawners;
+    [HideInInspector] public WaveSpawner[] wavesSpawners;
     [HideInInspector] public bool encounterCompleted = false;
     private AudioSource audioSource;
     private const string PLAYER_TAG = "Player";
@@ -24,6 +24,9 @@ public class EncounterHandler : MonoBehaviour
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        //hopefully this doesn't mess with the order of waves
+        //ENSURE THAT ALL WAVESPAWNERS ARE IN CORRECT ORDER IN THE HIERARCHY
+        wavesSpawners = GetComponentsInChildren<WaveSpawner>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -81,6 +81,9 @@ public class SaveManager : MonoBehaviour
                         : "";
                 }
             }
+
+            saveData.isDashUnlocked = PlayerStats.isDashUnlocked;
+            saveData.isDoubleJumpUnlocked = PlayerStats.isDoubleJumpUnlocked;
         }
         
         // Timestamp

@@ -11,6 +11,10 @@ public class SaveData
     // Accessories data - Arrays for JSON serialization
     public string[] equippedAccessoryNames;
     public string[] inventoryAccessoryNames;
+
+    // Ability unlocks
+    public bool isDashUnlocked;
+    public bool isDoubleJumpUnlocked;
     
     // Timestamp
     public string saveTime;

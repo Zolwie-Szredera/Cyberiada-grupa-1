@@ -29,6 +29,8 @@ public class PlayerStats : MonoBehaviour
     [HideInInspector] public static float accelerationRate;
     [HideInInspector] public static float decelerationRate;
     [HideInInspector] public static float dashForce;
+    [HideInInspector] public static bool isDoubleJumpUnlocked;
+    [HideInInspector] public static bool isDashUnlocked;
 
     private readonly List<Accessory> activeAccessories = new();
 
@@ -53,7 +55,19 @@ public class PlayerStats : MonoBehaviour
         accelerationRate = baseAccelerationRate;
         decelerationRate = baseDecelerationRate;
         dashForce = baseDashForce;
+        isDoubleJumpUnlocked = false;
+        isDashUnlocked = false;
         OnStatsChanged?.Invoke();
+    }
+
+    public static void UnlockDoubleJump()
+    {
+        isDoubleJumpUnlocked = true;
+    }
+
+    public static void UnlockDash()
+    {
+        isDashUnlocked = true;
     }
 
     public void AddAccessory(Accessory accessory)

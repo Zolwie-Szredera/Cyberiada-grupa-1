@@ -115,7 +115,7 @@ public class DestructibleLayer : MonoBehaviour
                 if (teh != null)
                 {
                     teh.destructibleTilemap = _tilemap;
-                    Debug.Log("DestructibleLayer: registered tilemap to TilemapEffectsHandler.");
+                    Debug.Log("DestructibleLayer: registered tilemap to TilemapEffectsHandler. Only DestructibleTiles will be damageable.");
                 }
             }
         }

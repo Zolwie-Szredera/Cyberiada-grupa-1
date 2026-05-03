@@ -29,6 +29,7 @@ public class PlayerSword : PlayerWeapons
             }
         }
 
+        // Damage only DestructibleTiles in the attack range
         DestructibleTilemapUtility.DamageAt(origin, attackRange);
         attackCooldown = PlayerStats.attackSpeed;
     }

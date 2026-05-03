@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Xml.Serialization;
 using UnityEngine;
-
 [RequireComponent(typeof(StalkerEyeAttack))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(EnemyHoverPointFly))]
+
+[RequireComponent(typeof(SpriteRenderer))]
 public class StalkerEyeAI : Enemy
 {
     //I have no idea how to name the third state
@@ -21,6 +22,7 @@ public class StalkerEyeAI : Enemy
     private Vector2 currentHoverPoint;
     private float waitTimer;
     private float originalMovementSpeed;
+    private SpriteRenderer spriteRenderer;
     public override void Start()
     {
         base.Start();
@@ -28,6 +30,7 @@ public class StalkerEyeAI : Enemy
         eyeCollider = GetComponent<BoxCollider2D>();
         flyScript = GetComponent<EnemyHoverPointFly>();
         originalMovementSpeed = movementSpeed;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         EnterHide();
     }
     public override void FixedUpdate()
@@ -123,6 +126,7 @@ public class StalkerEyeAI : Enemy
         eyeCollider.enabled = false;
         transform.localPosition = new Vector3(0, -1.75f, 0);
         rb.linearVelocity = Vector2.zero;
+        spriteRenderer.enabled = false;
         Debug.Log("Stalker eye deactivated");
     }
     private void StopHiding()
@@ -131,6 +135,7 @@ public class StalkerEyeAI : Enemy
         eyeCollider.enabled = true;
         transform.localPosition = new Vector3(0, 0.19f, 0);
         currentHoverPoint = flyScript.GetHoverPoint((Vector2)playerLocation.position);
+        spriteRenderer.enabled = true;
         Debug.Log("Stalker eye activated");
     }
 #if UNITY_EDITOR

@@ -46,6 +46,9 @@ public class SaveSystemLoader : MonoBehaviour
                 checkpointSystem.currentCheckpoint = checkpoint;
             }
         }
+
+        PlayerStats.isDashUnlocked = saveData.isDashUnlocked;
+        PlayerStats.isDoubleJumpUnlocked = saveData.isDoubleJumpUnlocked;
         
         // Load accessories
         StartCoroutine(LoadAccessoriesDelayed(player, saveData));

@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        remainingAirJumps = PlayerStats.airJumps;
+        remainingAirJumps = PlayerStats.isDoubleJumpUnlocked ? PlayerStats.airJumps : 0;
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
@@ -137,11 +137,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        bool canUseAirJump = PlayerStats.isDoubleJumpUnlocked && remainingAirJumps > 0;
+
         if (context.started && isTouchingWall)
         {
             isWallJumping = true;
         }
-        else if (context.started && (isGrounded || remainingAirJumps > 0) && !justWallJumped)
+        else if (context.started && (isGrounded || canUseAirJump) && !justWallJumped)
         {
             isJumping = true;
         }
@@ -168,7 +170,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer + platformLayer);
         if (isGrounded)
         {
-            remainingAirJumps = PlayerStats.airJumps;
+            remainingAirJumps = PlayerStats.isDoubleJumpUnlocked ? PlayerStats.airJumps : 0;
         }
 
         WallCheck();

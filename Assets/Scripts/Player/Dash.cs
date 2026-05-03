@@ -68,6 +68,12 @@ public class Dash : MonoBehaviour
     //Dash will be unlocked via accessory(?) later on, but for now it is unlocked by default
     public void PerformDash()
     {
+        if (!PlayerStats.isDashUnlocked)
+        {
+            Debug.Log("Dash is locked");
+            return;
+        }
+
         moveInput = playerController.moveInput;
         if (moveInput.x != 0 && dashState == DashState.Ready)
         { //requirements ok, perform dash

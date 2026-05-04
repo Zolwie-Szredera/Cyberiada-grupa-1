@@ -23,6 +23,14 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:f0996fd03d3820b41b70c5cae92a57ef
+    m_TableEntryReference:
+      m_KeyId: 7988329568329728
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   choices: []
   references:
     version: 2

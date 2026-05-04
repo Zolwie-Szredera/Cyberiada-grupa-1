@@ -36,7 +36,8 @@ public class GameStateManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[GameStateManager] No valid save data found");
+            Debug.LogWarning("[GameStateManager] No valid save data found, starting new game.");
+            StartNewGame();
         }
     }
     

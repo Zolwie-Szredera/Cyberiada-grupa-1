@@ -37,6 +37,10 @@ MonoBehaviour:
       podczas odskoku."
     m_Metadata:
       m_Items: []
+  - m_Id: 7170727942754304
+    m_Localized: "Mo\u017Cesz skaka\u0107 po tych \u015Bcianach"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

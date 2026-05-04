@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7205696867339135779}
   - component: {fileID: 9167224694092125411}
   - component: {fileID: 1645552957079712184}
+  - component: {fileID: 4532315118306325598}
   m_Layer: 11
   m_Name: Stalker Eye
   m_TagString: Untagged
@@ -140,10 +141,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -189,11 +190,11 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.09375, y: 0.125}
+  m_Offset: {x: 0, y: 0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1.3125, y: 1.75}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -214,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StalkerEyeAI
   hp: 30
-  movementSpeed: 0
+  movementSpeed: 5
   attackSpeed: 1
   groundCheck: {fileID: 6358876613444937624}
   sprite: {fileID: 7076488541230127235}
@@ -224,6 +225,10 @@ MonoBehaviour:
   spawner: {fileID: 0}
   direction: 0
   rb: {fileID: 0}
+  susBush: {fileID: 8837926550025332002}
+  bushRange: 12
+  waitTime: 3
+  waitMovementSpeed: 2
 --- !u!114 &1645552957079712184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,14 +241,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fcb7614fd3a34498fd7664aa535b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StalkerEyeAttack
-  damage: 1
+  damage: 3
   attackRange: 10
   projectileSpeed: 15
   projectileTimeToLive: 10
   projectilePrefab: {fileID: 2219318002939193780, guid: 328039992c858da43ba2dca71933701d, type: 3}
   attackPoint: {fileID: 3054089382111083695}
-  arrowGravity: 1
-  predictionTime: 0.3
+  projectileGravity: 1
+  predictionTime: 0.1
+--- !u!114 &4532315118306325598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202773382841073623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e26f34fbbc9784fa511e4e6b1d3a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHoverPointFly
+  hoverPointRadiusMin: 1
+  hoverPointRadiusMax: 10
+  avoidGroundDistance: 1
 --- !u!1 &7887562731066994789
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 7887562731066994789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0.256, y: 0.431, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -285,6 +305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3937238627989070077}
   - component: {fileID: 3976120891962920656}
+  - component: {fileID: 1050905723574167723}
   m_Layer: 11
   m_Name: Suspicious bush
   m_TagString: Untagged
@@ -357,7 +378,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4149370215536342637, guid: b80f87bb0226e7844af2992404616ec4, type: 3}
+  m_Sprite: {fileID: 5080425203039101930, guid: b80f87bb0226e7844af2992404616ec4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -367,3 +388,49 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!61 &1050905723574167723
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8837926550025332002}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.59375, y: 0.1875}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.1875, y: 1.4375}
+    newSize: {x: 2.1875, y: 1.375}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.1875, y: 1.375}
+  m_EdgeRadius: 0

@@ -37,6 +37,36 @@ MonoBehaviour:
       zwi\u0119kszona"
     m_Metadata:
       m_Items: []
+  - m_Id: 7180529523023872
+    m_Localized: "Co\u015B pi\u0119knego...\nJakie cuda skrywaj\u0105 si\u0119 w
+      komnatach tego\npa\u0142acu?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7988329568329728
+    m_Localized: "I jaki b\xF3l b\u0119dziesz musia\u0142 wytrzyma\u0107,\nby je
+      zobaczy\u0107?\nWrogowie nadchodz\u0105..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7989706600275968
+    m_Localized: 'Na plakietce pisze:
+
+      "Najlepszy jest jedynym"'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7990605292822528
+    m_Localized: "Obdarty kawa\u0142 sk\xF3ry pokazany jak trofeum."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7991275337080832
+    m_Localized: "Tnij g\u0142\u0119boko, tnij g\u0142\u0119biej! Rozerwij warstwy!\nCierpienie
+      to twoje \u017Cycie, a jego koniec jest\nko\u0144cem ciebie."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7994187966636032
+    m_Localized: "...kt\xF3rego nigdy nie do\u015Bwiadczysz.\nNie mo\u017Cesz si\u0119
+      zabi\u0107 samookaleczeniem\nz zakl\u0119cia kewi."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

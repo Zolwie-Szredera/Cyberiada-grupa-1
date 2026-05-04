@@ -31,6 +31,30 @@ MonoBehaviour:
     m_Key: FiliiLunae4
     m_Metadata:
       m_Items: []
+  - m_Id: 7180529523023872
+    m_Key: CrimsonTree1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7988329568329728
+    m_Key: CrimsonTree2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7989706600275968
+    m_Key: StatueInTheNight1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7990605292822528
+    m_Key: ChapelOfTorment1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7991275337080832
+    m_Key: ChapelOfTorment2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7994187966636032
+    m_Key: ChapelOfTorment3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -7,8 +7,6 @@ public class DebugScript : MonoBehaviour
     public GameObject debugCanvas;
     public TextMeshProUGUI bloodText;
     public TextMeshProUGUI airJumpText;
-    public TextMeshProUGUI mousePositionTextX;
-    public TextMeshProUGUI mousePositionTextY;
     public TextMeshProUGUI playerVelocityTextX;
     public TextMeshProUGUI playerVelocityTextY;
     public AudioSource audioSource;
@@ -30,11 +28,6 @@ public class DebugScript : MonoBehaviour
             if (player.TryGetComponent<PlayerHealth>(out var playerHealth))
             {
                 bloodText.text = playerHealth.currentBlood.ToString(); //bloodtext.text = current blood value
-            }
-            if (gameManager.TryGetComponent<GameManager>(out var gm))
-            {
-                mousePositionTextX.text = "X: " + gm.mousePosition.x;
-                mousePositionTextY.text = "Y: " + gm.mousePosition.y;
             }
             if (player.TryGetComponent<Rigidbody2D>(out var rb))
             {
@@ -69,9 +62,14 @@ public class DebugScript : MonoBehaviour
         if (!isDebugModeActive) return;
         if (context.started)
         {
-            Debug.Log("Debug action1");
             //put stuff here
-            player.GetComponent<PlayerHealth>().GainBlackBile(10);
+            //destroy all active enemies in the scene
+            Enemy[] enemies = FindObjectsByType<Enemy>();
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Die();
+            }
+            Debug.Log("Butchered: " + enemies.Length + " enemies");
         }
     }
     public void OnDebugAction2(InputAction.CallbackContext context) //Activate with: O

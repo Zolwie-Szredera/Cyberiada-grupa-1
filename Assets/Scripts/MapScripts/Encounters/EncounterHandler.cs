@@ -11,7 +11,7 @@ public class EncounterHandler : MonoBehaviour
     /// TODO: bardziej na to popatrzeć, żeby zrozumieć o co dokładnie chodzi
     /// </summary>
 
-    public WaveSpawner[] wavesSpawners;
+    [HideInInspector] public WaveSpawner[] wavesSpawners;
     [HideInInspector] public bool encounterCompleted = false;
     private AudioSource audioSource;
     private const string PLAYER_TAG = "Player";
@@ -24,6 +24,9 @@ public class EncounterHandler : MonoBehaviour
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        //hopefully this doesn't mess with the order of waves
+        //ENSURE THAT ALL WAVESPAWNERS ARE IN CORRECT ORDER IN THE HIERARCHY
+        wavesSpawners = GetComponentsInChildren<WaveSpawner>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -74,14 +77,15 @@ public class EncounterHandler : MonoBehaviour
             {
                 wavesSpawners[currentWave - 1].Cleanup();
                 encounterCompleted = true;
+                //FIX THIS: I had to remove this because doors got closed at the wrong time.
                 // Remove start tiles before placing end tiles
-                if (ExecuteOnEncounterStart.Length > 0)
-                {
-                    foreach (Action action in ExecuteOnEncounterStart)
-                    {
-                        action.UndoAction();
-                    }
-                }
+                //if (ExecuteOnEncounterStart.Length > 0)
+                //{
+                //    foreach (Action action in ExecuteOnEncounterStart)
+                //    {
+                //        action.UndoAction();
+                //    }
+                //}
                 // Place end tiles
                 if (ExecuteOnEncounterEnd.Length > 0)
                 {
@@ -114,11 +118,11 @@ public class EncounterHandler : MonoBehaviour
             wavesSpawners[i].Cleanup();
         }
         // Remove all tiles placed during the encounter - restore original tiles if needed
-        foreach (Action action in ExecuteOnEncounterStart)
+        foreach (Action action in ExecuteOnEncounterEnd)
         {
             action.UndoAction();
         }
-        foreach (Action action in ExecuteOnEncounterEnd)
+        foreach (Action action in ExecuteOnEncounterStart)
         {
             action.UndoAction();
         }

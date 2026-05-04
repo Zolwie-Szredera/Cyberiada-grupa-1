@@ -20,13 +20,27 @@ MonoBehaviour:
   m_TableData:
   - m_Id: 65171415040
     m_Localized: "A and D to move, \r\nspace - jump,\r\nLeft mouse button - sword,\nRight
-      mouse button - blood sorcery (ranged),\nShift - dash,\r\nR - restart at checkpoint,"
+      mouse button - blood sorcery (ranged),\r\nR - restart at checkpoint,"
     m_Metadata:
       m_Items: []
   - m_Id: 70397517824
     m_Localized: "Hitting enemies with the sword heals you. \r\nUsing blood sorcery
-      damages you. \r\nJump in the air to double jump.\nYou are invulnerable while
-      dashing."
+      damages you. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6881851075780608
+    m_Localized: Jump in the air to double jump.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6881927370170368
+    m_Localized: 'Press shift while moving to dash.
+
+      You are invulnerable while
+      dashing.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7170727942754304
+    m_Localized: You can jump on these walls
     m_Metadata:
       m_Items: []
   references:

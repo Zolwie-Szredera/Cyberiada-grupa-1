@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyJump))]
 public class HalberdAI : Enemy
 {
+    private static readonly int WalkHash = Animator.StringToHash("walk");
+    private static readonly int AttackHash = Animator.StringToHash("attack");
     public Animator animator;
     public float walkDistance;
     public ParticleSystem sparkParticles;
@@ -80,7 +82,7 @@ public class HalberdAI : Enemy
     private void EnterAttack()
     {
         isAttacking = true;
-        animator.SetTrigger("attack");
+        animator.SetTrigger(AttackHash);
         attackCooldown = attackSpeed;
         blockFlip = true;
         rb.linearVelocity = Vector2.zero;
@@ -89,14 +91,14 @@ public class HalberdAI : Enemy
 
     private void EnterWalk()
     {
-        animator.SetBool("walk", true);
+        animator.SetBool(WalkHash, true);
         blockFlip = false;
         rb.mass = 1;
     }
 
     private void EnterIdle()
     {
-        animator.SetBool("walk", false);
+        animator.SetBool(WalkHash, false);
         blockFlip = true;
     }
     public void PlaySparks() //for animation event
@@ -117,11 +119,11 @@ public class HalberdAI : Enemy
         Gizmos.color = Color.darkBlue;
         Gizmos.DrawWireSphere(transform.position, walkDistance);
     }
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         // Display current state above the enemy
         UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, currentState.ToString());
     }
-    #endif
+#endif
 }

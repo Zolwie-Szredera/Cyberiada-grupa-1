@@ -1,7 +1,5 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class Button : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class Button : MonoBehaviour
     public Action[] actions;
     [HideInInspector]public GameObject interactText;
     private PlayerController playerController;
-    private bool readyToInteract = false;
+    private bool readyToInteract;
     void Awake()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

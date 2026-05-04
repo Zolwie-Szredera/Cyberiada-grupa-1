@@ -37,6 +37,44 @@ MonoBehaviour:
       dash strength increased.'
     m_Metadata:
       m_Items: []
+  - m_Id: 7180529523023872
+    m_Localized: "Such beauty... \nWhat wonders must lie in the chambers of \nthis
+      palace?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7988329568329728
+    m_Localized: 'And what pain will you have to survive to see it?
+
+      Enemies
+      approach...'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7989706600275968
+    m_Localized: "The plaque says: \n\"The greatest is the only one\"."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7990605292822528
+    m_Localized: 'A ragged patch of dry skin displayed as a
+
+      trophy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7991275337080832
+    m_Localized: 'Cut deep, cut deeper, rip your layers!
+
+      Torment will be your
+      life, and its end will be
+
+      your death!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7994187966636032
+    m_Localized: '...and you will never feel its embrace.
+
+      Self harm cannot
+      kill you.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

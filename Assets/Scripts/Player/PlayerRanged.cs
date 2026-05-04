@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerRanged : PlayerWeapons
 {
+    private static readonly int AttackHash = Animator.StringToHash("attack");
+
     //In playerStats:
     //int RangedDamage
     //float baseAttackSpeed
@@ -11,6 +14,7 @@ public class PlayerRanged : PlayerWeapons
     public float projectileTTL;
     public float bloodCost;
     private bool isAttacking;
+    private AudioSource audioSource;
 
     public PlayerRanged()
     {
@@ -32,6 +36,7 @@ public class PlayerRanged : PlayerWeapons
     {
         base.Start();
         attackCooldown = 0; //makes quickswapping possible. Hell yeah
+        audioSource = GetComponent<AudioSource>();
     }
     public override void Update()
     {
@@ -44,7 +49,11 @@ public class PlayerRanged : PlayerWeapons
     }
     public override void BasicAttack()
     {
-        player.GetComponent<PlayerHealth>().TakeDamage(bloodCost);
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth == null || !playerHealth.SpendBlood(bloodCost))
+        {
+            return;
+        }
         
         origin = GetAttackPosition(0f);
         
@@ -56,13 +65,14 @@ public class PlayerRanged : PlayerWeapons
         currentProjectile.Initiate(PlayerStats.rangedDamage, projectileTTL, projectileSpeed, direction);
         currentProjectile.IgnoreParentObject(GameObject.FindGameObjectWithTag("Player"));
         attackCooldown = PlayerStats.attackSpeed;
+        audioSource.Play();
     }
     public override void ForceAttackStart()
     {
         isAttacking = true;
         if (animator != null)
         {
-            animator.SetBool("attack", true);
+            animator.SetBool(AttackHash, true);
         }
     }
     public override void ForceAttackStop()
@@ -70,7 +80,7 @@ public class PlayerRanged : PlayerWeapons
         isAttacking = false;
         if (animator != null)
         {
-            animator.SetBool("attack", false);
+            animator.SetBool(AttackHash, false);
         }
     }
 

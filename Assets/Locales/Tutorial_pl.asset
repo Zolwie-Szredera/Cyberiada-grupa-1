@@ -20,14 +20,25 @@ MonoBehaviour:
   m_TableData:
   - m_Id: 65171415040
     m_Localized: "A i D by si\u0119 porusza\u0107, \r\nspacja - skok,\r\nLPM - miecz,\nPPM
-      - zakl\u0119cie krwi (dystansowe),\nShift - dash,\r\nR - restart do poprzedniego
-      punktu kontrolnego, "
+      - zakl\u0119cie krwi (dystansowe),\r\nR - restart do poprzedniego punktu kontrolnego, "
     m_Metadata:
       m_Items: []
   - m_Id: 70397517824
     m_Localized: "Trafienie przeciwnika mieczem leczy ci\u0119. \r\nU\u017Cycie zakl\u0119cia
-      krwi zadaje obra\u017Cenia. \r\nSkocz w powietrzu, by wykona\u0107 podw\xF3jny
-      skok.\nJeste\u015B niezniszczalny podczas dasha."
+      krwi zadaje obra\u017Cenia. "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6881851075780608
+    m_Localized: "Skocz w powietrzu, by wykona\u0107 podw\xF3jny skok."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6881927370170368
+    m_Localized: "Kliknij shift, \u017Ceby wykona\u0107 odskok. \nJeste\u015B niezniszczalny
+      podczas odskoku."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7170727942754304
+    m_Localized: "Mo\u017Cesz skaka\u0107 po tych \u015Bcianach"
     m_Metadata:
       m_Items: []
   references:

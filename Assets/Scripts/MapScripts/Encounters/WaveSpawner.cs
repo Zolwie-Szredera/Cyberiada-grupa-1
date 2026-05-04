@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public EnemySpawner[] enemySpawner;
+    [HideInInspector] public EnemySpawner[] enemySpawner;
     public System.Action OnWaveComplete;
     private int completedSpawners = 0;
     public void Spawn()
@@ -14,6 +14,11 @@ public class WaveSpawner : MonoBehaviour
             spawner.OnSpawnerComplete += OnSpawnerComplete;
             spawner.Spawn();
         }
+    }
+    public void Start()
+    {
+        // Find all EnemySpawner components in children
+        enemySpawner = GetComponentsInChildren<EnemySpawner>();
     }
     private void OnSpawnerComplete()
     {

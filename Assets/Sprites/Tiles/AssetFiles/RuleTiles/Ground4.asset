@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Ground4
   m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.RuleTile
-  m_DefaultSprite: {fileID: 7180174487008111545, guid: 9ba2445bba2d31f45b6285473987cf79, type: 3}
+  m_DefaultSprite: {fileID: 3152833662816884783, guid: 9ba2445bba2d31f45b6285473987cf79, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:

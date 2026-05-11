@@ -24,7 +24,7 @@ public class HelionAI : Enemy
         if (Vector2.Distance(attackScript.attackPoint.position, playerLocation.position) <= attackScript.attackRange && attackCooldown <= 0)
         {
             Vector2 direction = (playerLocation.position - attackScript.attackPoint.position).normalized;
-            attackScript.ProjectileAttack(direction);
+            attackScript.SpreadProjectileAttack(direction);
             attackCooldown = attackSpeed;
         }
     }

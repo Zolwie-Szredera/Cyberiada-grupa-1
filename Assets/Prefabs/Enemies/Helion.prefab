@@ -118,7 +118,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8270958541272245, guid: 902bc0a1769d9d64f8fe2b33cf0362e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -238,12 +238,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0d2f0bff01c3d49933c5dee552d2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HelionAttack
-  damage: 1
+  damage: 8
   attackRange: 1000
   projectileSpeed: 10
   projectileTimeToLive: 30
-  projectilePrefab: {fileID: 3362489167394815338, guid: 6de3ff16670cb854595bb1df39a31df2, type: 3}
+  projectilePrefab: {fileID: 667607137140882554, guid: d731dc7c8dc507e479b8d952295c12f7, type: 3}
   attackPoint: {fileID: 2106211477425205642}
+  wallPrefab: {fileID: 3362489167394815338, guid: 6de3ff16670cb854595bb1df39a31df2, type: 3}
+  wallDamage: 12
+  angle: 15
 --- !u!114 &6264542424958423239
 MonoBehaviour:
   m_ObjectHideFlags: 0

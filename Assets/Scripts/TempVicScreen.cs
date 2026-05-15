@@ -26,6 +26,13 @@ public class TempVicScreen : Button
         victoryActive = true;
         timer = 0f;
         autoTransitionStarted = false;
+        
+        // Delete the save file when the game ends (victory)
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.DeleteSaveFile();
+            Debug.Log("[TempVicScreen] Save file deleted on victory");
+        }
     }
 
 

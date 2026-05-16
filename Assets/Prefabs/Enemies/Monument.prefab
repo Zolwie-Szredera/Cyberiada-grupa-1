@@ -241,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonumentShooter
   damage: 10
   attackRange: 4
-  projectileSpeed: 6
+  projectileSpeed: 7
   projectileTimeToLive: 12
   projectilePrefab: {fileID: 667607137140882554, guid: d731dc7c8dc507e479b8d952295c12f7, type: 3}
   attackPoint: {fileID: 694302015303680934}

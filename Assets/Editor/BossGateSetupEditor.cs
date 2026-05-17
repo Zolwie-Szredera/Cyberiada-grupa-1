@@ -87,26 +87,29 @@ public static class BossGateSetupEditor
             }
         }
 
-        // Create or configure a trigger that will close doors when player passes through
-        GameObject exitTrigger = GameObject.Find("GateExitTrigger");
-        if (exitTrigger == null)
+        // Mount CloseDoorOnPass directly on both gate doors
+        // This way: when player passes through a door, it closes itself + the other door
+        if (gateRight != null)
         {
-            exitTrigger = new GameObject("GateExitTrigger");
-            // position it near the right gate if available
-            if (gateRight != null) exitTrigger.transform.position = gateRight.transform.position + Vector3.right * 1.5f;
-            else if (gateLeft != null) exitTrigger.transform.position = gateLeft.transform.position + Vector3.right * 1.5f;
+            var closeRight = gateRight.GetComponent<CloseDoorOnPass>();
+            if (closeRight == null) closeRight = gateRight.AddComponent<CloseDoorOnPass>();
+            // gateRight closes itself + gateLeft
+            if (gateLeft != null)
+            {
+                closeRight.otherDoors = new[] { gateLeft };
+            }
         }
 
-        // Ensure BoxCollider2D trigger
-        var box = exitTrigger.GetComponent<BoxCollider2D>();
-        if (box == null) box = exitTrigger.AddComponent<BoxCollider2D>();
-        box.isTrigger = true;
-        box.size = new Vector2(2f, 3f);
-
-        // Ensure CloseDoorOnPass component exists and points to gates
-        var closeHelper = exitTrigger.GetComponent<CloseDoorOnPass>();
-        if (closeHelper == null) closeHelper = exitTrigger.AddComponent<CloseDoorOnPass>();
-        closeHelper.doors = doorList.ToArray();
+        if (gateLeft != null)
+        {
+            var closeLeft = gateLeft.GetComponent<CloseDoorOnPass>();
+            if (closeLeft == null) closeLeft = gateLeft.AddComponent<CloseDoorOnPass>();
+            // gateLeft closes itself + gateRight
+            if (gateRight != null)
+            {
+                closeLeft.otherDoors = new[] { gateRight };
+            }
+        }
 
         // Mark scene dirty and save
         EditorSceneManager.MarkSceneDirty(scene);

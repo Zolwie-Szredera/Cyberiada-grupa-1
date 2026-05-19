@@ -12,17 +12,19 @@ public class EnterNewArea : MonoBehaviour
     public float fadeinTimer;
     public float fadeStopTime;
     public float fadeoutTimer;
-    private TextMeshProUGUI titleCard;
+    public TextMeshProUGUI titleCard; //change this to auto-find later on
     private bool used = false;
     void Start()
     {
-        titleCard = GameObject.Find("TitleCard").GetComponent<TextMeshProUGUI>();
-        if(titleCard == null)
-        {
-            Debug.LogError("title card not found");
-            return;
-        }
-        titleCard.gameObject.SetActive(false);
+    //    if(GameObject.Find("TitleCard").TryGetComponent<TextMeshProUGUI>(out var component))
+    //    {
+    //        titleCard = component;
+            titleCard.gameObject.SetActive(false);
+    //    } else
+    //    {
+    //        Debug.LogError("title card not found");
+    //        return;
+    //    }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {

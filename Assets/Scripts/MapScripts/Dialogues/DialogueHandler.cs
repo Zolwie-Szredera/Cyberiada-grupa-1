@@ -37,6 +37,7 @@ public class DialogueHandler : MonoBehaviour
     private Rigidbody2D playerRb;
     private DialogueData currentData;
     private Button triggeringButton;
+    private Cutscene currentCutscene;
     private LocalizedString[] sentences;
     private string currentTranslatedSentence;
     private int index;
@@ -82,7 +83,7 @@ public class DialogueHandler : MonoBehaviour
             ContinueDialogue();
         }
     }
-    public void StartDialogue(DialogueData data, Button sourceButton = null)
+    public void StartDialogue(DialogueData data, Button sourceButton = null, Cutscene cutscene = null)
     {
         if (noNewDialogue) //I did that so E doesn't start a new dialogue immediately after closing one
         {
@@ -94,7 +95,12 @@ public class DialogueHandler : MonoBehaviour
             Debug.LogWarning("Incomplete data in dialogue");
             return;
         } //assume all data is correct, no null checks for sentences and choices later on
+        
+        //if dialogue is started from a button, then execute its actions after dialogue ends
         triggeringButton = sourceButton;
+
+        //if dialogue is started from a cutscene, then tell it when dialogue ends
+        currentCutscene = cutscene;
         if(data.choices == null || data.choices.Length == 0)
         {
             Debug.Log("No choices in dialogue.");
@@ -146,6 +152,11 @@ public class DialogueHandler : MonoBehaviour
         {
             triggeringButton.ExecuteAllActions();
             triggeringButton = null;
+        }
+        if (currentCutscene != null)
+        {
+            currentCutscene.OnDialogueEnd();
+            currentCutscene = null;
         }
 
         Debug.Log("Closing dialogue: " + currentData.characterName);

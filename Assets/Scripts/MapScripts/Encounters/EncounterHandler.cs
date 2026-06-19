@@ -13,9 +13,8 @@ public class EncounterHandler : MonoBehaviour
 
     [HideInInspector] public WaveSpawner[] wavesSpawners;
     [HideInInspector] public bool encounterCompleted = false;
-    private AudioSource audioSource;
+    public bool hasCombatMusic = false;
     private const string PLAYER_TAG = "Player";
-
     private int currentWave = 0;
     private bool encounterStarted = false;
     //Use these to do stuff at the beginning and end of the encounter. Use OnEnable and OnDisable in these scripts.
@@ -23,7 +22,6 @@ public class EncounterHandler : MonoBehaviour
     public Action[] ExecuteOnEncounterEnd;
     public void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         //hopefully this doesn't mess with the order of waves
         //ENSURE THAT ALL WAVESPAWNERS ARE IN CORRECT ORDER IN THE HIERARCHY
         wavesSpawners = GetComponentsInChildren<WaveSpawner>();
@@ -49,9 +47,9 @@ public class EncounterHandler : MonoBehaviour
             }
         }
         Debug.Log("Encounter started");
-        if (audioSource.clip != null) //sometimes the audio source might not have a clip assigned
+        if(hasCombatMusic)
         {
-            audioSource.Play();
+            MusicHandler.Instance.EnterCombat();
         }
         NextWave();
     }
@@ -95,9 +93,9 @@ public class EncounterHandler : MonoBehaviour
                     }
                 }
                 encounterStarted = false;
-                if (audioSource != null && audioSource.isPlaying)
+                if(hasCombatMusic)
                 {
-                    audioSource.Stop();
+                    MusicHandler.Instance.ExitCombat();
                 }
                 Debug.Log("Encounter completed");
             }
@@ -129,11 +127,10 @@ public class EncounterHandler : MonoBehaviour
         currentWave = 0;
         encounterStarted = false;
         encounterCompleted = false;
-        if (audioSource != null && audioSource.isPlaying)
+        if(hasCombatMusic)
         {
-            audioSource.Stop();
+            MusicHandler.Instance.ExitCombat();
         }
-
     }
     void OnDrawGizmos()
     {

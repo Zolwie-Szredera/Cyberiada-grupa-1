@@ -407,6 +407,20 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void TakeKnockback(Transform knockbackSource, float forceMagnitude)
+    {
+        rb.linearVelocity = Vector2.zero;
+        if(knockbackSource.position.x < transform.position.x)
+        {
+            Vector2 force = Vector2.right * forceMagnitude + Vector2.up * (forceMagnitude / 2f);
+            rb.AddForce(force, ForceMode2D.Impulse);
+        }
+        else
+        {
+            Vector2 force = Vector2.left * forceMagnitude + Vector2.up * (forceMagnitude / 2f);
+            rb.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {

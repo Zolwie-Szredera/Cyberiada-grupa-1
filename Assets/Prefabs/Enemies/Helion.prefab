@@ -45,13 +45,14 @@ GameObject:
   - component: {fileID: 4724562954164446280}
   - component: {fileID: 2279023331303051473}
   - component: {fileID: 2839791441785023475}
+  - component: {fileID: 6264542424958423239}
   m_Layer: 11
   m_Name: Helion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6666236341136130845
 Transform:
   m_ObjectHideFlags: 0
@@ -117,7 +118,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8270958541272245, guid: 902bc0a1769d9d64f8fe2b33cf0362e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -237,12 +238,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0d2f0bff01c3d49933c5dee552d2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HelionAttack
-  damage: 10
+  damage: 8
   attackRange: 1000
-  projectileSpeed: 5
+  projectileSpeed: 10
   projectileTimeToLive: 30
   projectilePrefab: {fileID: 667607137140882554, guid: d731dc7c8dc507e479b8d952295c12f7, type: 3}
   attackPoint: {fileID: 2106211477425205642}
+  wallPrefab: {fileID: 3362489167394815338, guid: 6de3ff16670cb854595bb1df39a31df2, type: 3}
+  wallDamage: 12
+  angle: 15
+--- !u!114 &6264542424958423239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632226554166324385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d575126ff6eed49a0553cd7fd1ae2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss
 --- !u!1 &5774566198820305155
 GameObject:
   m_ObjectHideFlags: 0
